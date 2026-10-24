@@ -36,11 +36,17 @@ jobs:
           path: dist
   browsers:
     needs: verify
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        include:
+          - browser: chromium
+            os: ubuntu-latest
+          - browser: firefox
+            os: ubuntu-latest
+          - browser: webkit
+            os: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
