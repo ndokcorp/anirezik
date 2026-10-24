@@ -1,5 +1,6 @@
 ---
 import Logo from './navigation/Logo.astro';
+import Icon from './ui/Icon.astro';
 import { url } from '../lib/paths';
 const navigation = [
   ['', 'Главная'],
@@ -25,29 +26,44 @@ const information = [
     <p>Смотри аниме и делись впечатлениями.</p>
   </div>
   <nav aria-label="Навигация внизу сайта">
-    <h2>НАВИГАЦИЯ</h2>
+    <h2>
+      <Icon name="compass" size={20} /> НАВИГАТОР
+    </h2>
     {navigation.map(([path, label]) => (
       <a href={url(path)}>{label}</a>
     ))}
   </nav>
   <nav aria-label="Информация">
-    <h2>ИНФОРМАЦИЯ</h2>
+    <h2>
+      <Icon name="info" size={20} /> ИНФОРМАЦИЯ
+    </h2>
     {information.map(([path, label]) => (
       <a href={url(path)}>{label}</a>
     ))}
   </nav>
   <div class="footer-contacts">
-    <h2>СВЯЗИ</h2>
-    <a href="mailto:ndokcooperation@gmail.com">По всем вопросам: ndokcooperation@gmail.com</a>
-    <a href="https://t.me/anirezik" target="_blank" rel="noopener noreferrer">
-      Наш Telegram-канал
-    </a>
-    <a href="https://www.tiktok.com/@anirezik" target="_blank" rel="noopener noreferrer">
-      Тик-Ток: @anirezik
-    </a>
-    <a href="https://www.youtube.com/@neumniy" target="_blank" rel="noopener noreferrer">
-      Youtube Автора
-    </a>
+    <h2>
+      <Icon name="support" size={20} /> ПОДДЕРЖКА
+    </h2>
+    {[
+      ['mail', 'mailto:ndokcooperation@gmail.com', 'По всем вопросам', 'ndokcooperation@gmail.com'],
+      ['telegram', 'https://t.me/anirezik', 'Наш Telegram-канал', '@anirezik'],
+      ['tiktok', 'https://www.tiktok.com/@anirezik', 'Тик-Ток', '@anirezik'],
+      ['youtube', 'https://www.youtube.com/@neumniy', 'YouTube автора', '@neumniy'],
+    ].map(([icon, href, label, value]) => (
+      <a
+        class={`contact-link contact-${icon}`}
+        href={href}
+        target={icon === 'mail' ? undefined : '_blank'}
+        rel={icon === 'mail' ? undefined : 'noopener noreferrer'}
+      >
+        <Icon name={icon} size={23} />
+        <span>
+          <small>{label}</small>
+          <strong>{value}</strong>
+        </span>
+      </a>
+    ))}
   </div>
   <div class="footer-bottom">
     <div class="footer-copyright">

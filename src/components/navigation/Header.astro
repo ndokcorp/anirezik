@@ -28,7 +28,8 @@ const { active = 'home' } = Astro.props;
       </a>
     ))}
   </nav>
-  {Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') ? (
+  <div class="header-tools">
+    {!Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') && <SearchBar />}
     <div class="header-library-links">
       <a class="icon-button" href={url('history/')} aria-label="История просмотров">
         <Icon name="clock" />
@@ -37,9 +38,7 @@ const { active = 'home' } = Astro.props;
         <Icon name="filter" />
       </a>
     </div>
-  ) : (
-    <SearchBar />
-  )}
+  </div>
   <a class="icon-button desktop-favorite" href={url('favorites/')} aria-label="Избранное">
     <Icon name="bookmark" />
   </a>

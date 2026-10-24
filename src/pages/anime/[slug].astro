@@ -4,7 +4,7 @@ import Icon from '../../components/ui/Icon.astro';
 import Layout from '../../layouts/Layout.astro';
 import Banner from '../../components/anime/Banner.astro';
 import Poster from '../../components/ui/Poster.astro';
-import { anime, animeByShikimoriId, staticPageIds, animePath } from '../../data/anime';
+import { anime, staticPageIds } from '../../data/anime';
 import { url } from '../../lib/paths';
 import FavoriteButton from '../../components/ui/FavoriteButton.astro';
 import AnimeSection from '../../components/anime/AnimeSection.astro';
@@ -12,7 +12,6 @@ import { chronology, similarAnime } from '../../lib/detail-sections';
 import { ageLabel } from '../../lib/card-meta';
 import AnimePlayer from '../../components/anime/AnimePlayer.astro';
 import { displayDate } from '../../lib/dates';
-import Rating from '../../components/ui/Rating.astro';
 import { descriptions } from '../../lib/descriptions';
 export function getStaticPaths() {
   return anime
@@ -193,60 +192,6 @@ const timeline = chronology(a);
     subtitle="Совпадение жанров в каталоге AniRezik"
     items={related}
   />
-  {a.related.length > 0 && (
-    <section class="info-panel">
-      <h2>Связанные аниме и сезоны</h2>
-      <ul class="related-list">
-        {[...a.related]
-          .sort(
-            (x, y) =>
-              ['prequel', 'sequel'].indexOf(y.relationKind) -
-              ['prequel', 'sequel'].indexOf(x.relationKind),
-          )
-          .map((item) => {
-            const local = animeByShikimoriId.get(item.shikimoriId);
-            return (
-              <li>
-                <span>{item.relation}</span>
-                <a
-                  class="related-link"
-                  aria-label={local ? item.title : `${item.title} ↗ Shikimori`}
-                  href={local ? url(animePath(local)) : item.sourceUrl}
-                  target={local ? undefined : '_blank'}
-                  rel={local ? undefined : 'noopener noreferrer'}
-                >
-                  {local && (
-                    <span class="related-art">
-                      <Poster
-                        class="related-poster"
-                        src={local.poster}
-                        alternative={local.posterDetailUrl || undefined}
-                        defer
-                        alt={
-                          local.imageLicenseStatus === 'original-ai'
-                            ? `AI-иллюстрация: ${item.title}, не официальный постер`
-                            : local.posterUrl
-                              ? `Постер: ${item.title}`
-                              : `Фирменная заглушка: ${item.title}`
-                        }
-                      />
-                      <Rating score={local.score} small />
-                    </span>
-                  )}
-                  <span class="related-copy">
-                    {item.title}
-                    {!local && ' ↗ Shikimori'}
-                    {local?.imageLicenseStatus === 'original-ai' && (
-                      <small>AI · НЕОФИЦИАЛЬНЫЙ АРТ</small>
-                    )}
-                  </span>
-                </a>
-              </li>
-            );
-          })}
-      </ul>
-    </section>
-  )}
   <section class="info-panel comments-placeholder">
     <h2>Комментарии</h2>
     <p>Обсуждения появятся в одной из следующих версий.</p>

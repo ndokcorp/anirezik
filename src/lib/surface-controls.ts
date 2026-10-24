@@ -23,6 +23,8 @@ export function initSurfaceControls(root: ParentNode = document) {
       return button;
     });
     const update = () => {
+      const overflow = track.scrollWidth > track.clientWidth + 2;
+      buttons.forEach((button) => (button.hidden = !overflow));
       buttons[0].disabled = track.scrollLeft <= 2;
       buttons[1].disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
     };

@@ -19,6 +19,7 @@ type Detail = Anime & {
     id: string;
     shikimoriId: number;
     year: number | null;
+    score?: number | null;
     title: string;
     href: string;
     date: string | null;
@@ -224,8 +225,12 @@ export async function initAnimeDetail() {
         const img = posterImage(fallbackImages(), item.title, '', true);
         img.dataset.imageId = String(item.shikimoriId || Number(item.id.split(':')[1]));
         img.dataset.imageTitle = item.title;
+        const art = el('span', 'chronology-art');
+        art.append(img);
+        const chronologyRating = ratingBadge(item.score ?? null, true);
+        if (chronologyRating) art.append(chronologyRating);
         link.append(
-          img,
+          art,
           el('strong', '', item.title),
           el('small', '', `${item.year ?? '—'} · ${item.type}`),
         );
@@ -249,38 +254,6 @@ export async function initAnimeDetail() {
       similarGrid = el('div', 'anime-grid');
       similarSection.append(similarGrid);
       fragment.append(similarSection);
-    }
-    if (a.related.length) {
-      const section = panel('Связанные аниме и сезоны'),
-        list = el('ul', 'related-list');
-      for (const relation of a.related) {
-        const row = el('li');
-        const link = relation.external
-          ? externalLink(`${relation.title} ↗ Shikimori`, relation.href)
-          : el('a', '', relation.title);
-        if (!relation.external) link.href = relation.href;
-        link.setAttribute('aria-label', link.textContent || relation.title);
-        link.classList.add('related-link');
-        const label = el('span', 'related-copy', link.textContent || '');
-        link.replaceChildren(label);
-        if (!relation.external) {
-          const img = posterImage(fallbackImages(), relation.title, 'related-poster', true);
-          img.width = 48;
-          img.height = 72;
-          img.dataset.imageId = String(relation.shikimoriId);
-          img.dataset.imageTitle = relation.title;
-          img.dataset.imageCredit = 'inline';
-          const art = el('span', 'related-art');
-          art.append(img);
-          const rating = ratingBadge(relation.score, true);
-          if (rating) art.append(rating);
-          link.prepend(art);
-        }
-        row.append(el('span', '', relation.relation), link);
-        list.append(row);
-      }
-      section.append(list);
-      fragment.append(section);
     }
     const comments = panel('Комментарии');
     comments.append(el('p', '', 'Обсуждения появятся в одной из следующих версий.'));

@@ -1,12 +1,11 @@
 ---
-import { anime } from '../../data/anime';
+import { featuredAnime as slides } from '../../lib/featured-anime';
+import { animePath } from '../../data/anime';
 import { url } from '../../lib/paths';
 import Icon from '../ui/Icon.astro';
+import Rating from '../ui/Rating.astro';
 import FavoriteButton from '../ui/FavoriteButton.astro';
 import { imageUrl, imageFallback } from '../../lib/images';
-const slides = [52299, 38000, 40748]
-  .map((id) => anime.find((a) => a.shikimoriId === id))
-  .filter((a): a is (typeof anime)[number] => !!a);
 ---
 
 <section class="hero" aria-roledescription="карусель" aria-label="Рекомендуемое аниме" tabindex="0">
@@ -18,16 +17,15 @@ const slides = [52299, 38000, 40748]
       inert={i !== 0}
     >
       <img
-        class:list={['hero-image', { 'poster-backdrop': !a.bannerUrl }]}
+        class="hero-image poster-backdrop"
         data-banner-image
+        data-image-alternative={a.posterUrl || undefined}
         src={imageUrl(
-          i === 0 ? a.backdropUrl || a.bannerUrl || a.poster : imageFallback,
+          i === 0 ? a.posterDetailUrl || a.poster : imageFallback,
           import.meta.env.BASE_URL,
         )}
         data-slide-image-src={
-          i === 0
-            ? undefined
-            : imageUrl(a.backdropUrl || a.bannerUrl || a.poster, import.meta.env.BASE_URL)
+          i === 0 ? undefined : imageUrl(a.posterDetailUrl || a.poster, import.meta.env.BASE_URL)
         }
         alt=""
         width="1600"
@@ -37,6 +35,23 @@ const slides = [52299, 38000, 40748]
         fetchpriority={i === 0 ? 'high' : 'auto'}
       />
       <div class="hero-overlay"></div>
+      <img
+        class="hero-poster"
+        src={imageUrl(
+          i === 0 ? a.posterDetailUrl || a.poster : imageFallback,
+          import.meta.env.BASE_URL,
+        )}
+        data-slide-image-src={
+          i === 0 ? undefined : imageUrl(a.posterDetailUrl || a.poster, import.meta.env.BASE_URL)
+        }
+        data-image-fallback={imageUrl(imageFallback, import.meta.env.BASE_URL)}
+        data-image-alternative={a.posterUrl || undefined}
+        alt={`Постер: ${a.title}`}
+        width="400"
+        height="600"
+        loading={i === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+      />
       <div class="hero-copy">
         <div class="eyebrow">
           <span></span> В ЦЕНТРЕ ВНИМАНИЯ
@@ -47,20 +62,20 @@ const slides = [52299, 38000, 40748]
           <span>{a.genres[0]}</span>
           {a.ageRating && <span>{a.ageRating}</span>}
         </div>
-        <h1 class:list={{ 'long-title': (a.englishTitle || a.originalTitle).length > 25 }}>
-          {a.englishTitle || a.originalTitle}
-        </h1>
-        <p class="hero-russian">{a.title}</p>
+        <h1 class:list={{ 'long-title': a.title.length > 25 }}>{a.title}</h1>
+        <p class="hero-russian">{a.originalTitle}</p>
+        <div class="hero-score">
+          <Rating score={a.score} />
+        </div>
         <p class="hero-description">{a.description}</p>
         <div class="hero-actions">
-          <a class="button button-primary" href={url(`anime/${a.slug}/`)}>
+          <a class="button button-primary" href={url(animePath(a))}>
             <Icon name="arrow" size={18} />
             Подробнее
           </a>
           <FavoriteButton id={a.id} large />
         </div>
       </div>
-      {a.imageAttribution && <span class="hero-watermark">{a.imageAttribution}</span>}
     </article>
   ))}
   <div class="hero-bottom">
@@ -76,7 +91,7 @@ const slides = [52299, 38000, 40748]
     </div>
     <div class="slide-count">
       <span data-current-slide>01</span>
-      <span> / 03</span>
+      <span> / {String(slides.length).padStart(2, '0')}</span>
       <button data-prev-slide aria-label="Предыдущий слайд">
         <Icon name="arrow" size={17} />
       </button>

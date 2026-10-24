@@ -169,7 +169,8 @@ export function initLibraryPage() {
 }
 export function initPosterInteraction() {
   const isPoster = (target: EventTarget | null) =>
-    target instanceof Element && !!target.closest('.detail-poster,.anime-card,.chronology-card');
+    target instanceof Element &&
+    !!target.closest('.detail-poster,.hero-poster,.anime-card,.chronology-card');
   document.addEventListener('contextmenu', (event) => {
     if (isPoster(event.target)) event.preventDefault();
   });

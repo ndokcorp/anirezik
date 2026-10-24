@@ -1,5 +1,6 @@
 ---
 import Poster from '../ui/Poster.astro';
+import Rating from '../ui/Rating.astro';
 import { animeByShikimoriId } from '../../data/anime';
 import type { chronology } from '../../lib/detail-sections';
 const { items } = Astro.props as { items: ReturnType<typeof chronology> };
@@ -11,9 +12,7 @@ const { items } = Astro.props as { items: ReturnType<typeof chronology> };
       <h2>Хронология франшизы</h2>
       <span>{items.length} аниме</span>
     </div>
-    <p class="source-note">
-      Предыстории → продолжения; независимые ветки — по датам выхода
-    </p>
+    <p class="source-note">Предыстории → продолжения; независимые ветки — по датам выхода</p>
     <ol class="franchise-track">
       {items.map((item, index) => {
         const a = animeByShikimoriId.get(item.shikimoriId)!;
@@ -28,12 +27,15 @@ const { items } = Astro.props as { items: ReturnType<typeof chronology> };
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
             >
-              <Poster
-                src={a.poster}
-                alternative={a.posterDetailUrl || undefined}
-                defer
-                alt={`Постер: ${item.title}`}
-              />
+              <span class="chronology-art">
+                <Poster
+                  src={a.poster}
+                  alternative={a.posterDetailUrl || undefined}
+                  defer
+                  alt={`Постер: ${item.title}`}
+                />
+                <Rating score={a.score} small />
+              </span>
               <strong>{item.title}</strong>
               <small>
                 {item.year ?? '—'} · {item.type}

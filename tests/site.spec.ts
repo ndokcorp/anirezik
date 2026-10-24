@@ -1,3 +1,4 @@
+import { featuredAnime } from '../src/lib/featured-anime';
 import { descriptions } from '../src/lib/descriptions';
 import licensedDescriptions from '../src/data/licensed-descriptions.json' with { type: 'json' };
 import { ageLabel } from '../src/lib/card-meta';
@@ -225,14 +226,10 @@ test('главная, неизменный логотип, навигация и
   await expect(page.locator('.header .logo img')).toBeVisible();
   for (const section of await page.locator('.anime-section').all())
     expect(await section.locator('article').count()).toBeLessThanOrEqual(6);
-  await expect(page.locator('.hero-slide.selected h1')).toHaveText(
-    solo.englishTitle || solo.originalTitle,
-  );
+  await expect(page.locator('.hero-slide.selected h1')).toHaveText(featuredAnime[0].title);
+  await expect(page.locator('.hero-slide')).toHaveCount(5);
   await page.getByRole('button', { name: 'Следующий слайд' }).click();
-  await expect(page.locator('.hero-slide.selected h1')).toHaveText(
-    anime.find((a) => a.shikimoriId === 38000)!.englishTitle ||
-      anime.find((a) => a.shikimoriId === 38000)!.originalTitle,
-  );
+  await expect(page.locator('.hero-slide.selected h1')).toHaveText(featuredAnime[1].title);
   await page.locator('.desktop-nav').getByRole('link', { name: 'Каталог' }).click();
   await expect(page).toHaveURL(/catalog\//);
   await expect(page.getByRole('heading', { name: 'Каталог аниме', exact: true })).toBeVisible();
@@ -343,13 +340,14 @@ test('карточка, достоверная информация и связ�
         .filter({ has: page.getByText(String(label), { exact: true }) })
         .locator('dd'),
     ).toHaveText(String(value));
-  await expect(page.getByRole('heading', { name: 'Связанные аниме и сезоны' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Связанные аниме и сезоны' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Хронология франшизы' })).toBeVisible();
   const localRelation = solo.related.find((relation) =>
     anime.some((item) => item.shikimoriId === relation.shikimoriId),
   )!;
   const relatedTitle = anime.find((item) => item.shikimoriId === localRelation.shikimoriId)!;
   await expect(
-    page.locator('.related-list').getByRole('link', { name: localRelation.title, exact: true }),
+    page.locator('.franchise-track').getByRole('link').filter({ hasText: localRelation.title }),
   ).toHaveAttribute('href', new RegExp(`/anime/${relatedTitle.slug}/$`));
   await expect(
     page.locator('#anime-player').getByRole('heading', { name: solo.title, exact: true }),
@@ -504,8 +502,8 @@ test('рейтинг: единая жёлтая плашка в SSR, поиск�
       .evaluate((b) => parseFloat(getComputedStyle(b).fontSize)),
   ).toBeGreaterThanOrEqual(12);
   await page.goto('anime/?id=20');
-  await expect(page.locator('.related-list .card-badge').first()).toBeVisible();
-  await expect(page.locator('.related-list .card-badge').first()).toHaveClass(/rating-small/);
+  await expect(page.locator('.franchise-track .card-badge').first()).toBeVisible();
+  await expect(page.locator('.franchise-track .card-badge').first()).toHaveClass(/rating-small/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
@@ -931,7 +929,7 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
     ).toBe(400);
     if (id === 1) {
       const thumb = page
-        .locator('.related-list a')
+        .locator('.franchise-track a')
         .filter({ hasText: anime.find((a) => a.shikimoriId === 5)!.title })
         .locator('img');
       await thumb.scrollIntoViewIfNeeded();
@@ -941,7 +939,7 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
         .toBe(400);
       await expect(thumb).toHaveAttribute('loading', 'lazy');
       await expect(thumb).not.toHaveAttribute('title', /Own fixture/);
-      await expect(page.locator('.related-list .related-credit')).toHaveCount(0);
+      await expect(page.locator('.franchise-track .related-credit')).toHaveCount(0);
     }
   }
   await page.setViewportSize({ width: 390, height: 844 });
@@ -969,7 +967,7 @@ test('статические связанные сезоны использую�
     await page.setViewportSize({ width, height: 900 });
     const item = anime.find((a) => a.shikimoriId === 1)!;
     await page.goto(`anime/${item.slug}/`);
-    const img = page.locator('.related-list .related-poster').first();
+    const img = page.locator('.franchise-track img').first();
     await img.scrollIntoViewIfNeeded();
     await expect(img).toHaveAttribute('loading', 'lazy');
     await expect(img).toHaveAttribute('decoding', 'async');
@@ -1208,16 +1206,12 @@ test('0.3.12: удаление из коллекции и три мобильн�
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('catalog/');
-  const boxes = await page
-    .locator('#catalog-grid article')
-    .evaluateAll((items) =>
-      items
-        .slice(0, 3)
-        .map((e) => ({
-          top: e.getBoundingClientRect().top,
-          right: e.getBoundingClientRect().right,
-        })),
-    );
+  const boxes = await page.locator('#catalog-grid article').evaluateAll((items) =>
+    items.slice(0, 3).map((e) => ({
+      top: e.getBoundingClientRect().top,
+      right: e.getBoundingClientRect().right,
+    })),
+  );
   expect(new Set(boxes.map((b) => b.top)).size).toBe(1);
   expect(boxes[2].right).toBeLessThanOrEqual(390);
   await expect(page.locator('.footer-brand')).not.toContainText('Источники изображений');
@@ -1231,4 +1225,31 @@ test('0.3.12: удаление из коллекции и три мобильн�
   }));
   expect(widths.third).toBeLessThanOrEqual(widths.available + 1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+});
+
+test('0.3.13: топ-5 с постерами, общие кнопки шапки и стрелки только при переполнении', async ({
+  page,
+}) => {
+  await page.goto('./');
+  await expect(page.locator('.header-library-links a')).toHaveCount(2);
+  await expect(page.locator('.hero-watermark')).toHaveCount(0);
+  for (let i = 0; i < 5; i++) {
+    if (i) await page.locator(`[data-slide-to="${i}"]`).click();
+    const slide = page.locator('.hero-slide.selected');
+    await expect(slide.locator('h1')).toHaveText(featuredAnime[i].title);
+    await expect(slide.locator('.hero-poster')).toHaveAttribute(
+      'src',
+      featuredAnime[i].posterDetailUrl || featuredAnime[i].poster,
+    );
+    await expect(slide.locator('.hero-score')).toContainText(featuredAnime[i].score!.toFixed(1));
+    await expect(slide.locator('.hero-image')).toHaveCSS('filter', /blur/);
+  }
+  await page.goto('anime/?id=1');
+  await expect(page.locator('.chronology-arrow')).toHaveCount(2);
+  await expect(page.locator('.chronology-arrow').first()).toBeHidden();
+  await expect(page.locator('.chronology-arrow').last()).toBeHidden();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('anime/?id=59193');
+  await expect(page.locator('.chronology-arrow.next')).toBeVisible();
+  await expect(page.locator('.related-list')).toHaveCount(0);
 });

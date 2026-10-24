@@ -45,15 +45,15 @@ export function chronology(a: Anime) {
       if (items.length === 60) break;
     }
   }
-  return orderFranchise(items)
-    .map((item) => ({
-      id: item.id,
-      shikimoriId: item.shikimoriId,
-      year: item.year,
-      title: item.title,
-      href: url(animePath(item)),
-      date: item.airedOn,
-      type: item.type,
-      current: item.id === a.id,
-    }));
+  return orderFranchise(items).map((item) => ({
+    id: item.id,
+    shikimoriId: item.shikimoriId,
+    year: item.year,
+    score: item.score,
+    title: item.title,
+    href: url(animePath(item)),
+    date: item.airedOn,
+    type: item.type,
+    current: item.id === a.id,
+  }));
 }

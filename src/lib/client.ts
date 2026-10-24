@@ -102,11 +102,12 @@ const slides = $$('[data-slide]');
 let slideIndex = 0;
 function setSlide(index: number) {
   slideIndex = (index + slides.length) % slides.length;
-  const image = slides[slideIndex]?.querySelector<HTMLImageElement>('img[data-slide-image-src]');
-  if (image) {
-    image.src = image.dataset.slideImageSrc!;
-    delete image.dataset.slideImageSrc;
-  }
+  slides[slideIndex]
+    ?.querySelectorAll<HTMLImageElement>('img[data-slide-image-src]')
+    .forEach((image) => {
+      image.src = image.dataset.slideImageSrc!;
+      delete image.dataset.slideImageSrc;
+    });
   slides.forEach((slide, i) => {
     slide.classList.toggle('selected', i === slideIndex);
     slide.setAttribute('aria-hidden', String(i !== slideIndex));
