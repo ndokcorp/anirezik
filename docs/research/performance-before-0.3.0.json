@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-10-24T00:00:55.939Z",
+  "origin": "http://127.0.0.1:4323/",
+  "scenarios": [
+    {
+      "mode": "desktop-local",
+      "network": "unthrottled localhost",
+      "homeLoadMs": 192,
+      "home": {
+        "fcpMs": 164,
+        "lcpMs": 164,
+        "domNodes": 833,
+        "cards": 36,
+        "images": 41,
+        "mainJsHeapBytes": 2262580
+      },
+      "initialBytes": 1440558,
+      "initialRequests": 22,
+      "initialIndexRequests": 0,
+      "initialDetailRequests": 0,
+      "initialImageRequests": 18,
+      "coldSearchMs": 843,
+      "warmedSearchesMs": [
+        27,
+        24,
+        16,
+        18,
+        18,
+        18,
+        16,
+        17
+      ],
+      "beforeSearchWorkingSetBytes": 288768000,
+      "afterSearchWorkingSetBytes": 463454208,
+      "memoryNote": "Sum of working sets of this Chrome process tree; shared pages may be counted more than once. Main JS heap excludes the worker.",
+      "scroll": {
+        "frames": 90,
+        "meanFrameMs": 18.1611111108462,
+        "framesOver50Ms": 0
+      }
+    },
+    {
+      "mode": "mobile-slow3g-cpu4",
+      "network": {
+        "latencyMs": 400,
+        "bytesPerSecond": 50000,
+        "cpuRate": 4
+      },
+      "homeLoadMs": 22287,
+      "home": {
+        "fcpMs": 1904,
+        "lcpMs": 20348,
+        "domNodes": 833,
+        "cards": 36,
+        "images": 41,
+        "mainJsHeapBytes": 2259246
+      },
+      "initialBytes": 1065754,
+      "initialRequests": 16,
+      "initialIndexRequests": 0,
+      "initialDetailRequests": 0,
+      "initialImageRequests": 12,
+      "coldSearchMs": 49105,
+      "warmedSearchesMs": [
+        159,
+        72,
+        75,
+        99,
+        107,
+        83,
+        123,
+        60
+      ],
+      "beforeSearchWorkingSetBytes": 598974464,
+      "afterSearchWorkingSetBytes": 766803968,
+      "memoryNote": "Sum of working sets of this Chrome process tree; shared pages may be counted more than once. Main JS heap excludes the worker.",
+      "scroll": {
+        "frames": 90,
+        "meanFrameMs": 16.385555555555523,
+        "framesOver50Ms": 0
+      }
+    }
+  ]
+}

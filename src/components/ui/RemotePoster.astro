@@ -1,0 +1,24 @@
+---
+import { imageUrl, imageFallback } from '../../lib/images';
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  defer?: boolean;
+}
+const { src, alt, class: className, loading = 'lazy', defer = false } = Astro.props;
+---
+
+<img
+  class={className}
+  src={imageUrl(defer ? imageFallback : src, import.meta.env.BASE_URL)}
+  data-image-src={defer ? imageUrl(src, import.meta.env.BASE_URL) : undefined}
+  data-image-fallback={imageUrl(imageFallback, import.meta.env.BASE_URL)}
+  alt={alt}
+  width="400"
+  height="600"
+  loading={loading}
+  decoding="async"
+  style="object-fit:cover"
+/>

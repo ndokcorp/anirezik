@@ -1,0 +1,12 @@
+{
+  "shikimori": {
+    "status": "unknown",
+    "allowedOrigins": ["https://shikimori.io"],
+    "attribution": "Shikimori · изображение правообладателя",
+    "evidence": "",
+    "hotlinking": null,
+    "browserCaching": null,
+    "commercialUse": "not-confirmed",
+    "scope": "poster.mainUrl / poster.originalUrl из официального GraphQL; разрешение на каталог пока не получено"
+  }
+}

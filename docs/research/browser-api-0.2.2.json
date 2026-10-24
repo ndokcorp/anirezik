@@ -1,0 +1,190 @@
+{
+  "checkedAt": "2026-10-23T23:01:46.097Z",
+  "originPage": "https://pages-themes.github.io/minimal/",
+  "engines": [
+    {
+      "name": "chromium",
+      "page": "https://pages-themes.github.io/minimal/",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "wire": [
+        {
+          "method": "POST",
+          "headers": {
+            ":authority": "shikimori.io",
+            ":method": "POST",
+            ":path": "/api/graphql",
+            ":scheme": "https",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "content-length": "95",
+            "content-type": "application/json",
+            "origin": "https://pages-themes.github.io",
+            "priority": "u=1, i",
+            "referer": "https://pages-themes.github.io/",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"HeadlessChrome\";v=\"156\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+          }
+        },
+        {
+          "method": "POST",
+          "headers": {
+            ":authority": "shikimori.io",
+            ":method": "POST",
+            ":path": "/api/graphql",
+            ":scheme": "https",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "content-length": "95",
+            "content-type": "application/json",
+            "origin": "https://pages-themes.github.io",
+            "priority": "u=1, i",
+            "referer": "https://pages-themes.github.io/",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"HeadlessChrome\";v=\"156\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36"
+          }
+        },
+        {
+          "method": "GET",
+          "headers": {
+            "sec-ch-ua-platform": "\"Windows\"",
+            "referer": "https://pages-themes.github.io/",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+            "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\", \"HeadlessChrome\";v=\"156\"",
+            "sec-ch-ua-mobile": "?0"
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "customUA": false,
+          "status": 200,
+          "type": "cors",
+          "body": {
+            "data": {
+              "animes": [
+                {
+                  "id": "245",
+                  "name": "Great Teacher Onizuka",
+                  "russian": "Крутой учитель Онидзука",
+                  "url": "https://shikimori.io/animes/245-great-teacher-onizuka"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "customUA": true,
+          "status": 200,
+          "type": "cors",
+          "body": {
+            "data": {
+              "animes": [
+                {
+                  "id": "245",
+                  "name": "Great Teacher Onizuka",
+                  "russian": "Крутой учитель Онидзука",
+                  "url": "https://shikimori.io/animes/245-great-teacher-onizuka"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "offline": "TypeError: Failed to fetch"
+    },
+    {
+      "name": "webkit",
+      "page": "https://pages-themes.github.io/minimal/",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+      "wire": [
+        {
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json",
+            "origin": "https://pages-themes.github.io",
+            "referer": "https://pages-themes.github.io/",
+            "accept": "*/*",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+            "host": "shikimori.io"
+          }
+        },
+        {
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json",
+            "user-agent": "AniRezik/0.2.2 (browser diagnostic)",
+            "origin": "https://pages-themes.github.io",
+            "referer": "https://pages-themes.github.io/",
+            "accept": "*/*",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "host": "shikimori.io"
+          }
+        },
+        {
+          "method": "GET",
+          "headers": {
+            "origin": "https://pages-themes.github.io",
+            "referer": "https://pages-themes.github.io/",
+            "accept": "*/*",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15"
+          }
+        }
+      ],
+      "attempts": [
+        {
+          "customUA": false,
+          "status": 200,
+          "type": "cors",
+          "body": {
+            "data": {
+              "animes": [
+                {
+                  "id": "245",
+                  "name": "Great Teacher Onizuka",
+                  "russian": "Крутой учитель Онидзука",
+                  "url": "https://shikimori.io/animes/245-great-teacher-onizuka"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "customUA": true,
+          "status": 200,
+          "type": "cors",
+          "body": {
+            "data": {
+              "animes": [
+                {
+                  "id": "245",
+                  "name": "Great Teacher Onizuka",
+                  "russian": "Крутой учитель Онидзука",
+                  "url": "https://shikimori.io/animes/245-great-teacher-onizuka"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "offline": "TypeError: Load failed"
+    }
+  ]
+}

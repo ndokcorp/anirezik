@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { url } from '../../lib/paths';
+---
+
+<Layout title="Информация об аниме" active="catalog" noindex>
+  <p id="anime-status" class="info-panel" role="status">
+    Загрузка информации об аниме…
+  </p>
+  <div id="anime-detail" hidden></div>
+  <noscript>
+    <p>
+      Для этой страницы включите JavaScript. Популярные тайтлы также доступны как статические
+      страницы.
+    </p>
+    <a href={url('catalog/')}>Открыть каталог</a>
+  </noscript>
+</Layout>
+<script>
+  import { initAnimeDetail } from '../../lib/anime-detail';
+  initAnimeDetail();
+</script>

@@ -1,0 +1,258 @@
+.genre-tiles a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.detail-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.anime-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 22px;
+  margin: 22px 0 26px;
+}
+.anime-facts div {
+  min-width: 0;
+}
+.anime-facts dt {
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+.anime-facts dd {
+  margin: 0;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+  color: #eee9ef;
+}
+.anime-facts dd a {
+  color: #e1bec5;
+}
+.anime-facts dd a + a:before {
+  content: ', ';
+  color: var(--muted);
+}
+.source-note {
+  font-size: 11px !important;
+  color: #96909e !important;
+  margin-top: 15px;
+}
+.source-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.source-rating {
+  font-size: 13px;
+  color: #f58a99;
+  margin: 18px 0;
+}
+.related-list {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+.related-list li {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-top: 1px solid #ffffff0c;
+}
+.related-list li > span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.related-list a {
+  font-size: 13px;
+  color: #e0d8e3;
+  overflow-wrap: anywhere;
+}
+.related-list a:hover {
+  color: #fa7188;
+}
+.search-results .search-scope {
+  font-size: 10px;
+  color: #a19aa8;
+  padding: 9px 10px;
+  border-bottom: 1px solid #ffffff0c;
+  margin-bottom: 6px;
+}
+.anime-player {
+  margin-top: 20px;
+}
+.video-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.video-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 100%;
+}
+.video-controls select {
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 100%;
+}
+.anime-player iframe,
+.anime-player video {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.anime-player [data-video-credit] {
+  font-size: 11px;
+  margin-top: 10px;
+}
+.filter-panel {
+  align-items: end;
+}
+.filter-panel label {
+  flex-basis: 140px;
+}
+.hero-description {
+  min-height: 2em;
+}
+@media (max-width: 900px) {
+  .anime-facts {
+    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .anime-facts dd {
+    font-size: 12px;
+  }
+  .anime-facts dt {
+    font-size: 10px;
+  }
+  .related-list li {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 13px 0;
+  }
+  .related-list a {
+    font-size: 12px;
+  }
+  .source-rating {
+    font-size: 11px;
+  }
+  .hero-watermark {
+    display: block;
+    right: 13px;
+    top: 14px;
+    font-size: 6px;
+    letter-spacing: 0.6px;
+    max-width: 125px;
+    text-align: right;
+    color: #b9adb9;
+  }
+  .filter-panel label {
+    flex-basis: calc(50% - 12px);
+    min-width: 0;
+  }
+  .search-results {
+    max-height: min(460px, 65dvh);
+  }
+}
+.detail-poster {
+  height: auto;
+  align-self: start;
+  aspect-ratio: 5/7;
+  object-fit: cover;
+}
+.hero h1.long-title {
+  font-size: 44px;
+}
+.hero-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 900px) {
+  .hero h1.long-title {
+    font-size: 30px;
+    max-width: 280px;
+  }
+  .hero .hero-watermark {
+    display: block;
+    right: 13px;
+    top: 14px;
+    max-width: 125px;
+    font-size: 6px;
+    letter-spacing: 0.6px;
+    text-align: right;
+  }
+  .hero-copy {
+    max-width: calc(100% - 40px);
+  }
+}
+.art-label {
+  position: absolute;
+  top: 40px;
+  left: 12px;
+  z-index: 2;
+  font-size: 6px;
+  letter-spacing: 0.5px;
+  color: #e1c7ce;
+  background: #09090baa;
+  padding: 3px 5px;
+  border-radius: 4px;
+}
+.card-link > img {
+  object-fit: cover;
+}
+.banner-attribution {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  z-index: 2;
+  max-width: 70%;
+  font-size: 9px;
+  color: #c1adb8;
+  text-align: right;
+}
+.detail-banner.neutral-banner,
+.neutral-banner {
+  background:
+    radial-gradient(ellipse at 80% 15%, #65182a66, transparent 60%),
+    linear-gradient(140deg, #18121c, #09090b);
+}
+.detail-banner .poster-backdrop,
+.hero .poster-backdrop {
+  filter: blur(24px) brightness(0.5);
+  transform: scale(1.15);
+  object-fit: cover;
+}
+.detail-banner:has(.poster-backdrop) {
+  isolation: isolate;
+}
+img.image-failed {
+  object-fit: contain;
+}
+@media (max-width: 900px) {
+  .banner-attribution {
+    font-size: 7px;
+    right: 12px;
+    bottom: 12px;
+    max-width: 60%;
+  }
+  .art-label {
+    left: 10px;
+    font-size: 5px;
+  }
+}
+.detail-banner .banner-attribution {
+  top: 14px;
+  bottom: auto;
+  background: #09090b99;
+  padding: 4px 7px;
+  border-radius: 5px;
+}

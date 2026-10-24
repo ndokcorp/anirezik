@@ -1,0 +1,24 @@
+---
+import Logo from './navigation/Logo.astro';
+import { url } from '../lib/paths';
+---
+
+<footer class="footer">
+  <div>
+    <Logo />
+    <p>Твоя следующая история начинается здесь.</p>
+  </div>
+  <div class="footer-links">
+    <a href={url('catalog/')}>Каталог</a>
+    <a href={url('about/')}>О проекте</a>
+    <span>© {new Date().getFullYear()} AniRezik</span>
+  </div>
+  <p class="footer-note">
+    Некоммерческая бета-версия · Метаданные:{' '}
+    <a href="https://shikimori.io" target="_blank" rel="noopener noreferrer">
+      Shikimori
+    </a>
+    . Официальные постеры не подключены. Оригинальные AI-иллюстрации подписаны; остальные
+    изображения заменены фирменными заглушками. Видеоконтент не размещается.
+  </p>
+</footer>

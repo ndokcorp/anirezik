@@ -1,0 +1,247 @@
+{
+  "note": "Real API metadata samples only. No claim of image reuse permission, hotlink success or browser decoding. User confirmed no permission.",
+  "groups": {
+    "popular": [
+      {
+        "id": 20,
+        "title": "Наруто",
+        "kind": "tv",
+        "year": 2002,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/20/main-5f7bc68ceac891e0fd93fb72c07bd1f3.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/20/16c8836b613b3131abd017c8be84b23c.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 16498,
+        "title": "Атака титанов",
+        "kind": "tv",
+        "year": 2013,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/16498/7a452aa20f27318bd8d87e3d70c2ccca.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 38000,
+        "title": "Клинок, рассекающий демонов",
+        "kind": "tv",
+        "year": 2019,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/38000/main-b9a3817eb7945d5a164deb3ae353b480.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/38000/eb6c9a5d46fa9b5a33a0e5960e329e2d.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 40748,
+        "title": "Магическая битва",
+        "kind": "tv",
+        "year": 2020,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/40748/af4f2db18f17de4d7c6491f6f92cd9d9.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 44511,
+        "title": "Человек-бензопила",
+        "kind": "tv",
+        "year": 2022,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/44511/db3ef8443dc7c7d489ed3659e7a94d85.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 52299,
+        "title": "Поднятие уровня в одиночку",
+        "kind": "tv",
+        "year": 2024,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/52299/9a1ee4e32c72ab99b76e84bbe49f7e87.jpeg",
+        "imageLicenseStatus": "unknown"
+      }
+    ],
+    "old": [
+      {
+        "id": 3929,
+        "title": "Лиса против Енота",
+        "kind": "movie",
+        "year": 1933,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/3929/main-31fd082c3bf152c0b8e638b41e51d82a.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/3929/738ce0c485c0eddb02766eb50e019b1d.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 3930,
+        "title": "Большое дело Крошки",
+        "kind": "movie",
+        "year": 1929,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/3930/main-03f5b2ef1d35a7d24976c94f812356d1.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/3930/27e03cacbd47a6e2cc02398eda691504.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 3990,
+        "title": "Паук и тюльпан",
+        "kind": "movie",
+        "year": 1943,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/3990/main-2ce8f1553d39fd1564b5920cc36d260d.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/3990/5b7e02bddfd68ae890a58323592dc71d.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4390,
+        "title": "Воздушные приключения Момотаро",
+        "kind": "movie",
+        "year": 1931,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4390/main-2f1658818ffdfe3f340b817d78b52971.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4390/871e3852f3b366a8991883edd8c34a47.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4391,
+        "title": "Меч обезьяны Масамунэ",
+        "kind": "movie",
+        "year": 1930,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4391/main-c02dc09ef556cb98c148c4fec620172c.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4391/d95f42e85fe0cd7410a4cf66b422398a.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4392,
+        "title": "Удачный день таксиста самолёта",
+        "kind": "movie",
+        "year": 1932,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4392/main-6ee61e69f63cc17d0654e997948a20a5.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4392/5d10080005e2090cf513cf755ec44c79.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4393,
+        "title": "Государственный гимн Кимигаё",
+        "kind": "movie",
+        "year": 1931,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4393/main-efbfef950ed7411d6a637d05479524c5.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4393/65333e748e331976661b176adc3b6bc5.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4394,
+        "title": "Капрал Норакуро",
+        "kind": "movie",
+        "year": 1934,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4394/main-834233d3d50c648c2851f654018d6f4f.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4394/e5c30e7966cbb96f30416d07074aed2e.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4395,
+        "title": "Рядовой второго класса Норакуро: Второй этап подготовки",
+        "kind": "movie",
+        "year": 1933,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4395/main-53218419bf01eb1dfd7e1e8a06624c25.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4395/46caedcfbaf061a04693aac2c6a7d245.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 4396,
+        "title": "Обезьяний флот",
+        "kind": "movie",
+        "year": 1936,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/4396/main-6358ac520d60979c3f1cda77ab9701d0.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/4396/fae0df080d1357afe72ad1ffd8ac6844.jpeg",
+        "imageLicenseStatus": "unknown"
+      }
+    ],
+    "rare": [
+      {
+        "id": 56,
+        "title": "Мститель",
+        "kind": "tv",
+        "year": 2003,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/56/main-90f0af3cb7697757331173f091400765.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/56/5c278d4c27176e84618220fa412fe59f.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 112,
+        "title": "Жрицы мира",
+        "kind": "tv",
+        "year": 2004,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/112/main-266e2c887a4280910a273cecace6e419.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/112/e8c23ef67c659b0ef489f67fef832002.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 220,
+        "title": "Загадка Некрономикона",
+        "kind": "ova",
+        "year": 1999,
+        "mainUrl": null,
+        "originalUrl": null,
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 275,
+        "title": "Любовь любовь?",
+        "kind": "tv",
+        "year": 2004,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/275/main-1e9da314bd4460c766cb2ca45b0b4998.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/275/d412ddb5731b5f9069afa5d97125b6a9.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 281,
+        "title": "Фанаты Аканэ",
+        "kind": "ova",
+        "year": 2004,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/281/main-dfaf11672cff24c8c67aedfc6dd21089.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/281/3b374b64cd664cbc090a535fef8e4081.jpeg",
+        "imageLicenseStatus": "unknown"
+      }
+    ],
+    "films": [
+      {
+        "id": 54,
+        "title": "Яблочное зёрнышко. Фильм",
+        "kind": "movie",
+        "year": 2004,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/54/main-5a164f42445e229c798dda7d41f5a627.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/54/530c009b31838f8293cb861889f2150f.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 83,
+        "title": "Мобильный воин Гандам: Восьмой взвод МС — Отчёт Миллер",
+        "kind": "movie",
+        "year": 1998,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/83/main-ea8837ea0ba5b06f6713ef6a96748dd1.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/83/37f161e02752f7b80dd2cf3bfedcc110.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 88,
+        "title": "Мобильный воин Гандам Эф-91",
+        "kind": "movie",
+        "year": 1991,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/88/main-447f4570517e0f35bf55818919f88a63.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/88/e6f89092702bf4e9fe7cc1987fb24e28.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 155,
+        "title": "Икс/1999",
+        "kind": "movie",
+        "year": 1996,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/155/main-8a0df642a475ea0af87ee18a340a7b80.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/155/67b269c2a4a34d2e61360790cd33f56e.jpeg",
+        "imageLicenseStatus": "unknown"
+      },
+      {
+        "id": 212,
+        "title": "Проект А-ко",
+        "kind": "movie",
+        "year": 1986,
+        "mainUrl": "https://shikimori.io/uploads/poster/animes/212/main-c8e8e1a89e386b2880ea269a1fc74ced.webp",
+        "originalUrl": "https://shikimori.io/uploads/poster/animes/212/c160b1427c02e02ba966f3b724e89d51.jpeg",
+        "imageLicenseStatus": "unknown"
+      }
+    ]
+  }
+}

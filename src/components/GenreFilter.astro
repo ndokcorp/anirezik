@@ -1,0 +1,14 @@
+---
+import { genres } from '../data/anime';
+---
+
+<div class="genre-filter" aria-label="Фильтр по жанру">
+  <button class="genre-chip active" data-genre="" aria-pressed="true">
+    Все аниме
+  </button>
+  {genres.map((g) => (
+    <button class="genre-chip" data-genre={g} aria-pressed="false">
+      {g}
+    </button>
+  ))}
+</div>

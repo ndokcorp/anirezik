@@ -1,0 +1,62 @@
+---
+import Header from '../components/navigation/Header.astro';
+import MobileNavigation from '../components/navigation/MobileNavigation.astro';
+import Footer from '../components/Footer.astro';
+import { url } from '../lib/paths';
+import { safeJson } from '../lib/serialize';
+import '../styles/global.css';
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+  noindex?: boolean;
+}
+const {
+  title = 'Твоё аниме. Твоя история.',
+  description = 'AniRezik — открывайте аниме, находите любимые истории и собирайте свою коллекцию.',
+  active = 'home',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#09090b" />
+    <title>{title} — AniRezik</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} — AniRezik`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(url('assets/hero.webp'), Astro.site)} />
+    <link rel="icon" href={url('assets/favicon.svg')} type="image/svg+xml" />
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      К содержимому
+    </a>
+    <div class="site-shell">
+      <Header active={active} />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <MobileNavigation active={active} />
+    <div class="toast" role="status" aria-live="polite"></div>
+    <script
+      id="anime-data"
+      type="application/json"
+      set:html={safeJson({indexUrl:url('search-index.json')})}
+    />
+    <script>
+      import '../lib/client';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "startedAt": "2026-10-23T23:26:43.827Z",
+  "status": "verified",
+  "phase": "complete",
+  "page": 615,
+  "discovered": 30704,
+  "imported": 30704,
+  "retainedPrevious": 0,
+  "unresolvedIds": [],
+  "forwardOnlyIds": [],
+  "duplicates": 0,
+  "networkRequests": 1230,
+  "cachedBatches": 0,
+  "scope": "Official GraphQL animes; censored:false; all kinds/statuses/years; accessible to this unauthenticated client. Not a claim about hidden/deleted records.",
+  "finishedAt": "2026-10-23T23:47:23.484Z"
+}

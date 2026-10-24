@@ -1,0 +1,34 @@
+---
+import type { Anime } from '../../types/anime';
+import { displayDate } from '../../lib/dates';
+const { anime } = Astro.props as { anime: Anime };
+---
+
+<section class="info-panel">
+  <h2>Эпизоды</h2>
+  <dl class="anime-facts">
+    <div>
+      <dt>Всего по данным источника</dt>
+      <dd>{anime.episodes ?? '—'}</dd>
+    </div>
+    <div>
+      <dt>Вышло по данным источника</dt>
+      <dd>{anime.episodesAired ?? '—'}</dd>
+    </div>
+    <div>
+      <dt>Статус</dt>
+      <dd>{anime.status}</dd>
+    </div>
+    {anime.nextEpisodeAt && (
+      <div>
+        <dt>Следующий эпизод</dt>
+        <dd>{displayDate(anime.nextEpisodeAt)}</dd>
+      </div>
+    )}
+  </dl>
+  <p>
+    Сведения об эфире из Shikimori, не количество доступных видео на AniRezik. Источник может
+    обновляться с задержкой. Названия и даты отдельных серий не добавляются без подтверждённых
+    данных.
+  </p>
+</section>

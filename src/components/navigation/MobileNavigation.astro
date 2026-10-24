@@ -1,0 +1,23 @@
+---
+import Icon from '../ui/Icon.astro';
+import { url } from '../../lib/paths';
+const { active } = Astro.props;
+---
+
+<nav class="mobile-nav" aria-label="Мобильная навигация">
+  {[
+    ['home', '', 'home', 'Главная'],
+    ['catalog', 'catalog/', 'compass', 'Каталог'],
+    ['favorites', 'favorites/', 'bookmark', 'Избранное'],
+    ['profile', 'profile/', 'user', 'Профиль'],
+  ].map(([id, path, icon, label]) => (
+    <a
+      href={url(path)}
+      class:list={{ active: active === id }}
+      aria-current={active === id ? 'page' : undefined}
+    >
+      <Icon name={icon} />
+      <span>{label}</span>
+    </a>
+  ))}
+</nav>

@@ -1,0 +1,57 @@
+---
+import type { Anime } from '../../types/anime';
+import { url } from '../../lib/paths';
+import FavoriteButton from '../ui/FavoriteButton.astro';
+import { searchText } from '../../lib/search';
+import Poster from '../ui/Poster.astro';
+import { animePath } from '../../data/anime';
+interface Props {
+  anime: Anime;
+}
+const { anime: a } = Astro.props;
+---
+
+<article
+  class="anime-card"
+  data-anime-id={a.id}
+  data-genres={a.genres.join('|')}
+  data-year={a.year}
+  data-type={a.type}
+  data-status={a.status}
+  data-studios={a.studios.join('|')}
+  data-score={a.score ?? ''}
+  data-title={a.title}
+  data-search={searchText(a)}
+>
+  <a href={url(animePath(a))} class="card-link">
+    <Poster
+      src={a.poster}
+      defer
+      alt={
+        a.imageLicenseStatus === 'original-ai'
+          ? `AI-иллюстрация: ${a.title}, не официальный постер`
+          : a.posterAttribution
+            ? `Постер ${a.title}`
+            : `Фирменная заглушка: ${a.title}`
+      }
+    />
+    {a.imageLicenseStatus === 'original-ai' && (
+      <span class="art-label">AI · НЕОФИЦИАЛЬНЫЙ АРТ</span>
+    )}
+    <div class="card-shade"></div>
+    {a.score && (
+      <span class="card-badge" title="Оценка пользователей Shikimori">
+        ★ {a.score.toFixed(2)} · Shikimori
+      </span>
+    )}
+    <div class="card-info">
+      <span class="card-original">{a.originalTitle}</span>
+      <h3>{a.title}</h3>
+      <p>
+        {a.type} <span>·</span> {a.year ?? '—'} <span>·</span>{' '}
+        {a.episodes === null ? 'Серии: —' : a.type === 'Фильм' ? 'Фильм' : `${a.episodes} серий`}
+      </p>
+    </div>
+  </a>
+  <FavoriteButton id={a.id} />
+</article>

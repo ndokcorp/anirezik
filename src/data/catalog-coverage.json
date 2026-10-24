@@ -1,0 +1,19 @@
+{
+  "startedAt": "2026-10-23T23:48:59.406Z",
+  "status": "verified",
+  "phase": "complete",
+  "page": 615,
+  "discovered": 30704,
+  "imported": 30704,
+  "retainedPrevious": 0,
+  "unresolvedIds": [],
+  "forwardOnlyIds": [],
+  "referencedUnavailableIds": [],
+  "duplicates": 0,
+  "networkRequests": 0,
+  "cachedBatches": 1230,
+  "scope": "Official GraphQL animes; censored:false; all kinds/statuses/years; accessible to this unauthenticated client. Not a claim about hidden/deleted records.",
+  "firstResponseAt": "2026-10-23T23:26:44.468Z",
+  "lastResponseAt": "2026-10-23T23:47:22.954Z",
+  "finishedAt": "2026-10-23T23:49:05.832Z"
+}

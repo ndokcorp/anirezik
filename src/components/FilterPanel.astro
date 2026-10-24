@@ -1,0 +1,65 @@
+---
+import { anime, genres } from '../data/anime';
+---
+
+<div id="filter-panel" class="filter-panel">
+  <label>
+    Жанр
+    <select id="filter-genre">
+      <option value="">Все жанры</option>
+      {genres.map((g) => (
+        <option>{g}</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Год выхода
+    <select id="filter-year">
+      <option value="">Все годы</option>
+      {[...new Set(anime.map((a) => a.year).filter((year): year is number => year !== null))]
+        .sort((a, b) => b - a)
+        .map((y) => (
+          <option>{y}</option>
+        ))}
+    </select>
+  </label>
+  <label>
+    Тип
+    <select id="filter-type">
+      <option value="">Все типы</option>
+      {[...new Set(anime.map((a) => a.type))].sort().map((kind) => (
+        <option>{kind}</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Статус
+    <select id="filter-status">
+      <option value="">Все статусы</option>
+      {[...new Set(anime.map((a) => a.status))].sort().map((status) => (
+        <option>{status}</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Студия анимации
+    <select id="filter-studio">
+      <option value="">Все студии</option>
+      {[...new Set(anime.flatMap((a) => a.studios))].sort().map((studio) => (
+        <option>{studio}</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Сортировка
+    <select id="filter-sort">
+      <option value="default">Порядок каталога</option>
+      <option value="title">По названию</option>
+      <option value="year">Сначала новые</option>
+      <option value="rating">По оценке Shikimori</option>
+    </select>
+  </label>
+  <button class="button button-secondary" id="reset-filters">
+    Сбросить
+  </button>
+</div>

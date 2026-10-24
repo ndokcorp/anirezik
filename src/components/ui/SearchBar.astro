@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import { url } from '../../lib/paths';
+---
+
+<div class="search-box">
+  <Icon name="search" />
+  <input
+    id="global-search"
+    data-catalog-url={url('catalog/')}
+    disabled
+    type="search"
+    placeholder="Загрузка поиска..."
+    aria-label="Поиск аниме"
+    role="combobox"
+    aria-expanded="false"
+    aria-autocomplete="list"
+    aria-controls="search-results"
+    autocomplete="off"
+  />
+  <kbd>/</kbd>
+  <div id="search-results" class="search-results" role="listbox" hidden></div>
+</div>

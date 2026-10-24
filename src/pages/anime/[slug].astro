@@ -1,0 +1,175 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Banner from '../../components/anime/Banner.astro';
+import Poster from '../../components/ui/Poster.astro';
+import { anime, animeByShikimoriId, staticPageIds, animePath } from '../../data/anime';
+import { url } from '../../lib/paths';
+import FavoriteButton from '../../components/ui/FavoriteButton.astro';
+import AnimeSection from '../../components/anime/AnimeSection.astro';
+import EpisodeList from '../../components/anime/EpisodeList.astro';
+import AnimePlayer from '../../components/anime/AnimePlayer.astro';
+import { displayDate } from '../../lib/dates';
+export function getStaticPaths() {
+  return anime
+    .filter((a) => staticPageIds.has(a.shikimoriId))
+    .map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+const { a } = Astro.props;
+const related = [];
+for (const candidate of anime) {
+  if (candidate.id !== a.id && candidate.genres.some((genre) => a.genres.includes(genre)))
+    related.push(candidate);
+  if (related.length === 6) break;
+}
+---
+
+<Layout
+  title={a.title}
+  description={
+    a.description ||
+    `${a.title}: информация, студии, жанры, эпизоды и оценка пользователей Shikimori.`
+  }
+  active="catalog"
+>
+  <Banner anime={a} />
+  <article class="detail-content">
+    <Poster
+      class="detail-poster"
+      src={a.posterDetailUrl || a.poster}
+      alt={
+        a.imageLicenseStatus === 'original-ai'
+          ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
+          : 'Постер: ' + a.title
+      }
+    />
+    <div class="detail-copy">
+      <span class="eyebrow">ANIREZIK / КАТАЛОГ</span>
+      <h1>{a.title}</h1>
+      <p class="original-title">{a.originalTitle}</p>
+      <div class="detail-tags">
+        <span>{a.year ?? '—'}</span>
+        <span>{a.type}</span>
+        <span>{a.status}</span>
+        <span>
+          {a.episodes === null
+            ? 'Серии: —'
+            : a.type === 'Фильм'
+              ? 'Полнометражный'
+              : `${a.episodes} серий`}
+        </span>
+        {a.genres.map((g) => (
+          <a href={url(`catalog/?genre=${encodeURIComponent(g)}`)}>{g}</a>
+        ))}
+      </div>
+      <p class="description">
+        {a.description ||
+          'Редакционное описание пока не добавлено. Подробности доступны на странице источника.'}
+      </p>
+      {a.description && <p class="source-note">Описание редакции AniRezik</p>}
+      {a.score && (
+        <p class="source-rating">
+          <a href={a.sourceUrl} target="_blank" rel="noopener noreferrer">
+            ★ {a.score.toFixed(2)}/10 — оценка пользователей Shikimori ↗
+          </a>
+        </p>
+      )}
+      <FavoriteButton id={a.id} large />
+    </div>
+  </article>
+  <section class="info-panel">
+    <h2>Информация об аниме</h2>
+    <dl class="anime-facts">
+      <div>
+        <dt>Оригинальное название</dt>
+        <dd>{a.originalTitle}</dd>
+      </div>
+      {a.englishTitle && (
+        <div>
+          <dt>Английское название</dt>
+          <dd>{a.englishTitle}</dd>
+        </div>
+      )}
+      {a.japaneseTitle && (
+        <div>
+          <dt>Японское название</dt>
+          <dd>{a.japaneseTitle}</dd>
+        </div>
+      )}
+      <div>
+        <dt>Студии анимации</dt>
+        <dd>
+          {a.studios.length
+            ? a.studios.map((studio) => (
+                <a href={url(`catalog/?studio=${encodeURIComponent(studio)}`)}>{studio}</a>
+              ))
+            : '—'}
+        </dd>
+      </div>
+      <div>
+        <dt>Возрастная классификация</dt>
+        <dd>{a.ageRating ?? '—'}</dd>
+      </div>
+      <div>
+        <dt>Продолжительность эпизода</dt>
+        <dd>{a.duration ? `${a.duration} мин` : '—'}</dd>
+      </div>
+      <div>
+        <dt>Начало показа</dt>
+        <dd>{displayDate(a.airedOn)}</dd>
+      </div>
+      <div>
+        <dt>Окончание показа</dt>
+        <dd>{displayDate(a.releasedOn)}</dd>
+      </div>
+      {a.themes.length > 0 && (
+        <div>
+          <dt>Тематики и аудитория</dt>
+          <dd>{a.themes.join(', ')}</dd>
+        </div>
+      )}
+    </dl>
+    <p class="source-note">
+      Данные обновлены {displayDate(a.fetchedAt)} ·{' '}
+      <a href={a.sourceUrl} target="_blank" rel="noopener noreferrer">
+        Открыть на Shikimori ↗
+      </a>
+      . Студии анимации указаны отдельно от будущих студий озвучки.
+    </p>
+  </section>
+  <EpisodeList anime={a} />
+  <AnimePlayer anime={a} />
+  {a.related.length > 0 && (
+    <section class="info-panel">
+      <h2>Связанные аниме и сезоны</h2>
+      <ul class="related-list">
+        {[...a.related]
+          .sort(
+            (x, y) =>
+              ['prequel', 'sequel'].indexOf(y.relationKind) -
+              ['prequel', 'sequel'].indexOf(x.relationKind),
+          )
+          .map((item) => {
+            const local = animeByShikimoriId.get(item.shikimoriId);
+            return (
+              <li>
+                <span>{item.relation}</span>
+                <a
+                  href={local ? url(animePath(local)) : item.sourceUrl}
+                  target={local ? undefined : '_blank'}
+                  rel={local ? undefined : 'noopener noreferrer'}
+                >
+                  {item.title}
+                  {!local && ' ↗ Shikimori'}
+                </a>
+              </li>
+            );
+          })}
+      </ul>
+    </section>
+  )}
+  <AnimeSection
+    title="Похожие истории"
+    subtitle="Совпадение жанров в каталоге AniRezik"
+    items={related}
+  />
+</Layout>

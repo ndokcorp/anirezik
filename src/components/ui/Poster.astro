@@ -1,0 +1,13 @@
+---
+import RemotePoster from './RemotePoster.astro';
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  defer?: boolean;
+}
+const { src, alt, class: className, loading = 'lazy', defer = false } = Astro.props;
+---
+
+<RemotePoster src={src} alt={alt} class={className} loading={loading} defer={defer} />

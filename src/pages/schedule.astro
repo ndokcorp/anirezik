@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib/paths';
+---
+
+<Layout title="Расписание" active="schedule">
+  <div class="page-heading">
+    <span class="eyebrow">В ОЖИДАНИИ НОВЫХ ИСТОРИЙ</span>
+    <h1>Расписание</h1>
+  </div>
+  <div class="empty-state">
+    <div class="empty-icon">◷</div>
+    <h2>Скоро здесь будет расписание</h2>
+    <p>
+      Подключим календарь, когда появится надёжный источник дат выхода. А пока можно выбрать историю
+      из каталога.
+    </p>
+    <a class="button button-primary" href={url('catalog/')}>
+      Открыть каталог
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-10-24T00:10:47.265Z",
+  "origin": "http://127.0.0.1:4323/",
+  "scenarios": [
+    {
+      "mode": "desktop-local",
+      "network": "unthrottled localhost",
+      "homeLoadMs": 219,
+      "home": {
+        "fcpMs": 180,
+        "lcpMs": 180,
+        "domNodes": 833,
+        "cards": 36,
+        "images": 41,
+        "mainJsHeapBytes": 2275039
+      },
+      "initialBytes": 933895,
+      "initialRequests": 13,
+      "initialIndexRequests": 0,
+      "initialDetailRequests": 0,
+      "initialImageRequests": 9,
+      "coldSearchMs": 848,
+      "warmedSearchesMs": [
+        28,
+        19,
+        15,
+        18,
+        17,
+        17,
+        16,
+        17
+      ],
+      "beforeSearchWorkingSetBytes": 287813632,
+      "afterSearchWorkingSetBytes": 463294464,
+      "memoryNote": "Sum of working sets of this Chrome process tree; shared pages may be counted more than once. Main JS heap excludes the worker.",
+      "scroll": {
+        "frames": 90,
+        "meanFrameMs": 21.27444444431199,
+        "framesOver50Ms": 0
+      }
+    },
+    {
+      "mode": "mobile-slow3g-cpu4",
+      "network": {
+        "latencyMs": 400,
+        "bytesPerSecond": 50000,
+        "cpuRate": 4
+      },
+      "homeLoadMs": 16691,
+      "home": {
+        "fcpMs": 1756,
+        "lcpMs": 16044,
+        "domNodes": 833,
+        "cards": 36,
+        "images": 41,
+        "mainJsHeapBytes": 2271549
+      },
+      "initialBytes": 788587,
+      "initialRequests": 11,
+      "initialIndexRequests": 0,
+      "initialDetailRequests": 0,
+      "initialImageRequests": 7,
+      "coldSearchMs": 49160,
+      "warmedSearchesMs": [
+        138,
+        68,
+        62,
+        83,
+        56,
+        84,
+        83,
+        47
+      ],
+      "beforeSearchWorkingSetBytes": 403177472,
+      "afterSearchWorkingSetBytes": 576036864,
+      "memoryNote": "Sum of working sets of this Chrome process tree; shared pages may be counted more than once. Main JS heap excludes the worker.",
+      "scroll": {
+        "frames": 90,
+        "meanFrameMs": 16.30333333359821,
+        "framesOver50Ms": 0
+      }
+    }
+  ]
+}

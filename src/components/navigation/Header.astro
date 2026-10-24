@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+import SearchBar from '../ui/SearchBar.astro';
+import Icon from '../ui/Icon.astro';
+import { url } from '../../lib/paths';
+const { active = 'home' } = Astro.props;
+---
+
+<header class="header">
+  <Logo />
+  <nav class="desktop-nav" aria-label="Основная навигация">
+    {[
+      ['home', '', 'Главная'],
+      ['catalog', 'catalog/', 'Каталог'],
+      ['genres', 'genres/', 'Жанры'],
+      ['schedule', 'schedule/', 'Расписание'],
+    ].map(([id, path, label]) => (
+      <a
+        class:list={{ active: active === id }}
+        href={url(path)}
+        aria-current={active === id ? 'page' : undefined}
+      >
+        {label}
+      </a>
+    ))}
+  </nav>
+  <SearchBar />
+  <a class="icon-button desktop-favorite" href={url('favorites/')} aria-label="Избранное">
+    <Icon name="bookmark" />
+  </a>
+  <button class="icon-button mobile-search" aria-label="Открыть поиск" data-open-search>
+    <Icon name="search" />
+  </button>
+  <button
+    class="icon-button menu-toggle"
+    aria-label="Открыть меню"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <Icon name="menu" />
+  </button>
+</header>
+<dialog id="mobile-menu" class="menu-dialog">
+  <div class="dialog-top">
+    <span>Навигация</span>
+    <button class="icon-button" data-close-menu aria-label="Закрыть меню">
+      <Icon name="close" />
+    </button>
+  </div>
+  <nav>
+    {[
+      ['', 'Главная'],
+      ['catalog/', 'Каталог'],
+      ['genres/', 'Жанры'],
+      ['schedule/', 'Расписание'],
+      ['favorites/', 'Избранное'],
+      ['profile/', 'Профиль'],
+    ].map(([path, label]) => (
+      <a href={url(path)}>
+        {label}
+        <Icon name="arrow" />
+      </a>
+    ))}
+  </nav>
+</dialog>

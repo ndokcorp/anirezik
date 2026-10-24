@@ -1,0 +1,10 @@
+node_modules
+.cache
+*.previous
+dist
+.astro
+test-results
+playwright-report
+package-lock.json
+public/assets
+docs/*.png

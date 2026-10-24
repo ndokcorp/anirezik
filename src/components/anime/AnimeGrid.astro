@@ -1,0 +1,15 @@
+---
+import AnimeCard from './AnimeCard.astro';
+import type { Anime } from '../../types/anime';
+interface Props {
+  items: Anime[];
+  id?: string;
+}
+const { items, id } = Astro.props;
+---
+
+<div class="anime-grid" id={id}>
+  {items.map((a) => (
+    <AnimeCard anime={a} />
+  ))}
+</div>

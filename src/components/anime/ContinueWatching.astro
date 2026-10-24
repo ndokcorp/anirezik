@@ -1,0 +1,19 @@
+---
+// Render only when a real playback provider supplies progress; no invented history.
+interface Props {
+  history?: { title: string; href: string; progress: number }[];
+}
+const { history = [] } = Astro.props;
+---
+
+{history.length > 0 && (
+  <section class="info-panel">
+    <h2>Продолжить просмотр</h2>
+    {history.map((item) => (
+      <a href={item.href}>
+        {item.title}
+        <progress value={item.progress} max="100" />
+      </a>
+    ))}
+  </section>
+)}

@@ -1,0 +1,30 @@
+---
+import AnimeGrid from './AnimeGrid.astro';
+import Icon from '../ui/Icon.astro';
+import { url } from '../../lib/paths';
+import type { Anime } from '../../types/anime';
+interface Props {
+  title: string;
+  subtitle?: string;
+  items: Anime[];
+  href?: string;
+  id?: string;
+}
+const { title, subtitle, items, href = 'catalog/', id } = Astro.props;
+---
+
+<section class="anime-section" id={id}>
+  <div class="section-heading">
+    <div>
+      <h2>{title}</h2>
+      {subtitle && <p>{subtitle}</p>}
+    </div>
+    <a class="text-link" href={url(href)}>
+      Смотреть все <Icon name="arrow" size={17} />
+    </a>
+  </div>
+  <AnimeGrid items={items} />
+  <p class="empty-inline" hidden>
+    В этой подборке пока нет аниме выбранного жанра. <a href={url('catalog/')}>Открыть каталог</a>
+  </p>
+</section>

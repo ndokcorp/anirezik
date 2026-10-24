@@ -1,0 +1,380 @@
+{
+  "data": {
+    "animes": [
+      {
+        "id": "52299",
+        "name": "Ore dake Level Up na Ken",
+        "russian": "Поднятие уровня в одиночку",
+        "english": "Solo Leveling",
+        "japanese": "俺だけレベルアップな件",
+        "synonyms": ["I Level Up Alone", "Na Honjaman Level Up"],
+        "kind": "tv",
+        "status": "released",
+        "rating": "r",
+        "score": 8.14,
+        "episodes": 12,
+        "episodesAired": 12,
+        "duration": 23,
+        "airedOn": {
+          "year": 2024,
+          "month": 1,
+          "day": 7,
+          "date": "2024-01-07"
+        },
+        "releasedOn": {
+          "year": 2024,
+          "month": 3,
+          "day": 31,
+          "date": "2024-03-31"
+        },
+        "nextEpisodeAt": null,
+        "url": "https://shikimori.io/animes/52299-ore-dake-level-up-na-ken",
+        "genres": [
+          {
+            "id": "1",
+            "name": "Action",
+            "russian": "Экшен",
+            "kind": "genre"
+          },
+          {
+            "id": "2",
+            "name": "Adventure",
+            "russian": "Приключения",
+            "kind": "genre"
+          },
+          {
+            "id": "10",
+            "name": "Fantasy",
+            "russian": "Фэнтези",
+            "kind": "genre"
+          },
+          {
+            "id": "104",
+            "name": "Adult Cast",
+            "russian": "Взрослые персонажи",
+            "kind": "theme"
+          },
+          {
+            "id": "197",
+            "name": "Urban Fantasy",
+            "russian": "Городское фэнтези",
+            "kind": "theme"
+          }
+        ],
+        "studios": [
+          {
+            "id": "56",
+            "name": "A-1 Pictures"
+          }
+        ],
+        "poster": {
+          "originalUrl": "https://shikimori.io/uploads/poster/animes/52299/9a1ee4e32c72ab99b76e84bbe49f7e87.jpeg",
+          "mainUrl": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp"
+        },
+        "related": [
+          {
+            "relationKind": "sequel",
+            "relationText": "Продолжение",
+            "anime": {
+              "id": "58567",
+              "name": "Ore dake Level Up na Ken Season 2: Arise from the Shadow",
+              "russian": "Поднятие уровня в одиночку 2: Восстаньте из тени",
+              "url": "https://shikimori.io/animes/58567-ore-dake-level-up-na-ken-season-2-arise-from-the-shadow"
+            }
+          },
+          {
+            "relationKind": "adaptation",
+            "relationText": "Адаптация",
+            "anime": null
+          },
+          {
+            "relationKind": "summary",
+            "relationText": "Обобщение",
+            "anime": {
+              "id": "58224",
+              "name": "Ore dake Level Up na Ken: How to Get Stronger",
+              "russian": "Поднятие уровня в одиночку: Как стать сильнее",
+              "url": "https://shikimori.io/animes/58224-ore-dake-level-up-na-ken-how-to-get-stronger"
+            }
+          },
+          {
+            "relationKind": "summary",
+            "relationText": "Обобщение",
+            "anime": {
+              "id": "59841",
+              "name": "Ore dake Level Up na Ken: ReAwakening",
+              "russian": "Поднятие уровня в одиночку: Повторное пробуждение",
+              "url": "https://shikimori.io/animes/59841-ore-dake-level-up-na-ken-reawakening"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "51321",
+              "name": "Echo",
+              "russian": "Эхо",
+              "url": "https://shikimori.io/animes/51321-echo"
+            }
+          }
+        ]
+      },
+      {
+        "id": "40748",
+        "name": "Jujutsu Kaisen",
+        "russian": "Магическая битва",
+        "english": "Jujutsu Kaisen",
+        "japanese": "呪術廻戦",
+        "synonyms": ["Sorcery Fight", "JJK"],
+        "kind": "tv",
+        "status": "released",
+        "rating": "r",
+        "score": 8.49,
+        "episodes": 24,
+        "episodesAired": 24,
+        "duration": 23,
+        "airedOn": {
+          "year": 2020,
+          "month": 10,
+          "day": 3,
+          "date": "2020-10-03"
+        },
+        "releasedOn": {
+          "year": 2021,
+          "month": 3,
+          "day": 27,
+          "date": "2021-03-27"
+        },
+        "nextEpisodeAt": null,
+        "url": "https://shikimori.io/animes/40748-jujutsu-kaisen",
+        "genres": [
+          {
+            "id": "27",
+            "name": "Shounen",
+            "russian": "Сёнен",
+            "kind": "demographic"
+          },
+          {
+            "id": "1",
+            "name": "Action",
+            "russian": "Экшен",
+            "kind": "genre"
+          },
+          {
+            "id": "37",
+            "name": "Supernatural",
+            "russian": "Сверхъестественное",
+            "kind": "genre"
+          },
+          {
+            "id": "114",
+            "name": "Award Winning",
+            "russian": "Удостоено наград",
+            "kind": "theme"
+          },
+          {
+            "id": "23",
+            "name": "School",
+            "russian": "Школа",
+            "kind": "theme"
+          }
+        ],
+        "studios": [
+          {
+            "id": "569",
+            "name": "MAPPA"
+          }
+        ],
+        "poster": {
+          "originalUrl": "https://shikimori.io/uploads/poster/animes/40748/af4f2db18f17de4d7c6491f6f92cd9d9.jpeg",
+          "mainUrl": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp"
+        },
+        "related": [
+          {
+            "relationKind": "prequel",
+            "relationText": "Предыстория",
+            "anime": {
+              "id": "48561",
+              "name": "Jujutsu Kaisen 0 Movie",
+              "russian": "Магическая битва 0. Фильм",
+              "url": "https://shikimori.io/animes/48561-jujutsu-kaisen-0-movie"
+            }
+          },
+          {
+            "relationKind": "sequel",
+            "relationText": "Продолжение",
+            "anime": {
+              "id": "51009",
+              "name": "Jujutsu Kaisen 2nd Season",
+              "russian": "Магическая битва 2",
+              "url": "https://shikimori.io/animes/51009-jujutsu-kaisen-2nd-season"
+            }
+          },
+          {
+            "relationKind": "adaptation",
+            "relationText": "Адаптация",
+            "anime": null
+          },
+          {
+            "relationKind": "summary",
+            "relationText": "Обобщение",
+            "anime": {
+              "id": "56243",
+              "name": "Jujutsu Kaisen 2nd Season Recaps",
+              "russian": "Магическая битва 2: Рекапы",
+              "url": "https://shikimori.io/animes/56243-jujutsu-kaisen-2nd-season-recaps"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "38777",
+              "name": "Jujutsu Kaisen Official PVs",
+              "russian": "Магическая битва PV",
+              "url": "https://shikimori.io/animes/38777-jujutsu-kaisen-official-pvs"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "52558",
+              "name": "Vivid Vice",
+              "russian": "Яркий порок",
+              "url": "https://shikimori.io/animes/52558-vivid-vice"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "64080",
+              "name": "Jujutsu Kaisen Modulo Saishuu Sankan Hatsubai Kinen Special PV",
+              "russian": "Магическая битва: Модуль PV",
+              "url": "https://shikimori.io/animes/64080-jujutsu-kaisen-modulo-saishuu-sankan-hatsubai-kinen-special-pv"
+            }
+          }
+        ]
+      },
+      {
+        "id": "52991",
+        "name": "Sousou no Frieren",
+        "russian": "Провожающая в последний путь Фрирен",
+        "english": "Frieren: Beyond Journey's End",
+        "japanese": "葬送のフリーレン",
+        "synonyms": ["Фрирен, провожающая в последний путь", "Frieren at the Funeral"],
+        "kind": "tv",
+        "status": "released",
+        "rating": "pg_13",
+        "score": 9.25,
+        "episodes": 28,
+        "episodesAired": 27,
+        "duration": 24,
+        "airedOn": {
+          "year": 2023,
+          "month": 9,
+          "day": 29,
+          "date": "2023-09-29"
+        },
+        "releasedOn": {
+          "year": 2024,
+          "month": 3,
+          "day": 22,
+          "date": "2024-03-22"
+        },
+        "nextEpisodeAt": null,
+        "url": "https://shikimori.io/animes/52991-sousou-no-frieren",
+        "genres": [
+          {
+            "id": "27",
+            "name": "Shounen",
+            "russian": "Сёнен",
+            "kind": "demographic"
+          },
+          {
+            "id": "2",
+            "name": "Adventure",
+            "russian": "Приключения",
+            "kind": "genre"
+          },
+          {
+            "id": "8",
+            "name": "Drama",
+            "russian": "Драма",
+            "kind": "genre"
+          },
+          {
+            "id": "10",
+            "name": "Fantasy",
+            "russian": "Фэнтези",
+            "kind": "genre"
+          },
+          {
+            "id": "114",
+            "name": "Award Winning",
+            "russian": "Удостоено наград",
+            "kind": "theme"
+          }
+        ],
+        "studios": [
+          {
+            "id": "11",
+            "name": "Madhouse"
+          }
+        ],
+        "poster": {
+          "originalUrl": "https://shikimori.io/uploads/poster/animes/52991/dc841cc9fce2aa1e9907a4b61c5d1d92.jpeg",
+          "mainUrl": "https://shikimori.io/uploads/poster/animes/52991/main-d1e1c7c50f69eee9033229dcdfda5e23.webp"
+        },
+        "related": [
+          {
+            "relationKind": "sequel",
+            "relationText": "Продолжение",
+            "anime": {
+              "id": "59978",
+              "name": "Sousou no Frieren 2nd Season",
+              "russian": "Провожающая в последний путь Фрирен 2",
+              "url": "https://shikimori.io/animes/59978-sousou-no-frieren-2nd-season"
+            }
+          },
+          {
+            "relationKind": "adaptation",
+            "relationText": "Адаптация",
+            "anime": null
+          },
+          {
+            "relationKind": "side_story",
+            "relationText": "Другая история",
+            "anime": {
+              "id": "56885",
+              "name": "Sousou no Frieren: ●● no Mahou",
+              "russian": "Провожающая в последний путь Фрирен: Магия ●●",
+              "url": "https://shikimori.io/animes/56885-sousou-no-frieren-no-mahou"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "56805",
+              "name": "Yuusha",
+              "russian": "Герой",
+              "url": "https://shikimori.io/animes/56805-yuusha"
+            }
+          },
+          {
+            "relationKind": "other",
+            "relationText": "Прочее",
+            "anime": {
+              "id": "58313",
+              "name": "Haru (2024)",
+              "russian": "Солнечный",
+              "url": "https://shikimori.io/animes/58313-haru-2024"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

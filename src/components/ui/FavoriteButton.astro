@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  id: string;
+  large?: boolean;
+}
+const { id, large = false } = Astro.props;
+---
+
+<button
+  class:list={['favorite-button', { 'favorite-large': large }]}
+  data-favorite={id}
+  aria-label="Добавить в избранное"
+  aria-pressed="false"
+  disabled
+>
+  <Icon name={large ? 'plus' : 'bookmark'} />
+  {large && <span>В избранное</span>}
+</button>

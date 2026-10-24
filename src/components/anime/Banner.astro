@@ -1,0 +1,21 @@
+---
+import type { Anime } from '../../types/anime';
+import { imageUrl } from '../../lib/images';
+const { anime: a } = Astro.props as { anime: Anime };
+---
+
+<div class:list={['detail-banner', { 'neutral-banner': !a.bannerUrl && !a.posterUrl }]}>
+  {(a.bannerUrl || a.posterUrl) && (
+    <img
+      class:list={{ 'poster-backdrop': !a.bannerUrl }}
+      src={imageUrl((a.bannerUrl || a.posterUrl)!, import.meta.env.BASE_URL)}
+      data-banner-image
+      alt=""
+      width="1600"
+      height="500"
+      decoding="async"
+      style={{ objectPosition: a.bannerPosition }}
+    />
+  )}
+  {a.imageAttribution && <span class="banner-attribution">{a.imageAttribution}</span>}
+</div>

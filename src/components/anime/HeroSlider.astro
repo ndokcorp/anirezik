@@ -1,0 +1,88 @@
+---
+import { anime } from '../../data/anime';
+import { url } from '../../lib/paths';
+import Icon from '../ui/Icon.astro';
+import FavoriteButton from '../ui/FavoriteButton.astro';
+import { imageUrl, imageFallback } from '../../lib/images';
+const slides = [52299, 38000, 40748]
+  .map((id) => anime.find((a) => a.shikimoriId === id))
+  .filter((a): a is (typeof anime)[number] => !!a);
+---
+
+<section class="hero" aria-roledescription="карусель" aria-label="Рекомендуемое аниме" tabindex="0">
+  {slides.map((a, i) => (
+    <article
+      class:list={['hero-slide', { selected: i === 0 }]}
+      data-slide={i}
+      aria-hidden={i !== 0}
+      inert={i !== 0}
+    >
+      <img
+        class:list={['hero-image', { 'poster-backdrop': !a.bannerUrl }]}
+        data-banner-image
+        src={imageUrl(
+          i === 0 ? a.backdropUrl || a.bannerUrl || a.poster : imageFallback,
+          import.meta.env.BASE_URL,
+        )}
+        data-slide-image-src={
+          i === 0
+            ? undefined
+            : imageUrl(a.backdropUrl || a.bannerUrl || a.poster, import.meta.env.BASE_URL)
+        }
+        alt=""
+        width="1600"
+        height="900"
+        loading={i === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={i === 0 ? 'high' : 'auto'}
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span></span> В ЦЕНТРЕ ВНИМАНИЯ
+        </div>
+        <div class="hero-meta">
+          <span>{a.year}</span>
+          <span>{a.type}</span>
+          <span>{a.genres[0]}</span>
+          {a.ageRating && <span>{a.ageRating}</span>}
+        </div>
+        <h1 class:list={{ 'long-title': (a.englishTitle || a.originalTitle).length > 25 }}>
+          {a.englishTitle || a.originalTitle}
+        </h1>
+        <p class="hero-russian">{a.title}</p>
+        <p class="hero-description">{a.description}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={url(`anime/${a.slug}/`)}>
+            <Icon name="arrow" size={18} />
+            Подробнее
+          </a>
+          <FavoriteButton id={a.id} large />
+        </div>
+      </div>
+      {a.imageAttribution && <span class="hero-watermark">{a.imageAttribution}</span>}
+    </article>
+  ))}
+  <div class="hero-bottom">
+    <div class="slide-dots" aria-label="Выбор слайда">
+      {slides.map((a, i) => (
+        <button
+          class:list={{ active: i === 0 }}
+          data-slide-to={i}
+          aria-label={`Слайд ${i + 1}: ${a.originalTitle}`}
+          aria-pressed={i === 0}
+        />
+      ))}
+    </div>
+    <div class="slide-count">
+      <span data-current-slide>01</span>
+      <span> / 03</span>
+      <button data-prev-slide aria-label="Предыдущий слайд">
+        <Icon name="arrow" size={17} />
+      </button>
+      <button data-next-slide aria-label="Следующий слайд">
+        <Icon name="arrow" size={17} />
+      </button>
+    </div>
+  </div>
+</section>

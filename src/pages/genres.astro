@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { genres, anime } from '../data/anime';
+import { url } from '../lib/paths';
+---
+
+<Layout title="Жанры аниме" active="genres">
+  <div class="page-heading">
+    <span class="eyebrow">ВЫБЕРИ НАСТРОЕНИЕ</span>
+    <h1>Мир разных историй</h1>
+    <p>Найди аниме, которое подходит именно тебе.</p>
+  </div>
+  <div class="genre-tiles genre-page-grid">
+    {genres.map((g, i) => (
+      <a href={url(`catalog/?genre=${encodeURIComponent(g)}`)}>
+        <span class="genre-number">0{i + 1}</span>
+        <h3>{g}</h3>
+        <span>В каталоге: {anime.filter((a) => a.genres.includes(g)).length} · Открыть ↗</span>
+      </a>
+    ))}
+  </div>
+</Layout>

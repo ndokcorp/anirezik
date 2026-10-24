@@ -1,0 +1,42 @@
+---
+import type { Anime } from '../../types/anime';
+import { getVideoSources } from '../../lib/providers/video';
+import EpisodeSelector from './EpisodeSelector.astro';
+import DubSelector from './DubSelector.astro';
+import { safeJson } from '../../lib/serialize';
+interface Props {
+  anime: Anime;
+}
+const { anime } = Astro.props;
+const sources = await getVideoSources(anime.id);
+const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) => a - b);
+---
+
+<section class="info-panel" aria-labelledby="watch-heading">
+  <h2 id="watch-heading">Где посмотреть</h2>
+  {sources.length > 0 ? (
+    <div class="anime-player" data-player>
+      <div class="video-controls">
+        <EpisodeSelector episodes={episodes} />
+        <DubSelector variants={[]} />
+      </div>
+      <div data-video-surface></div>
+      <p data-video-credit></p>
+      <script type="application/json" data-video-sources set:html={safeJson(sources)} />
+    </div>
+  ) : (
+    <p>
+      Разрешённые видеопровайдеры пока не подключены. Кнопки воспроизведения и выбора озвучки
+      появятся, когда будут доступны проверенные источники для вашего региона.
+    </p>
+  )}
+  {anime.sources.map((source) => (
+    <a class="button button-secondary" href={source.url} rel="noopener noreferrer" target="_blank">
+      {source.label} ↗
+    </a>
+  ))}
+</section>
+<script>
+  import { initPlayers } from '../../lib/video-player';
+  initPlayers();
+</script>

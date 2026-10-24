@@ -1,0 +1,11 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = 'Загрузка…' } = Astro.props;
+---
+
+<div class="loading-state" role="status" aria-live="polite">
+  <span class="loading-dot" aria-hidden="true"></span>
+  {label}
+</div>

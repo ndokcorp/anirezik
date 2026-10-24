@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib/paths';
+---
+
+<Layout title="Страница не найдена" noindex>
+  <div class="empty-state">
+    <div class="empty-icon">404</div>
+    <h1>Эта история пока не найдена</h1>
+    <p>Возможно, адрес изменился. Вернёмся туда, где начинается аниме.</p>
+    <a class="button button-primary" href={url()}>
+      На главную
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib/paths';
+---
+
+<Layout title="Избранное" active="favorites" noindex>
+  <div class="page-heading">
+    <span class="eyebrow">ТВОЯ ЛИЧНАЯ ПОДБОРКА</span>
+    <h1>Избранное</h1>
+    <p>Истории, к которым хочется вернуться. Сохраняются в этом браузере.</p>
+  </div>
+  <div id="favorites-list" hidden>
+    <p id="favorites-status" role="status"></p>
+    <div class="anime-grid" id="favorites-grid"></div>
+    <button class="button button-secondary load-more" id="favorites-more" hidden>
+      Показать ещё
+    </button>
+  </div>
+  <p id="favorites-unavailable" class="info-panel" hidden></p>
+  <div class="empty-state" id="favorites-empty">
+    <div class="empty-icon">♡</div>
+    <h2>Здесь будут ваши любимые истории</h2>
+    <p>Нажмите на закладку на карточке аниме, чтобы добавить его в свою коллекцию.</p>
+    <a class="button button-primary" href={url('catalog/')}>
+      Найти своё аниме
+    </a>
+  </div>
+  <noscript>
+    <p>Для локального списка избранного включите JavaScript.</p>
+  </noscript>
+</Layout>

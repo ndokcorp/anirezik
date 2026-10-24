@@ -1,0 +1,15 @@
+:root {
+  color-scheme: dark;
+  --bg: #09090b;
+  --bg-secondary: #111115;
+  --surface: #18181d;
+  --red: #be1020;
+  --red-hover: #d7192b;
+  --text: #fff;
+  --muted: #a1a1aa;
+  --border: #29292f;
+  --radius: 22px;
+  --space: 24px;
+  --max-width: 1600px;
+  --ease: 200ms ease;
+}

@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimeGrid from '../components/anime/AnimeGrid.astro';
+import FilterPanel from '../components/FilterPanel.astro';
+import Icon from '../components/ui/Icon.astro';
+import { anime, catalog } from '../data/anime';
+---
+
+<Layout title="Каталог аниме" active="catalog">
+  <div class="page-heading">
+    <span class="eyebrow">ИССЛЕДУЙ. НАХОДИ. ВЛЮБЛЯЙСЯ.</span>
+    <h1>Каталог аниме</h1>
+    <p>
+      Поиск по {anime.length} аниме в AniRezik. Метаданные: Shikimori · снимок от{' '}
+      {new Date(catalog.fetchedAt).toLocaleDateString('ru-RU', { timeZone: 'Asia/Tashkent' })}.
+      Поиск по всему импортированному индексу; покрытие ограничено доступными записями снимка.
+    </p>
+  </div>
+  <div class="catalog-toolbar">
+    <input
+      class="catalog-search"
+      id="catalog-search"
+      type="search"
+      placeholder="Название на русском или в оригинале"
+      aria-label="Поиск в каталоге"
+    />
+    <button
+      class="button button-secondary filter-toggle"
+      aria-controls="filter-panel"
+      aria-expanded="false"
+    >
+      <Icon name="filter" size={18} />
+      Фильтры
+    </button>
+  </div>
+  <FilterPanel />
+  <p class="result-count" aria-live="polite">
+    Найдено: {anime.length} · Показано: {Math.min(24, anime.length)}
+  </p>
+  <AnimeGrid items={anime.slice(0, 24)} id="catalog-grid" />
+  <div class="empty-state" id="catalog-empty" hidden>
+    <div class="empty-icon">⌕</div>
+    <h2>Ничего не найдено</h2>
+    <p>Попробуйте другое название или сбросьте фильтры.</p>
+    <button class="button button-secondary" data-reset>
+      Сбросить фильтры
+    </button>
+  </div>
+  <button class="button button-secondary load-more" id="load-more" hidden={anime.length <= 24}>
+    Показать ещё
+  </button>
+</Layout>

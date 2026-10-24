@@ -1,0 +1,15 @@
+---
+interface Props {
+  variants: { id: string; label: string }[];
+}
+const { variants } = Astro.props;
+---
+
+<label>
+  Аудиодорожка
+  <select data-video-dub>
+    {variants.map((v) => (
+      <option value={v.id}>{v.label}</option>
+    ))}
+  </select>
+</label>

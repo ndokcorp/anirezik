@@ -1,0 +1,15 @@
+---
+interface Props {
+  episodes: number[];
+}
+const { episodes } = Astro.props;
+---
+
+<label>
+  Эпизод
+  <select data-video-episode>
+    {episodes.map((n) => (
+      <option value={n}>Серия {n}</option>
+    ))}
+  </select>
+</label>
