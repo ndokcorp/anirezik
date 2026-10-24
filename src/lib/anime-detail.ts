@@ -1,3 +1,7 @@
+import { rememberAnime } from './recent-anime';
+import { ageLabel } from './card-meta';
+import { loadFavoriteCards } from './card-packages';
+import { renderCards } from './card-renderer';
 import type { Anime, RelatedAnime } from '../types/anime';
 import { element as el, favoriteButton, posterImage } from './card-renderer';
 import { loadImages, fallbackImages } from './image-service';
@@ -8,6 +12,15 @@ import { ratingBadge } from './rating';
 import { initDescriptions } from './description-client';
 type Detail = Anime & {
   hasDescription?: boolean;
+  chronology?: {
+    id: string;
+    title: string;
+    href: string;
+    date: string | null;
+    type: string;
+    current: boolean;
+  }[];
+  similarIds?: string[];
   related: (RelatedAnime & { href: string; external: boolean; score: number | null })[];
 };
 function externalLink(text: string, href: string) {
@@ -65,7 +78,13 @@ export async function initAnimeDetail() {
       img.dataset.bannerImage = '';
       banner.append(img);
     } else banner.classList.add('neutral-banner');
-    if (images.imageAttribution)
+    const bannerRating = ratingBadge(a.score);
+    if (bannerRating) {
+      const badge = el('div', 'banner-rating');
+      badge.append(bannerRating);
+      banner.append(badge);
+    }
+    if (images.backdropUrl && images.imageAttribution)
       banner.append(el('span', 'banner-attribution', images.imageAttribution));
     fragment.append(banner);
     const article = el('article', 'detail-content'),
@@ -80,7 +99,7 @@ export async function initAnimeDetail() {
       a.year ?? '—',
       a.type,
       a.status,
-      a.ageRating && a.ageRating !== 'NONE' ? a.ageRating : null,
+      ageLabel(a.ageRating),
       a.episodes === null ? 'Серии: —' : `${a.episodes} серий`,
     ])
       if (value !== null) tags.append(el('span', '', String(value)));
@@ -90,34 +109,35 @@ export async function initAnimeDetail() {
       tags.append(link);
     }
     copy.append(tags);
-    const description = el(
-      'p',
-      'description',
-      a.description ||
-        'Редакционное описание пока не добавлено. Подробности доступны на странице источника.',
-    );
+    const description = el('p', 'description', a.description || 'Описание пока недоступно.');
     if (a.hasDescription && !a.description)
       description.dataset.descriptionId = String(a.shikimoriId);
     copy.append(description);
     if (a.description) copy.append(el('p', 'source-note', 'Описание редакции AniRezik'));
-    if (a.score) {
-      const score = el('p', 'source-rating');
-      score.append(
-        externalLink(`★ ${a.score.toFixed(2)}/10 — оценка пользователей Shikimori ↗`, a.sourceUrl),
-      );
-      copy.append(score);
+    if (!a.description) {
+      const source = externalLink('Описание на Shikimori ↗', a.sourceUrl);
+      source.className = 'source-note';
+      copy.append(source);
     }
-    copy.append(favoriteButton(a.id, true));
-    article.append(
+    const jump = el('a', 'button button-primary player-jump', 'К плееру · готовится');
+    jump.href = '#anime-player';
+    copy.append(jump);
+    const sidebar = el('aside', 'detail-sidebar'),
+      actions = el('div', 'detail-actions');
+    const share = el('button', 'button button-secondary', 'Поделиться');
+    share.dataset.shareAnime = '';
+    actions.append(favoriteButton(a.id, true), share);
+    sidebar.append(
       posterImage(
         { ...images, poster: images.posterDetailUrl || images.poster },
         a.title,
         'detail-poster',
       ),
-      copy,
+      actions,
     );
+    article.append(sidebar, copy);
     fragment.append(article);
-    const info = panel('Информация об аниме'),
+    const info = panel('Сведения об аниме'),
       facts = el('dl', 'anime-facts');
     function fact(list: HTMLElement, label: string, value: string | Node) {
       const row = el('div');
@@ -147,26 +167,49 @@ export async function initAnimeDetail() {
     note.append(externalLink('Открыть на Shikimori ↗', a.sourceUrl));
     info.append(note);
     fragment.append(info);
-    const episodes = panel('Эпизоды'),
-      counts = el('dl', 'anime-facts');
+    const counts = facts;
     fact(counts, 'Всего по данным источника', String(a.episodes ?? '—'));
     fact(counts, 'Вышло по данным источника', String(a.episodesAired ?? '—'));
     fact(counts, 'Статус', a.status);
     if (a.nextEpisodeAt) fact(counts, 'Следующий эпизод', displayDate(a.nextEpisodeAt));
-    episodes.append(
-      counts,
-      el('p', '', 'Сведения об эфире из Shikimori, не количество доступных видео на AniRezik.'),
-    );
-    fragment.append(episodes);
-    const watch = panel('Где посмотреть');
-    watch.append(
+    const watch = panel(a.title);
+    watch.id = 'anime-player';
+    watch.classList.add('player-section');
+    const placeholder = el('div', 'player-placeholder');
+    const icon = el('span', '', '▷');
+    icon.setAttribute('aria-hidden', 'true');
+    placeholder.append(
+      icon,
+      el('strong', '', 'Плеер готовится'),
       el(
         'p',
         '',
-        'Разрешённые видеопровайдеры пока не подключены. Кнопки воспроизведения и выбора озвучки появятся, когда будут доступны проверенные источники для вашего региона.',
+        'Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения разрешённого источника.',
       ),
     );
+    watch.append(placeholder);
     fragment.append(watch);
+    if (a.chronology && a.chronology.length > 1) {
+      const timeline = panel('Хронология франшизы'),
+        list = el('ol', 'franchise-timeline');
+      timeline.append(
+        el(
+          'p',
+          'source-note',
+          'Известные связи, порядок по датам выхода. Не гарантированный порядок просмотра.',
+        ),
+      );
+      for (const item of a.chronology) {
+        const row = el('li', item.current ? 'current' : '');
+        const link = el('a', '', item.title);
+        link.href = item.href;
+        if (item.current) link.setAttribute('aria-current', 'page');
+        row.append(el('span', '', `${displayDate(item.date)} · ${item.type}`), link);
+        list.append(row);
+      }
+      timeline.append(list);
+      fragment.append(timeline);
+    }
     if (a.related.length) {
       const section = panel('Связанные аниме и сезоны'),
         list = el('ul', 'related-list');
@@ -199,7 +242,38 @@ export async function initAnimeDetail() {
       section.append(list);
       fragment.append(section);
     }
+    let similarGrid: HTMLElement | undefined;
+    let similarSection: HTMLElement | undefined;
+    if (a.similarIds?.length) {
+      similarSection = panel('Похожие аниме');
+      similarGrid = el('div', 'anime-grid');
+      similarSection.append(similarGrid);
+      fragment.append(similarSection);
+    }
+    const comments = panel('Комментарии');
+    comments.append(el('p', '', 'Обсуждения появятся в одной из следующих версий.'));
+    fragment.append(comments);
     container.replaceChildren(fragment);
+    rememberAnime({ id: a.id, title: a.title, href: location.pathname + location.search });
+    if (similarGrid && similarSection) {
+      const grid = similarGrid,
+        section = similarSection;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          void loadFavoriteCards(a.similarIds!)
+            .then((result) => {
+              if (grid.isConnected) renderCards(grid, result.entries);
+            })
+            .catch(() => {
+              grid.textContent = 'Не удалось загрузить похожие аниме.';
+            });
+        },
+        { rootMargin: '160px' },
+      );
+      observer.observe(section);
+    }
     container.hidden = false;
     status.hidden = true;
     document.title = `${a.title} — AniRezik`;

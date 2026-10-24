@@ -1,3 +1,4 @@
+import { ageLabel } from '../src/lib/card-meta';
 import { test, expect } from '@playwright/test';
 
 // Reproducible regressions; real CDN decoding is checked separately on Pages.
@@ -24,7 +25,7 @@ test('0.3.6: карточки без подписи, возраст/эпизод
   await card.scrollIntoViewIfNeeded();
   await expect(card.locator('img')).toHaveAttribute('src', solo.posterDetailUrl!);
   await expect(card.locator('.art-label')).toHaveCount(0);
-  await expect(card.locator('.card-age')).toHaveText(solo.ageRating!);
+  await expect(card.locator('.card-age')).toHaveText(ageLabel(solo.ageRating)!);
   await expect(card.locator('.card-episodes')).toHaveText(`${solo.episodes} эп.`);
   await card.locator('.card-link').hover();
   await expect
@@ -34,7 +35,7 @@ test('0.3.6: карточки без подписи, возраст/эпизод
   await expect(page.locator('video,iframe')).toHaveCount(0);
   await page.goto('catalog/?q=Solo%20Leveling');
   const dynamic = page.locator('#catalog-grid [data-anime-id="shikimori:52299"]');
-  await expect(dynamic.locator('.card-age')).toHaveText(solo.ageRating!);
+  await expect(dynamic.locator('.card-age')).toHaveText(ageLabel(solo.ageRating)!);
   await expect(dynamic.locator('.card-episodes')).toHaveText(`${solo.episodes} эп.`);
   await expect(dynamic.locator('.art-label')).toHaveCount(0);
 });
@@ -93,9 +94,7 @@ test('0.3.6: описания загружаются только для detail,
   await context.unroute('**/data/descriptions/1.json');
   await context.route('**/data/descriptions/1.json', (r) => r.abort());
   await page.reload();
-  await expect(page.locator('.description')).toContainText(
-    'Редакционное описание пока не добавлено',
-  );
+  await expect(page.locator('.description')).toContainText('Описание пока недоступно');
 });
 
 test('production: реестр ограничивает Shikimori независимо от локального переключателя', async ({
@@ -307,7 +306,7 @@ test('карточка, достоверная информация и связ�
   await page.locator('#catalog-grid article:visible .card-link').first().click();
   await expect(page.locator('.detail-copy h1')).toHaveText(solo.title);
   await expect(page.getByText('A-1 Pictures', { exact: true })).toBeVisible();
-  await expect(page.locator('.source-rating')).toContainText(`${solo.score!.toFixed(2)}/10`);
+  await expect(page.locator('.banner-rating')).toContainText(solo.score!.toFixed(1));
   await expect(page.locator('.description')).toHaveText(solo.description);
   for (const genre of solo.genres)
     await expect(
@@ -332,7 +331,7 @@ test('карточка, достоверная информация и связ�
   await expect(
     page.locator('.related-list').getByRole('link', { name: localRelation.title, exact: true }),
   ).toHaveAttribute('href', new RegExp(`/anime/${relatedTitle.slug}/$`));
-  await expect(page.getByRole('heading', { name: 'Где посмотреть' })).toBeVisible();
+  await expect(page.locator('#anime-player').getByRole('heading', { name: solo.title, exact: true })).toBeVisible();
   await expect(page.locator('iframe,video,[data-video-episode],[data-video-dub]')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /смотреть|воспроизвести/i })).toHaveCount(0);
   await expect(page.locator('.detail-poster')).toHaveAttribute(
@@ -525,7 +524,7 @@ test('поиск за пределами первоначальной тысяч
       title.sourceUrl,
     );
   }
-  await page.locator('.detail-copy [data-favorite]').click();
+  await page.locator('.detail-actions [data-favorite]').click();
   await page.goto('favorites/');
   await expect(page.locator('#favorites-list article:visible')).toHaveCount(1);
   await expect(page.locator('#favorites-list article:visible')).toHaveAttribute(
@@ -534,9 +533,7 @@ test('поиск за пределами первоначальной тысяч
   );
   const missing = anime.find((a) => !a.studios.length && !a.description)!;
   await page.goto(`anime/${missing.slug}/`);
-  await expect(page.locator('.description')).toContainText(
-    'Редакционное описание пока не добавлено',
-  );
+  await expect(page.locator('.description')).toContainText('Описание пока недоступно');
   await expect(
     page
       .locator('.anime-facts div')
@@ -636,7 +633,7 @@ test('редкий старый тайтл: универсальный марш�
   expect(requests.filter((url) => url.includes('/data/anime/'))).toHaveLength(1);
   await page.reload();
   await expect(page.locator('.detail-copy h1')).toHaveText(rare.title);
-  await page.locator('.detail-copy [data-favorite]').click();
+  await page.locator('.detail-actions [data-favorite]').click();
   await page.goto('favorites/');
   await expect(page.locator('#favorites-grid article')).toHaveCount(1);
   await expect(page.locator('#favorites-grid h3')).toHaveText(rare.title);
@@ -917,7 +914,7 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
         .poll(() => thumb.evaluate((i) => (i as HTMLImageElement).naturalWidth))
         .toBe(400);
       await expect(thumb).toHaveAttribute('loading', 'lazy');
-      await expect(thumb).toHaveAttribute('title', /Own fixture/);
+      await expect(thumb).not.toHaveAttribute('title', /Own fixture/);
       await expect(page.locator('.related-list .related-credit')).toHaveCount(0);
     }
   }
@@ -957,4 +954,46 @@ test('статические связанные сезоны использую�
       true,
     );
   }
+});
+
+test('история трёх просмотров, detail actions и мобильный поиск без скачка', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: async (text: string) => {
+          (window as Window & { copied?: string }).copied = text;
+        },
+      },
+      configurable: true,
+    });
+  });
+  for (const id of [1, 5, 59193]) {
+    await page.goto(`anime/?id=${id}`);
+    await expect(page.locator('.detail-copy h1')).toBeVisible();
+  }
+  await page.locator('[data-share-anime]').click();
+  await expect(page.locator('[data-share-anime]')).toHaveText('Ссылка скопирована');
+  expect(await page.evaluate(() => (window as Window & { copied?: string }).copied)).toBe(
+    page.url(),
+  );
+  await page.getByRole('link', { name: 'К плееру · готовится' }).click();
+  await expect(page.locator('#anime-player')).toBeInViewport();
+  await expect(page.locator('#anime-player')).toContainText('Просмотр пока недоступен');
+  await expect(page.locator('video,iframe')).toHaveCount(0);
+  await page.goto('./');
+  await expect(page).toHaveTitle('AniRezik');
+  await page.setViewportSize({ width: 390, height: 844 });
+  const before = await page.locator('main').boundingBox();
+  await page.getByRole('button', { name: 'Открыть поиск' }).click();
+  const input = page.getByRole('combobox');
+  await expect(page.locator('#search-results')).toContainText('Недавно просмотрено');
+  await expect(page.locator('#search-results [role=option]')).toHaveCount(3);
+  expect((await page.locator('main').boundingBox())!.y).toBe(before!.y);
+  expect(await input.evaluate((node) => getComputedStyle(node).fontSize)).toBe('16px');
+  await input.fill('Solo Leveling');
+  await expect(page.locator('#search-results')).not.toContainText('Недавно просмотрено');
+  await expect(page.locator('#search-results [role=option]').first()).toBeVisible();
+  await input.fill('');
+  await expect(page.locator('#search-results [role=option]')).toHaveCount(3);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

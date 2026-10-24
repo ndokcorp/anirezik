@@ -12,8 +12,8 @@ const sources = await getVideoSources(anime.id);
 const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) => a - b);
 ---
 
-<section class="info-panel" aria-labelledby="watch-heading">
-  <h2 id="watch-heading">Где посмотреть</h2>
+<section id="anime-player" class="info-panel player-section" aria-labelledby="watch-heading">
+  <h2 id="watch-heading">{anime.title}</h2>
   {sources.length > 0 ? (
     <div class="anime-player" data-player>
       <div class="video-controls">
@@ -25,10 +25,14 @@ const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) =
       <script type="application/json" data-video-sources set:html={safeJson(sources)} />
     </div>
   ) : (
-    <p>
-      Разрешённые видеопровайдеры пока не подключены. Кнопки воспроизведения и выбора озвучки
-      появятся, когда будут доступны проверенные источники для вашего региона.
-    </p>
+    <div class="player-placeholder">
+      <span aria-hidden="true">▷</span>
+      <strong>Плеер готовится</strong>
+      <p>
+        Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения
+        разрешённого источника.
+      </p>
+    </div>
   )}
   {anime.sources.map((source) => (
     <a class="button button-secondary" href={source.url} rel="noopener noreferrer" target="_blank">

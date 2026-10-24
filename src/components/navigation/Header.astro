@@ -12,7 +12,6 @@ const { active = 'home' } = Astro.props;
     {[
       ['home', '', 'Главная'],
       ['catalog', 'catalog/', 'Каталог'],
-      ['genres', 'genres/', 'Жанры'],
       ['schedule', 'schedule/', 'Расписание'],
     ].map(([id, path, label]) => (
       <a
@@ -51,7 +50,6 @@ const { active = 'home' } = Astro.props;
     {[
       ['', 'Главная'],
       ['catalog/', 'Каталог'],
-      ['genres/', 'Жанры'],
       ['schedule/', 'Расписание'],
       ['favorites/', 'Избранное'],
       ['profile/', 'Профиль'],

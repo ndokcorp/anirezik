@@ -6,7 +6,8 @@ import { anime, animeByShikimoriId, staticPageIds, animePath } from '../../data/
 import { url } from '../../lib/paths';
 import FavoriteButton from '../../components/ui/FavoriteButton.astro';
 import AnimeSection from '../../components/anime/AnimeSection.astro';
-import EpisodeList from '../../components/anime/EpisodeList.astro';
+import { chronology, similarAnime } from '../../lib/detail-sections';
+import { ageLabel } from '../../lib/card-meta';
 import AnimePlayer from '../../components/anime/AnimePlayer.astro';
 import { displayDate } from '../../lib/dates';
 import Rating from '../../components/ui/Rating.astro';
@@ -17,12 +18,8 @@ export function getStaticPaths() {
     .map((a) => ({ params: { slug: a.slug }, props: { a } }));
 }
 const { a } = Astro.props;
-const related = [];
-for (const candidate of anime) {
-  if (candidate.id !== a.id && candidate.genres.some((genre) => a.genres.includes(genre)))
-    related.push(candidate);
-  if (related.length === 6) break;
-}
+const related = similarAnime(a);
+const timeline = chronology(a);
 ---
 
 <Layout
@@ -34,17 +31,25 @@ for (const candidate of anime) {
   active="catalog"
 >
   <Banner anime={a} />
-  <article class="detail-content">
-    <Poster
-      class="detail-poster"
-      src={a.posterDetailUrl || a.poster}
-      alternative={a.posterUrl || undefined}
-      alt={
-        a.imageLicenseStatus === 'original-ai'
-          ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
-          : 'Постер: ' + a.title
-      }
-    />
+  <article class="detail-content" data-viewed-id={a.id} data-viewed-title={a.title}>
+    <aside class="detail-sidebar">
+      <Poster
+        class="detail-poster"
+        src={a.posterDetailUrl || a.poster}
+        alternative={a.posterUrl || undefined}
+        alt={
+          a.imageLicenseStatus === 'original-ai'
+            ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
+            : 'Постер: ' + a.title
+        }
+      />
+      <div class="detail-actions">
+        <FavoriteButton id={a.id} large />
+        <button class="button button-secondary" data-share-anime>
+          Поделиться
+        </button>
+      </div>
+    </aside>
     <div class="detail-copy">
       <span class="eyebrow">ANIREZIK / КАТАЛОГ</span>
       <h1>{a.title}</h1>
@@ -53,7 +58,7 @@ for (const candidate of anime) {
         <span>{a.year ?? '—'}</span>
         <span>{a.type}</span>
         <span>{a.status}</span>
-        {a.ageRating && a.ageRating !== 'NONE' && <span>{a.ageRating}</span>}
+        {ageLabel(a.ageRating) && <span>{ageLabel(a.ageRating)}</span>}
         <span>
           {a.episodes === null
             ? 'Серии: —'
@@ -71,22 +76,21 @@ for (const candidate of anime) {
           !a.description && descriptions.has(a.shikimoriId) ? a.shikimoriId : undefined
         }
       >
-        {a.description ||
-          'Редакционное описание пока не добавлено. Подробности доступны на странице источника.'}
+        {a.description || 'Описание пока недоступно.'}
       </p>
-      {a.description && <p class="source-note">Описание редакции AniRezik</p>}
-      {a.score && (
-        <p class="source-rating">
-          <a href={a.sourceUrl} target="_blank" rel="noopener noreferrer">
-            ★ {a.score.toFixed(2)}/10 — оценка пользователей Shikimori ↗
-          </a>
-        </p>
+      {!a.description && (
+        <a class="source-note" href={a.sourceUrl} target="_blank" rel="noopener noreferrer">
+          Описание на Shikimori ↗
+        </a>
       )}
-      <FavoriteButton id={a.id} large />
+      {a.description && <p class="source-note">Описание редакции AniRezik</p>}
+      <a class="button button-primary player-jump" href="#anime-player">
+        К плееру <span>· готовится</span>
+      </a>
     </div>
   </article>
   <section class="info-panel">
-    <h2>Информация об аниме</h2>
+    <h2>Сведения об аниме</h2>
     <dl class="anime-facts">
       <div>
         <dt>Оригинальное название</dt>
@@ -136,6 +140,24 @@ for (const candidate of anime) {
           <dd>{a.themes.join(', ')}</dd>
         </div>
       )}
+      <div>
+        <dt>Всего по данным источника</dt>
+        <dd>{a.episodes ?? '—'}</dd>
+      </div>
+      <div>
+        <dt>Вышло по данным источника</dt>
+        <dd>{a.episodesAired ?? '—'}</dd>
+      </div>
+      <div>
+        <dt>Статус</dt>
+        <dd>{a.status}</dd>
+      </div>
+      {a.nextEpisodeAt && (
+        <div>
+          <dt>Следующий эпизод</dt>
+          <dd>{displayDate(a.nextEpisodeAt)}</dd>
+        </div>
+      )}
     </dl>
     <p class="source-note">
       Данные обновлены {displayDate(a.fetchedAt)} ·{' '}
@@ -145,8 +167,27 @@ for (const candidate of anime) {
       . Студии анимации указаны отдельно от будущих студий озвучки.
     </p>
   </section>
-  <EpisodeList anime={a} />
   <AnimePlayer anime={a} />
+  {timeline.length > 1 && (
+    <section class="info-panel">
+      <h2>Хронология франшизы</h2>
+      <p class="source-note">
+        Известные связи, порядок по датам выхода. Не гарантированный порядок просмотра.
+      </p>
+      <ol class="franchise-timeline">
+        {timeline.map((item) => (
+          <li class:list={{ current: item.current }}>
+            <span>
+              {displayDate(item.date)} · {item.type}
+            </span>
+            <a href={item.href} aria-current={item.current ? 'page' : undefined}>
+              {item.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
   {a.related.length > 0 && (
     <section class="info-panel">
       <h2>Связанные аниме и сезоны</h2>
@@ -202,8 +243,12 @@ for (const candidate of anime) {
     </section>
   )}
   <AnimeSection
-    title="Похожие истории"
+    title="Похожие аниме"
     subtitle="Совпадение жанров в каталоге AniRezik"
     items={related}
   />
+  <section class="info-panel comments-placeholder">
+    <h2>Комментарии</h2>
+    <p>Обсуждения появятся в одной из следующих версий.</p>
+  </section>
 </Layout>

@@ -1,4 +1,5 @@
 ---
+import Rating from '../ui/Rating.astro';
 import type { Anime } from '../../types/anime';
 import { imageUrl } from '../../lib/images';
 const { anime: a } = Astro.props as { anime: Anime };
@@ -24,5 +25,10 @@ const { anime: a } = Astro.props as { anime: Anime };
       style={{ objectPosition: a.bannerPosition }}
     />
   )}
-  {a.imageAttribution && <span class="banner-attribution">{a.imageAttribution}</span>}
+  {a.bannerUrl && a.imageAttribution && (
+    <span class="banner-attribution">{a.imageAttribution}</span>
+  )}
+  <div class="banner-rating">
+    <Rating score={a.score} />
+  </div>
 </div>

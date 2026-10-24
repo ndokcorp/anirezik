@@ -12,7 +12,6 @@ async function revealImage(img: HTMLImageElement) {
       if (art.posterDetailUrl && art.posterDetailUrl !== art.poster)
         img.dataset.imageAlternative = art.posterDetailUrl;
       img.alt = `${art.imageLicenseStatus === 'original-ai' ? 'AI-иллюстрация, не официальный постер' : 'Постер'}: ${img.dataset.imageTitle || ''}`;
-      if (art.imageAttribution) img.title = art.imageAttribution;
       if (art.imageAttribution && art.imageLicenseStatus === 'original-ai') {
         const label = document.createElement(
           img.dataset.imageCredit === 'inline' ? 'small' : 'span',

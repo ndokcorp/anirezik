@@ -25,7 +25,10 @@ const permission: PosterSource = {
   scope: { kind: 'all' },
 };
 test('карточки и описания: фактический возраст/эпизоды; отдельные разрешённые тексты', () => {
-  expect(ageLabel('PG-13')).toBe('PG-13');
+  expect(ageLabel('PG-13')).toBe('16+');
+  expect(ageLabel('G')).toBe('6+');
+  expect(ageLabel('PG')).toBe('12+');
+  expect(ageLabel('R-17')).toBe('18+');
   for (const value of [null, undefined, 'NONE', 'invented']) expect(ageLabel(value)).toBeNull();
   expect(episodeLabel('TV', 12)).toBe('12 эп.');
   expect(episodeLabel('Фильм', null)).toBe('Фильм');

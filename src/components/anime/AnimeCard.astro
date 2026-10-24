@@ -25,7 +25,7 @@ const { anime: a } = Astro.props;
   data-title={a.title}
   data-search={searchText(a)}
 >
-  <a href={url(animePath(a))} class="card-link" title={a.posterAttribution || undefined}>
+  <a href={url(animePath(a))} class="card-link">
     <Poster
       src={a.poster}
       alternative={a.posterDetailUrl || undefined}

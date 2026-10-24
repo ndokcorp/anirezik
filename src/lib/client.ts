@@ -1,3 +1,4 @@
+import { initDetailActions } from './recent-anime';
 import { initImages } from './image-client';
 import { initDescriptions } from './description-client';
 import { storedFavoriteIds, writeFavorites, FAVORITES_KEY } from './favorites';
@@ -55,6 +56,7 @@ function initFavorites() {
   syncFavorites();
 }
 initFavorites();
+initDetailActions();
 initSearch();
 initFavoritesPage();
 

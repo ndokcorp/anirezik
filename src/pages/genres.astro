@@ -4,11 +4,11 @@ import { genres, anime } from '../data/anime';
 import { url } from '../lib/paths';
 ---
 
-<Layout title="Жанры аниме" active="genres">
+<Layout title="Жанры аниме" active="catalog">
   <div class="page-heading">
     <span class="eyebrow">ВЫБЕРИ НАСТРОЕНИЕ</span>
     <h1>Мир разных историй</h1>
-    <p>Найди аниме, которое подходит именно тебе.</p>
+    <p>Жанры доступны в фильтрах каталога. <a href={url("catalog/")}>Открыть каталог →</a></p>
   </div>
   <div class="genre-tiles genre-page-grid">
     {genres.map((g, i) => (

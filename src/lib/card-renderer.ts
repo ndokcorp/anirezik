@@ -90,7 +90,6 @@ export function renderCards(
     if (!images[a.shikimoriId]) img.dataset.imageId = String(a.shikimoriId);
     img.dataset.imageTitle = a.title;
     link.append(img);
-    if (art.imageAttribution) img.title = art.imageAttribution;
     if (art.imageLicenseStatus === 'original-ai')
       link.append(element('span', 'art-label', 'AI · НЕОФИЦИАЛЬНЫЙ АРТ'));
     link.append(element('div', 'card-shade'));
@@ -100,7 +99,7 @@ export function renderCards(
       count = episodeLabel(a.type, a.episodes);
     if (age) {
       const tag = element('span', 'card-age', age);
-      tag.title = 'Возрастная классификация Shikimori';
+      tag.title = 'Условная возрастная маркировка по классификации Shikimori';
       link.append(tag);
     }
     if (count) link.append(element('span', 'card-episodes', count));

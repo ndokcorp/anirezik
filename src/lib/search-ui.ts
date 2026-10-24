@@ -1,3 +1,4 @@
+import { recentAnime } from './recent-anime';
 import { queryCatalog } from './catalog-service';
 import { loadImages, fallbackImages } from './image-service';
 import { url } from './paths';
@@ -37,7 +38,27 @@ export function initSearch() {
     selected = -1;
     input!.removeAttribute('aria-activedescendant');
     if (!input!.value.trim()) {
-      close();
+      const recent = recentAnime();
+      if (!recent.length) {
+        close();
+        return;
+      }
+      const label = document.createElement('p');
+      label.className = 'search-scope';
+      label.textContent = 'Недавно просмотрено';
+      results!.append(label);
+      recent.forEach((item, i) => {
+        const link = document.createElement('a');
+        link.href = item.href;
+        link.textContent = item.title;
+        link.id = `search-option-${i}`;
+        link.setAttribute('role', 'option');
+        link.setAttribute('aria-selected', 'false');
+        results!.append(link);
+      });
+      input!.removeAttribute('aria-busy');
+      results!.hidden = false;
+      input!.setAttribute('aria-expanded', 'true');
       return;
     }
     results!.textContent = 'Загрузка поискового индекса…';
@@ -109,7 +130,7 @@ export function initSearch() {
   }
   input.addEventListener('input', search);
   input.addEventListener('focus', () => {
-    if (input.value.trim()) search();
+    void search();
   });
   input.addEventListener('keydown', (event) => {
     const links = [...results.querySelectorAll<HTMLAnchorElement>('a[role="option"]')];
@@ -133,7 +154,7 @@ export function initSearch() {
       input.setAttribute('aria-activedescendant', links[selected].id);
       links[selected].scrollIntoView({ block: 'nearest' });
     }
-    if (event.key === 'Enter' && input.value.trim()) {
+    if (event.key === 'Enter' && (input.value.trim() || selected >= 0)) {
       event.preventDefault();
       if (selected >= 0 && links[selected]) location.href = links[selected].href;
       else
@@ -145,7 +166,7 @@ export function initSearch() {
   });
   document.querySelector('[data-open-search]')?.addEventListener('click', () => {
     document.querySelector('.header')?.classList.toggle('search-open');
-    input.focus();
+    input.focus({ preventScroll: true });
   });
   document.addEventListener('keydown', (event) => {
     if (
@@ -156,7 +177,7 @@ export function initSearch() {
     ) {
       event.preventDefault();
       document.querySelector('.header')?.classList.add('search-open');
-      input.focus();
+      input.focus({ preventScroll: true });
     }
   });
   input.disabled = false;

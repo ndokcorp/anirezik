@@ -1,3 +1,4 @@
+import { chronology, similarAnime } from '../../../lib/detail-sections';
 import type { APIRoute } from 'astro';
 import { anime, animeByShikimoriId, animePath } from '../../../data/anime';
 import { url } from '../../../lib/paths';
@@ -27,6 +28,8 @@ export const GET: APIRoute = ({ props }) => {
   } = a;
   return Response.json({
     ...detail,
+    chronology: chronology(a),
+    similarIds: similarAnime(a).map((item) => item.id),
     hasDescription: descriptions.has(a.shikimoriId),
     related: a.related.map((relation) => {
       const local = animeByShikimoriId.get(relation.shikimoriId);
