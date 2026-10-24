@@ -4,6 +4,9 @@ import { ANIMES_QUERY } from './queries.ts';
 import { mapAnime, parseAnimeResponse } from './mapper.ts';
 import { legacyIds } from './legacy.ts';
 import { readCache, writeCache, atomicJson } from './cache.ts';
+// Compatibility importer for old bounded-import tests/tools. Production CLI uses maintenance.
+// maxTitles bounds this legacy refresh selection, never the retained snapshot size.
+export { syncMaintenance } from './maintenance.ts';
 export interface SyncOptions {
   output: string;
   cacheDir: string;
@@ -92,6 +95,6 @@ export async function syncCatalog(options: SyncOptions): Promise<CatalogSnapshot
     policy: { posters: 'placeholder', descriptions: 'editorial-only', popularity: 'editorial' },
     anime: [...mapped.values()],
   };
-  await atomicJson(options.output, snapshot, true);
+  await atomicJson(options.output, snapshot, true, true);
   return snapshot;
 }

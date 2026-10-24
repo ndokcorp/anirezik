@@ -7,6 +7,8 @@
     "hotlinking": null,
     "browserCaching": null,
     "commercialUse": "not-confirmed",
-    "scope": "poster.mainUrl / poster.originalUrl из официального GraphQL; разрешение на каталог пока не получено"
+    "scope": { "kind": "none", "animeIds": [], "urls": [] },
+    "expiresAt": null,
+    "scopeNote": "poster.mainUrl / poster.originalUrl из официального GraphQL; разрешение на каталог пока не получено"
   }
 }

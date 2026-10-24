@@ -8,6 +8,8 @@ export interface PosterSource {
   evidence: string;
   hotlinking: boolean | null;
   browserCaching: boolean | null;
+  scope: { kind: string; animeIds?: number[]; urls?: string[] };
+  expiresAt?: string | null;
 }
 export function localPosterExperiment(dev: boolean, flag: string | undefined, ci = false) {
   return dev && flag === '1' && !ci;
@@ -18,17 +20,29 @@ export function sourceApproved(source: PosterSource) {
     !!source.evidence.trim() &&
     !!source.attribution.trim() &&
     source.hotlinking === true &&
-    source.browserCaching === true
+    source.browserCaching === true &&
+    ['all', 'ids', 'urls'].includes(source.scope?.kind) &&
+    (!source.expiresAt ||
+      (Number.isFinite(Date.parse(source.expiresAt)) && Date.parse(source.expiresAt) > Date.now()))
   );
 }
-function exactPosterUrl(value: string | null | undefined, source: PosterSource) {
+function exactPosterUrl(
+  value: string | null | undefined,
+  source: PosterSource,
+  id: number,
+  experimental: boolean,
+) {
   if (!value) return null;
   try {
     const parsed = new URL(value);
     return parsed.protocol === 'https:' &&
       !parsed.username &&
       !parsed.password &&
-      source.allowedOrigins.includes(parsed.origin)
+      source.allowedOrigins.includes(parsed.origin) &&
+      (experimental ||
+        source.scope.kind === 'all' ||
+        (source.scope.kind === 'ids' && source.scope.animeIds?.includes(id)) ||
+        (source.scope.kind === 'urls' && source.scope.urls?.includes(value)))
       ? value
       : null;
   } catch {
@@ -43,8 +57,8 @@ export function resolveCatalogImages(
   const original = resolveImages(a.shikimoriId);
   if (!experimental && !sourceApproved(source))
     return { ...original, posterDetailUrl: original.posterUrl };
-  const main = exactPosterUrl(a.sourcePosterMainUrl, source);
-  const detail = exactPosterUrl(a.sourcePosterUrl, source);
+  const main = exactPosterUrl(a.sourcePosterMainUrl, source, a.shikimoriId, experimental);
+  const detail = exactPosterUrl(a.sourcePosterUrl, source, a.shikimoriId, experimental);
   if (!main && !detail) return { ...original, posterDetailUrl: original.posterUrl };
   const attribution = experimental
     ? 'Shikimori · локальный эксперимент; права на публикацию не подтверждены'

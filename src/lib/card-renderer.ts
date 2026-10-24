@@ -63,7 +63,7 @@ export function posterImage(images: ClientImages, title: string, className = '',
 export function renderCards(
   grid: HTMLElement,
   entries: CatalogEntry[],
-  images: Record<string, ClientImages>,
+  images: Record<string, ClientImages> = {},
 ) {
   const fragment = document.createDocumentFragment();
   for (const a of entries) {
@@ -81,7 +81,10 @@ export function renderCards(
     });
     const link = element('a', 'card-link');
     link.href = a.href;
-    link.append(posterImage(art, a.title, '', true));
+    const img = posterImage(art, a.title, '', true);
+    if (!images[a.shikimoriId]) img.dataset.imageId = String(a.shikimoriId);
+    img.dataset.imageTitle = a.title;
+    link.append(img);
     if (art.imageAttribution)
       link.append(
         element(

@@ -527,9 +527,11 @@ test('30 разрешённых тестовых HTTPS изображений д
   const fixtures = page.locator(
     '#catalog-grid img[src^="https://licensed-fixtures.invalid/"],#catalog-grid img[data-image-src^="https://licensed-fixtures.invalid/"]',
   );
-  await expect(fixtures).toHaveCount(30);
+  // Packages now hydrate near the viewport, so distant fixtures must stay deferred.
+  await expect(fixtures.first()).toBeVisible();
+  expect(await fixtures.count()).toBeLessThan(30);
   for (let i = 0; i < 30; i++) {
-    const image = fixtures.nth(i);
+    const image = page.locator(`#catalog-grid article[data-anime-id="shikimori:${ids[i]}"] img`);
     await image.scrollIntoViewIfNeeded();
     await expect(image).toHaveAttribute('src', /^https:\/\/licensed-fixtures/);
     await expect
@@ -544,6 +546,7 @@ test('30 разрешённых тестовых HTTPS изображений д
     await expect(image).toHaveAttribute('decoding', 'async');
     await expect(image).not.toHaveAttribute('crossorigin', /.*/);
   }
+  await expect(fixtures).toHaveCount(30);
   const first = page.locator('#catalog-grid article').first().locator('img');
   await first.evaluate(
     (img) => ((img as HTMLImageElement).src = 'https://licensed-fixtures.invalid/broken.svg'),
@@ -554,4 +557,124 @@ test('30 разрешённых тестовых HTTPS изображений д
     .poll(() => first.evaluate((img) => (img as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0);
   expect(brokenRequests).toBe(1);
+});
+
+test('пакеты изображений загружаются у экрана, кешируются и отвергают повреждение', async ({
+  page,
+  context,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const selected = anime.slice(0, 48);
+  const calls: number[] = [];
+  const posters: string[] = [];
+  let indexCalls = 0;
+  const buckets = [...new Set(selected.map((a) => Math.floor(a.shikimoriId / 1000)))];
+  await context.route('**/image-index.json', (route) => {
+    indexCalls++;
+    return route.fulfill({ json: { version: 2, sharded: true, buckets, images: {} } });
+  });
+  await context.route('**/data/images/*.json', async (route) => {
+    const bucket = Number(route.request().url().split('/').pop()!.split('.')[0]);
+    calls.push(bucket);
+    const images = Object.fromEntries(
+      selected
+        .filter((a) => Math.floor(a.shikimoriId / 1000) === bucket)
+        .map((a) => [
+          a.shikimoriId,
+          {
+            poster: `https://lazy-fixtures.invalid/${a.shikimoriId}.svg`,
+            posterUrl: null,
+            backdropUrl: null,
+            imageSource: 'Own fixture',
+            imageAttribution: 'Own test only',
+            imageLicenseStatus: 'permission-granted',
+          },
+        ]),
+    );
+    await route.fulfill({ json: images });
+  });
+  await context.route('https://lazy-fixtures.invalid/**', (route) => {
+    posters.push(route.request().url());
+    return route.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
+    });
+  });
+  await page.goto('catalog/');
+  await page.addStyleTag({ content: 'html {scroll-behavior:auto !important}' });
+  // Keep the viewport at the first row while appending; scrolling across all rows
+  // would legitimately request their images and invalidate a cold-viewport measure.
+  await page.locator('#load-more').evaluate((button) => (button as HTMLButtonElement).click());
+  await expect(page.locator('#catalog-grid article')).toHaveCount(48);
+  await page.evaluate(() => scrollTo(0, 0));
+  const first = page.locator('#catalog-grid article').first().locator('img');
+  await first.scrollIntoViewIfNeeded();
+  await expect(first).toHaveAttribute('src', /^https:\/\/lazy-fixtures/);
+  expect(posters.length).toBeLessThan(24);
+  expect(calls.length).toBeLessThan(buckets.length);
+  const last = page.locator('#catalog-grid article').last().locator('img');
+  await last.scrollIntoViewIfNeeded();
+  await expect(last).toHaveAttribute('src', /^https:\/\/lazy-fixtures/);
+  await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  await page.locator('#filter-sort').selectOption('title');
+  await expect(page.locator('#catalog-grid')).not.toHaveAttribute('aria-busy', 'true');
+  await page.locator('#filter-sort').selectOption('default');
+  await expect(page.locator('#catalog-grid article')).toHaveCount(24);
+  await page.locator('#catalog-grid article').first().scrollIntoViewIfNeeded();
+  expect(indexCalls).toBe(1);
+  expect(calls.length).toBe(new Set(calls).size);
+  expect(posters.some((url) => url.includes('/api/'))).toBe(false);
+
+  await context.unroute('**/data/images/*.json');
+  await context.route('**/data/images/*.json', (route) =>
+    route.fulfill({ json: { invalid: { poster: 123 } } }),
+  );
+  await page.reload();
+  await page.locator('#catalog-search').fill('Solo Leveling');
+  await expect(page.locator('#catalog-grid h3').first()).toHaveText(solo.title);
+  const broken = page.locator('#catalog-grid article').first().locator('img');
+  await broken.scrollIntoViewIfNeeded();
+  await expect(broken).toHaveAttribute('src', /poster-placeholder.svg$/);
+  await expect
+    .poll(() => broken.evaluate((img) => (img as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0);
+});
+
+test('запоздалый пакет постеров не меняет карточки нового поиска', async ({ page, context }) => {
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  let requested!: () => void;
+  const waiting = new Promise<void>((resolve) => {
+    requested = resolve;
+  });
+  await context.route('**/image-index.json', (route) =>
+    route.fulfill({ json: { version: 2, sharded: true, buckets: [52], images: {} } }),
+  );
+  await context.route('**/data/images/52.json', async (route) => {
+    requested();
+    await gate;
+    await route.fulfill({
+      json: {
+        52299: {
+          poster: 'https://stale-fixture.invalid/solo.svg',
+          posterUrl: null,
+          backdropUrl: null,
+          imageSource: 'Own fixture',
+          imageAttribution: 'Test',
+          imageLicenseStatus: 'permission-granted',
+        },
+      },
+    });
+  });
+  await page.goto('catalog/');
+  await page.locator('#catalog-search').fill('Solo Leveling');
+  await page.locator('#catalog-grid').scrollIntoViewIfNeeded();
+  await waiting;
+  await page.locator('#catalog-search').fill('Naruto');
+  await expect(page.locator('.result-count')).toContainText('Показано:');
+  await expect(page.locator('#catalog-grid h3').first()).not.toHaveText(solo.title);
+  release();
+  await expect(page.locator('#catalog-grid img[src*="stale-fixture"]')).toHaveCount(0);
 });

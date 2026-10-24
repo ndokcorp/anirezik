@@ -2,33 +2,30 @@ name: Refresh anime metadata
 on:
   schedule:
     - cron: '30 17 * * *'
+    - cron: '30 18 1 * *'
   workflow_dispatch:
     inputs:
       mode:
         description: 'maintenance refresh or full catalog audit'
         type: choice
         default: maintenance
-        options:
-          - maintenance
-          - full
+        options: [maintenance, full]
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 concurrency:
   group: anime-catalog-refresh
   cancel-in-progress: false
 jobs:
   refresh:
-    # Enable after setting the registered application User-Agent and reviewing source terms.
+    # Registration is a real prerequisite, not an invented permission or default UA.
     if: vars.SHIKIMORI_SYNC_ENABLED == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 55
     env:
       SHIKIMORI_USER_AGENT: ${{ vars.SHIKIMORI_USER_AGENT }}
       SHIKIMORI_BASE_URL: ${{ vars.SHIKIMORI_BASE_URL || 'https://shikimori.io' }}
-      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
-      BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
     steps:
-      - name: Require application identity
+      - name: Require registered application identity
         run: test -n "$SHIKIMORI_USER_AGENT"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,31 +33,43 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
         with:
           path: .cache/shikimori
           key: shikimori-${{ runner.os }}-${{ github.run_id }}
           restore-keys: shikimori-${{ runner.os }}-
-      - name: Update catalog
+      - name: Update snapshot without touching code or rights
         env:
-          SYNC_MODE: ${{ inputs.mode || 'maintenance' }}
+          SYNC_MODE: ${{ inputs.mode || (github.event.schedule == '30 18 1 * *' && 'full' || 'maintenance') }}
         run: |
-          if [ "$SYNC_MODE" = "full" ]; then
-            npm run sync:full
-          else
-            npm run sync:anime
-          fi
-      - run: npm run check
-      - run: npm run build
-      - run: npx playwright install --with-deps
-      - run: npm test
-      - name: Prepare reviewed catalog update
-        uses: peter-evans/create-pull-request@v7
+          if [ "$SYNC_MODE" = "full" ]; then npm run sync:full; else npm run sync:anime; fi
+          node scripts/validate-snapshot.ts
+      - uses: actions/cache/save@v4
+        if: always()
         with:
-          branch: data/shikimori-refresh
-          add-paths: |
+          path: .cache/shikimori
+          key: shikimori-${{ runner.os }}-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-metadata
+          path: |
             src/data/catalog.json
             src/data/catalog-coverage.json
-          title: 'Update Shikimori catalog snapshot'
-          commit-message: 'Update Shikimori metadata snapshot'
-          body: 'Validated metadata-only update. Posters, third-party descriptions and video streams are not imported. Merge to publish through the Pages workflow.'
+            src/data/catalog-maintenance.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: sync-diagnostics
+          path: |
+            .cache/shikimori/*progress.json
+            src/data/catalog-coverage.json
+  validate-and-publish:
+    needs: refresh
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
+    with:
+      metadata_artifact: validated-metadata

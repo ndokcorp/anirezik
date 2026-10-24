@@ -24,7 +24,7 @@ export interface ShikimoriAnime {
   url: string;
   genres: { id: string; name: string; russian: string | null; kind: string }[];
   studios: { id: string; name: string }[];
-  poster: { originalUrl: string; mainUrl?: string } | null;
+  poster: { originalUrl?: string | null; mainUrl?: string | null } | null;
   related: {
     relationKind: string;
     relationText: string;
