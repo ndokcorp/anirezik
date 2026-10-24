@@ -6,6 +6,7 @@
 - `npm run check`: 0 errors / 0 warnings / 0 hints. `/anirezik/`: **74/74** (16 unit + 29 Chromium + 29 WebKit), 55.5 с. Первичный WebKit-тест decode начал чтение в момент смены src; добавлено ожидание завершения загрузки fallback перед decode, проверка видимости и все проверки сохранены.
 - Финальная сборка `/`: 3009 HTML, 33 810 файлов, **118.35 МиБ** (124 095 475 байт), 1 мин 3 с. `/anirezik/`: сборка 1 мин 16 с. Финальный прогон `/`: **74/74**, 53.2 с. В обоих случаях build выполнен с локальным переключателем 1 для проверки его игнорирования production. Поиск по dist HTML/JSON не обнаружил исходных URL `shikimori.io/uploads/poster`.
 - Репозиторий [ndokcorp/anirezik](https://github.com/ndokcorp/anirezik), источник Pages настроен на GitHub Actions. [Удалённые проверки и deploy](https://github.com/ndokcorp/anirezik/actions/workflows/pages.yml) выполняются отдельно от этих локальных результатов; опубликованный адрес — `https://ndokcorp.github.io/anirezik/`.
+- Первый удалённый run 40046973489: Chromium и Firefox прошли свои сценарии; WebKit завершился не полностью, runner получил shutdown signal / exit 143. Публикация была корректно пропущена. Для сценария отказа оригинала теперь используется отдельный отсутствующий fixture URL: повтор уже декодированного URL мог обслуживаться из памяти WebKit, минуя сетевой abort. Реальный CDN-кеш не обходится; проверки ошибки/fallback сохранены.
 
 ## Архив 0.3.0
 

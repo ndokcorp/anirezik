@@ -38,6 +38,9 @@ const { anime: a } = Astro.props;
     {a.imageLicenseStatus === 'original-ai' && (
       <span class="art-label">AI · НЕОФИЦИАЛЬНЫЙ АРТ</span>
     )}
+    {a.imageAttribution && a.imageLicenseStatus !== 'original-ai' && (
+      <span class="art-label">{a.imageAttribution}</span>
+    )}
     <div class="card-shade"></div>
     {a.score && (
       <span class="card-badge" title="Оценка пользователей Shikimori">

@@ -63,6 +63,8 @@ test('пакеты постеров: оригинал деталей, отказ
   expect(calls.filter((x) => x.includes('/data/images/')).length).toBe(1);
   expect(calls.some((x) => /shikimori.*\/api\//.test(x))).toBe(false);
   await context.unroute('https://poster-fixtures.invalid/**');
+  // Use a distinct missing fixture: a previously decoded image can remain in WebKit's memory cache.
+  images['3929'].posterDetailUrl = 'https://poster-fixtures.invalid/missing-original.jpg';
   await context.route('https://poster-fixtures.invalid/**', (route) => route.abort());
   await page.reload();
   await expect(poster).toHaveAttribute('src', /poster-placeholder.svg$/);

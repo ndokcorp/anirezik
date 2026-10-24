@@ -69,7 +69,7 @@ npm run test:posters:live
 ## GitHub Pages
 
 1. Загрузить существующий проект в репозиторий через Git; `node_modules`, `dist`, `.cache` не коммитить. `src/data/catalog.json` и отчёт покрытия нужны в репозитории.
-2. Settings → Pages → Source: GitHub Actions. Существующий workflow определяет site/base, проверяет код, собирает, тестирует и публикует после успеха. Здесь удалённый workflow не запускался.
+2. Settings → Pages → Source: GitHub Actions. В ndokcorp/anirezik источник уже настроен; workflow определяет site/base, проверяет код, собирает, тестирует и публикует после успеха. Ссылка на удалённые результаты приведена выше.
 3. Для собственного домена задать Actions Variables `SITE_URL=https://ваш-домен`, `BASE_PATH=/`. Для репозитория OWNER.github.io также base `/`.
 4. Обновление данных выключено до `SHIKIMORI_SYNC_ENABLED=true` и зарегистрированного `SHIKIMORI_USER_AGENT`. Ежедневный job обслуживает ограниченную выборку; ручной запуск предлагает `maintenance` или `full`. После проверок создаёт PR; слияние публикует. Разрешите Actions создавать PR в настройках репозитория.
 
