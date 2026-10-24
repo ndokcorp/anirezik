@@ -9,6 +9,8 @@
     "commercialUse": "not-confirmed",
     "scope": { "kind": "none", "animeIds": [], "urls": [] },
     "expiresAt": null,
-    "scopeNote": "poster.mainUrl / poster.originalUrl из официального GraphQL; разрешение на каталог пока не получено"
+    "reviewedAt": "2026-10-24",
+    "verification": "awaiting-primary-message",
+    "scopeNote": "Владелец сообщил о согласии Shikimori на использование постеров по URL. Первичный текст/ссылка, отправитель и точный охват ещё не предоставлены для evidence; общий публичный scope не установлен."
   }
 }

@@ -11,13 +11,18 @@ async function revealImage(img: HTMLImageElement) {
       img.dataset.imageSrc = art.poster;
       img.alt = `${art.imageLicenseStatus === 'original-ai' ? 'AI-иллюстрация, не официальный постер' : 'Постер'}: ${img.dataset.imageTitle || ''}`;
       if (art.imageAttribution) {
-        const label = document.createElement('span');
-        label.className = 'art-label';
+        const label = document.createElement(
+          img.dataset.imageCredit === 'inline' ? 'small' : 'span',
+        );
+        label.className = img.dataset.imageCredit === 'inline' ? 'related-credit' : 'art-label';
         label.textContent =
           art.imageLicenseStatus === 'original-ai'
             ? 'AI · НЕОФИЦИАЛЬНЫЙ АРТ'
             : art.imageAttribution;
-        img.parentElement?.append(label);
+        (img.dataset.imageCredit === 'inline'
+          ? img.parentElement?.querySelector('.related-copy')
+          : img.parentElement
+        )?.append(label);
       }
     }
     delete img.dataset.imageId;

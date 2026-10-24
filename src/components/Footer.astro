@@ -1,6 +1,7 @@
 ---
 import Logo from './navigation/Logo.astro';
 import { url } from '../lib/paths';
+import { posterAvailability } from '../data/anime';
 ---
 
 <footer class="footer">
@@ -18,7 +19,13 @@ import { url } from '../lib/paths';
     <a href="https://shikimori.io" target="_blank" rel="noopener noreferrer">
       Shikimori
     </a>
-    . Официальные постеры не подключены. Оригинальные AI-иллюстрации подписаны; остальные
-    изображения заменены фирменными заглушками. Видеоконтент не размещается.
+    .{' '}
+    {posterAvailability.published
+      ? `Постеры Shikimori используются в подтверждённой области разрешения (${posterAvailability.published}).`
+      : posterAvailability.experimental
+        ? 'Постеры Shikimori показаны в локальном эксперименте; право публичного использования этим не подтверждается.'
+        : 'Официальные постеры не подключены.'}{' '}
+    Оригинальные AI-иллюстрации подписаны; остальные изображения заменены фирменными заглушками.
+    Видеоконтент не размещается.
   </p>
 </footer>

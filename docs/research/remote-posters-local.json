@@ -1,9 +1,27 @@
 {
-  "checkedAt": "2026-10-24T08:57:10.867Z",
+  "checkedAt": "2026-10-24T09:50:04.559Z",
   "origin": "http://127.0.0.1:4321/",
   "mode": "local-experiment, not permission",
   "apiRequests": [],
   "sample": [
+    {
+      "id": 1,
+      "title": "Ковбой Бибоп",
+      "year": 1998,
+      "category": "required"
+    },
+    {
+      "id": 5,
+      "title": "Ковбой Бибоп: Достучаться до небес",
+      "year": 2001,
+      "category": "required"
+    },
+    {
+      "id": 59193,
+      "title": "Реинкарнация безработного: История о приключениях в другом мире 3",
+      "year": 2026,
+      "category": "required"
+    },
     {
       "id": 52299,
       "title": "Поднятие уровня в одиночку",
@@ -44,24 +62,6 @@
       "id": 5114,
       "title": "Стальной алхимик: Братство",
       "year": 2009,
-      "category": "popular"
-    },
-    {
-      "id": 21,
-      "title": "Ван-Пис",
-      "year": 1999,
-      "category": "popular"
-    },
-    {
-      "id": 1,
-      "title": "Ковбой Бибоп",
-      "year": 1998,
-      "category": "popular"
-    },
-    {
-      "id": 40748,
-      "title": "Магическая битва",
-      "year": 2020,
       "category": "popular"
     },
     {
@@ -187,28 +187,40 @@
   ],
   "results": [
     {
-      "id": 52299,
-      "title": "Поднятие уровня в одиночку",
-      "year": 2024,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/52299/9a1ee4e32c72ab99b76e84bbe49f7e87.jpeg",
+      "id": 1,
+      "title": "Ковбой Бибоп",
+      "year": 1998,
+      "category": "required",
+      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
       "ok": true,
       "width": 225,
-      "height": 321,
-      "ms": 423
+      "height": 339,
+      "ms": 3051
     },
     {
-      "id": 1535,
-      "title": "Тетрадь смерти",
-      "year": 2006,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/1535/main-6cf8bcadd153679da9c27e299be0a268.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/1535/a938fe8507a89332b35d71f6883b8e88.jpeg",
+      "id": 59193,
+      "title": "Реинкарнация безработного: История о приключениях в другом мире 3",
+      "year": 2026,
+      "category": "required",
+      "url": "https://shikimori.io/uploads/poster/animes/59193/main-6c5e4c63e88610136f4a7ece98a8d7a1.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/59193/22f02167e562e703fef2cbed82b93d06.jpeg",
       "ok": true,
       "width": 225,
-      "height": 320,
-      "ms": 477
+      "height": 318,
+      "ms": 3088
+    },
+    {
+      "id": 5,
+      "title": "Ковбой Бибоп: Достучаться до небес",
+      "year": 2001,
+      "category": "required",
+      "url": "https://shikimori.io/uploads/poster/animes/5/main-e4f85031a9d0b98587d5d695f750e8cf.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/5/dbead3a609edbed401ff7c3535ec112e.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 324,
+      "ms": 3128
     },
     {
       "id": 16498,
@@ -220,7 +232,31 @@
       "ok": true,
       "width": 225,
       "height": 320,
-      "ms": 527
+      "ms": 92
+    },
+    {
+      "id": 52299,
+      "title": "Поднятие уровня в одиночку",
+      "year": 2024,
+      "category": "popular",
+      "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/52299/9a1ee4e32c72ab99b76e84bbe49f7e87.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 321,
+      "ms": 113
+    },
+    {
+      "id": 1535,
+      "title": "Тетрадь смерти",
+      "year": 2006,
+      "category": "popular",
+      "url": "https://shikimori.io/uploads/poster/animes/1535/main-6cf8bcadd153679da9c27e299be0a268.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/1535/a938fe8507a89332b35d71f6883b8e88.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 320,
+      "ms": 144
     },
     {
       "id": 20,
@@ -232,7 +268,19 @@
       "ok": true,
       "width": 225,
       "height": 320,
-      "ms": 87
+      "ms": 86
+    },
+    {
+      "id": 38000,
+      "title": "Клинок, рассекающий демонов",
+      "year": 2019,
+      "category": "popular",
+      "url": "https://shikimori.io/uploads/poster/animes/38000/main-b9a3817eb7945d5a164deb3ae353b480.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/38000/eb6c9a5d46fa9b5a33a0e5960e329e2d.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 314,
+      "ms": 89
     },
     {
       "id": 44511,
@@ -247,52 +295,16 @@
       "ms": 95
     },
     {
-      "id": 38000,
-      "title": "Клинок, рассекающий демонов",
-      "year": 2019,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/38000/main-b9a3817eb7945d5a164deb3ae353b480.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/38000/eb6c9a5d46fa9b5a33a0e5960e329e2d.jpeg",
+      "id": 6654,
+      "title": "Тупой меч",
+      "year": 1917,
+      "category": "old",
+      "url": "https://shikimori.io/uploads/poster/animes/6654/main-433ecdd1449b886f309050c5a0124937.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/6654/4ce6104d0acc49076a673b0de658f330.jpeg",
       "ok": true,
       "width": 225,
-      "height": 314,
-      "ms": 121
-    },
-    {
-      "id": 1,
-      "title": "Ковбой Бибоп",
-      "year": 1998,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 339,
-      "ms": 108
-    },
-    {
-      "id": 21,
-      "title": "Ван-Пис",
-      "year": 1999,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/21/main-20e20e4183f9fa248e09c279da6df387.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/21/75a07947be55983ce14917f57e96555f.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 309,
-      "ms": 118
-    },
-    {
-      "id": 5114,
-      "title": "Стальной алхимик: Братство",
-      "year": 2009,
-      "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/5114/40c4cba552dc60ebf02f8fc373b9a503.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 318,
-      "ms": 123
+      "height": 321,
+      "ms": 98
     },
     {
       "id": 10742,
@@ -304,43 +316,19 @@
       "ok": true,
       "width": 225,
       "height": 168,
-      "ms": 107
+      "ms": 100
     },
     {
-      "id": 6654,
-      "title": "Тупой меч",
-      "year": 1917,
-      "category": "old",
-      "url": "https://shikimori.io/uploads/poster/animes/6654/main-433ecdd1449b886f309050c5a0124937.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/6654/4ce6104d0acc49076a673b0de658f330.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 321,
-      "ms": 111
-    },
-    {
-      "id": 40748,
-      "title": "Магическая битва",
-      "year": 2020,
+      "id": 5114,
+      "title": "Стальной алхимик: Братство",
+      "year": 2009,
       "category": "popular",
-      "url": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/40748/af4f2db18f17de4d7c6491f6f92cd9d9.jpeg",
+      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/5114/40c4cba552dc60ebf02f8fc373b9a503.jpeg",
       "ok": true,
       "width": 225,
-      "height": 319,
-      "ms": 117
-    },
-    {
-      "id": 18457,
-      "title": "Дед Ханасака",
-      "year": 1917,
-      "category": "old",
-      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/18457/b0d2d1760a9d32d1e17e2e2ab05b89c3.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 169,
-      "ms": 106
+      "height": 318,
+      "ms": 105
     },
     {
       "id": 17387,
@@ -352,7 +340,7 @@
       "ok": true,
       "width": 225,
       "height": 191,
-      "ms": 120
+      "ms": 86
     },
     {
       "id": 7485,
@@ -364,19 +352,19 @@
       "ok": true,
       "width": 225,
       "height": 330,
-      "ms": 122
+      "ms": 88
     },
     {
-      "id": 10760,
-      "title": "Гном",
-      "year": 1918,
+      "id": 18457,
+      "title": "Дед Ханасака",
+      "year": 1917,
       "category": "old",
-      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/10760/ebdbf2e48215ff1497ba347123333182.jpeg",
+      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/18457/b0d2d1760a9d32d1e17e2e2ab05b89c3.jpeg",
       "ok": true,
       "width": 225,
-      "height": 156,
-      "ms": 99
+      "height": 169,
+      "ms": 93
     },
     {
       "id": 49245,
@@ -388,7 +376,19 @@
       "ok": true,
       "width": 225,
       "height": 164,
-      "ms": 121
+      "ms": 120
+    },
+    {
+      "id": 10760,
+      "title": "Гном",
+      "year": 1918,
+      "category": "old",
+      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/10760/ebdbf2e48215ff1497ba347123333182.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 156,
+      "ms": 122
     },
     {
       "id": 22511,
@@ -400,31 +400,7 @@
       "ok": true,
       "width": 225,
       "height": 338,
-      "ms": 155
-    },
-    {
-      "id": 5158,
-      "title": "Шумное рождение",
-      "year": 2000,
-      "category": "rare",
-      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/5158/5033a88784e2dcc06ef5bb4cafa6b412.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 98,
-      "ms": 85
-    },
-    {
-      "id": 58828,
-      "title": "Гигиена полости рта",
-      "year": 1923,
-      "category": "old",
-      "url": "https://shikimori.io/uploads/poster/animes/58828/main-fc94ffa6f55767c7a969b328516f0da7.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/58828/3d226dc0d5f921a5b88af2a932c753c0.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 153,
-      "ms": 91
+      "ms": 148
     },
     {
       "id": 58829,
@@ -436,31 +412,31 @@
       "ok": true,
       "width": 225,
       "height": 170,
-      "ms": 94
+      "ms": 91
     },
     {
-      "id": 8646,
-      "title": "Сорок четыре кошки",
-      "year": 1969,
-      "category": "rare",
-      "url": "https://shikimori.io/uploads/poster/animes/8646/main-127efa90e0b4a7efedf2ce8dd7557931.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/8646/283a1310963659e854be22dbbb100527.jpeg",
+      "id": 58828,
+      "title": "Гигиена полости рта",
+      "year": 1923,
+      "category": "old",
+      "url": "https://shikimori.io/uploads/poster/animes/58828/main-fc94ffa6f55767c7a969b328516f0da7.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/58828/3d226dc0d5f921a5b88af2a932c753c0.jpeg",
       "ok": true,
       "width": 225,
-      "height": 170,
-      "ms": 144
+      "height": 153,
+      "ms": 95
     },
     {
-      "id": 8645,
-      "title": "Подарок без штампа",
-      "year": 1996,
+      "id": 5158,
+      "title": "Шумное рождение",
+      "year": 2000,
       "category": "rare",
-      "url": "https://shikimori.io/uploads/poster/animes/8645/main-49deb6ccce3f02860d9fa36c175ba498.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/8645/35f36c9c7e517afd442a365a25ebef21.jpeg",
+      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/5158/5033a88784e2dcc06ef5bb4cafa6b412.jpeg",
       "ok": true,
       "width": 225,
-      "height": 127,
-      "ms": 145
+      "height": 98,
+      "ms": 95
     },
     {
       "id": 8604,
@@ -472,7 +448,31 @@
       "ok": true,
       "width": 225,
       "height": 319,
-      "ms": 148
+      "ms": 97
+    },
+    {
+      "id": 8646,
+      "title": "Сорок четыре кошки",
+      "year": 1969,
+      "category": "rare",
+      "url": "https://shikimori.io/uploads/poster/animes/8646/main-127efa90e0b4a7efedf2ce8dd7557931.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/8646/283a1310963659e854be22dbbb100527.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 170,
+      "ms": 98
+    },
+    {
+      "id": 8645,
+      "title": "Подарок без штампа",
+      "year": 1996,
+      "category": "rare",
+      "url": "https://shikimori.io/uploads/poster/animes/8645/main-49deb6ccce3f02860d9fa36c175ba498.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/8645/35f36c9c7e517afd442a365a25ebef21.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 127,
+      "ms": 100
     },
     {
       "id": 8661,
@@ -484,19 +484,7 @@
       "ok": true,
       "width": 225,
       "height": 134,
-      "ms": 97
-    },
-    {
-      "id": 57555,
-      "title": "Человек-бензопила: Резе",
-      "year": 2025,
-      "category": "movie",
-      "url": "https://shikimori.io/uploads/poster/animes/57555/main-64c29a02d718ffc7bec8fdbb968b6c6d.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/57555/11d2b0b46572fede24aad44932a539a7.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 318,
-      "ms": 103
+      "ms": 78
     },
     {
       "id": 39486,
@@ -508,31 +496,19 @@
       "ok": true,
       "width": 225,
       "height": 318,
-      "ms": 109
+      "ms": 88
     },
     {
-      "id": 28851,
-      "title": "Форма голоса",
-      "year": 2016,
+      "id": 57555,
+      "title": "Человек-бензопила: Резе",
+      "year": 2025,
       "category": "movie",
-      "url": "https://shikimori.io/uploads/poster/animes/28851/main-3d8c5b8ec544ab96cf1995ecf83716a6.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/28851/a98ffda9b7409d610aae10147d35658a.jpeg",
+      "url": "https://shikimori.io/uploads/poster/animes/57555/main-64c29a02d718ffc7bec8fdbb968b6c6d.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/57555/11d2b0b46572fede24aad44932a539a7.jpeg",
       "ok": true,
       "width": 225,
       "height": 318,
-      "ms": 86
-    },
-    {
-      "id": 59571,
-      "title": "Атака титанов: Заключительная глава — Последняя атака",
-      "year": 2024,
-      "category": "movie",
-      "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
-      "detailUrl": "https://shikimori.io/uploads/poster/animes/59571/8eaeb81117d13c3a1d21a7541bbde1a1.jpeg",
-      "ok": true,
-      "width": 225,
-      "height": 318,
-      "ms": 90
+      "ms": 91
     },
     {
       "id": 15335,
@@ -544,12 +520,60 @@
       "ok": true,
       "width": 225,
       "height": 318,
-      "ms": 97
+      "ms": 92
+    },
+    {
+      "id": 28851,
+      "title": "Форма голоса",
+      "year": 2016,
+      "category": "movie",
+      "url": "https://shikimori.io/uploads/poster/animes/28851/main-3d8c5b8ec544ab96cf1995ecf83716a6.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/28851/a98ffda9b7409d610aae10147d35658a.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 318,
+      "ms": 98
+    },
+    {
+      "id": 59571,
+      "title": "Атака титанов: Заключительная глава — Последняя атака",
+      "year": 2024,
+      "category": "movie",
+      "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
+      "detailUrl": "https://shikimori.io/uploads/poster/animes/59571/8eaeb81117d13c3a1d21a7541bbde1a1.jpeg",
+      "ok": true,
+      "width": 225,
+      "height": 318,
+      "ms": 104
     }
   ],
-  "wallMs": 2252,
+  "wallMs": 4430,
   "decoded": 30,
   "network": [
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/59193/main-6c5e4c63e88610136f4a7ece98a8d7a1.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/5/main-e4f85031a9d0b98587d5d695f750e8cf.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
     {
       "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
       "status": 200,
@@ -563,19 +587,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
       "url": "https://shikimori.io/uploads/poster/animes/20/main-5f7bc68ceac891e0fd93fb72c07bd1f3.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -587,25 +599,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/21/main-20e20e4183f9fa248e09c279da6df387.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -617,13 +611,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -641,7 +635,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -653,13 +647,19 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
+      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
       "url": "https://shikimori.io/uploads/poster/animes/22511/main-1e938a1f1a640df71b00cc027bba6e93.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -671,7 +671,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -689,13 +695,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -707,7 +713,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -720,12 +726,6 @@
     },
     {
       "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -737,6 +737,30 @@
       "cacheControl": null
     },
     {
+      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/59193/main-6c5e4c63e88610136f4a7ece98a8d7a1.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/5/main-e4f85031a9d0b98587d5d695f750e8cf.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
       "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
       "status": 200,
       "fromDiskCache": false,
@@ -749,19 +773,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
       "url": "https://shikimori.io/uploads/poster/animes/20/main-5f7bc68ceac891e0fd93fb72c07bd1f3.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -773,25 +785,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/21/main-20e20e4183f9fa248e09c279da6df387.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -803,13 +797,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -827,7 +821,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -839,13 +833,19 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
+      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
       "url": "https://shikimori.io/uploads/poster/animes/22511/main-1e938a1f1a640df71b00cc027bba6e93.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -857,7 +857,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -875,13 +881,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -893,7 +899,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -906,12 +912,6 @@
     },
     {
       "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -971,7 +971,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/32281/main-0dd6a84aed499aa2d7437718c5c85c24.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/199/main-9049de9323ea9716deb757526075d8a6.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -995,7 +995,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/199/main-9049de9323ea9716deb757526075d8a6.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/32281/main-0dd6a84aed499aa2d7437718c5c85c24.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1028,6 +1028,22 @@
   "cacheBeforeRepeat": 0,
   "repeat": [
     {
+      "id": 1,
+      "ok": true
+    },
+    {
+      "id": 59193,
+      "ok": true
+    },
+    {
+      "id": 5,
+      "ok": true
+    },
+    {
+      "id": 16498,
+      "ok": true
+    },
+    {
       "id": 52299,
       "ok": true
     },
@@ -1036,15 +1052,7 @@
       "ok": true
     },
     {
-      "id": 16498,
-      "ok": true
-    },
-    {
       "id": 20,
-      "ok": true
-    },
-    {
-      "id": 44511,
       "ok": true
     },
     {
@@ -1052,19 +1060,7 @@
       "ok": true
     },
     {
-      "id": 1,
-      "ok": true
-    },
-    {
-      "id": 21,
-      "ok": true
-    },
-    {
-      "id": 5114,
-      "ok": true
-    },
-    {
-      "id": 10742,
+      "id": 44511,
       "ok": true
     },
     {
@@ -1072,11 +1068,11 @@
       "ok": true
     },
     {
-      "id": 40748,
+      "id": 10742,
       "ok": true
     },
     {
-      "id": 18457,
+      "id": 5114,
       "ok": true
     },
     {
@@ -1088,7 +1084,7 @@
       "ok": true
     },
     {
-      "id": 10760,
+      "id": 18457,
       "ok": true
     },
     {
@@ -1096,11 +1092,15 @@
       "ok": true
     },
     {
+      "id": 10760,
+      "ok": true
+    },
+    {
       "id": 22511,
       "ok": true
     },
     {
-      "id": 5158,
+      "id": 58829,
       "ok": true
     },
     {
@@ -1108,7 +1108,11 @@
       "ok": true
     },
     {
-      "id": 58829,
+      "id": 5158,
+      "ok": true
+    },
+    {
+      "id": 8604,
       "ok": true
     },
     {
@@ -1120,11 +1124,11 @@
       "ok": true
     },
     {
-      "id": 8604,
+      "id": 8661,
       "ok": true
     },
     {
-      "id": 8661,
+      "id": 39486,
       "ok": true
     },
     {
@@ -1132,7 +1136,7 @@
       "ok": true
     },
     {
-      "id": 39486,
+      "id": 15335,
       "ok": true
     },
     {
@@ -1142,14 +1146,34 @@
     {
       "id": 59571,
       "ok": true
-    },
-    {
-      "id": 15335,
-      "ok": true
     }
   ],
   "repeatCacheEvents": 30,
   "repeatNetworkResponses": [
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/59193/main-6c5e4c63e88610136f4a7ece98a8d7a1.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/5/main-e4f85031a9d0b98587d5d695f750e8cf.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
     {
       "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
       "status": 200,
@@ -1163,19 +1187,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
       "url": "https://shikimori.io/uploads/poster/animes/20/main-5f7bc68ceac891e0fd93fb72c07bd1f3.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1187,25 +1199,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/21/main-20e20e4183f9fa248e09c279da6df387.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1217,13 +1211,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1241,7 +1235,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1253,13 +1247,19 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
+      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
       "url": "https://shikimori.io/uploads/poster/animes/22511/main-1e938a1f1a640df71b00cc027bba6e93.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1271,7 +1271,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "max-age=315360000, public"
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1289,13 +1295,13 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1307,7 +1313,7 @@
       "cacheControl": "max-age=315360000, public"
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1320,12 +1326,6 @@
     },
     {
       "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
-      "status": 200,
-      "fromDiskCache": false,
-      "cacheControl": "max-age=315360000, public"
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "status": 200,
       "fromDiskCache": false,
       "cacheControl": "max-age=315360000, public"
@@ -1335,7 +1335,27 @@
     {
       "url": "http://127.0.0.1:4321/assets/logo.png",
       "transferSize": 300,
-      "durationMs": 39
+      "durationMs": 24
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
+      "transferSize": 0,
+      "durationMs": 0
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/59193/main-6c5e4c63e88610136f4a7ece98a8d7a1.webp",
+      "transferSize": 0,
+      "durationMs": 0
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/5/main-e4f85031a9d0b98587d5d695f750e8cf.webp",
+      "transferSize": 0,
+      "durationMs": 0
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
+      "transferSize": 0,
+      "durationMs": 0
     },
     {
       "url": "https://shikimori.io/uploads/poster/animes/52299/main-50a623be83b5f65e8a98a3452abb5c8d.webp",
@@ -1348,17 +1368,7 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/16498/main-5b9ad3fa8e2c55a1de82954f3982bf50.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
       "url": "https://shikimori.io/uploads/poster/animes/20/main-5f7bc68ceac891e0fd93fb72c07bd1f3.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1368,22 +1378,7 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/1/main-62588c5597ae5195a00eb6e6682c88ab.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/21/main-20e20e4183f9fa248e09c279da6df387.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/44511/main-476281a964fb667e455690f1570beae2.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1393,12 +1388,12 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/40748/main-f8c17953f5d51da964622c7115ed980b.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/10742/main-955a2159c7bfc19ed7ae337e33433f22.webp",
       "transferSize": 0,
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5114/main-eb70ba6e4e8cd164a2f59fc61761b163.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1413,7 +1408,7 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/18457/main-b2127de5150cec78f3668dc03eb8fdfa.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1423,12 +1418,17 @@
       "durationMs": 0
     },
     {
+      "url": "https://shikimori.io/uploads/poster/animes/10760/main-05944acae3483da930232d4e744b6534.webp",
+      "transferSize": 0,
+      "durationMs": 0
+    },
+    {
       "url": "https://shikimori.io/uploads/poster/animes/22511/main-1e938a1f1a640df71b00cc027bba6e93.webp",
       "transferSize": 0,
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1438,7 +1438,12 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/58829/main-f79f60fbcc38bdec773b62210b078a99.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/5158/main-8ae0629ed5cdd6ccc47fab046b756302.webp",
+      "transferSize": 0,
+      "durationMs": 0
+    },
+    {
+      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1453,12 +1458,12 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8604/main-feb25feb1562abff67f2be109cbc017c.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
       "transferSize": 0,
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/8661/main-89a062a1ec66ea2ceda1ed974ea06782.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1468,7 +1473,7 @@
       "durationMs": 0
     },
     {
-      "url": "https://shikimori.io/uploads/poster/animes/39486/main-ff0c905336b02f4e8d3b2f7a897a20a8.webp",
+      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "transferSize": 0,
       "durationMs": 0
     },
@@ -1479,11 +1484,6 @@
     },
     {
       "url": "https://shikimori.io/uploads/poster/animes/59571/main-dd5bd8edb03f40483bf0b1aeb436489d.webp",
-      "transferSize": 0,
-      "durationMs": 0
-    },
-    {
-      "url": "https://shikimori.io/uploads/poster/animes/15335/main-19d1312e560d17e3f8b89dbc19816d9d.webp",
       "transferSize": 0,
       "durationMs": 0
     }
@@ -1505,14 +1505,14 @@
   },
   "slowSample": [
     {
-      "id": 52299,
+      "id": 1,
       "ok": true,
-      "ms": 1285
+      "ms": 1075
     },
     {
-      "id": 16498,
+      "id": 5,
       "ok": true,
-      "ms": 1271
+      "ms": 996
     },
     {
       "id": 6654,
@@ -1522,22 +1522,22 @@
     {
       "id": 10742,
       "ok": true,
-      "ms": 632
+      "ms": 624
     },
     {
       "id": 5158,
       "ok": true,
-      "ms": 538
+      "ms": 510
     },
     {
       "id": 39486,
       "ok": true,
-      "ms": 1350
+      "ms": 1358
     }
   ],
   "slow": {
     "profile": "390x844, 50 000 B/s, latency400ms, CPUx4, fresh context",
-    "wallMs": 5846,
-    "bytes": 152626
+    "wallMs": 5338,
+    "bytes": 127235
   }
 }
