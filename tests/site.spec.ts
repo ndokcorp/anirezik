@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('production: неподтверждённый Shikimori отключён независимо от локального переключателя', async ({
+test('production: реестр ограничивает Shikimori независимо от локального переключателя', async ({
   page,
 }) => {
   const requests: string[] = [];
@@ -8,19 +8,44 @@ test('production: неподтверждённый Shikimori отключён н
     if (new URL(r.url()).hostname === 'shikimori.io') requests.push(r.url());
   });
   const config = await (await page.request.get('image-index.json')).json();
+  const allowed = anime.filter(
+    (a) =>
+      a.imageSource === 'Shikimori' && a.imageLicenseStatus === 'permission-granted' && a.posterUrl,
+  );
   expect(config.experimental).toBe(false);
-  expect(config.sharded).toBe(false);
-  expect(config.buckets).toEqual([]);
+  expect(config.sharded).toBe(allowed.length > 0);
+  expect([...config.buckets].sort((a, b) => a - b)).toEqual(
+    [...new Set(allowed.map((a) => Math.floor(a.shikimoriId / 1000)))].sort((a, b) => a - b),
+  );
   expect(
     Object.values(config.images).every(
       (a: any) =>
         a.imageLicenseStatus === 'original-ai' || a.imageLicenseStatus === 'permission-granted',
     ),
   ).toBe(true);
+  // Reproducible suite uses our SVG if the real registry permits a remote source.
+  // Actual CDN decoding is verified separately by test:posters:surfaces.
+  await page.route('https://shikimori.io/uploads/poster/**', (route) =>
+    route.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
+    }),
+  );
   await page.goto('anime/?id=3929');
   await expect(page.locator('.detail-poster')).toBeVisible();
-  await expect(page.locator('.detail-poster')).toHaveAttribute('src', /poster-placeholder.svg$/);
-  expect(requests).toEqual([]);
+  const a = anime.find((a) => a.shikimoriId === 3929)!;
+  const expected = a.posterDetailUrl || a.poster;
+  await expect(page.locator('.detail-poster')).toHaveAttribute(
+    'src',
+    /^https:/.test(expected)
+      ? expected
+      : new RegExp(`${expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`),
+  );
+  if (!allowed.length) expect(requests).toEqual([]);
+  else {
+    const allowedUrls = new Set(allowed.flatMap((a) => [a.posterUrl, a.posterDetailUrl]));
+    expect(requests.every((u) => allowedUrls.has(u))).toBe(true);
+  }
 });
 
 test('пакеты постеров: оригинал деталей, отказ URL и отсутствие API запросов', async ({
@@ -84,6 +109,7 @@ test('пакеты постеров: оригинал деталей, отказ
   ).toBe(true);
 });
 import { anime, staticPageIds } from '../src/data/anime';
+import { imageUrl } from '../src/lib/images';
 import { searchAnime } from '../src/lib/search';
 const solo = anime.find((a) => a.shikimoriId === 52299)!;
 test('главная, неизменный логотип, навигация и карусель реальных тайтлов', async ({ page }) => {
@@ -205,7 +231,10 @@ test('карточка, достоверная информация и связ�
   await expect(page.getByRole('heading', { name: 'Где посмотреть' })).toBeVisible();
   await expect(page.locator('iframe,video,[data-video-episode],[data-video-dub]')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /смотреть|воспроизвести/i })).toHaveCount(0);
-  await expect(page.locator('.detail-poster')).toHaveAttribute('src', /poster-1.webp$/);
+  await expect(page.locator('.detail-poster')).toHaveAttribute(
+    'src',
+    imageUrl(solo.posterDetailUrl || solo.poster, process.env.BASE_PATH || '/'),
+  );
 });
 test('избранное мигрирует со старых ID и сохраняет неизвестные записи', async ({ page }) => {
   await page.addInitScript(() => {
@@ -367,7 +396,10 @@ test('поиск за пределами первоначальной тысяч
 });
 
 test('реальное декодирование изображения и fallback при сетевом сбое', async ({ page }) => {
-  await page.route('**/assets/poster-1.webp', (route) => route.abort('failed'));
+  const poster = imageUrl(solo.posterDetailUrl || solo.poster, process.env.BASE_PATH || '/');
+  await page.route(new RegExp(`${poster.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`), (route) =>
+    route.abort('failed'),
+  );
   await page.goto('anime/solo-leveling/');
   const image = page.locator('.detail-poster');
   await expect(image).toHaveAttribute('src', /poster-placeholder.svg$/);
@@ -677,4 +709,105 @@ test('запоздалый пакет постеров не меняет кар�
   await expect(page.locator('#catalog-grid h3').first()).not.toHaveText(solo.title);
   release();
   await expect(page.locator('#catalog-grid img[src*="stale-fixture"]')).toHaveCount(0);
+});
+
+test('постеры ID 1, 5, 59193 и связанные сезоны: compact/original, decode и CDN fallback', async ({
+  page,
+  context,
+}) => {
+  const ids = [1, 5, 59193];
+  const all = Object.fromEntries(
+    ids.map((id) => [
+      id,
+      {
+        poster: `https://permission-fixtures.invalid/main-${id}.svg`,
+        posterUrl: `https://permission-fixtures.invalid/main-${id}.svg`,
+        posterDetailUrl: `https://permission-fixtures.invalid/original-${id}.svg`,
+        backdropUrl: null,
+        imageSource: 'Own SVG fixture',
+        imageAttribution: 'Own fixture — no Shikimori permission',
+        imageLicenseStatus: 'permission-granted',
+      },
+    ]),
+  );
+  await context.route('**/image-index.json', (r) =>
+    r.fulfill({ json: { version: 2, sharded: false, images: all } }),
+  );
+  await context.route('https://permission-fixtures.invalid/**', (r) =>
+    r.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
+    }),
+  );
+  const calls: string[] = [];
+  context.on('request', (r) => calls.push(r.url()));
+  for (const id of ids) {
+    await page.goto(`anime/?id=${id}`);
+    const img = page.locator('.detail-poster');
+    await expect(img).toHaveAttribute('src', all[id].posterDetailUrl);
+    await expect
+      .poll(() =>
+        img.evaluate(
+          (i) => (i as HTMLImageElement).complete && (i as HTMLImageElement).naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+    expect(
+      await img.evaluate(async (i) => {
+        await (i as HTMLImageElement).decode();
+        return (i as HTMLImageElement).naturalWidth;
+      }),
+    ).toBe(400);
+    if (id === 1) {
+      const thumb = page
+        .locator('.related-list a')
+        .filter({ hasText: anime.find((a) => a.shikimoriId === 5)!.title })
+        .locator('img');
+      await thumb.scrollIntoViewIfNeeded();
+      await expect(thumb).toHaveAttribute('src', all[5].poster);
+      await expect
+        .poll(() => thumb.evaluate((i) => (i as HTMLImageElement).naturalWidth))
+        .toBe(400);
+      await expect(thumb).toHaveAttribute('loading', 'lazy');
+      await expect(page.locator('.related-list .related-credit').first()).toContainText(
+        'Own fixture',
+      );
+    }
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('anime/?id=1');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.reload();
+  await expect(page.locator('.detail-poster')).toHaveAttribute('src', all[1].posterDetailUrl);
+  await context.unroute('https://permission-fixtures.invalid/**');
+  let errors = 0;
+  all[1].posterDetailUrl = 'https://permission-fixtures.invalid/new-missing.svg';
+  await context.route('https://permission-fixtures.invalid/**', (r) => {
+    errors++;
+    return r.abort('failed');
+  });
+  await page.reload();
+  await expect(page.locator('.detail-poster')).toHaveAttribute('src', /poster-placeholder.svg$/);
+  expect(errors).toBeLessThan(5);
+  expect(calls.some((u) => /shikimori.*\/api\//.test(u))).toBe(false);
+});
+
+test('статические связанные сезоны используют общий lazy poster и сохраняют мобильную разметку', async ({
+  page,
+}) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    const item = anime.find((a) => a.shikimoriId === 1)!;
+    await page.goto(`anime/${item.slug}/`);
+    const img = page.locator('.related-list .related-poster').first();
+    await img.scrollIntoViewIfNeeded();
+    await expect(img).toHaveAttribute('loading', 'lazy');
+    await expect(img).toHaveAttribute('decoding', 'async');
+    await expect
+      .poll(() => img.evaluate((i) => (i as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+  }
 });

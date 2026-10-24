@@ -23,6 +23,18 @@ export const anime: Anime[] = catalog.anime
       (staticOrder.get(a.shikimoriId) ?? Infinity) - (staticOrder.get(b.shikimoriId) ?? Infinity),
   );
 export const animeByShikimoriId = new Map(anime.map((a) => [a.shikimoriId, a]));
+// Derived once at build time; never send the complete catalog to the browser.
+export const posterAvailability = {
+  available: catalog.anime.filter((a) => a.sourcePosterMainUrl || a.sourcePosterUrl).length,
+  published: anime.filter(
+    (a) =>
+      a.imageSource === 'Shikimori' && a.imageLicenseStatus === 'permission-granted' && a.posterUrl,
+  ).length,
+  experimental: anime.filter(
+    (a) =>
+      a.imageSource === 'Shikimori' && a.imageLicenseStatus === 'local-experiment' && a.posterUrl,
+  ).length,
+};
 export const animePath = (a: Pick<Anime, 'shikimoriId' | 'slug'>) =>
   staticPageIds.has(a.shikimoriId) ? `anime/${a.slug}/` : `anime/?id=${a.shikimoriId}`;
 const preferredGenres = ['Экшен', 'Фэнтези', 'Романтика', 'Комедия', 'Драма', 'Приключения'];

@@ -1,6 +1,6 @@
 {
   "name": "anirezik",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,7 +15,8 @@
     "test:api": "node --test tests/api.integration.test.ts",
     "sync:full": "node scripts/sync-anime.ts --full",
     "dev:posters": "node scripts/dev-posters.mjs",
-    "test:posters:live": "node scripts/verify-remote-posters.mjs"
+    "test:posters:live": "node scripts/verify-remote-posters.mjs",
+    "test:posters:surfaces": "node scripts/verify-poster-surfaces.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

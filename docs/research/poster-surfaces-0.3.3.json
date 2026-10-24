@@ -1,0 +1,291 @@
+{
+  "checkedAt": "2026-10-24T09:55:34.454Z",
+  "origin": "http://127.0.0.1:4321/",
+  "browsers": [
+    {
+      "browser": "chromium",
+      "checks": [
+        {
+          "surface": "home",
+          "id": 52299,
+          "viewport": 1440,
+          "source": "Shikimori",
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 1,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
+          "width": 660,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "related",
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 1,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 5,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/5/dbead3a609edbed401ff7c3535ec112e.jpeg",
+          "width": 690,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 5,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 59193,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/59193/22f02167e562e703fef2cbed82b93d06.jpeg",
+          "width": 425,
+          "height": 600,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 59193,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "home",
+          "id": 52299,
+          "viewport": 390,
+          "source": "Shikimori",
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 1,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
+          "width": 660,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "related",
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 1,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 5,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/5/dbead3a609edbed401ff7c3535ec112e.jpeg",
+          "width": 690,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 5,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 59193,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/59193/22f02167e562e703fef2cbed82b93d06.jpeg",
+          "width": 425,
+          "height": 600,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 59193,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "favorites",
+          "ok": true
+        },
+        {
+          "surface": "catalog-and-query-change-and-search",
+          "ok": true
+        },
+        {
+          "surface": "reload",
+          "ok": true
+        },
+        {
+          "surface": "cdn-failure",
+          "requests": 2,
+          "ok": true
+        }
+      ],
+      "mode": "local-experiment",
+      "ok": true
+    },
+    {
+      "browser": "firefox",
+      "checks": [],
+      "mode": null,
+      "ok": false,
+      "error": "Error: browserType.launch: spawn UNKNOWN"
+    },
+    {
+      "browser": "webkit",
+      "checks": [
+        {
+          "surface": "home",
+          "id": 52299,
+          "viewport": 1440,
+          "source": "Shikimori",
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 1,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
+          "width": 660,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "related",
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 1,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 5,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/5/dbead3a609edbed401ff7c3535ec112e.jpeg",
+          "width": 690,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 5,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 59193,
+          "viewport": 1440,
+          "url": "https://shikimori.io/uploads/poster/animes/59193/22f02167e562e703fef2cbed82b93d06.jpeg",
+          "width": 425,
+          "height": 600,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 59193,
+          "viewport": 1440,
+          "ok": true
+        },
+        {
+          "surface": "home",
+          "id": 52299,
+          "viewport": 390,
+          "source": "Shikimori",
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 1,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/1/6ad45d9decad83014a484a54f4dba6a7.jpeg",
+          "width": 660,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "related",
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 1,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 5,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/5/dbead3a609edbed401ff7c3535ec112e.jpeg",
+          "width": 690,
+          "height": 995,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 5,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "detail",
+          "id": 59193,
+          "viewport": 390,
+          "url": "https://shikimori.io/uploads/poster/animes/59193/22f02167e562e703fef2cbed82b93d06.jpeg",
+          "width": 425,
+          "height": 600,
+          "ok": true
+        },
+        {
+          "surface": "static-detail",
+          "id": 59193,
+          "viewport": 390,
+          "ok": true
+        },
+        {
+          "surface": "favorites",
+          "ok": true
+        },
+        {
+          "surface": "catalog-and-query-change-and-search",
+          "ok": true
+        },
+        {
+          "surface": "reload",
+          "ok": true
+        },
+        {
+          "surface": "cdn-failure",
+          "requests": 2,
+          "ok": true
+        }
+      ],
+      "mode": "local-experiment",
+      "ok": true
+    }
+  ],
+  "apiRequests": [],
+  "ok": false
+}

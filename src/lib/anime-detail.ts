@@ -165,6 +165,19 @@ export async function initAnimeDetail() {
           ? externalLink(`${relation.title} ↗ Shikimori`, relation.href)
           : el('a', '', relation.title);
         if (!relation.external) link.href = relation.href;
+        link.setAttribute('aria-label', link.textContent || relation.title);
+        link.classList.add('related-link');
+        const label = el('span', 'related-copy', link.textContent || '');
+        link.replaceChildren(label);
+        if (!relation.external) {
+          const img = posterImage(fallbackImages(), relation.title, 'related-poster', true);
+          img.width = 48;
+          img.height = 72;
+          img.dataset.imageId = String(relation.shikimoriId);
+          img.dataset.imageTitle = relation.title;
+          img.dataset.imageCredit = 'inline';
+          link.prepend(img);
+        }
         row.append(el('span', '', relation.relation), link);
         list.append(row);
       }

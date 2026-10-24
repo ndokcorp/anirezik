@@ -154,12 +154,31 @@ for (const candidate of anime) {
               <li>
                 <span>{item.relation}</span>
                 <a
+                  class="related-link"
+                  aria-label={local ? item.title : `${item.title} ↗ Shikimori`}
                   href={local ? url(animePath(local)) : item.sourceUrl}
                   target={local ? undefined : '_blank'}
                   rel={local ? undefined : 'noopener noreferrer'}
                 >
-                  {item.title}
-                  {!local && ' ↗ Shikimori'}
+                  {local && (
+                    <Poster
+                      class="related-poster"
+                      src={local.poster}
+                      defer
+                      alt={
+                        local.imageLicenseStatus === 'original-ai'
+                          ? `AI-иллюстрация: ${item.title}, не официальный постер`
+                          : local.posterUrl
+                            ? `Постер: ${item.title}`
+                            : `Фирменная заглушка: ${item.title}`
+                      }
+                    />
+                  )}
+                  <span class="related-copy">
+                    {item.title}
+                    {!local && ' ↗ Shikimori'}
+                    {local?.imageAttribution && <small>{local.imageAttribution}</small>}
+                  </span>
                 </a>
               </li>
             );

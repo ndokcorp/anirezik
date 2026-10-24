@@ -16,11 +16,16 @@ function add(category, rows, limit) {
   }
 }
 add(
+  'required',
+  [1, 5, 59193].map((id) => anime.find((a) => a.shikimoriId === id)).filter(Boolean),
+  3,
+);
+add(
   'popular',
   [52299, 16498, 1535, 20, 38000, 44511, 5114, 21, 1, 40748]
     .map((id) => anime.find((a) => a.shikimoriId === id))
     .filter(Boolean),
-  10,
+  7,
 );
 add(
   'old',

@@ -71,6 +71,28 @@
 .related-list a:hover {
   color: #fa7188;
 }
+.related-list .related-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.related-list .related-poster {
+  width: 48px;
+  height: 72px;
+  flex: 0 0 48px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.related-copy {
+  min-width: 0;
+}
+.related-copy small {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 4px;
+}
 .search-results .search-scope {
   font-size: 10px;
   color: #a19aa8;
