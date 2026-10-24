@@ -131,10 +131,7 @@ export async function initAnimeDetail() {
     }
     const jump = el('a', 'button button-primary player-jump', 'СМОТРЕТЬ');
     jump.href = '#anime-player';
-    jump.setAttribute('aria-describedby', 'player-availability');
-    const availability = el('p', 'source-note', 'Плеер пока недоступен');
-    availability.id = 'player-availability';
-    copy.append(jump, availability);
+    copy.append(jump);
     const sidebar = el('aside', 'detail-sidebar'),
       actions = el('div', 'detail-actions');
     const share = el('button', 'button button-secondary');
@@ -190,19 +187,20 @@ export async function initAnimeDetail() {
     watch.id = 'anime-player';
     watch.classList.add('player-section');
     const placeholder = el('div', 'player-placeholder');
-    const icon = el('span', '', '▷');
-    icon.setAttribute('aria-hidden', 'true');
     placeholder.append(
-      icon,
-      el('strong', '', 'Плеер готовится'),
+      el('strong', '', 'AniRezik Player'),
       el(
         'p',
         '',
         'Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения разрешённого источника.',
       ),
     );
+    const demo = el('a', 'button button-secondary', 'Проверить плеер');
+    demo.href = url('player-test/');
+    placeholder.append(demo);
     watch.append(placeholder);
     fragment.append(watch);
+    void import('./video-player').then(({ loadPlayerSources }) => loadPlayerSources(watch, a.id));
     if (a.chronology && a.chronology.length > 1) {
       const timeline = panel('Хронология франшизы'),
         list = el('ol', 'franchise-track');

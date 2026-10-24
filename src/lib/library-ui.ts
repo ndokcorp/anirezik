@@ -105,6 +105,8 @@ export function initLibraryPage() {
       : selected === 'favorites'
         ? storedFavoriteIds()
         : Object.keys(saved).filter((id) => saved[id] === selected);
+    const count = root!.querySelector<HTMLElement>('[data-library-count]');
+    if (count) count.textContent = `Аниме в выбранном списке: ${ids.length}`;
     tabs.forEach((tab) =>
       tab.setAttribute('aria-pressed', String(tab.dataset.collectionStatus === selected)),
     );

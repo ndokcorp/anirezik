@@ -60,17 +60,19 @@ export function resolveCatalogImages(
 ) {
   let original = resolveImages(a.shikimoriId);
   const backgroundAttribution = original.imageAttribution;
-  // Retain approved wide artwork, but use neutral posters when no real source is available.
+  // AI artwork is retired; only approved real posters or the neutral placeholder remain.
   if (original.imageLicenseStatus === 'original-ai') {
     original = {
       ...original,
       poster: imageFallback,
-      banner: original.bannerUrl || imageFallback,
+      banner: imageFallback,
+      bannerUrl: null,
+      backdropUrl: null,
       posterUrl: null,
       posterDetailUrl: null,
       posterAttribution: null,
       imageSource: null,
-      imageAttribution: original.bannerUrl ? original.imageAttribution : null,
+      imageAttribution: null,
       imageLicenseStatus: 'unknown',
     };
   }

@@ -8,6 +8,9 @@ export interface VideoSource {
   subtitles: string[];
   embedUrl?: string;
   playbackUrl?: string;
+  releaseId?: string;
+  episodeId?: string;
+  qualities?: { label: string; url: string }[];
   availableRegions: string[];
   sourceAttribution: { label: string; url: string };
 }

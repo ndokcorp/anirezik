@@ -476,3 +476,54 @@ test('обновления видеопровайдера отделены от 
   ).rejects.toThrow('offline');
   expect(previous.cursor).toBe('one');
 });
+
+import {
+  aniLibertyProvider,
+  aniLibertyAvailabilityAdapter,
+  exactRelease,
+  libertyMappings,
+  type LibertyRelease,
+} from '../src/lib/providers/video/aniliberty';
+import { demoProvider } from '../src/lib/providers/video/demo';
+test('0.4.0: точные ID AniLiberty, неоднозначность и выключенный источник', async () => {
+  const rows = libertyMappings.map(
+    (m) => ({ id: m.releaseId, shikimori: { id: m.shikimoriId } }) as LibertyRelease,
+  );
+  expect(exactRelease([...rows].reverse(), 9253)?.id).toBe(8674);
+  expect(exactRelease([rows[0], rows[0]], 52991)).toBeNull();
+  expect(exactRelease(rows, 1)).toBeNull();
+  expect(await aniLibertyProvider.getSources('shikimori:52991')).toEqual([]);
+  await expect(aniLibertyAvailabilityAdapter.getUpdates(null)).rejects.toThrow('permission');
+  expect(await demoProvider.getSources('shikimori:52991')).toEqual([]);
+  const demo = (await demoProvider.getSources('demo:player'))[0];
+  expect(isAuthorizedSource(demo, demoProvider)).toBe(true);
+  expect(
+    isAuthorizedSource(
+      { ...demo, qualities: [{ label: '1080p', url: 'https://evil.example/stream' }] },
+      demoProvider,
+    ),
+  ).toBe(false);
+});
+test('0.4.0: полная сверка удаляет отозванные серии только после успешной проверки', async () => {
+  const previous = { providerId: provider.id, cursor: 'one', sources: [source], checkedAt: null };
+  const replaced = await refreshAvailability(
+    {
+      ...provider,
+      getUpdates: async () => ({ cursor: 'two', sources: [], replaceAnimeIds: [source.animeId] }),
+    },
+    previous,
+    'UZ',
+  );
+  expect(replaced.sources).toEqual([]);
+  expect(previous.sources).toHaveLength(1);
+  await expect(
+    refreshAvailability(
+      {
+        ...provider,
+        getUpdates: async () => ({ cursor: 'two', sources: [], replaceAnimeIds: ['bad'] }),
+      },
+      previous,
+      'UZ',
+    ),
+  ).rejects.toThrow('Invalid');
+});

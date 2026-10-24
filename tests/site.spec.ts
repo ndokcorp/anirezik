@@ -567,16 +567,6 @@ test('реальное декодирование изображения и fall
       ),
     )
     .toBe(true);
-  await expect(page.locator('.detail-banner img')).toHaveAttribute('src', /hero.webp$/);
-  await expect
-    .poll(() =>
-      page
-        .locator('.detail-banner img')
-        .evaluate((img) => img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0),
-    )
-    .toBe(true);
-  await page.route('**/assets/hero.webp', (route) => route.abort('failed'));
-  await page.reload();
   await expect(page.locator('.detail-banner img')).toBeHidden();
   await expect(page.locator('.detail-banner')).toHaveClass(/neutral-banner/);
 });
@@ -1199,6 +1189,7 @@ test('0.3.12: удаление из коллекции и три мобильн�
   await page.goto('collection/');
   await page.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await expect(page.locator('[data-library-count]')).toContainText('1');
   await page.getByRole('button', { name: /Удалить из коллекции:/ }).click();
   await expect(page.locator('[data-library-status]')).toContainText('пока нет');
   await page.reload();
@@ -1305,4 +1296,26 @@ test('0.3.14: компактная шапка и баннер, избранно�
       false,
     );
   }
+});
+
+test('0.4.0: плеер ленивый, ошибка видима, при смене слота один video', async ({ page }) => {
+  let requests = 0;
+  await page.route('https://media.w3.org/**', (route) => {
+    requests++;
+    return route.fulfill({ status: 503, body: 'unavailable' });
+  });
+  await page.goto('player-test/');
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+  expect(requests).toBe(0);
+  await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
+  await page.locator('.player-big-play').click();
+  await expect(page.locator('.player-status')).toContainText(/Ошибка|не смог/);
+  await expect(page.getByRole('button', { name: 'Повторить', exact: true })).toBeVisible();
+  expect(requests).toBeGreaterThan(0);
+  await page.locator('[data-video-episode]').selectOption('2');
+  await expect(page.locator('video')).toHaveCount(1);
+  await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
+  await expect(page.getByRole('button', { name: 'Следующая →', exact: true })).toBeDisabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

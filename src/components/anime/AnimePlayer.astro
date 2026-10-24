@@ -3,16 +3,25 @@ import type { Anime } from '../../types/anime';
 import { getVideoSources } from '../../lib/providers/video';
 import EpisodeSelector from './EpisodeSelector.astro';
 import DubSelector from './DubSelector.astro';
+import { url } from '../../lib/paths';
+import type { VideoSource } from '../../lib/providers/video/types';
 import { safeJson } from '../../lib/serialize';
 interface Props {
-  anime: Anime;
+  anime: Pick<Anime, 'id' | 'title' | 'sources'>;
+  testSources?: VideoSource[];
 }
-const { anime } = Astro.props;
-const sources = await getVideoSources(anime.id);
+const { anime, testSources } = Astro.props;
+const sources =
+  anime.id === 'demo:player' && testSources ? testSources : await getVideoSources(anime.id);
 const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) => a - b);
 ---
 
-<section id="anime-player" class="info-panel player-section" aria-labelledby="watch-heading">
+<section
+  id="anime-player"
+  data-player-anime={anime.id}
+  class="info-panel player-section"
+  aria-labelledby="watch-heading"
+>
   <h2 id="watch-heading">{anime.title}</h2>
   {sources.length > 0 ? (
     <div class="anime-player" data-player>
@@ -26,12 +35,14 @@ const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) =
     </div>
   ) : (
     <div class="player-placeholder">
-      <span aria-hidden="true">▷</span>
-      <strong>Плеер готовится</strong>
+      <strong>AniRezik Player</strong>
       <p>
         Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения
         разрешённого источника.
       </p>
+      <a class="button button-secondary" href={url('player-test/')}>
+        Проверить плеер
+      </a>
     </div>
   )}
   {anime.sources.map((source) => (
@@ -41,6 +52,9 @@ const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) =
   ))}
 </section>
 <script>
-  import { initPlayers } from '../../lib/video-player';
+  import { initPlayers, loadPlayerSources } from '../../lib/video-player';
   initPlayers();
+  document.querySelectorAll<HTMLElement>('[data-player-anime]').forEach((section) => {
+    void loadPlayerSources(section, section.dataset.playerAnime!);
+  });
 </script>

@@ -33,7 +33,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(url('assets/hero.webp'), Astro.site)} />
+    <meta property="og:image" content={new URL(url('assets/logo.png'), Astro.site)} />
     <link rel="icon" href={url('assets/favicon.svg')} type="image/svg+xml" />
     {noindex && <meta name="robots" content="noindex" />}
   </head>

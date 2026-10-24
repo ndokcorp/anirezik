@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimePlayer from '../components/anime/AnimePlayer.astro';
+import { demoProvider } from '../lib/providers/video/demo';
+const anime = { id: 'demo:player', title: 'AniRezik Player · тест', sources: [] };
+const sources = await demoProvider.getSources(anime.id);
+---
+
+<Layout title="Проверка AniRezik Player" active="catalog" noindex>
+  <div class="page-heading">
+    <h1>AniRezik Player</h1>
+    <p>
+      Разрешённый трейлер Sintel. Оба тестовых слота используют один трейлер для проверки
+      переключения. Это не эпизоды аниме.
+    </p>
+    <p>
+      © Blender Foundation | durian.blender.org ·{' '}
+      <a
+        href="https://creativecommons.org/licenses/by/3.0/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        CC BY 3.0
+      </a>
+      . Видео загружается с media.w3.org только после нажатия воспроизведения.
+    </p>
+  </div>
+  <AnimePlayer anime={anime} testSources={sources} />
+</Layout>

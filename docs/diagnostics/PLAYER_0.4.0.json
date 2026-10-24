@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-25",
+  "testVideo": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+  "license": "https://durian.blender.org/sharing/",
+  "manualChromium": {
+    "label": "Продолжить с 0:14",
+    "resumed": {
+      "time": 14.01297,
+      "duration": 52.208333,
+      "paused": false
+    },
+    "after": {
+      "src": null,
+      "time": 0
+    },
+    "singleVideo": 1,
+    "universalBlocked": true,
+    "aiRequests": []
+  },
+  "initialPlayback": {
+    "before": 0,
+    "requests": 3,
+    "playback": {
+      "time": 1.04471,
+      "duration": 52.208333,
+      "ready": 4
+    },
+    "continued": "Продолжить с 0:01",
+    "switched": 1,
+    "mobile": true,
+    "errors": []
+  },
+  "animeHlsPlaybackTested": false,
+  "note": "Playback and resume were measured against the real permitted MP4. CI error/switch tests intercept network with an explicit 503; they do not claim real media decoding or AniLiberty streaming."
+}

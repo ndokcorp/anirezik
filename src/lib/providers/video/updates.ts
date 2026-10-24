@@ -3,7 +3,9 @@ import { isAuthorizedSource } from './index';
 
 /** Separate provider cursor, never derived from Shikimori episodesAired. No adapter is enabled. */
 export interface AvailabilityAdapter extends VideoProvider {
-  getUpdates(cursor: string | null): Promise<{ cursor: string; sources: VideoSource[] }>;
+  getUpdates(
+    cursor: string | null,
+  ): Promise<{ cursor: string; sources: VideoSource[]; replaceAnimeIds?: string[] }>;
 }
 export interface AvailabilitySnapshot {
   providerId: string;
@@ -24,12 +26,20 @@ export async function refreshAvailability(
   if (
     !batch.cursor ||
     !Array.isArray(batch.sources) ||
+    (batch.replaceAnimeIds !== undefined &&
+      (!Array.isArray(batch.replaceAnimeIds) ||
+        batch.replaceAnimeIds.some(
+          (id) => typeof id !== 'string' || !/^shikimori:\d+$/.test(id),
+        ))) ||
     batch.sources.some(
       (a) => !/^shikimori:\d+$/.test(a.animeId) || !isAuthorizedSource(a, adapter, region),
     )
   )
     throw new Error('Invalid provider availability update');
-  const sources = new Map(previous.sources.map((a) => [key(a), a]));
+  const replaced = new Set(batch.replaceAnimeIds || []);
+  const sources = new Map(
+    previous.sources.filter((a) => !replaced.has(a.animeId)).map((a) => [key(a), a]),
+  );
   for (const source of batch.sources) sources.set(key(source), source);
   // New object only after successful validation; caller may atomically persist it separately.
   return {

@@ -36,7 +36,7 @@ export function isAuthorizedSource(
     allowedUrl(source.sourceAttribution.url, [attributionOrigin]) &&
     source.providerId === provider.id &&
     source.providerName === provider.name &&
-    Number.isInteger(source.episodeNumber) &&
+    Number.isFinite(source.episodeNumber) &&
     source.episodeNumber > 0 &&
     (source.availableRegions.includes('*') ||
       (!!region && source.availableRegions.includes(region.toUpperCase()))) &&
@@ -44,6 +44,9 @@ export function isAuthorizedSource(
       (rights.embeddingAllowed && allowedUrl(source.embedUrl, rights.allowedEmbedOrigins))) &&
     (!source.playbackUrl ||
       (rights.playbackAllowed && allowedUrl(source.playbackUrl, rights.allowedPlaybackOrigins))) &&
+    (!source.qualities?.length ||
+      (rights.playbackAllowed &&
+        source.qualities.every((q) => allowedUrl(q.url, rights.allowedPlaybackOrigins)))) &&
     !!(source.embedUrl || source.playbackUrl)
   );
 }
