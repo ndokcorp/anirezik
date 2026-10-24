@@ -8,12 +8,12 @@ const { active } = Astro.props;
   {[
     ['home', '', 'home', 'Главная'],
     ['catalog', 'catalog/', 'compass', 'Каталог'],
-    ['favorites', 'favorites/', 'bookmark', 'Избранное'],
+    ['collection', 'collection/', 'collection', 'Коллекция'],
     ['profile', 'profile/', 'user', 'Профиль'],
   ].map(([id, path, icon, label]) => (
     <a
       href={url(path)}
-      class:list={{ active: active === id }}
+      class:list={{ active: active === id || (id === 'collection' && active === 'favorites') }}
       aria-current={active === id ? 'page' : undefined}
     >
       <Icon name={icon} />

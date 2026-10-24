@@ -34,6 +34,7 @@ export function initNavigationMotion() {
   }
   nav.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
     link.addEventListener('click', () => {
+      if (link.getAttribute('href')?.startsWith('#')) return;
       try {
         if (active) sessionStorage.setItem('anirezik:nav-motion', JSON.stringify(measure(active)));
       } catch {

@@ -1,3 +1,4 @@
+import { storedFavoriteIds, unresolvedLegacyCount, FAVORITES_KEY } from './favorites';
 import {
   collection,
   collectionLabels,
@@ -94,13 +95,16 @@ export function initLibraryPage() {
     grid = root.querySelector<HTMLElement>('.anime-grid')!,
     more = root.querySelector<HTMLButtonElement>('[data-library-more]')!;
   const tabs = root.querySelectorAll<HTMLButtonElement>('[data-collection-status]');
-  let selected: CollectionStatus = 'watching';
+  let selected: CollectionStatus | 'favorites' =
+    new URLSearchParams(location.search).get('list') === 'favorites' ? 'favorites' : 'watching';
   async function render() {
     const current = ++revision;
     const saved = collection();
     const ids = isHistory
       ? historyIds()
-      : Object.keys(saved).filter((id) => saved[id] === selected);
+      : selected === 'favorites'
+        ? storedFavoriteIds()
+        : Object.keys(saved).filter((id) => saved[id] === selected);
     tabs.forEach((tab) =>
       tab.setAttribute('aria-pressed', String(tab.dataset.collectionStatus === selected)),
     );
@@ -110,7 +114,7 @@ export function initLibraryPage() {
       const result = await loadFavoriteCards(ids.slice(0, limit));
       if (current !== revision) return;
       renderCards(grid, result.entries);
-      if (!isHistory)
+      if (!isHistory && selected !== 'favorites')
         grid.querySelectorAll<HTMLElement>('[data-anime-id]').forEach((card) => {
           const entry = document.createElement('div');
           entry.className = 'collection-entry';
@@ -130,8 +134,10 @@ export function initLibraryPage() {
           card.replaceWith(entry);
           entry.append(card, remove);
         });
-      status.textContent = result.unavailable
-        ? `Некоторые записи недоступны: ${result.unavailable}. Список сохранён.`
+      const unavailable =
+        result.unavailable + (selected === 'favorites' ? unresolvedLegacyCount() : 0);
+      status.textContent = unavailable
+        ? `Некоторые записи недоступны: ${unavailable}. Список сохранён.`
         : ids.length
           ? ''
           : 'В этом списке пока нет аниме.';
@@ -142,7 +148,8 @@ export function initLibraryPage() {
   }
   tabs.forEach((tab) =>
     tab.addEventListener('click', () => {
-      selected = tab.dataset.collectionStatus as CollectionStatus;
+      selected = tab.dataset.collectionStatus as CollectionStatus | 'favorites';
+      history.replaceState(null, '', `${location.pathname}?list=${selected}`);
       limit = 24;
       void render();
     }),
@@ -161,10 +168,18 @@ export function initLibraryPage() {
     }
   });
   window.addEventListener('storage', (event) => {
-    if (event.key === COLLECTION_KEY || event.key === HISTORY_KEY || event.key === null)
+    if (
+      event.key === COLLECTION_KEY ||
+      event.key === HISTORY_KEY ||
+      event.key === FAVORITES_KEY ||
+      event.key === null
+    )
       void render();
   });
   document.addEventListener('anirezik:library-change', () => void render());
+  document.addEventListener('anirezik:favorite-change', () => {
+    if (selected === 'favorites') void render();
+  });
   void render();
 }
 export function initPosterInteraction() {

@@ -124,7 +124,7 @@ export function initDescriptions(root: ParentNode = document) {
         node.parentElement
           ?.querySelectorAll('[data-editorial-credit]')
           .forEach((credit) => credit.remove());
-        node.after(credit);
+        if (!record.sourceUrl?.startsWith('https://shikimori.io/')) node.after(credit);
         expandDescription(node);
         if (wasExpanded)
           node.parentElement

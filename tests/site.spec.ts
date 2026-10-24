@@ -1120,7 +1120,7 @@ test('описания Shikimori на статической и универса
     const item = anime.find((a) => a.shikimoriId === id)!;
     await page.goto(id === 1 || !staticPageIds.has(id) ? `anime/?id=${id}` : `anime/${item.slug}/`);
     await expect(page.locator('.description')).toHaveText(descriptions.get(id)!.text);
-    await expect(page.locator('.description-credit')).toContainText('Shikimori');
+    await expect(page.locator('.description-credit')).toHaveCount(0);
     await expect(page.locator('.description')).not.toContainText('[character=');
     await expect(page.locator('[data-editorial-credit]')).toHaveCount(0);
   }
@@ -1252,4 +1252,57 @@ test('0.3.13: топ-5 с постерами, общие кнопки шапки
   await page.goto('anime/?id=59193');
   await expect(page.locator('.chronology-arrow.next')).toBeVisible();
   await expect(page.locator('.related-list')).toHaveCount(0);
+});
+
+test('0.3.14: компактная шапка и баннер, избранное внутри коллекции', async ({ page }) => {
+  await page.goto('./');
+  await expect(
+    page.locator('.brand-cluster a[aria-label="Telegram"],.brand-cluster a[aria-label="Discord"]'),
+  ).toHaveCount(0);
+  await expect(page.locator('.desktop-favorite')).toHaveAttribute('href', /profile\/$/);
+  await expect(page.locator('.desktop-nav').getByRole('link', { name: 'ИНФА' })).toHaveAttribute(
+    'href',
+    '#site-footer',
+  );
+  const width = await page
+    .locator('#global-search')
+    .evaluate((e) => e.getBoundingClientRect().width);
+  expect(width).toBeGreaterThan(170);
+  expect(
+    await page.locator('.nav-highlight').evaluate((e) => e.getBoundingClientRect().height),
+  ).toBeLessThan(60);
+  await page.goto('schedule/');
+  await expect(page.locator('#global-search')).toBeVisible();
+  await page.goto('./');
+  await page.locator('#popular [data-favorite="shikimori:52299"]').click();
+  await page.goto('collection/?list=favorites');
+  await expect(page.getByRole('button', { name: 'Избранные аниме', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(page.locator('[data-anime-id="shikimori:52299"]')).toBeVisible();
+  await page.locator('[data-favorite="shikimori:52299"]').click();
+  await expect(page.locator('[data-library-status]')).toContainText('пока нет');
+  for (const viewport of [320, 390]) {
+    await page.setViewportSize({ width: viewport, height: 844 });
+    await page.goto('./');
+    await expect(page.getByRole('button', { name: 'Следующий слайд', exact: true })).toBeVisible();
+    await expect(page.locator('.hero-slide.selected .hero-description')).toBeHidden();
+    await expect(page.locator('.hero-slide.selected [data-favorite]')).toBeHidden();
+    expect(
+      await page.locator('.hero').evaluate((e) => e.getBoundingClientRect().height),
+    ).toBeLessThanOrEqual(351);
+    expect(
+      await page
+        .locator('.header-library-links a')
+        .first()
+        .evaluate((e) => e.getBoundingClientRect().width),
+    ).toBeGreaterThanOrEqual(32);
+    await expect(
+      page.locator('.mobile-nav').getByRole('link', { name: 'Коллекция', exact: true }),
+    ).toHaveAttribute('href', /collection\/$/);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(
+      false,
+    );
+  }
 });

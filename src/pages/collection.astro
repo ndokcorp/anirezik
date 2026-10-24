@@ -3,12 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import { collectionLabels } from '../lib/local-library';
 ---
 
-<Layout title="Ваша коллекция" active="catalog" noindex>
+<Layout title="Ваша коллекция" active="collection" noindex>
   <section data-library-page="collection">
     <div class="page-heading">
       <h1>Ваша коллекция</h1>
     </div>
     <div class="collection-tabs">
+      <button
+        class="button button-secondary"
+        data-collection-status="favorites"
+        aria-pressed="false"
+      >
+        Избранные аниме
+      </button>
       {Object.entries(collectionLabels).map(([id, label]) => (
         <button
           class="button button-secondary"

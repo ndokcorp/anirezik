@@ -52,6 +52,9 @@ import { imageUrl, imageFallback } from '../../lib/images';
         loading={i === 0 ? 'eager' : 'lazy'}
         decoding="async"
       />
+      <div class="hero-score">
+        <Rating score={a.score} />
+      </div>
       <div class="hero-copy">
         <div class="eyebrow">
           <span></span> В ЦЕНТРЕ ВНИМАНИЯ
@@ -64,9 +67,6 @@ import { imageUrl, imageFallback } from '../../lib/images';
         </div>
         <h1 class:list={{ 'long-title': a.title.length > 25 }}>{a.title}</h1>
         <p class="hero-russian">{a.originalTitle}</p>
-        <div class="hero-score">
-          <Rating score={a.score} />
-        </div>
         <p class="hero-description">{a.description}</p>
         <div class="hero-actions">
           <a class="button button-primary" href={url(animePath(a))}>

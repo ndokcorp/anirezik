@@ -18,10 +18,11 @@ const { active = 'home' } = Astro.props;
       ['home', '', 'Главная'],
       ['catalog', 'catalog/', 'Каталог'],
       ['schedule', 'schedule/', 'Расписание'],
+      ['info', '#site-footer', 'ИНФА'],
     ].map(([id, path, label]) => (
       <a
-        class:list={{ active: active === id }}
-        href={url(path)}
+        class:list={{ active: active === id || (active === 'collection' && id === 'catalog') }}
+        href={path.startsWith('#') ? path : url(path)}
         aria-current={active === id ? 'page' : undefined}
       >
         {label}
@@ -35,12 +36,14 @@ const { active = 'home' } = Astro.props;
         <Icon name="clock" />
       </a>
       <a class="icon-button" href={url('collection/')} aria-label="Ваша коллекция">
-        <Icon name="filter" />
+        <Icon name="collection" />
       </a>
     </div>
   </div>
-  <a class="icon-button desktop-favorite" href={url('favorites/')} aria-label="Избранное">
-    <Icon name="bookmark" />
+  <a class="icon-button desktop-favorite" href={url('profile/')} aria-label="Профиль">
+    <span class="profile-avatar">
+      <Icon name="user" />
+    </span>
   </a>
   {!Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') && (
     <button class="icon-button mobile-search" aria-label="Открыть поиск" data-open-search>
@@ -68,7 +71,7 @@ const { active = 'home' } = Astro.props;
       ['', 'Главная'],
       ['catalog/', 'Каталог'],
       ['schedule/', 'Расписание'],
-      ['favorites/', 'Избранное'],
+      ['collection/?list=favorites', 'Избранное'],
       ['collection/', 'Ваша коллекция'],
       ['history/', 'История просмотров'],
       ['profile/', 'Профиль'],
