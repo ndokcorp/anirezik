@@ -169,6 +169,36 @@ test('compact snapshot: сохранены все метаданные без и
   expect(JSON.parse(JSON.stringify(snapshot))).toEqual(snapshot);
   assertCatalogUpdate(snapshot, snapshot);
 });
+test('maintenance: неизвестный месяц не выдумывает сезон, единственный вариант постера сохраняется', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'anirezik-partial-date-'));
+  try {
+    const snapshot = await syncMaintenance({
+      output: join(root, 'catalog.json'),
+      reportFile: join(root, 'report.json'),
+      cacheDir: join(root, 'cache'),
+      previous,
+      now: new Date('2027-01-25T00:00:00Z'),
+      api: {
+        query: async () => ({
+          data: {
+            animes: [
+              {
+                ...raw,
+                airedOn: { year: 2027, month: null, day: null, date: null },
+                poster: { mainUrl: changed.poster.mainUrl, originalUrl: null },
+              },
+            ],
+          },
+        }),
+      },
+    });
+    expect(snapshot.anime[0].isNew).toBe(false);
+    expect(snapshot.anime[0].sourcePosterMainUrl).toBe(changed.poster.mainUrl);
+    expect(snapshot.anime[0].sourcePosterUrl).toBeNull();
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
 
 test('maintenance: бюджет ограничен, активные ID вращаются, повтор дня использует тот же кеш', async () => {
   const root = await mkdtemp(join(tmpdir(), 'anirezik-maintenance-rotate-'));

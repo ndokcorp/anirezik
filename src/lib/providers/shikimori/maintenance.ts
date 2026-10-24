@@ -102,6 +102,7 @@ export async function syncMaintenance(
       item.isNew =
         item.year === now.getUTCFullYear() &&
         !!item.airedOn &&
+        item.airedOn.length >= 7 &&
         season(new Date(`${item.airedOn.slice(0, 7)}-01`)) === season(now);
       // Identity, custom aliases/descriptions and legacy routes survive provider updates.
       if (old) {

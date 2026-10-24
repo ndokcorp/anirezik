@@ -61,7 +61,7 @@ export function validateApiAnime(value: unknown): asserts value is ShikimoriAnim
     ) ||
     (value.poster != null &&
       (!record(value.poster) ||
-        !text(value.poster.originalUrl) ||
+        !nullableText(value.poster.originalUrl) ||
         !nullableText(value.poster.mainUrl))) ||
     !Array.isArray(value.related) ||
     !value.related.every(
