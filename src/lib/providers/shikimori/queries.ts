@@ -6,5 +6,5 @@ export const ANIME_FIELDS = `
  related { relationKind relationText anime { id name russian url } }
 `;
 export const ANIMES_QUERY = `query AniRezikCatalog($page: PositiveInt, $limit: PositiveInt, $ids: String, $status: AnimeStatusString, $season: SeasonString, $search: String) {
- animes(page: $page, limit: $limit, ids: $ids, status: $status, season: $season, search: $search, order: ranked, censored: true) { ${ANIME_FIELDS} }
+ animes(page: $page, limit: $limit, ids: $ids, status: $status, season: $season, search: $search, order: ranked, censored: false) { ${ANIME_FIELDS} }
 }`;
