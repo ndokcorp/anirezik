@@ -299,6 +299,7 @@ test('настоящий каталог, пагинация, комбиниро�
     expected[0].id,
   );
   await page.keyboard.press('Escape');
+  await expect(page.locator('#filter-panel')).toBeHidden();
   await page.locator('#catalog-search').fill('unknown12345');
   await expect(page.locator('#catalog-empty')).toBeVisible();
   if (await page.locator('#filter-panel').isHidden()) await page.locator('.filter-toggle').click();
