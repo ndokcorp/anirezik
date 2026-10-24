@@ -3135,3 +3135,108 @@ html {
     animation-duration: 0s;
   }
 }
+
+/* Compact mobile catalog and removable collection entries. */
+.footer-bottom .footer-copyright {
+  text-align: left;
+  max-width: 620px;
+}
+.footer-copyright > span {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 650;
+  color: #cfcfd7;
+  margin-bottom: 10px;
+}
+.footer-copyright > p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.collection-entry {
+  min-width: 0;
+}
+.collection-entry > .anime-card {
+  width: 100%;
+}
+.collection-remove {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 12px;
+  min-height: 36px;
+  padding: 8px;
+}
+.collection-remove:hover {
+  border-color: #ce3049;
+  color: #ff8093;
+}
+@media (max-width: 700px) {
+  #catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+  }
+  #catalog-grid .anime-card {
+    aspect-ratio: 0.61;
+    border-radius: 11px;
+  }
+  #catalog-grid .card-info {
+    left: 7px;
+    right: 7px;
+    bottom: 40px;
+  }
+  #catalog-grid .card-original {
+    display: none;
+  }
+  #catalog-grid .card-info h3 {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  #catalog-grid .card-info p {
+    font-size: 8px;
+  }
+  #catalog-grid .card-badge {
+    font-size: 12px;
+    left: 5px;
+    top: 6px;
+    padding: 4px 5px;
+    gap: 3px;
+  }
+  #catalog-grid .card-badge svg {
+    width: 11px;
+    height: 11px;
+  }
+  #catalog-grid .card-age {
+    font-size: 9px;
+    right: 5px;
+    top: 6px;
+    padding: 4px;
+  }
+  #catalog-grid .favorite-button {
+    width: 27px;
+    height: 29px;
+    right: 5px;
+    bottom: 6px;
+  }
+  #catalog-grid .card-episodes {
+    font-size: 9px;
+    left: 5px;
+    bottom: 7px;
+    padding: 4px;
+    max-width: calc(100% - 39px);
+  }
+  .franchise-track {
+    gap: 10px;
+  }
+  .franchise-track > li {
+    flex-basis: calc((100% - 20px) / 3);
+  }
+  .chronology-card strong {
+    font-size: 11px;
+  }
+  .chronology-card small,
+  .chronology-year {
+    font-size: 10px;
+  }
+  .chronology-card img {
+    border-radius: 10px;
+  }
+}

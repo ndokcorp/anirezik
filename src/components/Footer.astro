@@ -23,7 +23,6 @@ const information = [
   <div class="footer-brand">
     <Logo />
     <p>Смотри аниме и делись впечатлениями.</p>
-    <a href={url('about/#posters')}>Источники изображений</a>
   </div>
   <nav aria-label="Навигация внизу сайта">
     <h2>НАВИГАЦИЯ</h2>
@@ -51,7 +50,10 @@ const information = [
     </a>
   </div>
   <div class="footer-bottom">
-    <span>© {new Date().getFullYear()} AniRezik</span>
+    <div class="footer-copyright">
+      <span>© {new Date().getFullYear()} AniRezik</span>
+      <p>AniRezik не размещает видео и не хранит видеофайлы.</p>
+    </div>
     <div>
       <p>
         Данные о тайтлах —{' '}

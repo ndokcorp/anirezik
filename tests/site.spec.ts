@@ -1186,3 +1186,49 @@ test('0.3.11: тёмные списки, диапазон лет и стабил
   await expect(page.locator('.result-count')).not.toContainText('Показано');
   await expect(page.locator('#catalog-grid .anime-card').first()).toBeVisible();
 });
+
+test('0.3.12: удаление из коллекции и три мобильные карточки', async ({ page }) => {
+  await page.goto('anime/?id=36027');
+  await page.locator('.list-picker > button').click();
+  await page.locator('.list-options').getByRole('button', { name: 'Смотрю', exact: true }).click();
+  await page.getByRole('button', { name: 'Удалить из коллекции', exact: true }).click();
+  await expect(page.locator('.list-picker > button')).toContainText('Добавить в список');
+  await page.locator('.list-picker > button').click();
+  await page
+    .locator('.list-options')
+    .getByRole('button', { name: 'В планах', exact: true })
+    .click();
+  await page.goto('collection/');
+  await page.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await page.getByRole('button', { name: /Удалить из коллекции:/ }).click();
+  await expect(page.locator('[data-library-status]')).toContainText('пока нет');
+  await page.reload();
+  await page.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toHaveCount(0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('catalog/');
+  const boxes = await page
+    .locator('#catalog-grid article')
+    .evaluateAll((items) =>
+      items
+        .slice(0, 3)
+        .map((e) => ({
+          top: e.getBoundingClientRect().top,
+          right: e.getBoundingClientRect().right,
+        })),
+    );
+  expect(new Set(boxes.map((b) => b.top)).size).toBe(1);
+  expect(boxes[2].right).toBeLessThanOrEqual(390);
+  await expect(page.locator('.footer-brand')).not.toContainText('Источники изображений');
+  await page.goto('anime/?id=59193');
+  const track = page.locator('.franchise-track');
+  await expect(track.locator('li').nth(2)).toBeAttached();
+  const widths = await track.evaluate((e) => ({
+    available: e.clientWidth,
+    third:
+      e.querySelectorAll('li')[2].getBoundingClientRect().right - e.getBoundingClientRect().left,
+  }));
+  expect(widths.third).toBeLessThanOrEqual(widths.available + 1);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+});

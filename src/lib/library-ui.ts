@@ -2,6 +2,7 @@ import {
   collection,
   collectionLabels,
   setCollection,
+  removeCollection,
   historyIds,
   COLLECTION_KEY,
   HISTORY_KEY,
@@ -25,8 +26,16 @@ export function initListPicker(root: ParentNode = document) {
     menu.hidden = true;
     menu.setAttribute('role', 'group');
     menu.setAttribute('aria-label', 'Добавить в список');
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'button button-secondary collection-remove';
+    remove.textContent = 'Удалить из коллекции';
+    remove.addEventListener('click', () => {
+      if (!removeCollection(id)) button.textContent = 'Не удалось удалить — повторите';
+    });
     const sync = () => {
       const status = collection()[id];
+      remove.hidden = !status;
       button.textContent = '☷ ' + (status ? collectionLabels[status] : 'Добавить в список');
       menu
         .querySelectorAll<HTMLButtonElement>('button')
@@ -69,8 +78,9 @@ export function initListPicker(root: ParentNode = document) {
       }
     });
     window.addEventListener('storage', sync);
+    document.addEventListener('anirezik:library-change', sync);
     wrapper.append(button, menu);
-    actions.prepend(wrapper);
+    actions.prepend(wrapper, remove);
     sync();
   });
 }
@@ -100,6 +110,26 @@ export function initLibraryPage() {
       const result = await loadFavoriteCards(ids.slice(0, limit));
       if (current !== revision) return;
       renderCards(grid, result.entries);
+      if (!isHistory)
+        grid.querySelectorAll<HTMLElement>('[data-anime-id]').forEach((card) => {
+          const entry = document.createElement('div');
+          entry.className = 'collection-entry';
+          const remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'button button-secondary collection-remove';
+          remove.textContent = 'Удалить';
+          const id = card.dataset.animeId!;
+          remove.setAttribute(
+            'aria-label',
+            `Удалить из коллекции: ${result.entries.find((item) => item.id === id)?.title || id}`,
+          );
+          remove.addEventListener('click', () => {
+            if (!removeCollection(id))
+              status.textContent = 'Не удалось удалить. Проверьте настройки хранения.';
+          });
+          card.replaceWith(entry);
+          entry.append(card, remove);
+        });
       status.textContent = result.unavailable
         ? `Некоторые записи недоступны: ${result.unavailable}. Список сохранён.`
         : ids.length

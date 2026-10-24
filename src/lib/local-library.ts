@@ -32,6 +32,18 @@ export function setCollection(id: string, status: CollectionStatus): boolean {
     return false;
   }
 }
+export function removeCollection(id: string): boolean {
+  if (!validId(id)) return false;
+  try {
+    const saved = collection();
+    delete saved[id];
+    localStorage.setItem(COLLECTION_KEY, JSON.stringify(saved));
+    document.dispatchEvent(new Event('anirezik:library-change'));
+    return true;
+  } catch {
+    return false;
+  }
+}
 export function historyIds(): string[] {
   try {
     const stored = localStorage.getItem(HISTORY_KEY);
