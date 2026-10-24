@@ -400,20 +400,7 @@ test('мобильные меню, поиск и фильтр студии', asy
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toBeHidden();
-  for (const genre of ['Романтика', 'Спорт', 'Драма', 'Фэнтези']) {
-    await page.getByRole('button', { name: genre, exact: true }).click();
-    for (const section of await page.locator('.anime-section').all()) {
-      const count = await section
-        .locator('[data-anime-id]')
-        .evaluateAll(
-          (cards, g) =>
-            cards.filter((card) => card.getAttribute('data-genres')?.split('|').includes(g)).length,
-          genre,
-        );
-      await expect(section.locator('article:visible')).toHaveCount(Math.min(4, count));
-    }
-  }
-  await page.getByRole('button', { name: 'Все аниме', exact: true }).click();
+  await expect(page.locator('.genre-filter')).toHaveCount(0);
   await page.getByRole('button', { name: 'Открыть поиск' }).click();
   await page.getByRole('combobox').fill('Соло левелинг');
   await expect(page.getByRole('option')).toHaveCount(1);
