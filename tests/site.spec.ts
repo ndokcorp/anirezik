@@ -54,6 +54,10 @@ test('пакеты постеров: оригинал деталей, отказ
   await page.goto('anime/?id=3929');
   const poster = page.locator('.detail-poster');
   await expect(poster).toHaveAttribute('src', images['3929'].posterDetailUrl);
+  await expect
+    .poll(() => poster.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
+    .toBe(true);
+  await expect(poster).toHaveAttribute('src', images['3929'].posterDetailUrl);
   expect(
     await poster.evaluate(async (img: HTMLImageElement) => {
       await img.decode();
