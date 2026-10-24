@@ -1,3 +1,5 @@
+import { enhanceDetailMeta } from './detail-meta';
+import { initListPicker, initLibraryPage, initPosterInteraction } from './library-ui';
 import { initSurfaceControls, bindNews } from './surface-controls';
 import { initNavigationMotion } from './navigation-motion';
 import { initDetailActions } from './recent-anime';
@@ -59,6 +61,10 @@ function initFavorites() {
 }
 initFavorites();
 initDetailActions();
+initListPicker();
+enhanceDetailMeta();
+initLibraryPage();
+initPosterInteraction();
 initNavigationMotion();
 initSurfaceControls();
 bindNews();

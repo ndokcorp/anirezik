@@ -1,3 +1,5 @@
+import { enhanceDetailMeta } from './detail-meta';
+import { initListPicker } from './library-ui';
 import { initSurfaceControls } from './surface-controls';
 import { rememberAnime, shareIcon } from './recent-anime';
 import { ageLabel } from './card-meta';
@@ -310,6 +312,8 @@ export async function initAnimeDetail() {
     initImages(container);
     initDescriptions(container);
     initSurfaceControls(container);
+    initListPicker(container);
+    enhanceDetailMeta(container);
     document.dispatchEvent(new Event('anirezik:cards-rendered'));
   } catch {
     status.textContent =

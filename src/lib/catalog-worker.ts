@@ -63,6 +63,8 @@ self.onmessage = async (
           (!f.theme || a.themes?.includes(f.theme)) &&
           (!f.minScore || (a.score !== null && a.score >= Number(f.minScore))) &&
           (!f.year || String(a.year) === f.year) &&
+          (!f.yearFrom || (a.year !== null && a.year >= Number(f.yearFrom))) &&
+          (!f.yearTo || (a.year !== null && a.year <= Number(f.yearTo))) &&
           (!f.type || a.type === f.type) &&
           (!f.status || a.status === f.status) &&
           (!f.studio || a.studios.includes(f.studio)),

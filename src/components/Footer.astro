@@ -1,48 +1,67 @@
 ---
 import Logo from './navigation/Logo.astro';
 import { url } from '../lib/paths';
-import { posterAvailability } from '../data/anime';
+const navigation = [
+  ['', 'Главная'],
+  ['catalog/', 'Каталог Аниме'],
+  ['schedule/', 'Расписание Выходов'],
+  ['collection/', 'Коллекция Аниме'],
+  ['history/', 'История Просмотров'],
+  ['favorites/', 'Избранные Аниме'],
+  ['news/', 'Новости Сайта'],
+];
+const information = [
+  ['faq/', 'Вопросы и Ответы'],
+  ['terms/', 'Пользовательское Соглашение'],
+  ['privacy/', 'Согласие на обработку данных'],
+  ['rules/', 'Правила сайта'],
+  ['copyright/', 'Правообладателям'],
+];
 ---
 
-<footer class="footer">
-  <div>
+<footer class="footer site-footer">
+  <div class="footer-brand">
     <Logo />
-    <p>Твоя следующая история начинается здесь.</p>
+    <p>Смотри аниме и делись впечатлениями.</p>
+    <a href={url('about/#posters')}>Источники изображений</a>
   </div>
-  <div class="footer-links">
-    <a href={url('catalog/')}>Каталог</a>
-    <a href={url('about/')}>О проекте</a>
-    <span>© {new Date().getFullYear()} AniRezik</span>
-  </div>
-  <p class="footer-note">
-    Некоммерческая бета-версия · Метаданные и оценки пользователей:{' '}
-    <a href="https://shikimori.io" target="_blank" rel="noopener noreferrer">
-      Shikimori
+  <nav aria-label="Навигация внизу сайта">
+    <h2>НАВИГАЦИЯ</h2>
+    {navigation.map(([path, label]) => (
+      <a href={url(path)}>{label}</a>
+    ))}
+  </nav>
+  <nav aria-label="Информация">
+    <h2>ИНФОРМАЦИЯ</h2>
+    {information.map(([path, label]) => (
+      <a href={url(path)}>{label}</a>
+    ))}
+  </nav>
+  <div class="footer-contacts">
+    <h2>СВЯЗИ</h2>
+    <a href="mailto:ndokcooperation@gmail.com">По всем вопросам: ndokcooperation@gmail.com</a>
+    <a href="https://t.me/anirezik" target="_blank" rel="noopener noreferrer">
+      Наш Telegram-канал
     </a>
-    .{' '}
-    {posterAvailability.published
-      ? `Постеры Shikimori используются в подтверждённой области разрешения (${posterAvailability.published}).`
-      : posterAvailability.experimental
-        ? 'Постеры Shikimori показаны в локальном эксперименте; право публичного использования этим не подтверждается.'
-        : 'Постеры Shikimori пока не подключены.'}{' '}
-    {posterAvailability.tvmaze > 0 && (
-      <>
-        Постеры {posterAvailability.tvmaze} сериалов:{' '}
-        <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">
-          TVmaze
+    <a href="https://www.tiktok.com/@anirezik" target="_blank" rel="noopener noreferrer">
+      Тик-Ток: @anirezik
+    </a>
+    <a href="https://www.youtube.com/@neumniy" target="_blank" rel="noopener noreferrer">
+      Youtube Автора
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span>© {new Date().getFullYear()} AniRezik</span>
+    <div>
+      <p>
+        Данные о тайтлах —{' '}
+        <a href="https://shikimori.io/" target="_blank" rel="noopener noreferrer">
+          Shikimori
         </a>
-        {' · '}
-        <a
-          href="https://creativecommons.org/licenses/by-sa/4.0/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CC BY-SA 4.0
-        </a>
-        . <a href={url('about/#posters')}>Источники изображений</a>.{' '}
-      </>
-    )}
-    Широкий AI-арт подписан; при отсутствии разрешённого постера используется фирменная заглушка.
-    <a href={url('about/#posters')}>Источники изображений</a>. Видеоконтент не размещается.
-  </p>
+      </p>
+      <p>
+        <strong>18+</strong> Сайт содержит материалы для взрослой аудитории
+      </p>
+    </div>
+  </div>
 </footer>

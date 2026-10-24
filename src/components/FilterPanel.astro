@@ -1,5 +1,8 @@
 ---
 import { anime, genres } from '../data/anime';
+const years = anime.flatMap((a) => (a.year === null ? [] : [a.year]));
+const firstYear = Math.min(...years),
+  lastYear = Math.max(...years);
 ---
 
 <dialog id="filter-panel" class="filter-panel" aria-labelledby="filter-heading">
@@ -42,17 +45,38 @@ import { anime, genres } from '../data/anime';
       ))}
     </select>
   </label>
-  <label>
-    Года выхода
-    <select id="filter-year">
+  <div class="year-range" data-first-year={firstYear} data-last-year={lastYear}>
+    <span>Года выхода</span>
+    <div class="year-values">
+      <output id="year-from-label">{firstYear}</output>
+      <span>—</span>
+      <output id="year-to-label">{lastYear}</output>
+    </div>
+    <div class="year-track">
+      <input
+        id="filter-yearFrom"
+        type="range"
+        min={firstYear}
+        max={lastYear}
+        value={firstYear}
+        aria-label="Год выхода от"
+      />
+      <input
+        id="filter-yearTo"
+        type="range"
+        min={firstYear}
+        max={lastYear}
+        value={lastYear}
+        aria-label="Год выхода до"
+      />
+    </div>
+    <select id="filter-year" hidden aria-label="Точный год">
       <option value="">Все годы</option>
-      {[...new Set(anime.map((a) => a.year).filter((year): year is number => year !== null))]
-        .sort((a, b) => b - a)
-        .map((y) => (
-          <option>{y}</option>
-        ))}
+      {[...new Set(years)].map((y) => (
+        <option>{y}</option>
+      ))}
     </select>
-  </label>
+  </div>
   <label>
     Тип
     <select id="filter-type">

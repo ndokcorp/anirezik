@@ -282,17 +282,17 @@ test('настоящий каталог, пагинация, комбиниро�
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(48);
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-studio').selectOption('MAPPA');
+  await page.locator('#filter-studio').selectOption('MAPPA', { force: true });
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-genre').selectOption('Экшен');
+  await page.locator('#filter-genre').selectOption('Экшен', { force: true });
   const filtered = anime.filter((a) => a.studios.includes('MAPPA') && a.genres.includes('Экшен'));
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(
     Math.min(24, filtered.length),
   );
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-sort').selectOption('rating');
+  await page.locator('#filter-sort').selectOption('rating', { force: true });
   const expected = [...filtered].sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
   await expect(page.locator('#catalog-grid article:visible').first()).toHaveAttribute(
     'data-anime-id',
@@ -306,13 +306,13 @@ test('настоящий каталог, пагинация, комбиниро�
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(24);
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-year').selectOption('2002');
+  await page.locator('#filter-year').selectOption('2002', { force: true });
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-type').selectOption('TV');
+  await page.locator('#filter-type').selectOption('TV', { force: true });
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-status').selectOption('Завершён');
+  await page.locator('#filter-status').selectOption('Завершён', { force: true });
   const count = anime.filter(
     (a) => a.year === 2002 && a.type === 'TV' && a.status === 'Завершён',
   ).length;
@@ -415,7 +415,7 @@ test('мобильные меню, поиск и фильтр студии', asy
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-studio').selectOption('ufotable');
+  await page.locator('#filter-studio').selectOption('ufotable', { force: true });
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(
     Math.min(24, anime.filter((a) => a.studios.includes('ufotable')).length),
   );
@@ -814,11 +814,11 @@ test('пакеты изображений загружаются у экрана
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-sort').selectOption('title');
+  await page.locator('#filter-sort').selectOption('title', { force: true });
   await expect(page.locator('#catalog-grid')).not.toHaveAttribute('aria-busy', 'true');
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
     await page.locator('.filter-toggle').click();
-  await page.locator('#filter-sort').selectOption('default');
+  await page.locator('#filter-sort').selectOption('default', { force: true });
   await expect(page.locator('#catalog-grid article')).toHaveCount(24);
   await page.locator('#catalog-grid article').first().scrollIntoViewIfNeeded();
   expect(indexCalls).toBe(1);
@@ -875,7 +875,7 @@ test('запоздалый пакет постеров не меняет кар�
   await page.locator('#catalog-grid').scrollIntoViewIfNeeded();
   await waiting;
   await page.locator('#catalog-search').fill('Naruto');
-  await expect(page.locator('.result-count')).toContainText('Показано:');
+  await expect(page.locator('.result-count')).toContainText('Найдено:');
   await expect(page.locator('#catalog-grid h3').first()).not.toHaveText(solo.title);
   release();
   await expect(page.locator('#catalog-grid img[src*="stale-fixture"]')).toHaveCount(0);
@@ -1040,7 +1040,7 @@ test('хронология с постерами, компактные филь�
   await expect(page.locator('#filter-panel')).toBeHidden();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   await expect(page.locator('#filter-panel')).toBeVisible();
-  await page.locator('#filter-type').selectOption('Фильм');
+  await page.locator('#filter-type').selectOption('Фильм', { force: true });
   await expect(page.locator('#catalog-grid article').first()).toHaveAttribute('data-type', 'Фильм');
   for (const path of ['anime/solo-leveling/', 'anime/?id=59193']) {
     await page.goto(path);
@@ -1076,8 +1076,8 @@ test('окно фильтров: темы/оценка, новости, стре
   await expect(page.locator('#global-search')).toHaveCount(0);
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   const item = anime.find((a) => a.themes.length && (a.score ?? 0) >= 8)!;
-  await page.locator('#filter-theme').selectOption(item.themes[0]);
-  await page.locator('#filter-minScore').selectOption('8');
+  await page.locator('#filter-theme').selectOption(item.themes[0], { force: true });
+  await page.locator('#filter-minScore').selectOption('8', { force: true });
   await expect(page.getByRole('combobox', { name: 'Озвучка — пока недоступна' })).toBeDisabled();
   await page.keyboard.press('Escape');
   const expected = anime.filter((a) => a.themes.includes(item.themes[0]) && (a.score ?? 0) >= 8);
@@ -1134,4 +1134,54 @@ test('описания Shikimori на статической и универса
   await context.unroute('**/data/descriptions/36027.json');
   await page.getByRole('button', { name: 'Повторить загрузку описания' }).click();
   await expect(page.locator('.description')).toHaveText(descriptions.get(36027)!.text);
+});
+
+test('0.3.11: четыре списка коллекции и история открытий', async ({ page }) => {
+  await page.goto('anime/?id=36027');
+  const picker = page.locator('.list-picker');
+  await picker.locator('> button').click();
+  await expect(picker.locator('.list-options button')).toHaveCount(4);
+  await picker.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(picker.locator('> button')).toContainText('В планах');
+  await page.goto('collection/');
+  await page.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await page.reload();
+  await page.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await page.goto('history/');
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await page.getByRole('button', { name: 'Очистить историю' }).click();
+  await expect(page.locator('[data-library-status]')).toContainText('пока нет');
+});
+test('0.3.11: тёмные списки, диапазон лет и стабильная навигация', async ({ page }) => {
+  await page.goto('./');
+  const before = await page.locator('.desktop-nav').boundingBox();
+  await page.goto('catalog/');
+  const after = await page.locator('.desktop-nav').boundingBox();
+  if (before && after) expect(Math.abs(before.x - after.x)).toBeLessThan(2);
+  await expect(
+    page.getByRole('link', { name: 'История просмотров', exact: true }).first(),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  const genre = page.locator('#filter-genre + .custom-select');
+  await genre.locator('.select-trigger').click();
+  await genre.getByRole('option', { name: 'Экшен', exact: true }).click();
+  await expect(page.locator('#filter-genre')).toHaveValue('Экшен');
+  for (const [id, value] of [
+    ['yearFrom', '2000'],
+    ['yearTo', '2005'],
+  ])
+    await page.locator(`#filter-${id}`).evaluate((node, value) => {
+      const input = node as HTMLInputElement;
+      input.value = value;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }, value);
+  await expect(page).toHaveURL(/yearFrom=2000/);
+  await expect(page.locator('#year-to-label')).toHaveText('2005');
+  await page.getByRole('button', { name: 'Закрыть фильтры' }).click();
+  await expect(page.locator('#filter-panel')).not.toBeVisible();
+  await expect(page.locator('.result-count')).not.toContainText('Показано');
+  await expect(page.locator('#catalog-grid .anime-card').first()).toBeVisible();
 });

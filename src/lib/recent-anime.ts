@@ -1,3 +1,4 @@
+import { recordHistory } from './local-library';
 import { url } from './paths';
 const key = 'anirezik:recent:v1';
 type Recent = { id: string; title: string; href: string };
@@ -23,6 +24,7 @@ export function recentAnime(): Recent[] {
   }
 }
 export function rememberAnime(item: Recent) {
+  recordHistory(item.id);
   try {
     localStorage.setItem(
       key,

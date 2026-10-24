@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { informationPages } from '../data/information';
+import { url } from '../lib/paths';
+export function getStaticPaths() {
+  return informationPages.map((page) => ({ params: { information: page.slug }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+
+<Layout title={page.title}>
+  <article class="information-page">
+    <div class="page-heading">
+      <h1>{page.title}</h1>
+    </div>
+    {page.paragraphs.map((text) => (
+      <p>{text}</p>
+    ))}
+    <a href={url('about/')}>О проекте и источниках</a>
+  </article>
+</Layout>

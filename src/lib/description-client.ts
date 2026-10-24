@@ -47,6 +47,7 @@ function expandDescription(node: HTMLParagraphElement) {
   if (node.textContent!.length < 420 || node.dataset.expandBound) return;
   node.dataset.expandBound = 'true';
   node.classList.add('description-collapsed');
+  node.style.maxHeight = '7.8em';
   if (!node.id) node.id = `description-${node.dataset.descriptionId || 'editorial'}`;
   const button = document.createElement('button');
   button.className = 'description-toggle';
@@ -54,7 +55,13 @@ function expandDescription(node: HTMLParagraphElement) {
   button.setAttribute('aria-expanded', 'false');
   button.setAttribute('aria-controls', node.id);
   button.addEventListener('click', () => {
-    const collapsed = node.classList.toggle('description-collapsed');
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    node.style.maxHeight = `${node.getBoundingClientRect().height}px`;
+    node.classList.toggle('description-collapsed', expanded);
+    const collapsed = expanded;
+    requestAnimationFrame(() => {
+      node.style.maxHeight = collapsed ? '7.8em' : `${node.scrollHeight}px`;
+    });
     button.setAttribute('aria-expanded', String(!collapsed));
     button.textContent = collapsed ? 'Развернуть описание' : 'Свернуть описание';
   });
@@ -90,6 +97,7 @@ export function initDescriptions(root: ParentNode = document) {
         previousToggle?.remove();
         delete node.dataset.expandBound;
         node.classList.remove('description-collapsed');
+        node.style.maxHeight = '';
         node.parentElement
           ?.querySelectorAll('[data-description-fallback]')
           .forEach((link) => link.remove());

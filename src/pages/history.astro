@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="История просмотров" active="catalog" noindex>
+  <section data-library-page="history">
+    <div class="page-heading">
+      <h1>История просмотров</h1>
+    </div>
+    <p>Открытые страницы аниме в этом браузере. История не означает просмотр видео.</p>
+    <button class="button button-secondary" data-clear-history>
+      Очистить историю
+    </button>
+    <p data-library-status role="status"></p>
+    <div class="anime-grid"></div>
+    <button class="button button-secondary load-more" data-library-more hidden>
+      Показать ещё
+    </button>
+    <button class="button button-secondary" data-library-retry>
+      Обновить список
+    </button>
+    <noscript>Для локальных списков включите JavaScript.</noscript>
+  </section>
+</Layout>

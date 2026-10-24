@@ -3,18 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import AnimeGrid from '../components/anime/AnimeGrid.astro';
 import FilterPanel from '../components/FilterPanel.astro';
 import Icon from '../components/ui/Icon.astro';
-import { anime, catalog } from '../data/anime';
+import { anime } from '../data/anime';
 ---
 
 <Layout title="Каталог" active="catalog">
   <div class="page-heading">
-    <span class="eyebrow">ИССЛЕДУЙ. НАХОДИ. ВЛЮБЛЯЙСЯ.</span>
+    <span class="eyebrow">НАХОДИ АНИМЕ ПОД СЕБЯ</span>
     <h1>Каталог аниме</h1>
-    <p>
-      Поиск по {anime.length} аниме в AniRezik. Метаданные: Shikimori · снимок от{' '}
-      {new Date(catalog.fetchedAt).toLocaleDateString('ru-RU', { timeZone: 'Asia/Tashkent' })}.
-      Поиск по всему импортированному индексу; покрытие ограничено доступными записями снимка.
-    </p>
+    <p>Поиск аниме в AniRezik.</p>
   </div>
   <div class="catalog-toolbar">
     <label class="catalog-search-wrap">
@@ -39,7 +35,7 @@ import { anime, catalog } from '../data/anime';
   </div>
   <FilterPanel />
   <p class="result-count" aria-live="polite">
-    Найдено: {anime.length} · Показано: {Math.min(24, anime.length)}
+    Найдено: {anime.length}
   </p>
   <AnimeGrid items={anime.slice(0, 24)} id="catalog-grid" />
   <div class="empty-state" id="catalog-empty" hidden>

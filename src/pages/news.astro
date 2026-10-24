@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import updates from '../data/site-updates.json';
+---
+
+<Layout title="Новости сайта">
+  <div class="page-heading">
+    <h1>Новости сайта</h1>
+  </div>
+  {updates.map((update) => (
+    <article class="info-panel">
+      <h2>{update.version}</h2>
+      <p>{update.title}</p>
+      <p>{update.text}</p>
+    </article>
+  ))}
+</Layout>
