@@ -33,8 +33,6 @@ export function initNavigationMotion() {
     }
   }
   nav.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
-    link.addEventListener('pointerenter', () => move(link));
-    link.addEventListener('focus', () => move(link));
     link.addEventListener('click', () => {
       try {
         if (active) sessionStorage.setItem('anirezik:nav-motion', JSON.stringify(measure(active)));
@@ -43,12 +41,6 @@ export function initNavigationMotion() {
       }
       move(link);
     });
-  });
-  nav.addEventListener('pointerleave', () => {
-    if (active) move(active);
-  });
-  nav.addEventListener('focusout', (event) => {
-    if (!nav.contains(event.relatedTarget as Node) && active) move(active);
   });
   new ResizeObserver(() => {
     if (active) move(active);

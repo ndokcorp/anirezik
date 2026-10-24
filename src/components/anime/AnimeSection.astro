@@ -9,14 +9,15 @@ interface Props {
   items: Anime[];
   href?: string;
   id?: string;
+  icon?: string;
 }
-const { title, subtitle, items, href = 'catalog/', id } = Astro.props;
+const { title, subtitle, items, href = 'catalog/', id, icon } = Astro.props;
 ---
 
 <section class="anime-section" id={id}>
   <div class="section-heading">
     <div>
-      <h2>{title}</h2>
+      <h2>{icon && <Icon name={icon} size={26} />}{title}</h2>
       {subtitle && <p>{subtitle}</p>}
     </div>
     <a class="text-link" href={url(href)}>

@@ -4,7 +4,7 @@ export function initCatalog() {
   const grid = document.querySelector<HTMLElement>('#catalog-grid');
   if (!grid) return;
   const query = document.querySelector<HTMLInputElement>('#catalog-search')!;
-  const names = ['genre', 'year', 'type', 'status', 'studio', 'sort'];
+  const names = ['genre', 'year', 'type', 'status', 'studio', 'sort', 'theme', 'minScore'];
   const controls = names.map((name) =>
     document.querySelector<HTMLSelectElement>(`#filter-${name}`)!,
   );
@@ -70,9 +70,24 @@ export function initCatalog() {
     void filter();
   });
   const toggle = document.querySelector<HTMLButtonElement>('.filter-toggle');
+  const dialog = document.querySelector<HTMLDialogElement>('#filter-panel')!;
   toggle?.addEventListener('click', () => {
-    const open = document.querySelector('#filter-panel')!.classList.toggle('open');
-    document.querySelector('.filter-toggle')!.setAttribute('aria-expanded', String(open));
+    dialog.showModal();
+    toggle.setAttribute('aria-expanded', 'true');
+  });
+  document.querySelector('[data-close-filters]')?.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => toggle?.setAttribute('aria-expanded', 'false'));
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      const r = dialog.getBoundingClientRect();
+      if (
+        event.clientX < r.left ||
+        event.clientX > r.right ||
+        event.clientY < r.top ||
+        event.clientY > r.bottom
+      )
+        dialog.close();
+    }
   });
   if (toggle) toggle.disabled = false;
   // The first 24 cards are server-rendered; do not download the full index until needed.

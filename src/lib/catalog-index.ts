@@ -15,10 +15,12 @@ export type IndexRow = [
   number[],
   string | null,
   (string | null)?,
+  number[]?,
 ];
 export interface PackedIndex {
   version: 1;
   count: number;
+  themes?: string[];
   types: string[];
   statuses: string[];
   genres: string[];
@@ -27,6 +29,7 @@ export interface PackedIndex {
 }
 export interface CatalogEntry {
   ageRating?: string | null;
+  themes?: string[];
   id: string;
   shikimoriId: number;
   slug: string;
@@ -49,12 +52,15 @@ export function packIndex(items: Anime[], staticIds: Set<number>): PackedIndex {
     statuses = [...new Set(items.map((a) => a.status))];
   const genres = [...new Set(items.flatMap((a) => a.genres))],
     studios = [...new Set(items.flatMap((a) => a.studios))];
+  const themes = [...new Set(items.flatMap((a) => a.themes))];
+  const themeIds = new Map(themes.map((v, i) => [v, i]));
   const genreIds = new Map(genres.map((g, i) => [g, i])),
     studioIds = new Map(studios.map((s, i) => [s, i]));
   return {
     version: 1,
     count: items.length,
     types,
+    themes,
     statuses,
     genres,
     studios,
@@ -76,6 +82,7 @@ export function packIndex(items: Anime[], staticIds: Set<number>): PackedIndex {
         a.studios.map((s) => studioIds.get(s)!),
         staticIds.has(a.shikimoriId) ? a.slug : null,
         a.ageRating,
+        a.themes.map((t) => themeIds.get(t)!),
       ];
     }),
   };
@@ -101,5 +108,6 @@ export function unpackIndex(data: PackedIndex, base: string): CatalogEntry[] {
     genres: r[11].map((i) => data.genres[i]),
     studios: r[12].map((i) => data.studios[i]),
     ageRating: r[14] || null,
+    themes: (r[15] || []).map((i) => data.themes?.[i]).filter((t): t is string => !!t),
   }));
 }

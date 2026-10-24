@@ -293,8 +293,10 @@ test('настоящий каталог, пагинация, комбиниро�
     'data-anime-id',
     expected[0].id,
   );
+  await page.keyboard.press('Escape');
   await page.locator('#catalog-search').fill('unknown12345');
   await expect(page.locator('#catalog-empty')).toBeVisible();
+  if (await page.locator('#filter-panel').isHidden()) await page.locator('.filter-toggle').click();
   await page.locator('#reset-filters').click();
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(24);
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
@@ -605,16 +607,23 @@ test('главная и первые 24 карточки не загружают
   await page.goto('catalog/');
   await expect(page.locator('#catalog-grid article')).toHaveCount(24);
   expect(requests.filter((url) => /search-index|\/data\/anime\//.test(url))).toEqual([]);
-  await page.getByRole('combobox', { name: 'Поиск аниме' }).fill('Solo Leveling');
-  await expect(page.locator('#search-results [role=option]').first()).toBeVisible();
-  await page.getByRole('combobox', { name: 'Поиск аниме' }).fill('Naruto');
-  await expect(page.locator('#search-results [role=option]').first()).toBeVisible();
+  await expect(page.locator('#global-search')).toHaveCount(0);
+  await page.locator('#catalog-search').fill('Solo Leveling');
+  await expect(page.locator('#catalog-grid article').first()).toHaveAttribute(
+    'data-anime-id',
+    solo.id,
+  );
+  await page.locator('#catalog-search').fill('Naruto');
+  await expect(page.locator('#catalog-grid article').first()).not.toHaveAttribute(
+    'data-anime-id',
+    solo.id,
+  );
   expect(requests.filter((url) => url.includes('search-index.'))).toHaveLength(1);
   expect(page.workers()).toHaveLength(1);
   await page.clock.fastForward(61000);
   await expect.poll(() => page.workers().length).toBe(0);
-  await page.getByRole('combobox', { name: 'Поиск аниме' }).fill('Paradise Kiss');
-  await expect(page.locator('#search-results [role=option]').first()).toBeVisible();
+  await page.locator('#catalog-search').fill('Paradise Kiss');
+  await expect(page.locator('#catalog-grid article')).toHaveCount(1);
   expect(page.workers()).toHaveLength(1);
 });
 
@@ -814,6 +823,7 @@ test('пакеты изображений загружаются у экрана
     route.fulfill({ json: { invalid: { poster: 123 } } }),
   );
   await page.reload();
+  if (await page.locator('#filter-panel').isVisible()) await page.keyboard.press('Escape');
   await page.locator('#catalog-search').fill('Solo Leveling');
   await expect(page.locator('#catalog-grid h3').first()).toHaveText(solo.title);
   const broken = page.locator('#catalog-grid article').first().locator('img');
@@ -853,6 +863,7 @@ test('запоздалый пакет постеров не меняет кар�
     });
   });
   await page.goto('catalog/');
+  if (await page.locator('#filter-panel').isVisible()) await page.keyboard.press('Escape');
   await page.locator('#catalog-search').fill('Solo Leveling');
   await page.locator('#catalog-grid').scrollIntoViewIfNeeded();
   await waiting;
@@ -983,7 +994,7 @@ test('история трёх просмотров, detail actions и мобил
   expect(await page.evaluate(() => (window as Window & { copied?: string }).copied)).toBe(
     page.url(),
   );
-  await page.getByRole('link', { name: 'К плееру · готовится' }).click();
+  await page.getByRole('link', { name: 'СМОТРЕТЬ' }).click();
   await expect(page.locator('#anime-player')).toBeInViewport();
   await expect(page.locator('#anime-player')).toContainText('Просмотр пока недоступен');
   await expect(page.locator('video,iframe')).toHaveCount(0);
@@ -996,7 +1007,10 @@ test('история трёх просмотров, detail actions и мобил
   await expect(page.locator('#search-results')).toContainText('Недавно просмотрено');
   await expect(page.locator('#search-results [role=option]')).toHaveCount(3);
   await expect(page.locator('#search-results [role=option] img')).toHaveCount(3);
-  await expect(page.locator('#search-results [role=option] img').first()).toHaveAttribute('src', /^https:\/\/shikimori\.io\//);
+  await expect(page.locator('#search-results [role=option] img').first()).toHaveAttribute(
+    'src',
+    /^https:\/\/shikimori\.io\//,
+  );
   expect((await page.locator('main').boundingBox())!.y).toBe(before!.y);
   expect(await input.evaluate((node) => getComputedStyle(node).fontSize)).toBe('16px');
   await input.fill('Solo Leveling');
@@ -1011,9 +1025,10 @@ test('хронология с постерами, компактные филь�
   await page.goto('./');
   await expect(page.locator('.genre-filter,.editorial-strip,.genres-section')).toHaveCount(0);
   const pill = page.locator('.nav-highlight');
+  await expect(pill).toHaveCSS('opacity', '1');
   const before = await pill.evaluate((node) => node.style.transform);
   await page.locator('.desktop-nav a').nth(1).hover();
-  await expect.poll(() => pill.evaluate((node) => node.style.transform)).not.toBe(before);
+  expect(await pill.evaluate((node) => node.style.transform)).toBe(before);
   await page.locator('.desktop-nav a').nth(1).click();
   await expect(page.locator('#filter-panel')).toBeHidden();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
@@ -1040,4 +1055,53 @@ test('хронология с постерами, компактные филь�
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator('.chronology-section')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('окно фильтров: темы/оценка, новости, стрелки и длинное описание', async ({
+  page,
+  context,
+}) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Новости сайта' }).click();
+  await expect(page.locator('#site-news')).toContainText('0.3.9');
+  await page.getByRole('button', { name: 'Закрыть новости' }).click();
+  await page.goto('catalog/');
+  await expect(page.locator('#global-search')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  const item = anime.find((a) => a.themes.length && (a.score ?? 0) >= 8)!;
+  await page.locator('#filter-theme').selectOption(item.themes[0]);
+  await page.locator('#filter-minScore').selectOption('8');
+  await expect(page.getByRole('combobox', { name: 'Озвучка — пока недоступна' })).toBeDisabled();
+  await page.keyboard.press('Escape');
+  const expected = anime.filter((a) => a.themes.includes(item.themes[0]) && (a.score ?? 0) >= 8);
+  await expect(page.locator('#catalog-grid article')).toHaveCount(Math.min(24, expected.length));
+  await expect(page.locator('.result-count')).toContainText(`Найдено: ${expected.length}`);
+  await context.route('**/data/descriptions/1.json', (r) =>
+    r.fulfill({
+      json: {
+        id: 1,
+        text: 'Длинный разрешённый тестовый текст. '.repeat(35),
+        attribution: 'TVmaze fixture',
+        sourceUrl: 'https://www.tvmaze.com/shows/1121/cowboy-bebop',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        language: 'ru',
+      },
+    }),
+  );
+  await page.goto('anime/?id=1');
+  await page.getByRole('button', { name: 'Развернуть описание' }).click();
+  await expect(page.locator('.description')).not.toHaveClass(/description-collapsed/);
+  await page.getByRole('button', { name: 'Свернуть описание' }).click();
+  await expect(page.locator('.description')).toHaveClass(/description-collapsed/);
+  await page.goto('anime/?id=59193');
+  const track = page.locator('.franchise-track');
+  await track.scrollIntoViewIfNeeded();
+  await page.getByRole('button', { name: 'Следующие тайтлы' }).click();
+  await expect.poll(() => track.evaluate((e) => e.scrollLeft)).toBeGreaterThan(0);
+  await page.getByRole('button', { name: 'Предыдущие тайтлы' }).click();
+  await expect.poll(() => track.evaluate((e) => Math.round(e.scrollLeft))).toBe(0);
+  await expect(page.getByRole('link', { name: 'СМОТРЕТЬ' })).toHaveAttribute(
+    'href',
+    '#anime-player',
+  );
 });

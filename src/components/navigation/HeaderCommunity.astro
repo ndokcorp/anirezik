@@ -1,0 +1,51 @@
+---
+import updates from '../../data/site-updates.json';
+import community from '../../data/community.json';
+import Icon from '../ui/Icon.astro';
+---
+
+<div class="community-links" aria-label="Сообщество AniRezik">
+  {[
+    { name: 'Telegram', icon: 'telegram', href: community.telegram as string | null },
+    { name: 'Discord', icon: 'discord', href: community.discord as string | null },
+  ].map((item) =>
+    item.href ? (
+      <a
+        class="community-icon"
+        href={item.href}
+        aria-label={item.name}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name={item.icon} size={18} />
+      </a>
+    ) : (
+      <button
+        class="community-icon"
+        aria-label={`${item.name} — ссылка пока не добавлена`}
+        aria-disabled="true"
+        title={`${item.name} — скоро`}
+      >
+        <Icon name={item.icon} size={18} />
+      </button>
+    ),
+  )}
+  <button class="community-icon" aria-label="Новости сайта" data-open-news>
+    <Icon name="news" size={18} />
+  </button>
+</div>
+<dialog id="site-news" class="updates-dialog">
+  <div class="dialog-top">
+    <h2>Новости AniRezik</h2>
+    <button class="icon-button" data-close-news aria-label="Закрыть новости">
+      <Icon name="close" />
+    </button>
+  </div>
+  {updates.map((item) => (
+    <article>
+      <span class="eyebrow">{item.version}</span>
+      <h3>{item.title}</h3>
+      <p>{item.text}</p>
+    </article>
+  ))}
+</dialog>

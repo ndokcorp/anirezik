@@ -1,4 +1,5 @@
 ---
+import HeaderCommunity from './HeaderCommunity.astro';
 import Logo from './Logo.astro';
 import SearchBar from '../ui/SearchBar.astro';
 import Icon from '../ui/Icon.astro';
@@ -7,7 +8,10 @@ const { active = 'home' } = Astro.props;
 ---
 
 <header class="header">
-  <Logo />
+  <div class="brand-cluster">
+    <Logo />
+    <HeaderCommunity />
+  </div>
   <nav class="desktop-nav" aria-label="Основная навигация">
     <span class="nav-highlight" aria-hidden="true"></span>
     {[
@@ -24,13 +28,19 @@ const { active = 'home' } = Astro.props;
       </a>
     ))}
   </nav>
-  <SearchBar />
+  {Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') ? (
+    <div class="header-spacer"></div>
+  ) : (
+    <SearchBar />
+  )}
   <a class="icon-button desktop-favorite" href={url('favorites/')} aria-label="Избранное">
     <Icon name="bookmark" />
   </a>
-  <button class="icon-button mobile-search" aria-label="Открыть поиск" data-open-search>
-    <Icon name="search" />
-  </button>
+  {!Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') && (
+    <button class="icon-button mobile-search" aria-label="Открыть поиск" data-open-search>
+      <Icon name="search" />
+    </button>
+  )}
   <button
     class="icon-button menu-toggle"
     aria-label="Открыть меню"

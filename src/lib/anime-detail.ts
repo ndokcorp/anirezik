@@ -1,3 +1,4 @@
+import { initSurfaceControls } from './surface-controls';
 import { rememberAnime, shareIcon } from './recent-anime';
 import { ageLabel } from './card-meta';
 import { loadFavoriteCards } from './card-packages';
@@ -121,9 +122,12 @@ export async function initAnimeDetail() {
       source.className = 'source-note';
       copy.append(source);
     }
-    const jump = el('a', 'button button-primary player-jump', 'К плееру · готовится');
+    const jump = el('a', 'button button-primary player-jump', 'СМОТРЕТЬ');
     jump.href = '#anime-player';
-    copy.append(jump);
+    jump.setAttribute('aria-describedby', 'player-availability');
+    const availability = el('p', 'source-note', 'Плеер пока недоступен');
+    availability.id = 'player-availability';
+    copy.append(jump, availability);
     const sidebar = el('aside', 'detail-sidebar'),
       actions = el('div', 'detail-actions');
     const share = el('button', 'button button-secondary');
@@ -203,7 +207,7 @@ export async function initAnimeDetail() {
         el(
           'p',
           'source-note',
-          'Известные связи, порядок по датам выхода. Не гарантированный порядок просмотра.',
+          'Предыстории → продолжения; независимые ветки — по датам выхода. Порядок спорных ответвлений не подтверждён.',
         ),
       );
       for (const [index, item] of a.chronology.entries()) {
@@ -301,6 +305,7 @@ export async function initAnimeDetail() {
     document.title = `${a.title} — AniRezik`;
     initImages(container);
     initDescriptions(container);
+    initSurfaceControls(container);
     document.dispatchEvent(new Event('anirezik:cards-rendered'));
   } catch {
     status.textContent =

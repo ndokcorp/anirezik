@@ -32,7 +32,25 @@ export function loadDescription(id: number): Promise<DescriptionRecord | null> {
     );
   return loaded.get(id)!;
 }
+function expandDescription(node: HTMLParagraphElement) {
+  if (node.textContent!.length < 420 || node.dataset.expandBound) return;
+  node.dataset.expandBound = 'true';
+  node.classList.add('description-collapsed');
+  if (!node.id) node.id = `description-${node.dataset.descriptionId || 'editorial'}`;
+  const button = document.createElement('button');
+  button.className = 'description-toggle';
+  button.textContent = 'Развернуть описание';
+  button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('aria-controls', node.id);
+  button.addEventListener('click', () => {
+    const collapsed = node.classList.toggle('description-collapsed');
+    button.setAttribute('aria-expanded', String(!collapsed));
+    button.textContent = collapsed ? 'Развернуть описание' : 'Свернуть описание';
+  });
+  node.after(button);
+}
 export function initDescriptions(root: ParentNode = document) {
+  root.querySelectorAll<HTMLParagraphElement>('.description').forEach(expandDescription);
   root
     .querySelectorAll<HTMLParagraphElement>('.description[data-description-id]')
     .forEach((node) => {
@@ -41,7 +59,19 @@ export function initDescriptions(root: ParentNode = document) {
       node.setAttribute('aria-busy', 'true');
       void loadDescription(Number(node.dataset.descriptionId)).then((record) => {
         node.removeAttribute('aria-busy');
-        if (!record || !node.isConnected) return;
+        if (!node.isConnected) return;
+        if (!record) {
+          const retry = document.createElement('button');
+          retry.className = 'description-toggle';
+          retry.textContent = 'Повторить загрузку описания';
+          retry.addEventListener('click', () => {
+            retry.remove();
+            delete node.dataset.descriptionBound;
+            initDescriptions(root);
+          });
+          node.after(retry);
+          return;
+        }
         node.textContent = record.text;
         node.lang = record.language;
         const credit = document.createElement('p');
@@ -63,6 +93,7 @@ export function initDescriptions(root: ParentNode = document) {
           credit.append(' · ', license, ' · HTML-форматирование удалено, текст не переведён.');
         }
         node.after(credit);
+        expandDescription(node);
       });
     });
 }

@@ -1,3 +1,5 @@
+import { orderFranchise } from '../src/lib/franchise-order';
+import type { Anime } from '../src/types/anime';
 import { test, expect } from '@playwright/test';
 import sources from '../src/data/image-sources.json' with { type: 'json' };
 import rights from '../src/data/image-rights.json' with { type: 'json' };
@@ -159,4 +161,20 @@ test('согласие по URL: Shikimori основной, TVmaze резерв
   expect(resolveCatalogImages(a).posterDetailUrl).toBe(a.sourcePosterUrl);
   expect(resolveCatalogImages({ shikimoriId: 1 }).imageSource).toBe('TVmaze');
   expect(resolveCatalogImages({ shikimoriId: 199 }).posterUrl).toBeNull();
+});
+
+test('порядок франшизы учитывает sequel/prequel раньше дат и не зацикливается', () => {
+  const one = {
+    shikimoriId: 1,
+    airedOn: '2025-01-01',
+    related: [{ shikimoriId: 2, relationKind: 'sequel' }],
+  } as Anime;
+  const two = {
+    shikimoriId: 2,
+    airedOn: '2020-01-01',
+    related: [{ shikimoriId: 1, relationKind: 'prequel' }],
+  } as Anime;
+  expect(orderFranchise([two, one]).map((a) => a.shikimoriId)).toEqual([1, 2]);
+  two.related[0].relationKind = 'sequel';
+  expect(new Set(orderFranchise([two, one]).map((a) => a.shikimoriId)).size).toBe(2);
 });

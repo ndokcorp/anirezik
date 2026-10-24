@@ -2,9 +2,15 @@
 import { anime, genres } from '../data/anime';
 ---
 
-<div id="filter-panel" class="filter-panel">
+<dialog id="filter-panel" class="filter-panel" aria-labelledby="filter-heading">
+  <div class="filter-dialog-top">
+    <h2 id="filter-heading">Фильтры</h2>
+    <button class="icon-button" data-close-filters aria-label="Закрыть фильтры">
+      ×
+    </button>
+  </div>
   <label>
-    Жанр
+    Жанры
     <select id="filter-genre">
       <option value="">Все жанры</option>
       {genres.map((g) => (
@@ -13,7 +19,31 @@ import { anime, genres } from '../data/anime';
     </select>
   </label>
   <label>
-    Год выхода
+    Темы
+    <select id="filter-theme">
+      <option value="">Все темы</option>
+      {[...new Set(anime.flatMap((a) => a.themes))].sort().map((t) => (
+        <option>{t}</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Озвучка · бета
+    <select disabled aria-label="Озвучка — пока недоступна">
+      <option>Провайдер пока не подключён</option>
+    </select>
+  </label>
+  <label>
+    Рейтинг Shikimori
+    <select id="filter-minScore">
+      <option value="">Любой</option>
+      {[9, 8, 7, 6, 5].map((s) => (
+        <option value={s}>{s}+ из 10</option>
+      ))}
+    </select>
+  </label>
+  <label>
+    Года выхода
     <select id="filter-year">
       <option value="">Все годы</option>
       {[...new Set(anime.map((a) => a.year).filter((year): year is number => year !== null))]
@@ -62,4 +92,4 @@ import { anime, genres } from '../data/anime';
   <button class="button button-secondary" id="reset-filters">
     Сбросить
   </button>
-</div>
+</dialog>

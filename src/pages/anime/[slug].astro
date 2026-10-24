@@ -87,9 +87,16 @@ const timeline = chronology(a);
         </a>
       )}
       {a.description && <p class="source-note">Описание редакции AniRezik</p>}
-      <a class="button button-primary player-jump" href="#anime-player">
-        К плееру <span>· готовится</span>
+      <a
+        class="button button-primary player-jump"
+        aria-describedby="player-availability"
+        href="#anime-player"
+      >
+        СМОТРЕТЬ
       </a>
+      <p class="source-note" id="player-availability">
+        Плеер пока недоступен
+      </p>
     </div>
   </article>
   <section class="info-panel">

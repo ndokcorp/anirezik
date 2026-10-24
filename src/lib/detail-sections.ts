@@ -1,3 +1,4 @@
+import { orderFranchise } from './franchise-order';
 // Build-only: reuse the snapshot, without network or a full catalog in detail HTML.
 import { anime, animeByShikimoriId, animePath } from '../data/anime';
 import type { Anime } from '../types/anime';
@@ -44,11 +45,7 @@ export function chronology(a: Anime) {
       if (items.length === 60) break;
     }
   }
-  return [...new Map(items.map((item) => [item.id, item])).values()]
-    .sort(
-      (x, y) =>
-        (x.airedOn || '9999').localeCompare(y.airedOn || '9999') || x.shikimoriId - y.shikimoriId,
-    )
+  return orderFranchise(items)
     .map((item) => ({
       id: item.id,
       shikimoriId: item.shikimoriId,

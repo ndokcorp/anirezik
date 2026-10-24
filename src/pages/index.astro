@@ -9,6 +9,7 @@ import { anime } from '../data/anime';
   <HeroSlider />
   <AnimeSection
     title="Популярное сейчас"
+    icon="flame"
     subtitle="Редакционная подборка · данные Shikimori"
     items={[52299, 38000, 40748, 16498, 44511, 20]
       .map((id) => anime.find((a) => a.shikimoriId === id))
@@ -17,26 +18,31 @@ import { anime } from '../data/anime';
   />
   <AnimeSection
     title="Новинки сезона"
+    icon="star"
     subtitle="Дата начала — в сезоне последнего обновления каталога"
     items={anime.filter((a) => a.isNew).slice(0, 6)}
   />
   <AnimeSection
     title="Полнометражные истории"
+    icon="play"
     subtitle="Один вечер — тысяча эмоций"
     items={anime.filter((a) => a.type === 'Фильм').slice(0, 6)}
     href={`catalog/?type=${encodeURIComponent('Фильм')}`}
   />
   <AnimeSection
     title="Сейчас выходят"
+    icon="tv"
     subtitle="Статус по последнему снимку Shikimori"
     items={anime.filter((a) => a.sourceStatus === 'ongoing').slice(0, 6)}
   />
   <AnimeSection
     title="Завершённые истории"
+    icon="check"
     items={anime.filter((a) => a.sourceStatus === 'released').slice(0, 6)}
   />
   <AnimeSection
     title="Стоит открыть"
+    icon="compass"
     subtitle="Выбор редакции AniRezik"
     items={[52991, 33352, 9253, 50265, 20583, 30276]
       .map((id) => anime.find((a) => a.shikimoriId === id))

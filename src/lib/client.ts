@@ -1,3 +1,4 @@
+import { initSurfaceControls, bindNews } from './surface-controls';
 import { initNavigationMotion } from './navigation-motion';
 import { initDetailActions } from './recent-anime';
 import { initImages } from './image-client';
@@ -59,6 +60,8 @@ function initFavorites() {
 initFavorites();
 initDetailActions();
 initNavigationMotion();
+initSurfaceControls();
+bindNews();
 initSearch();
 initFavoritesPage();
 

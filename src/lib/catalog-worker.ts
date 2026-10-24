@@ -60,6 +60,8 @@ self.onmessage = async (
       matches = (request.query ? index.find(request.query) : index.entries).filter(
         (a) =>
           (!f.genre || a.genres.includes(f.genre)) &&
+          (!f.theme || a.themes?.includes(f.theme)) &&
+          (!f.minScore || (a.score !== null && a.score >= Number(f.minScore))) &&
           (!f.year || String(a.year) === f.year) &&
           (!f.type || a.type === f.type) &&
           (!f.status || a.status === f.status) &&
