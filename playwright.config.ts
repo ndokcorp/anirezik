@@ -5,8 +5,11 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : 4,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  workers: process.env.CI ? 1 : 4,
+  globalTimeout: process.env.CI ? 360000 : undefined,
+  reporter: process.env.CI
+    ? [['list'], ['github'], ['html', { open: 'never' }]]
+    : [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: `http://127.0.0.1:4322${base}/`,
     trace: 'retain-on-failure',

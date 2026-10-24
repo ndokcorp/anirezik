@@ -9,13 +9,13 @@ permissions:
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
+env:
+  ANIREZIK_EXPERIMENTAL_SHIKIMORI_POSTERS: '0'
+  SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+  BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
 jobs:
   verify:
     runs-on: ubuntu-latest
-    env:
-      ANIREZIK_EXPERIMENTAL_SHIKIMORI_POSTERS: '0'
-      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
-      BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,20 +25,47 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
-      - run: npx playwright install --with-deps
-      - run: npm test
+      - run: npm test -- --project=unit
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-unit
           path: playwright-report/
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name != 'pull_request'
         with:
           path: dist
+  browsers:
+    needs: verify
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: .pages
+      - name: Restore the verified static build
+        run: |
+          mkdir -p dist
+          tar -xf .pages/artifact.tar -C dist
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - run: npm test -- --project=${{ matrix.browser }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-${{ matrix.browser }}
+          path: playwright-report/
   deploy:
     if: github.event_name != 'pull_request'
-    needs: verify
+    needs: [verify, browsers]
     runs-on: ubuntu-latest
     permissions:
       pages: write
