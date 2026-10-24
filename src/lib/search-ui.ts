@@ -135,6 +135,7 @@ export function initSearch() {
   input.addEventListener('keydown', (event) => {
     const links = [...results.querySelectorAll<HTMLAnchorElement>('a[role="option"]')];
     if (event.key === 'Escape') {
+      event.preventDefault(); // Prevent type=search native clearing from reopening recent views.
       close();
       return;
     }
