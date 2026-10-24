@@ -6,8 +6,14 @@
     "scope": "20 mapped API show summaries from already cached responses; HTML formatting removed; attribution and ShareAlike retained"
   },
   "shikimori": {
-    "status": "unknown",
-    "evidence": "",
-    "scope": "Poster correspondence does not cover third-party synopsis text; independent description reuse permission required"
+    "status": "permission-granted",
+    "evidence": "docs/permissions/SHIKIMORI_DESCRIPTIONS_PERMISSION.md",
+    "scope": "Public display of anime descriptions and related anime data on AniRezik, based on owner-provided correspondence; no separate commercial, perpetual, sublicense or unlimited-traffic rights asserted",
+    "allowedOrigins": [
+      "https://shikimori.io"
+    ],
+    "attribution": "Описание: Shikimori",
+    "licenseUrl": null,
+    "commercialUse": "not-confirmed"
   }
 }

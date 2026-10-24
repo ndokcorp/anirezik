@@ -113,13 +113,17 @@ export async function initAnimeDetail() {
     }
     copy.append(tags);
     const description = el('p', 'description', a.description || 'Описание пока недоступно.');
-    if (a.hasDescription && !a.description)
-      description.dataset.descriptionId = String(a.shikimoriId);
+    if (a.hasDescription) description.dataset.descriptionId = String(a.shikimoriId);
     copy.append(description);
-    if (a.description) copy.append(el('p', 'source-note', 'Описание редакции AniRezik'));
+    if (a.description) {
+      const credit = el('p', 'source-note', 'Описание редакции AniRezik');
+      credit.dataset.editorialCredit = '';
+      copy.append(credit);
+    }
     if (!a.description) {
       const source = externalLink('Описание на Shikimori ↗', a.sourceUrl);
       source.className = 'source-note';
+      source.dataset.descriptionFallback = '';
       copy.append(source);
     }
     const jump = el('a', 'button button-primary player-jump', 'СМОТРЕТЬ');

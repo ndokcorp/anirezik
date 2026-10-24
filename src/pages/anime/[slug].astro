@@ -75,18 +75,26 @@ const timeline = chronology(a);
       </div>
       <p
         class="description"
-        data-description-id={
-          !a.description && descriptions.has(a.shikimoriId) ? a.shikimoriId : undefined
-        }
+        data-description-id={descriptions.has(a.shikimoriId) ? a.shikimoriId : undefined}
       >
         {a.description || 'Описание пока недоступно.'}
       </p>
       {!a.description && (
-        <a class="source-note" href={a.sourceUrl} target="_blank" rel="noopener noreferrer">
+        <a
+          class="source-note"
+          data-description-fallback
+          href={a.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Описание на Shikimori ↗
         </a>
       )}
-      {a.description && <p class="source-note">Описание редакции AniRezik</p>}
+      {a.description && (
+        <p class="source-note" data-editorial-credit>
+          Описание редакции AniRezik
+        </p>
+      )}
       <a
         class="button button-primary player-jump"
         aria-describedby="player-availability"

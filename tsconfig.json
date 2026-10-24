@@ -2,5 +2,5 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": { "allowImportingTsExtensions": true },
   "include": [".astro/types.d.ts", "src/**/*", "tests/**/*", "playwright.config.ts"],
-  "exclude": ["dist", "node_modules", "playwright-report", "test-results", "src/data/catalog.json"]
+  "exclude": ["dist", "node_modules", "playwright-report", "test-results", "src/data/catalog.json", "src/data/shikimori-descriptions.json"]
 }

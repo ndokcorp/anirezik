@@ -1,3 +1,4 @@
+import { descriptionText } from '../src/lib/description-text';
 import { orderFranchise } from '../src/lib/franchise-order';
 import type { Anime } from '../src/types/anime';
 import { test, expect } from '@playwright/test';
@@ -35,10 +36,11 @@ test('карточки и описания: фактический возрас�
   expect(episodeLabel('TV', 12)).toBe('12 эп.');
   expect(episodeLabel('Фильм', null)).toBe('Фильм');
   for (const value of [null, 0, -1]) expect(episodeLabel('TV', value)).toBeNull();
-  expect(descriptions.size).toBe(23);
-  expect(descriptions.get(1)?.language).toBe('en');
+  expect(descriptions.size).toBeGreaterThan(23);
+  expect(descriptions.get(1)?.source).toBe('Shikimori');
+  expect(descriptions.get(1)?.language).toBe('ru');
   expect(descriptions.get(52299)?.language).toBe('ru');
-  expect(descriptions.has(59193)).toBe(false);
+  expect(descriptions.get(36027)?.source).toBe('Shikimori');
 });
 test('рейтинг: настоящая оценка с одним десятичным знаком; null, 0 и нечисловые значения скрыты', () => {
   expect(ratingValue(8.74)).toBe('8.7');
@@ -177,4 +179,14 @@ test('порядок франшизы учитывает sequel/prequel рань
   expect(orderFranchise([two, one]).map((a) => a.shikimoriId)).toEqual([1, 2]);
   two.related[0].relationKind = 'sequel';
   expect(new Set(orderFranchise([two, one]).map((a) => a.shikimoriId)).size).toBe(2);
+});
+
+test('описание Shikimori: BBCode в текст, безопасные символы, пустые данные', () => {
+  expect(descriptionText('[character=1]Имя[/character]\\n[b]Текст[/b]')).toBe('Имя\nТекст');
+  expect(descriptionText('[img]https://invalid/image.jpg[/img] &amp; [url=x]ссылка[/url]')).toBe(
+    '& ссылка',
+  );
+  expect(descriptionText('<script>alert(1)</script>')).toBe('<script>alert(1)</script>');
+  expect(descriptionText('[NASA] сохраняется')).toBe('[NASA] сохраняется');
+  expect(descriptionText(null)).toBe('');
 });

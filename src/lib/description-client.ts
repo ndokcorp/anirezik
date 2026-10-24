@@ -1,3 +1,4 @@
+import sources from '../data/description-sources.json';
 import { url } from './paths';
 import type { DescriptionRecord } from './descriptions';
 const loaded = new Map<number, Promise<DescriptionRecord | null>>();
@@ -10,6 +11,19 @@ export function loadDescription(id: number): Promise<DescriptionRecord | null> {
         .then(async (response) => {
           if (!response.ok) throw new Error('description unavailable');
           const value = (await response.json()) as DescriptionRecord;
+          const origin = value.sourceUrl === null ? null : new URL(value.sourceUrl).origin;
+          const allowedSource =
+            origin === null
+              ? value.licenseUrl === null
+              : origin === 'https://www.tvmaze.com'
+                ? sources.tvmaze.status === 'permission-granted' &&
+                  !!sources.tvmaze.evidence &&
+                  value.licenseUrl === 'https://creativecommons.org/licenses/by-sa/4.0/'
+                : origin === 'https://shikimori.io' &&
+                  sources.shikimori.status === 'permission-granted' &&
+                  !!sources.shikimori.evidence &&
+                  value.sourceUrl === `https://shikimori.io/animes/${id}` &&
+                  value.licenseUrl === null;
           if (
             value.id !== id ||
             typeof value.text !== 'string' ||
@@ -17,10 +31,7 @@ export function loadDescription(id: number): Promise<DescriptionRecord | null> {
             value.text.length > 20000 ||
             typeof value.attribution !== 'string' ||
             !['en', 'ru'].includes(value.language) ||
-            (value.sourceUrl !== null &&
-              new URL(value.sourceUrl).origin !== 'https://www.tvmaze.com') ||
-            (value.licenseUrl !== null &&
-              value.licenseUrl !== 'https://creativecommons.org/licenses/by-sa/4.0/')
+            !allowedSource
           )
             throw new Error('invalid description');
           return value;
@@ -72,6 +83,16 @@ export function initDescriptions(root: ParentNode = document) {
           node.after(retry);
           return;
         }
+        const previousToggle = node.parentElement?.querySelector<HTMLButtonElement>(
+          `button.description-toggle[aria-controls="${node.id}"]`,
+        );
+        const wasExpanded = previousToggle?.getAttribute('aria-expanded') === 'true';
+        previousToggle?.remove();
+        delete node.dataset.expandBound;
+        node.classList.remove('description-collapsed');
+        node.parentElement
+          ?.querySelectorAll('[data-description-fallback]')
+          .forEach((link) => link.remove());
         node.textContent = record.text;
         node.lang = record.language;
         const credit = document.createElement('p');
@@ -92,8 +113,17 @@ export function initDescriptions(root: ParentNode = document) {
           license.rel = 'noopener noreferrer';
           credit.append(' · ', license, ' · HTML-форматирование удалено, текст не переведён.');
         }
+        node.parentElement
+          ?.querySelectorAll('[data-editorial-credit]')
+          .forEach((credit) => credit.remove());
         node.after(credit);
         expandDescription(node);
+        if (wasExpanded)
+          node.parentElement
+            ?.querySelector<HTMLButtonElement>(
+              `button.description-toggle[aria-controls="${node.id}"]`,
+            )
+            ?.click();
       });
     });
 }

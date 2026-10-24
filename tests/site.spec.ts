@@ -1,3 +1,5 @@
+import { descriptions } from '../src/lib/descriptions';
+import licensedDescriptions from '../src/data/licensed-descriptions.json' with { type: 'json' };
 import { ageLabel } from '../src/lib/card-meta';
 import { test, expect } from '@playwright/test';
 
@@ -60,6 +62,9 @@ test('0.3.6: описания загружаются только для detail,
   page,
   context,
 }) => {
+  await context.route('**/data/descriptions/1.json', (r) =>
+    r.fulfill({ json: { id: 1, ...licensedDescriptions['1'] } }),
+  );
   const calls: string[] = [];
   page.on('request', (r) => {
     if (r.url().includes('/data/descriptions/')) calls.push(r.url());
@@ -211,7 +216,7 @@ test('пакеты постеров: оригинал деталей, отказ
     }),
   ).toBe(true);
 });
-import { anime, staticPageIds } from '../src/data/anime';
+import { anime, staticPageIds, animePath } from '../src/data/anime';
 import { imageUrl } from '../src/lib/images';
 import { searchAnime } from '../src/lib/search';
 const solo = anime.find((a) => a.shikimoriId === 52299)!;
@@ -321,7 +326,7 @@ test('карточка, достоверная информация и связ�
   await expect(page.locator('.detail-copy h1')).toHaveText(solo.title);
   await expect(page.getByText('A-1 Pictures', { exact: true })).toBeVisible();
   await expect(page.locator('.banner-rating')).toContainText(solo.score!.toFixed(1));
-  await expect(page.locator('.description')).toHaveText(solo.description);
+  await expect(page.locator('.description')).toHaveText(descriptions.get(solo.shikimoriId)!.text);
   for (const genre of solo.genres)
     await expect(
       page.locator('.detail-tags').getByRole('link', { name: genre, exact: true }),
@@ -536,8 +541,10 @@ test('поиск за пределами первоначальной тысяч
     'data-anime-id',
     'shikimori:29803',
   );
-  const missing = anime.find((a) => !a.studios.length && !a.description)!;
-  await page.goto(`anime/${missing.slug}/`);
+  const missing = anime.find(
+    (a) => !a.studios.length && !a.description && !descriptions.has(a.shikimoriId),
+  )!;
+  await page.goto(animePath(missing));
   await expect(page.locator('.description')).toContainText('Описание пока недоступно');
   await expect(
     page
@@ -1104,4 +1111,27 @@ test('окно фильтров: темы/оценка, новости, стре
     'href',
     '#anime-player',
   );
+});
+
+test('описания Shikimori на статической и универсальной странице, collapse и отказ', async ({
+  page,
+  context,
+}) => {
+  for (const id of [36027, 1, 5]) {
+    const item = anime.find((a) => a.shikimoriId === id)!;
+    await page.goto(id === 1 || !staticPageIds.has(id) ? `anime/?id=${id}` : `anime/${item.slug}/`);
+    await expect(page.locator('.description')).toHaveText(descriptions.get(id)!.text);
+    await expect(page.locator('.description-credit')).toContainText('Shikimori');
+    await expect(page.locator('.description')).not.toContainText('[character=');
+    await expect(page.locator('[data-editorial-credit]')).toHaveCount(0);
+  }
+  await page.goto('anime/?id=36027');
+  await page.getByRole('button', { name: 'Развернуть описание' }).click();
+  await expect(page.locator('.description')).not.toHaveClass(/description-collapsed/);
+  await context.route('**/data/descriptions/36027.json', (r) => r.abort());
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Повторить загрузку описания' })).toBeVisible();
+  await context.unroute('**/data/descriptions/36027.json');
+  await page.getByRole('button', { name: 'Повторить загрузку описания' }).click();
+  await expect(page.locator('.description')).toHaveText(descriptions.get(36027)!.text);
 });
