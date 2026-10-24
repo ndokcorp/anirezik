@@ -1,6 +1,5 @@
 import { storedFavoriteIds, unresolvedLegacyCount } from './favorites';
 import { loadFavoriteCards } from './card-packages';
-import { loadImages } from './image-service';
 import { renderCards } from './card-renderer';
 export function initFavoritesPage() {
   const grid = document.querySelector<HTMLElement>('#favorites-grid');
@@ -20,9 +19,8 @@ export function initFavoritesPage() {
     status.textContent = ids.length ? 'Загрузка избранного…' : '';
     try {
       const result = await loadFavoriteCards(ids.slice(0, limit));
-      const images = await loadImages(result.entries.map((a) => a.shikimoriId));
       if (current !== revision) return;
-      renderCards(grid!, result.entries, images);
+      renderCards(grid!, result.entries);
       const count = result.unavailable + unresolvedLegacyCount();
       missing.hidden = !count;
       missing.textContent = `Не найдены среди загруженных записей: ${count}. Все ID сохранены и появятся после импорта соответствующих аниме.`;

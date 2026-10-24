@@ -1,5 +1,5 @@
 // Opt-in local development check. Real CDN requests; no API requests and no image downloads to assets.
-import { chromium } from '@playwright/test';
+import { chromium, expect } from '@playwright/test';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 const origin = process.env.ANIREZIK_TEST_URL || 'http://127.0.0.1:4321/';
 if (!['localhost', '127.0.0.1', '[::1]'].includes(new URL(origin).hostname))
@@ -197,6 +197,44 @@ try {
     }
   });
   await page.screenshot({ path: '.cache/shikimori-local-detail.png', fullPage: true });
+  // Exercise the real UI without fetching any metadata API, beyond the gallery.
+  const flowRequests = [];
+  context.on('request', (r) => flowRequests.push(r.url()));
+  await page.locator('.detail-copy [data-favorite]').click();
+  await page.goto(new URL('favorites/', origin).href);
+  await expect(page.locator('#favorites-grid article')).toHaveCount(1);
+  const favoritePoster = page.locator('#favorites-grid img');
+  await favoritePoster.scrollIntoViewIfNeeded();
+  await expect(favoritePoster).toHaveAttribute('src', /^https:\/\/shikimori.io\//);
+  await favoritePoster.evaluate(async (img) => await img.decode());
+  await page.setViewportSize({ width: 390, height: 844 });
+  const beforeCatalog = flowRequests.length;
+  await page.goto(new URL('catalog/', origin).href);
+  await expect(page.locator('#catalog-grid article')).toHaveCount(24);
+  await page.locator('#catalog-grid article').first().scrollIntoViewIfNeeded();
+  await expect(page.locator('#catalog-grid img').first()).toHaveAttribute(
+    'src',
+    /^https:\/\/shikimori.io\//,
+  );
+  await page.waitForLoadState('networkidle');
+  const catalogRemote = flowRequests
+    .slice(beforeCatalog)
+    .filter((u) => u.startsWith('https://shikimori.io/'));
+  expect(catalogRemote.length).toBeLessThan(24);
+  await page.getByRole('button', { name: 'Открыть поиск' }).click();
+  await page.getByRole('combobox').fill('Лиса против Енота');
+  await expect(page.getByRole('option').first()).toBeVisible();
+  await page.getByRole('option').first().click();
+  await expect(page.locator('.detail-copy h1')).toHaveText('Лиса против Енота');
+  report.uiFlow = {
+    cards: 24,
+    catalogRemoteRequests: catalogRemote.length,
+    totalRequests: flowRequests.length,
+    imagePackages: flowRequests.filter((u) => /\/data\/images\//.test(u)).length,
+    metadataApiRequests: flowRequests.filter((u) => /shikimori\.[^/]+\/api\//.test(u)).length,
+    favoritesDecoded: true,
+    rareDetailReopened: true,
+  };
   await context.close();
   const slow = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
   slow.on('request', (r) => {

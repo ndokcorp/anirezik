@@ -12,6 +12,7 @@ import {
 } from '../src/lib/providers/shikimori/mapper';
 import { ShikimoriApi } from '../src/lib/providers/shikimori/api';
 import { syncCatalog } from '../src/lib/providers/shikimori/sync';
+import { refreshAvailability } from '../src/lib/providers/video/updates';
 import { syncFullCatalog, FULL_QUERY, AUDIT_QUERY } from '../src/lib/providers/shikimori/full-sync';
 import { packIndex, unpackIndex } from '../src/lib/catalog-index';
 import { searchAnime, normalizeSearch, createAnimeSearch } from '../src/lib/search';
@@ -436,4 +437,39 @@ test('плеер допускает только проверенные исто
       { ...provider, getSources: async () => [source] },
     ]),
   ).toHaveLength(1);
+});
+test('обновления видеопровайдера отделены от Shikimori, проверяют права и сохраняют прежние данные при отказе', async () => {
+  const previous = { providerId: provider.id, cursor: 'one', sources: [source], checkedAt: null };
+  const adapter = {
+    ...provider,
+    getUpdates: async () => ({
+      cursor: 'two',
+      sources: [{ ...source, episodeNumber: 2, dubbingStudio: 'Test voice' }],
+    }),
+  };
+  const next = await refreshAvailability(adapter, previous, 'UZ');
+  expect(next.sources).toHaveLength(2);
+  expect(next.cursor).toBe('two');
+  expect(previous.sources).toHaveLength(1);
+  await expect(
+    refreshAvailability(
+      { ...adapter, rights: { ...adapter.rights, verified: false } },
+      previous,
+      'UZ',
+    ),
+  ).rejects.toThrow('approved');
+  await expect(refreshAvailability(adapter, previous, 'RU')).rejects.toThrow('Invalid');
+  await expect(
+    refreshAvailability(
+      {
+        ...adapter,
+        getUpdates: async () => {
+          throw new Error('offline');
+        },
+      },
+      previous,
+      'UZ',
+    ),
+  ).rejects.toThrow('offline');
+  expect(previous.cursor).toBe('one');
 });

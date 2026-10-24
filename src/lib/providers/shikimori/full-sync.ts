@@ -4,6 +4,7 @@ import { ANIME_FIELDS } from './queries.ts';
 import { parseAnimeResponse, mapAnime } from './mapper.ts';
 import { readCache, writeCache, atomicJson } from './cache.ts';
 import type { SyncOptions } from './sync.ts';
+import { assertCatalogUpdate } from './snapshot.ts';
 
 export const FULL_QUERY = `query AniRezikFull($page: PositiveInt, $ids: String) {
   animes(page: $page, limit: 50, ids: $ids, order: id, censored: false) { ${ANIME_FIELDS} }
@@ -184,6 +185,8 @@ export async function syncFullCatalog(
     }
     report.referencedUnavailableIds = [...attempted].filter((id) => !mapped.has(id));
     report.discovered = mapped.size;
+    if (options.previous && mapped.size < options.previous.anime.length * 0.95)
+      throw new Error('Unexpected coverage decrease >5%; snapshot preserved for manual review');
     for (const old of options.previous?.anime || [])
       if (!mapped.has(old.shikimoriId)) {
         mapped.set(old.shikimoriId, old);
@@ -197,7 +200,8 @@ export async function syncFullCatalog(
       policy: { posters: 'placeholder', descriptions: 'editorial-only', popularity: 'editorial' },
       anime: [...mapped.values()],
     };
-    await atomicJson(options.output, snapshot, true);
+    if (options.previous) assertCatalogUpdate(options.previous, snapshot);
+    await atomicJson(options.output, snapshot, true, true);
     report.status = 'verified';
     report.phase = 'complete';
     report.finishedAt = new Date().toISOString();

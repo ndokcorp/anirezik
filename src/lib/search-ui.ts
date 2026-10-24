@@ -53,6 +53,7 @@ export function initSearch() {
       results!.textContent = 'Не удалось загрузить поиск. Повторите ввод или обновите страницу.';
       return;
     }
+    if (current !== revision) return;
     const images = await loadImages(response.entries.map((a) => a.shikimoriId));
     if (current !== revision) return;
     input!.removeAttribute('aria-invalid');
@@ -74,6 +75,7 @@ export function initSearch() {
       image.width = 40;
       image.height = 60;
       image.decoding = 'async';
+      image.loading = 'lazy';
       image.addEventListener(
         'error',
         () => {

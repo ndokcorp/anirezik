@@ -1,0 +1,115 @@
+{
+  "checkedAt": "2026-10-24T08:53:23.991Z",
+  "origin": "http://127.0.0.1:4322/",
+  "conditions": {
+    "viewport": "390x844",
+    "cpu": 4,
+    "latencyMs": 400,
+    "downloadBytesPerSecond": 50000,
+    "uploadBytesPerSecond": 20000
+  },
+  "apiRequests": [],
+  "initial": {
+    "ms": 13035,
+    "cards": 24,
+    "domNodes": 2211,
+    "htmlBytes": 98231
+  },
+  "visible": {
+    "requests": 0,
+    "images": [
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-7.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      },
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-16.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      },
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-14.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      },
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-9.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      },
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-10.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      },
+      {
+        "url": "http://127.0.0.1:4322/assets/poster-11.webp",
+        "ms": 0,
+        "width": 500,
+        "ok": true
+      }
+    ]
+  },
+  "workerRequests": [
+    {
+      "url": "http://127.0.0.1:4322/search-index.bin",
+      "bytes": 2341645,
+      "encodedBytes": 2341345,
+      "durationMs": 47283
+    }
+  ],
+  "search": {
+    "ms": 49260,
+    "indexJsonBytes": 5933420,
+    "indexGzipBytes": 2341345
+  },
+  "requestsByPhase": {
+    "initial": {
+      "count": 12,
+      "bytes": 594709,
+      "urls": [
+        "http://127.0.0.1:4322/catalog/",
+        "http://127.0.0.1:4322/_astro/Layout.aZa_jMRH.css",
+        "http://127.0.0.1:4322/assets/logo.png",
+        "http://127.0.0.1:4322/_astro/Layout.astro_astro_type_script_index_0_lang.jRWnhu92.js",
+        "http://127.0.0.1:4322/assets/poster-placeholder.svg",
+        "http://127.0.0.1:4322/_astro/card-renderer.CxH4xdGl.js",
+        "http://127.0.0.1:4322/assets/poster-7.webp",
+        "http://127.0.0.1:4322/assets/poster-16.webp",
+        "http://127.0.0.1:4322/assets/poster-14.webp",
+        "http://127.0.0.1:4322/assets/poster-9.webp",
+        "http://127.0.0.1:4322/assets/poster-10.webp",
+        "http://127.0.0.1:4322/assets/poster-11.webp"
+      ]
+    },
+    "visible": {
+      "count": 0,
+      "bytes": 0,
+      "urls": []
+    },
+    "search": {
+      "count": 3,
+      "bytes": 2342489,
+      "urls": [
+        "http://127.0.0.1:4322/_astro/catalog-worker-B5Vuo3Qf.js",
+        "http://127.0.0.1:4322/image-index.json",
+        "http://127.0.0.1:4322/search-index.bin"
+      ]
+    },
+    "repeat-search": {
+      "count": 1,
+      "bytes": 0,
+      "urls": [
+        "http://127.0.0.1:4322/assets/poster-6.webp"
+      ]
+    }
+  },
+  "totalBytes": 2937198,
+  "totalRequests": 16
+}

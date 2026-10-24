@@ -16,11 +16,11 @@ export async function readCache(
 }
 const cachePath = (root: string, key: string) =>
   `${root}/${createHash('sha256').update(key).digest('hex')}.json`;
-export async function atomicJson(file: string, data: unknown, backup = false) {
+export async function atomicJson(file: string, data: unknown, backup = false, compact = false) {
   await mkdir(dirname(file), { recursive: true });
   const tmp = `${file}.${randomUUID()}.tmp`;
   try {
-    await writeFile(tmp, JSON.stringify(data, null, 2) + '\n', 'utf8');
+    await writeFile(tmp, JSON.stringify(data, null, compact ? undefined : 2) + '\n', 'utf8');
     if (backup) {
       try {
         await copyFile(file, `${file}.previous`);

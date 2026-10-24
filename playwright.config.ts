@@ -21,7 +21,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
   projects: [
-    { name: 'unit', testMatch: /(?:providers|image-policy)\.spec\.ts/ },
+    { name: 'unit', testMatch: /(?:providers|image-policy|maintenance)\.spec\.ts/ },
     { name: 'chromium', testMatch: 'site.spec.ts', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', testMatch: 'site.spec.ts', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', testMatch: 'site.spec.ts', use: { ...devices['Desktop Safari'] } },

@@ -1,5 +1,4 @@
 import { queryCatalog } from './catalog-service';
-import { loadImages } from './image-service';
 import { renderCards } from './card-renderer';
 export function initCatalog() {
   const grid = document.querySelector<HTMLElement>('#catalog-grid');
@@ -32,9 +31,8 @@ export function initCatalog() {
     history.replaceState(null, '', `${location.pathname}${next.size ? '?' + next : ''}`);
     try {
       const result = await queryCatalog({ mode: 'catalog', query: query.value, filters, limit });
-      const images = await loadImages(result.entries.map((a) => a.shikimoriId));
       if (current !== revision) return;
-      renderCards(grid!, result.entries, images);
+      renderCards(grid!, result.entries);
       count.textContent = `Найдено: ${result.total} · Показано: ${result.entries.length}`;
       document.querySelector<HTMLElement>('#catalog-empty')!.hidden = result.total > 0;
       document.querySelector<HTMLElement>('#load-more')!.hidden = result.total <= limit;

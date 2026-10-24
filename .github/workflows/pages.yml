@@ -4,11 +4,16 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      metadata_artifact:
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 env:
   ANIREZIK_EXPERIMENTAL_SHIKIMORI_POSTERS: '0'
   SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
@@ -18,11 +23,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
+        with:
+          name: ${{ inputs.metadata_artifact }}
+          path: src/data
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Validate metadata-only update
+        if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
+        run: node scripts/validate-snapshot.ts
       - run: npm run check
       - run: npm run build
       - run: npm test -- --project=unit
@@ -49,6 +62,11 @@ jobs:
             os: macos-15
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
+        with:
+          name: ${{ inputs.metadata_artifact }}
+          path: src/data
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -69,9 +87,44 @@ jobs:
         with:
           name: playwright-${{ matrix.browser }}
           path: playwright-report/
-  deploy:
-    if: github.event_name != 'pull_request'
+  publish-metadata:
+    if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
     needs: [verify, browsers]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Reject concurrent source changes
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.metadata_artifact }}
+          path: src/data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/validate-snapshot.ts
+      - name: Commit only validated metadata
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- src/data/catalog.json src/data/catalog-coverage.json
+          if [ -f src/data/catalog-maintenance.json ]; then git add -- src/data/catalog-maintenance.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update validated Shikimori metadata'
+            git push origin HEAD:main
+          fi
+  deploy:
+    if: >-
+      always() && github.event_name != 'pull_request' &&
+      needs.verify.result == 'success' && needs.browsers.result == 'success' &&
+      (needs.publish-metadata.result == 'success' || needs.publish-metadata.result == 'skipped')
+    needs: [verify, browsers, publish-metadata]
     runs-on: ubuntu-latest
     permissions:
       pages: write

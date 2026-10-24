@@ -17,6 +17,7 @@ const permission: PosterSource = {
   evidence: 'Written permission fixture, not actual permission',
   hotlinking: true,
   browserCaching: true,
+  scope: { kind: 'all' },
 };
 test('постеры: production и CI не включают локальный эксперимент', () => {
   expect(localPosterExperiment(true, '1')).toBe(true);
@@ -30,6 +31,30 @@ test('постеры: production и CI не включают локальный 
   expect(resolveCatalogImages(a, true).imageLicenseStatus).toBe('local-experiment');
   expect(resolveCatalogImages(a, true).poster).toBe(a.sourcePosterMainUrl);
   expect(resolveCatalogImages(a, true).posterDetailUrl).toBe(a.sourcePosterUrl);
+});
+test('постеры: разрешение ограничено ID или точным URL и сроком', () => {
+  expect(
+    resolveCatalogImages(a, false, { ...permission, scope: { kind: 'ids', animeIds: [1] } })
+      .posterUrl,
+  ).toBeNull();
+  expect(
+    resolveCatalogImages(a, false, { ...permission, scope: { kind: 'ids', animeIds: [3929] } })
+      .posterUrl,
+  ).toBe(a.sourcePosterMainUrl);
+  const specific = { ...permission, scope: { kind: 'urls', urls: [a.sourcePosterMainUrl] } };
+  expect(resolveCatalogImages(a, false, specific).posterDetailUrl).toBe(a.sourcePosterMainUrl);
+  expect(
+    resolveCatalogImages(
+      { ...a, sourcePosterMainUrl: a.sourcePosterMainUrl + '?changed' },
+      false,
+      specific,
+    ).posterUrl,
+  ).toBeNull();
+  for (const expiresAt of ['2020-01-01', 'invalid'])
+    expect(resolveCatalogImages(a, false, { ...permission, expiresAt }).posterUrl).toBeNull();
+  expect(
+    resolveCatalogImages(a, false, { ...permission, scope: { kind: 'none' } }).posterUrl,
+  ).toBeNull();
 });
 test('постеры: подтверждение всего источника автоматически включает точные API URL', () => {
   const result = resolveCatalogImages(a, false, permission);
