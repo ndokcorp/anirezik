@@ -1,9 +1,52 @@
 {
+  "1": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 1121,
+      "title": "Cowboy Bebop",
+      "premiered": "1998-10-24",
+      "sourceUrl": "https://www.tvmaze.com/shows/1121/cowboy-bebop",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/178/446548.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/178/446548.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/1121 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
   "20": {
     "posterUrl": "/assets/poster-6.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 495,
+      "title": "Naruto",
+      "premiered": "2002-10-03",
+      "sourceUrl": "https://www.tvmaze.com/shows/495/naruto",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/3/9744.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/3/9744.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/495 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
+  "21": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 1505,
+      "title": "One Piece",
+      "premiered": "1999-10-20",
+      "sourceUrl": "https://www.tvmaze.com/shows/1505/one-piece",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1262497.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/504/1262497.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/1505 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "199": {
     "posterUrl": "/assets/poster-10.webp",
@@ -11,23 +54,120 @@
     "imageLicenseStatus": "original-ai",
     "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
   },
+  "269": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 1905,
+      "title": "Bleach",
+      "premiered": "2004-10-05",
+      "sourceUrl": "https://www.tvmaze.com/shows/1905/bleach",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/459/1148800.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/459/1148800.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/1905 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
+  "1535": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 40,
+      "title": "Death Note",
+      "premiered": "2006-10-03",
+      "sourceUrl": "https://www.tvmaze.com/shows/40/death-note",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/499/1249019.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/499/1249019.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/40 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
+  "1735": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 488,
+      "title": "Naruto: Shippūden",
+      "premiered": "2007-02-15",
+      "sourceUrl": "https://www.tvmaze.com/shows/488/naruto-shippuden",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/3/9413.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/3/9413.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/488 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
+  "5114": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 2071,
+      "title": "Fullmetal Alchemist: Brotherhood",
+      "premiered": "2009-04-05",
+      "sourceUrl": "https://www.tvmaze.com/shows/2071/fullmetal-alchemist-brotherhood",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/485/1214095.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/485/1214095.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/2071 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
   "9253": {
     "posterUrl": "/assets/poster-16.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 2051,
+      "title": "Steins;Gate",
+      "premiered": "2011-04-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/2051/steinsgate",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/373/933178.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/373/933178.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/2051 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "16498": {
     "posterUrl": "/assets/poster-4.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 919,
+      "title": "Attack on Titan",
+      "premiered": "2013-04-07",
+      "sourceUrl": "https://www.tvmaze.com/shows/919/attack-on-titan",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/632/1582290.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/632/1582290.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/919 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "20583": {
     "posterUrl": "/assets/poster-13.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 5193,
+      "title": "Haikyuu!!",
+      "premiered": "2014-04-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/5193/haikyuu",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/65/164065.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/65/164065.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/5193 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "28851": {
     "posterUrl": "/assets/poster-14.webp",
@@ -39,13 +179,51 @@
     "posterUrl": "/assets/poster-15.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 4201,
+      "title": "One-Punch Man",
+      "premiered": "2015-10-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/4201/one-punch-man",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/598/1496471.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/598/1496471.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/4201 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "31240": {
     "posterUrl": "/assets/poster-12.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 14459,
+      "title": "Re:ZERO -Starting Life in Another World-",
+      "premiered": "2016-04-04",
+      "sourceUrl": "https://www.tvmaze.com/shows/14459/rezero-starting-life-in-another-world",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/49/122624.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/49/122624.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/14459 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
+  },
+  "31964": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 13615,
+      "title": "My Hero Academia",
+      "premiered": "2016-04-03",
+      "sourceUrl": "https://www.tvmaze.com/shows/13615/my-hero-academia",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/599/1499141.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/599/1499141.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/13615 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "32281": {
     "posterUrl": "/assets/poster-9.webp",
@@ -57,31 +235,86 @@
     "posterUrl": "/assets/poster-11.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 34013,
+      "title": "Violet Evergarden",
+      "premiered": "2018-01-10",
+      "sourceUrl": "https://www.tvmaze.com/shows/34013/violet-evergarden",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1261954.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/504/1261954.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/34013 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "38000": {
     "posterUrl": "/assets/poster-2.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 41469,
+      "title": "Demon Slayer",
+      "premiered": "2019-04-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/41469/demon-slayer",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/456/1140750.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/456/1140750.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/41469 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "40748": {
     "posterUrl": "/assets/poster-3.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 48450,
+      "title": "Jujutsu Kaisen",
+      "premiered": "2020-10-02",
+      "sourceUrl": "https://www.tvmaze.com/shows/48450/jujutsu-kaisen",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/608/1521905.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/608/1521905.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/48450 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "44511": {
     "posterUrl": "/assets/poster-5.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 63451,
+      "title": "Chainsaw Man",
+      "premiered": "2022-10-11",
+      "sourceUrl": "https://www.tvmaze.com/shows/63451/chainsaw-man",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/422/1056726.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/422/1056726.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/63451 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "50265": {
     "posterUrl": "/assets/poster-8.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 59698,
+      "title": "Spy×Family",
+      "premiered": "2022-04-09",
+      "sourceUrl": "https://www.tvmaze.com/shows/59698/spyfamily",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/590/1477119.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/590/1477119.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/59698 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "52299": {
     "posterUrl": "/assets/poster-1.webp",
@@ -89,12 +322,34 @@
     "bannerPosition": "center 44%",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 64632,
+      "title": "Solo Leveling",
+      "premiered": "2024-01-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/64632/solo-leveling",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/497/1244908.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/497/1244908.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/64632 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   },
   "52991": {
     "posterUrl": "/assets/poster-7.webp",
     "imageAttribution": "Оригинальная AI-иллюстрация AniRezik · не официальный постер",
     "imageLicenseStatus": "original-ai",
-    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования"
+    "evidence": "Создано для этого проекта в версии 0.1.0; прототип, не подтверждение прав на персонажей для коммерческого использования",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 69956,
+      "title": "Frieren: Beyond Journey's End",
+      "premiered": "2023-09-29",
+      "sourceUrl": "https://www.tvmaze.com/shows/69956/frieren-beyond-journeys-end",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/479/1198409.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/479/1198409.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/69956 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
+    }
   }
 }

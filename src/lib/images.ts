@@ -1,6 +1,7 @@
 import manifest from '../data/image-rights.json' with { type: 'json' };
 export interface ImagePermission {
   posterUrl?: string;
+  posterDetailUrl?: string;
   bannerUrl?: string;
   backdropUrl?: string;
   imageSource?: string;
@@ -8,6 +9,17 @@ export interface ImagePermission {
   imageAttribution: string;
   imageLicenseStatus: 'original-ai' | 'permission-granted' | 'unknown';
   evidence: string;
+  remotePoster?: {
+    source: 'tvmaze';
+    posterUrl: string;
+    posterDetailUrl: string;
+    imageAttribution: string;
+    evidence: string;
+    sourceUrl: string;
+    title: string;
+    premiered: string;
+    showId: number;
+  };
 }
 export const imageFallback = '/assets/poster-placeholder.svg';
 export function resolveImages(
@@ -25,6 +37,7 @@ export function resolveImages(
   const bannerUrl = allowed ? safe(item.backdropUrl || item.bannerUrl) : null;
   return {
     posterUrl,
+    posterDetailUrl: allowed ? safe(item.posterDetailUrl) || posterUrl : null,
     bannerUrl,
     backdropUrl: bannerUrl,
     imageSource: allowed

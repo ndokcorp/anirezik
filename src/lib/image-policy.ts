@@ -1,5 +1,6 @@
 import sources from '../data/image-sources.json' with { type: 'json' };
-import { resolveImages } from './images';
+import permissions from '../data/image-rights.json' with { type: 'json' };
+import { resolveImages, type ImagePermission } from './images';
 
 export interface PosterSource {
   status: string;
@@ -53,13 +54,36 @@ export function resolveCatalogImages(
   a: { shikimoriId: number; sourcePosterMainUrl?: string | null; sourcePosterUrl?: string | null },
   experimental = false,
   source: PosterSource = sources.shikimori,
+  alternativeSource: PosterSource = sources.tvmaze,
 ) {
-  const original = resolveImages(a.shikimoriId);
-  if (!experimental && !sourceApproved(source))
-    return { ...original, posterDetailUrl: original.posterUrl };
+  let original = resolveImages(a.shikimoriId);
+  const item = (permissions as Record<string, ImagePermission>)[a.shikimoriId];
+  const remote = item?.remotePoster;
+  if (remote?.source === 'tvmaze' && remote.evidence.trim() && sourceApproved(alternativeSource)) {
+    const main = exactPosterUrl(remote.posterUrl, alternativeSource, a.shikimoriId, false);
+    const detail = exactPosterUrl(remote.posterDetailUrl, alternativeSource, a.shikimoriId, false);
+    if (main || detail) {
+      original = resolveImages(a.shikimoriId, {
+        [a.shikimoriId]: {
+          posterUrl: main || detail!,
+          posterDetailUrl: detail || main!,
+          backdropUrl: original.backdropUrl || undefined,
+          bannerPosition: original.bannerPosition,
+          imageSource: 'TVmaze',
+          imageAttribution: original.backdropUrl
+            ? `${remote.imageAttribution}; фон: ${original.imageAttribution}`
+            : remote.imageAttribution,
+          imageLicenseStatus: 'permission-granted',
+          evidence: remote.evidence,
+        },
+      });
+      original.posterAttribution = remote.imageAttribution;
+    }
+  }
+  if (!experimental && !sourceApproved(source)) return original;
   const main = exactPosterUrl(a.sourcePosterMainUrl, source, a.shikimoriId, experimental);
   const detail = exactPosterUrl(a.sourcePosterUrl, source, a.shikimoriId, experimental);
-  if (!main && !detail) return { ...original, posterDetailUrl: original.posterUrl };
+  if (!main && !detail) return original;
   const attribution = experimental
     ? 'Shikimori · локальный эксперимент; права на публикацию не подтверждены'
     : source.attribution;

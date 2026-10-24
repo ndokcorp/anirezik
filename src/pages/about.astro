@@ -1,7 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { anime, catalog } from '../data/anime';
+import { anime, catalog, posterAvailability } from '../data/anime';
 import { displayDate } from '../lib/dates';
+import permissions from '../data/image-rights.json';
+import { url } from '../lib/paths';
+const licensedPosters = anime
+  .filter((a) => a.imageSource === 'TVmaze' && a.posterUrl)
+  .map((a) => ({
+    anime: a,
+    source: (permissions as Record<string, import('../lib/images').ImagePermission>)[a.shikimoriId]
+      .remotePoster!,
+  }));
 ---
 
 <Layout title="О проекте">
@@ -27,12 +36,46 @@ import { displayDate } from '../lib/dates';
       данным.
     </p>
     <p>
-      Для 16 тайтлов используются оригинальные AI-иллюстрации с соответствующей подписью; остальные
-      карточки показывают нейтральные фирменные заглушки, пока не подтверждены права на постеры.
-      Декоративные баннеры созданы ИИ, могут отличаться от произведений и явно обозначены как
-      неофициальные иллюстрации. Краткие описания исходных 16 тайтлов написаны редакцией; чужие
-      тексты автоматически не копируются. Названия произведений принадлежат их правообладателям.
+      Для {posterAvailability.tvmaze} сериалов подключены постеры TVmaze по условиям его API. Для{' '}
+      {posterAvailability.original} тайтлов используются оригинальные AI-иллюстрации с
+      соответствующей подписью; остальные карточки показывают нейтральные фирменные заглушки, пока
+      не подтверждены права на постеры. Декоративные баннеры созданы ИИ, могут отличаться от
+      произведений и явно обозначены как неофициальные иллюстрации. Краткие описания исходных 16
+      тайтлов написаны редакцией; чужие тексты автоматически не копируются. Названия произведений
+      принадлежат их правообладателям.
     </p>
+    {licensedPosters.length > 0 && (
+      <>
+        <h2 id="posters">Источники постеров</h2>
+        <p>
+          Постеры предоставлены <a href="https://www.tvmaze.com/api#images">TVmaze API</a> по{' '}
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Изображения
+          загружаются непосредственно с CDN TVmaze; файлы не редактируются и не хранятся на
+          AniRezik. В карточках применяются CSS-кадрирование, а для фона — размытие и затемнение.
+          Материалы TVmaze и изменения их представления доступны на тех же условиях CC BY-SA 4.0.
+          Постер относится к сериалу в целом и может представлять более поздний сезон. Изображения
+          принадлежат их правообладателям; предоставление через API не означает одобрение AniRezik.
+        </p>
+        <ul>
+          {licensedPosters.map(({ anime: a, source }) => (
+            <li>
+              {a.title} —{' '}
+              <a href={source.sourceUrl} target="_blank" rel="noopener noreferrer">
+                {source.title} · TVmaze
+              </a>
+              {' · '}
+              <a href={source.posterDetailUrl} target="_blank" rel="noopener noreferrer">
+                Исходное изображение
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p>
+          Машиночитаемые ссылки и сопоставления:{' '}
+          <a href={url('poster-credits.json')}>реестр TVmaze · CC BY-SA 4.0</a>.
+        </p>
+      </>
+    )}
     <h2>Просмотр и конфиденциальность</h2>
     <p>
       Мы не размещаем эпизоды и не подключаем неофициальные видеопотоки. Профиль и расписание пока

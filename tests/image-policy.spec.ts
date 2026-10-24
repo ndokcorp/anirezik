@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import sources from '../src/data/image-sources.json' with { type: 'json' };
+import rights from '../src/data/image-rights.json' with { type: 'json' };
 import {
   resolveCatalogImages,
   localPosterExperiment,
@@ -85,4 +87,36 @@ test('постеры: неизвестные origins, HTTP и credentials не �
         .posterUrl,
     ).toBeNull();
   }
+});
+
+test('TVmaze: только проверенные пары URL; отзыв разрешения сохраняет исходные иллюстрации', () => {
+  const entries = Object.entries(rights).filter(([, item]) => 'remotePoster' in item);
+  expect(entries).toHaveLength(20);
+  for (const [id, item] of entries) {
+    const record = item as import('../src/lib/images').ImagePermission;
+    const remote = record.remotePoster!;
+    const result = resolveCatalogImages({ shikimoriId: Number(id) });
+    expect(result.imageSource).toBe('TVmaze');
+    expect(result.poster).toBe(remote.posterUrl);
+    expect(result.posterDetailUrl).toBe(remote.posterDetailUrl);
+    expect(sources.tvmaze.scope.urls).toEqual(
+      expect.arrayContaining([remote.posterUrl, remote.posterDetailUrl]),
+    );
+    expect(new URL(result.poster).origin).toBe('https://static.tvmaze.com');
+    for (const override of [
+      { status: 'unknown' },
+      { evidence: '' },
+      { hotlinking: false },
+      { scope: { kind: 'urls', urls: [] } },
+    ]) {
+      const blocked = resolveCatalogImages({ shikimoriId: Number(id) }, false, sources.shikimori, {
+        ...sources.tvmaze,
+        ...override,
+      });
+      expect(blocked.posterUrl).toBe(record.posterUrl || null);
+      expect(blocked.imageSource).not.toBe('TVmaze');
+    }
+  }
+  expect(resolveCatalogImages({ shikimoriId: 5 }).posterUrl).toBeNull();
+  expect(resolveCatalogImages({ shikimoriId: 59193 }).posterUrl).toBeNull();
 });

@@ -24,7 +24,24 @@ import { posterAvailability } from '../data/anime';
       ? `Постеры Shikimori используются в подтверждённой области разрешения (${posterAvailability.published}).`
       : posterAvailability.experimental
         ? 'Постеры Shikimori показаны в локальном эксперименте; право публичного использования этим не подтверждается.'
-        : 'Официальные постеры не подключены.'}{' '}
+        : 'Постеры Shikimori пока не подключены.'}{' '}
+    {posterAvailability.tvmaze > 0 && (
+      <>
+        Постеры {posterAvailability.tvmaze} сериалов:{' '}
+        <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">
+          TVmaze
+        </a>
+        {' · '}
+        <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CC BY-SA 4.0
+        </a>
+        . <a href={url('about/#posters')}>Источники изображений</a>.{' '}
+      </>
+    )}
     Оригинальные AI-иллюстрации подписаны; остальные изображения заменены фирменными заглушками.
     Видеоконтент не размещается.
   </p>

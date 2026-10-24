@@ -1,5 +1,15 @@
 import { test, expect } from '@playwright/test';
 
+// Deterministic regression suite. Real, unmocked TVmaze decoding is checked on Pages separately.
+test.beforeEach(async ({ context }) => {
+  await context.route('https://static.tvmaze.com/uploads/images/**', (route) =>
+    route.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
+    }),
+  );
+});
+
 test('production: реестр ограничивает Shikimori независимо от локального переключателя', async ({
   page,
 }) => {
@@ -13,6 +23,12 @@ test('production: реестр ограничивает Shikimori независ
       a.imageSource === 'Shikimori' && a.imageLicenseStatus === 'permission-granted' && a.posterUrl,
   );
   expect(config.experimental).toBe(false);
+  const tvmaze = anime.filter((a) => a.imageSource === 'TVmaze');
+  expect(tvmaze).toHaveLength(20);
+  for (const a of tvmaze) {
+    expect(config.images[a.shikimoriId].poster).toBe(a.posterUrl);
+    expect(config.images[a.shikimoriId].posterDetailUrl).toBe(a.posterDetailUrl);
+  }
   expect(config.sharded).toBe(allowed.length > 0);
   expect([...config.buckets].sort((a, b) => a - b)).toEqual(
     [...new Set(allowed.map((a) => Math.floor(a.shikimoriId / 1000)))].sort((a, b) => a - b),
