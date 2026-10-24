@@ -5,7 +5,9 @@ import { initImages } from './image-client';
 import { displayDate } from './dates';
 import { url } from './paths';
 import { ratingBadge } from './rating';
+import { initDescriptions } from './description-client';
 type Detail = Anime & {
+  hasDescription?: boolean;
   related: (RelatedAnime & { href: string; external: boolean; score: number | null })[];
 };
 function externalLink(text: string, href: string) {
@@ -51,7 +53,11 @@ export async function initAnimeDetail() {
     const banner = el('div', 'detail-banner');
     if (images.backdropUrl || images.posterUrl) {
       const img = el('img', images.backdropUrl ? '' : 'poster-backdrop');
-      img.src = (images.backdropUrl || images.posterUrl)!;
+      img.src = (images.backdropUrl || images.posterDetailUrl || images.posterUrl)!;
+      const alternate = images.backdropUrl
+        ? images.posterDetailUrl || images.posterUrl
+        : images.posterUrl;
+      if (alternate && alternate !== img.src) img.dataset.imageAlternative = alternate;
       img.alt = '';
       img.width = 1600;
       img.height = 500;
@@ -74,23 +80,25 @@ export async function initAnimeDetail() {
       a.year ?? '—',
       a.type,
       a.status,
+      a.ageRating && a.ageRating !== 'NONE' ? a.ageRating : null,
       a.episodes === null ? 'Серии: —' : `${a.episodes} серий`,
     ])
-      tags.append(el('span', '', String(value)));
+      if (value !== null) tags.append(el('span', '', String(value)));
     for (const genre of a.genres) {
       const link = el('a', '', genre);
       link.href = url(`catalog/?genre=${encodeURIComponent(genre)}`);
       tags.append(link);
     }
     copy.append(tags);
-    copy.append(
-      el(
-        'p',
-        'description',
-        a.description ||
-          'Редакционное описание пока не добавлено. Подробности доступны на странице источника.',
-      ),
+    const description = el(
+      'p',
+      'description',
+      a.description ||
+        'Редакционное описание пока не добавлено. Подробности доступны на странице источника.',
     );
+    if (a.hasDescription && !a.description)
+      description.dataset.descriptionId = String(a.shikimoriId);
+    copy.append(description);
     if (a.description) copy.append(el('p', 'source-note', 'Описание редакции AniRezik'));
     if (a.score) {
       const score = el('p', 'source-rating');
@@ -196,6 +204,7 @@ export async function initAnimeDetail() {
     status.hidden = true;
     document.title = `${a.title} — AniRezik`;
     initImages(container);
+    initDescriptions(container);
     document.dispatchEvent(new Event('anirezik:cards-rendered'));
   } catch {
     status.textContent =

@@ -14,6 +14,7 @@ export type IndexRow = [
   number[],
   number[],
   string | null,
+  (string | null)?,
 ];
 export interface PackedIndex {
   version: 1;
@@ -25,6 +26,7 @@ export interface PackedIndex {
   entries: IndexRow[];
 }
 export interface CatalogEntry {
+  ageRating?: string | null;
   id: string;
   shikimoriId: number;
   slug: string;
@@ -73,6 +75,7 @@ export function packIndex(items: Anime[], staticIds: Set<number>): PackedIndex {
         a.genres.map((g) => genreIds.get(g)!),
         a.studios.map((s) => studioIds.get(s)!),
         staticIds.has(a.shikimoriId) ? a.slug : null,
+        a.ageRating,
       ];
     }),
   };
@@ -97,5 +100,6 @@ export function unpackIndex(data: PackedIndex, base: string): CatalogEntry[] {
     status: data.statuses[r[10]],
     genres: r[11].map((i) => data.genres[i]),
     studios: r[12].map((i) => data.studios[i]),
+    ageRating: r[14] || null,
   }));
 }

@@ -17,6 +17,13 @@ interface ImageIndex {
 let loaded: Promise<ImageIndex> | undefined;
 const buckets = new Map<number, Promise<Record<string, ClientImages>>>();
 const failedUntil = new Map<number, number>();
+let indexFailedUntil = 0;
+export const imageRetryAt = (id: number) =>
+  Math.max(indexFailedUntil, failedUntil.get(Math.floor(id / 1000)) || 0);
+export function retryFailedImages() {
+  indexFailedUntil = 0;
+  failedUntil.clear();
+}
 let active = 0;
 const queue: (() => void)[] = [];
 async function limited<T>(run: () => Promise<T>): Promise<T> {
@@ -62,7 +69,10 @@ function imagePackage(value: unknown): Record<string, ClientImages> {
   return value as Record<string, ClientImages>;
 }
 export async function loadImages(ids: number[] = []): Promise<Record<string, ClientImages>> {
-  const index = await (loaded ||= fetch(url('image-index.json'))
+  if (Date.now() < indexFailedUntil) return {};
+  const index = await (loaded ||= fetch(url('image-index.json'), {
+    signal: AbortSignal.timeout(12000),
+  })
     .then(async (response) => {
       if (!response.ok) throw new Error('Изображения недоступны');
       const index = (await response.json()) as ImageIndex;
@@ -78,6 +88,7 @@ export async function loadImages(ids: number[] = []): Promise<Record<string, Cli
     })
     .catch(() => {
       loaded = undefined;
+      indexFailedUntil = Date.now() + 30000;
       return { images: {}, sharded: false };
     }));
   if (!index.sharded || !ids.length) return index.images;
@@ -93,7 +104,7 @@ export async function loadImages(ids: number[] = []): Promise<Record<string, Cli
           buckets.set(
             bucket,
             limited(() =>
-              fetch(url(`data/images/${bucket}.json`))
+              fetch(url(`data/images/${bucket}.json`), { signal: AbortSignal.timeout(45000) })
                 .then(async (r) => {
                   if (!r.ok) throw new Error('image package');
                   return imagePackage(await r.json());

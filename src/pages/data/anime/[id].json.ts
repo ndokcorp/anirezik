@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { anime, animeByShikimoriId, animePath } from '../../../data/anime';
 import { url } from '../../../lib/paths';
+import { descriptions } from '../../../lib/descriptions';
 export const getStaticPaths = () =>
   anime.map((a) => ({ params: { id: String(a.shikimoriId) }, props: { a } }));
 export const GET: APIRoute = ({ props }) => {
@@ -20,10 +21,13 @@ export const GET: APIRoute = ({ props }) => {
     sourcePosterUrl,
     sourcePosterMainUrl,
     posterAttribution,
+    description,
+    descriptionSource,
     ...detail
   } = a;
   return Response.json({
     ...detail,
+    hasDescription: descriptions.has(a.shikimoriId),
     related: a.related.map((relation) => {
       const local = animeByShikimoriId.get(relation.shikimoriId);
       return {

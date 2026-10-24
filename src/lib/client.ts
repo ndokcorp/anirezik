@@ -1,4 +1,5 @@
 import { initImages } from './image-client';
+import { initDescriptions } from './description-client';
 import { storedFavoriteIds, writeFavorites, FAVORITES_KEY } from './favorites';
 import { initSearch } from './search-ui';
 import { initCatalog } from './catalog-ui';
@@ -58,6 +59,7 @@ initSearch();
 initFavoritesPage();
 
 initImages();
+initDescriptions();
 
 const menu = $<HTMLDialogElement>('#mobile-menu');
 const menuButton = $('.menu-toggle');

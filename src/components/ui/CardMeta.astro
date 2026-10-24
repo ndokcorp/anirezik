@@ -1,0 +1,24 @@
+---
+import { ageLabel, episodeLabel } from '../../lib/card-meta';
+interface Props {
+  ageRating?: string | null;
+  episodes: number | null;
+  type: string;
+}
+const { ageRating, episodes, type } = Astro.props;
+const age = ageLabel(ageRating),
+  count = episodeLabel(type, episodes);
+---
+
+{age && (
+  <span class="card-age" title="Возрастная классификация Shikimori">
+    {age}
+  </span>
+)}
+{count && <span class="card-episodes">{count}</span>}
+<span class="card-play" aria-hidden="true">
+  <svg viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7z" />
+  </svg>
+  <span>Подробнее</span>
+</span>

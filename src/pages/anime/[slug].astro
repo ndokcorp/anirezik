@@ -10,6 +10,7 @@ import EpisodeList from '../../components/anime/EpisodeList.astro';
 import AnimePlayer from '../../components/anime/AnimePlayer.astro';
 import { displayDate } from '../../lib/dates';
 import Rating from '../../components/ui/Rating.astro';
+import { descriptions } from '../../lib/descriptions';
 export function getStaticPaths() {
   return anime
     .filter((a) => staticPageIds.has(a.shikimoriId))
@@ -37,6 +38,7 @@ for (const candidate of anime) {
     <Poster
       class="detail-poster"
       src={a.posterDetailUrl || a.poster}
+      alternative={a.posterUrl || undefined}
       alt={
         a.imageLicenseStatus === 'original-ai'
           ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
@@ -51,6 +53,7 @@ for (const candidate of anime) {
         <span>{a.year ?? '—'}</span>
         <span>{a.type}</span>
         <span>{a.status}</span>
+        {a.ageRating && a.ageRating !== 'NONE' && <span>{a.ageRating}</span>}
         <span>
           {a.episodes === null
             ? 'Серии: —'
@@ -62,7 +65,12 @@ for (const candidate of anime) {
           <a href={url(`catalog/?genre=${encodeURIComponent(g)}`)}>{g}</a>
         ))}
       </div>
-      <p class="description">
+      <p
+        class="description"
+        data-description-id={
+          !a.description && descriptions.has(a.shikimoriId) ? a.shikimoriId : undefined
+        }
+      >
         {a.description ||
           'Редакционное описание пока не добавлено. Подробности доступны на странице источника.'}
       </p>
@@ -166,6 +174,7 @@ for (const candidate of anime) {
                       <Poster
                         class="related-poster"
                         src={local.poster}
+                        alternative={local.posterDetailUrl || undefined}
                         defer
                         alt={
                           local.imageLicenseStatus === 'original-ai'
@@ -181,7 +190,9 @@ for (const candidate of anime) {
                   <span class="related-copy">
                     {item.title}
                     {!local && ' ↗ Shikimori'}
-                    {local?.imageAttribution && <small>{local.imageAttribution}</small>}
+                    {local?.imageLicenseStatus === 'original-ai' && (
+                      <small>AI · НЕОФИЦИАЛЬНЫЙ АРТ</small>
+                    )}
                   </span>
                 </a>
               </li>

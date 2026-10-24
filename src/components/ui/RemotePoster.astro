@@ -6,8 +6,9 @@ interface Props {
   class?: string;
   loading?: 'eager' | 'lazy';
   defer?: boolean;
+  alternative?: string;
 }
-const { src, alt, class: className, loading = 'lazy', defer = false } = Astro.props;
+const { src, alt, class: className, loading = 'lazy', defer = false, alternative } = Astro.props;
 ---
 
 <img
@@ -15,6 +16,9 @@ const { src, alt, class: className, loading = 'lazy', defer = false } = Astro.pr
   src={imageUrl(defer ? imageFallback : src, import.meta.env.BASE_URL)}
   data-image-src={defer ? imageUrl(src, import.meta.env.BASE_URL) : undefined}
   data-image-fallback={imageUrl(imageFallback, import.meta.env.BASE_URL)}
+  data-image-alternative={
+    alternative && alternative !== src ? imageUrl(alternative, import.meta.env.BASE_URL) : undefined
+  }
   alt={alt}
   width="400"
   height="600"

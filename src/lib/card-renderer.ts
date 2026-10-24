@@ -4,6 +4,7 @@ import { fallbackImages } from './image-service';
 import { url } from './paths';
 import { initImages, releaseImages } from './image-client';
 import { ratingBadge } from './rating';
+import { ageLabel, episodeLabel } from './card-meta';
 export function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className = '',
@@ -55,6 +56,9 @@ export function posterImage(images: ClientImages, title: string, className = '',
         ? `Постер: ${title}`
         : `Фирменная заглушка: ${title}`;
   img.dataset.imageFallback = url('assets/poster-placeholder.svg');
+  const alternative =
+    images.poster === images.posterDetailUrl ? images.posterUrl : images.posterDetailUrl;
+  if (alternative && alternative !== images.poster) img.dataset.imageAlternative = alternative;
   if (defer) {
     img.dataset.imageSrc = images.poster;
     img.src = img.dataset.imageFallback;
@@ -86,28 +90,34 @@ export function renderCards(
     if (!images[a.shikimoriId]) img.dataset.imageId = String(a.shikimoriId);
     img.dataset.imageTitle = a.title;
     link.append(img);
-    if (art.imageAttribution)
-      link.append(
-        element(
-          'span',
-          'art-label',
-          art.imageLicenseStatus === 'original-ai'
-            ? 'AI · НЕОФИЦИАЛЬНЫЙ АРТ'
-            : art.imageAttribution,
-        ),
-      );
+    if (art.imageAttribution) img.title = art.imageAttribution;
+    if (art.imageLicenseStatus === 'original-ai')
+      link.append(element('span', 'art-label', 'AI · НЕОФИЦИАЛЬНЫЙ АРТ'));
     link.append(element('div', 'card-shade'));
     const rating = ratingBadge(a.score);
     if (rating) link.append(rating);
+    const age = ageLabel(a.ageRating),
+      count = episodeLabel(a.type, a.episodes);
+    if (age) {
+      const tag = element('span', 'card-age', age);
+      tag.title = 'Возрастная классификация Shikimori';
+      link.append(tag);
+    }
+    if (count) link.append(element('span', 'card-episodes', count));
+    const play = element('span', 'card-play');
+    play.setAttribute('aria-hidden', 'true');
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('viewBox', '0 0 24 24');
+    const triangle = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    triangle.setAttribute('d', 'M8 5v14l11-7z');
+    icon.append(triangle);
+    play.append(icon, element('span', '', 'Подробнее'));
+    link.append(play);
     const info = element('div', 'card-info');
     info.append(
       element('span', 'card-original', a.originalTitle),
       element('h3', '', a.title),
-      element(
-        'p',
-        '',
-        `${a.type} · ${a.year ?? '—'} · ${a.episodes === null ? 'Серии: —' : a.type === 'Фильм' ? 'Фильм' : `${a.episodes} серий`}`,
-      ),
+      element('p', '', `${a.type} · ${a.year ?? '—'}`),
     );
     link.append(info);
     card.append(link, favoriteButton(a.id));

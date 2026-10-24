@@ -366,6 +366,7 @@ test('компактный индекс сохраняет языки/алиас
     const result = restored.find((row) => row.id === item.id)!;
     expect(result.genres).toEqual(item.genres);
     expect(result.studios).toEqual(item.studios);
+    expect(result.ageRating).toEqual(item.ageRating);
     for (const query of [
       item.title,
       item.originalTitle,
@@ -384,6 +385,8 @@ test('компактный индекс сохраняет языки/алиас
   expect(JSON.stringify(packed)).not.toMatch(
     /description|sourcePosterUrl|related|https:\/\/shikimori/,
   );
+  const legacy = { ...packed, entries: packed.entries.map((row) => row.slice(0, 14)) };
+  expect(unpackIndex(legacy as typeof packed, '/')[0].ageRating).toBeNull();
 });
 const provider: VideoProvider = {
   id: 'official-test',

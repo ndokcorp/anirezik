@@ -1684,3 +1684,121 @@ select:focus-visible,
   width: 9px;
   height: 9px;
 }
+
+.card-age,
+.card-episodes {
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid #ffffff25;
+  background: #101016ce;
+  backdrop-filter: blur(7px);
+  border-radius: 6px;
+  padding: 6px 7px;
+}
+.card-age {
+  top: 12px;
+  right: 12px;
+  font-size: 9px;
+}
+.card-episodes {
+  bottom: 12px;
+  left: 12px;
+}
+.card-link .card-info {
+  bottom: 46px;
+}
+.card-play {
+  position: absolute;
+  z-index: 2;
+  top: 39%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+  pointer-events: none;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+}
+.card-play svg {
+  width: 52px;
+  height: 52px;
+  padding: 13px;
+  fill: #fff;
+  border-radius: 50%;
+  border: 1px solid #ff7a8b88;
+  background: #db0b2ce8;
+  box-shadow: 0 0 24px #ef123a55;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-link:hover .card-play,
+  .card-link:focus-visible .card-play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@media (hover: none) {
+  .card-play {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .card-age {
+    top: 10px;
+    right: 10px;
+    font-size: 8px;
+    padding: 5px 6px;
+  }
+  .card-episodes {
+    bottom: 10px;
+    left: 10px;
+    font-size: 9px;
+  }
+  .card-link .card-info {
+    bottom: 42px;
+  }
+}
+.detail-banner .poster-backdrop {
+  position: absolute;
+  right: 0;
+  width: 65%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42% !important;
+  filter: blur(4px) brightness(0.92);
+  transform: scale(1.03);
+  mask-image: linear-gradient(90deg, transparent, #000 32%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 32%);
+}
+.detail-banner:after {
+  background: linear-gradient(0deg, var(--bg), #09090b20 65%, transparent);
+}
+.source-rating {
+  display: inline-flex;
+  padding: 9px 12px;
+  border: 1px solid #ffffff1c;
+  border-radius: 9px;
+  background: #171318cc;
+  font-weight: 650;
+}
+.source-rating a::first-letter {
+  color: #ffc83d;
+}
+.description {
+  white-space: pre-line;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-play {
+    transition: none;
+  }
+}

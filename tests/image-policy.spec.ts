@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 import sources from '../src/data/image-sources.json' with { type: 'json' };
 import rights from '../src/data/image-rights.json' with { type: 'json' };
 import { ratingValue } from '../src/lib/rating';
+import { ageLabel, episodeLabel } from '../src/lib/card-meta';
+import { descriptions } from '../src/lib/descriptions';
 import {
   resolveCatalogImages,
   localPosterExperiment,
@@ -22,6 +24,17 @@ const permission: PosterSource = {
   browserCaching: true,
   scope: { kind: 'all' },
 };
+test('карточки и описания: фактический возраст/эпизоды; отдельные разрешённые тексты', () => {
+  expect(ageLabel('PG-13')).toBe('PG-13');
+  for (const value of [null, undefined, 'NONE', 'invented']) expect(ageLabel(value)).toBeNull();
+  expect(episodeLabel('TV', 12)).toBe('12 эп.');
+  expect(episodeLabel('Фильм', null)).toBe('Фильм');
+  for (const value of [null, 0, -1]) expect(episodeLabel('TV', value)).toBeNull();
+  expect(descriptions.size).toBe(23);
+  expect(descriptions.get(1)?.language).toBe('en');
+  expect(descriptions.get(52299)?.language).toBe('ru');
+  expect(descriptions.has(59193)).toBe(false);
+});
 test('рейтинг: настоящая оценка с одним десятичным знаком; null, 0 и нечисловые значения скрыты', () => {
   expect(ratingValue(8.74)).toBe('8.7');
   expect(ratingValue(10)).toBe('10.0');

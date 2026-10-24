@@ -1,4 +1,4 @@
-import { loadImages } from './image-service';
+import { loadImages, imageRetryAt, retryFailedImages } from './image-service';
 
 async function revealImage(img: HTMLImageElement) {
   const id = Number(img.dataset.imageId);
@@ -9,8 +9,11 @@ async function revealImage(img: HTMLImageElement) {
     const art = images[id];
     if (art) {
       img.dataset.imageSrc = art.poster;
+      if (art.posterDetailUrl && art.posterDetailUrl !== art.poster)
+        img.dataset.imageAlternative = art.posterDetailUrl;
       img.alt = `${art.imageLicenseStatus === 'original-ai' ? 'AI-иллюстрация, не официальный постер' : 'Постер'}: ${img.dataset.imageTitle || ''}`;
-      if (art.imageAttribution) {
+      if (art.imageAttribution) img.title = art.imageAttribution;
+      if (art.imageAttribution && art.imageLicenseStatus === 'original-ai') {
         const label = document.createElement(
           img.dataset.imageCredit === 'inline' ? 'small' : 'span',
         );
@@ -24,10 +27,29 @@ async function revealImage(img: HTMLImageElement) {
           : img.parentElement
         )?.append(label);
       }
+    } else if (imageRetryAt(id) > Date.now()) {
+      // Keep the ID on transient package failures instead of permanently losing its poster.
+      if (!img.dataset.imageRetried) {
+        img.dataset.imageRetried = 'true';
+        setTimeout(
+          () => {
+            if (img.isConnected && img.dataset.imageId) {
+              if (observer) observer.observe(img);
+              else void revealImage(img);
+            }
+          },
+          imageRetryAt(id) - Date.now() + 50,
+        );
+      }
+      return;
     }
     delete img.dataset.imageId;
   }
   if (img.isConnected && img.dataset.imageSrc) {
+    delete img.dataset.failed;
+    delete img.dataset.alternativeTried;
+    img.hidden = false;
+    img.classList.remove('image-failed');
     img.src = img.dataset.imageSrc;
     delete img.dataset.imageSrc;
   }
@@ -56,6 +78,12 @@ export function initImages(root: ParentNode = document) {
       if (img.dataset.imageBound) return;
       img.dataset.imageBound = 'true';
       const fail = () => {
+        if (img.dataset.imageAlternative && !img.dataset.alternativeTried) {
+          img.dataset.alternativeTried = 'true';
+          if ('bannerImage' in img.dataset) img.classList.add('poster-backdrop');
+          img.src = img.dataset.imageAlternative;
+          return;
+        }
         if (img.dataset.failed) {
           img.hidden = true;
           return;
@@ -79,3 +107,12 @@ export function initImages(root: ParentNode = document) {
       if (img.complete && img.naturalWidth === 0) fail();
     });
 }
+window.addEventListener('online', () => {
+  retryFailedImages();
+  document
+    .querySelectorAll<HTMLImageElement>('img[data-image-id][data-image-bound]')
+    .forEach((img) => {
+      if (observer) observer.observe(img);
+      else void revealImage(img);
+    });
+});

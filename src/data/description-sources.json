@@ -1,0 +1,13 @@
+{
+  "tvmaze": {
+    "status": "permission-granted",
+    "evidence": "https://www.tvmaze.com/api#licensing",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "scope": "20 mapped API show summaries from already cached responses; HTML formatting removed; attribution and ShareAlike retained"
+  },
+  "shikimori": {
+    "status": "unknown",
+    "evidence": "",
+    "scope": "Poster correspondence does not cover third-party synopsis text; independent description reuse permission required"
+  }
+}

@@ -8,7 +8,14 @@ const { anime: a } = Astro.props as { anime: Anime };
   {(a.bannerUrl || a.posterUrl) && (
     <img
       class:list={{ 'poster-backdrop': !a.bannerUrl }}
-      src={imageUrl((a.bannerUrl || a.posterUrl)!, import.meta.env.BASE_URL)}
+      src={imageUrl((a.bannerUrl || a.posterDetailUrl || a.posterUrl)!, import.meta.env.BASE_URL)}
+      data-image-alternative={
+        a.bannerUrl
+          ? a.posterDetailUrl || a.posterUrl
+          : a.posterUrl !== a.posterDetailUrl
+            ? a.posterUrl
+            : undefined
+      }
       data-banner-image
       alt=""
       width="1600"

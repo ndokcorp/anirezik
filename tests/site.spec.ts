@@ -16,6 +16,88 @@ test.beforeEach(async ({ context }) => {
   );
 });
 
+test('0.3.6: карточки без подписи, возраст/эпизоды, hover и резерв размера', async ({ page }) => {
+  const main = solo.posterUrl!;
+  await page.route(main, (r) => r.abort());
+  await page.goto('./');
+  const card = page.locator('#popular [data-anime-id="shikimori:52299"]');
+  await card.scrollIntoViewIfNeeded();
+  await expect(card.locator('img')).toHaveAttribute('src', solo.posterDetailUrl!);
+  await expect(card.locator('.art-label')).toHaveCount(0);
+  await expect(card.locator('.card-age')).toHaveText(solo.ageRating!);
+  await expect(card.locator('.card-episodes')).toHaveText(`${solo.episodes} эп.`);
+  await card.locator('.card-link').hover();
+  await expect
+    .poll(() => card.locator('.card-play').evaluate((x) => getComputedStyle(x).opacity))
+    .toBe('1');
+  await expect(card.locator('.card-play')).toContainText('Подробнее');
+  await expect(page.locator('video,iframe')).toHaveCount(0);
+  await page.goto('catalog/?q=Solo%20Leveling');
+  const dynamic = page.locator('#catalog-grid [data-anime-id="shikimori:52299"]');
+  await expect(dynamic.locator('.card-age')).toHaveText(solo.ageRating!);
+  await expect(dynamic.locator('.card-episodes')).toHaveText(`${solo.episodes} эп.`);
+  await expect(dynamic.locator('.art-label')).toHaveCount(0);
+});
+
+test('0.3.6: временный отказ пакета не оставляет постер навсегда заглушкой', async ({
+  page,
+  context,
+}) => {
+  let calls = 0;
+  await context.route('**/data/images/0.json', (r) => (++calls === 1 ? r.abort() : r.continue()));
+  await page.goto('catalog/?q=Cowboy%20Bebop');
+  const img = page.locator('#catalog-grid [data-anime-id="shikimori:1"] img');
+  await expect.poll(() => calls).toBe(1);
+  await expect(img).toHaveAttribute('data-image-id', '1');
+  await expect(img).toHaveAttribute('data-image-retried', 'true');
+  await page.evaluate(() => window.dispatchEvent(new Event('online')));
+  await expect(img).toHaveAttribute('src', anime.find((a) => a.shikimoriId === 1)!.posterUrl!);
+  expect(calls).toBe(2);
+});
+
+test('0.3.6: описания загружаются только для detail, с атрибуцией и безопасным fallback', async ({
+  page,
+  context,
+}) => {
+  const calls: string[] = [];
+  page.on('request', (r) => {
+    if (r.url().includes('/data/descriptions/')) calls.push(r.url());
+  });
+  await page.goto('./');
+  expect(calls).toEqual([]);
+  await page.goto('anime/?id=1');
+  await expect(page.locator('.description')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('.description-credit')).toContainText('TVmaze');
+  expect(calls.length).toBe(1);
+  const detail = await (await page.request.get('data/anime/1.json')).json();
+  expect(detail.hasDescription).toBe(true);
+  expect(detail.description).toBeUndefined();
+  await context.route('**/data/descriptions/1.json', (r) =>
+    r.fulfill({
+      json: {
+        id: 1,
+        text: '<img src=x onerror="window.injected=true">',
+        attribution: 'TVmaze test fixture',
+        sourceUrl: 'https://www.tvmaze.com/shows/1121/cowboy-bebop',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+        language: 'en',
+      },
+    }),
+  );
+  await page.reload();
+  await expect(page.locator('.description')).toHaveText(
+    '<img src=x onerror="window.injected=true">',
+  );
+  await expect(page.locator('.description img')).toHaveCount(0);
+  expect(await page.evaluate(() => 'injected' in window)).toBe(false);
+  await context.unroute('**/data/descriptions/1.json');
+  await context.route('**/data/descriptions/1.json', (r) => r.abort());
+  await page.reload();
+  await expect(page.locator('.description')).toContainText(
+    'Редакционное описание пока не добавлено',
+  );
+});
+
 test('production: реестр ограничивает Shikimori независимо от локального переключателя', async ({
   page,
 }) => {
@@ -464,10 +546,8 @@ test('поиск за пределами первоначальной тысяч
 });
 
 test('реальное декодирование изображения и fallback при сетевом сбое', async ({ page }) => {
-  const poster = imageUrl(solo.posterDetailUrl || solo.poster, process.env.BASE_PATH || '/');
-  await page.route(new RegExp(`${poster.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`), (route) =>
-    route.abort('failed'),
-  );
+  // Both approved sizes must fail before the neutral fallback is expected.
+  await page.route('https://shikimori.io/uploads/poster/**', (route) => route.abort('failed'));
   await page.goto('anime/solo-leveling/');
   const image = page.locator('.detail-poster');
   await expect(image).toHaveAttribute('src', /poster-placeholder.svg$/);
@@ -837,9 +917,8 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
         .poll(() => thumb.evaluate((i) => (i as HTMLImageElement).naturalWidth))
         .toBe(400);
       await expect(thumb).toHaveAttribute('loading', 'lazy');
-      await expect(page.locator('.related-list .related-credit').first()).toContainText(
-        'Own fixture',
-      );
+      await expect(thumb).toHaveAttribute('title', /Own fixture/);
+      await expect(page.locator('.related-list .related-credit')).toHaveCount(0);
     }
   }
   await page.setViewportSize({ width: 390, height: 844 });

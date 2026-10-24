@@ -6,6 +6,7 @@ import { searchText } from '../../lib/search';
 import Poster from '../ui/Poster.astro';
 import { animePath } from '../../data/anime';
 import Rating from '../ui/Rating.astro';
+import CardMeta from '../ui/CardMeta.astro';
 interface Props {
   anime: Anime;
 }
@@ -24,9 +25,10 @@ const { anime: a } = Astro.props;
   data-title={a.title}
   data-search={searchText(a)}
 >
-  <a href={url(animePath(a))} class="card-link">
+  <a href={url(animePath(a))} class="card-link" title={a.posterAttribution || undefined}>
     <Poster
       src={a.poster}
+      alternative={a.posterDetailUrl || undefined}
       defer
       alt={
         a.imageLicenseStatus === 'original-ai'
@@ -39,17 +41,14 @@ const { anime: a } = Astro.props;
     {a.imageLicenseStatus === 'original-ai' && (
       <span class="art-label">AI · НЕОФИЦИАЛЬНЫЙ АРТ</span>
     )}
-    {a.imageAttribution && a.imageLicenseStatus !== 'original-ai' && (
-      <span class="art-label">{a.imageAttribution}</span>
-    )}
     <div class="card-shade"></div>
     <Rating score={a.score} />
+    <CardMeta ageRating={a.ageRating} episodes={a.episodes} type={a.type} />
     <div class="card-info">
       <span class="card-original">{a.originalTitle}</span>
       <h3>{a.title}</h3>
       <p>
-        {a.type} <span>·</span> {a.year ?? '—'} <span>·</span>{' '}
-        {a.episodes === null ? 'Серии: —' : a.type === 'Фильм' ? 'Фильм' : `${a.episodes} серий`}
+        {a.type} <span>·</span> {a.year ?? '—'}
       </p>
     </div>
   </a>
