@@ -1,4 +1,6 @@
 ---
+import FranchiseChronology from '../../components/anime/FranchiseChronology.astro';
+import Icon from '../../components/ui/Icon.astro';
 import Layout from '../../layouts/Layout.astro';
 import Banner from '../../components/anime/Banner.astro';
 import Poster from '../../components/ui/Poster.astro';
@@ -46,7 +48,8 @@ const timeline = chronology(a);
       <div class="detail-actions">
         <FavoriteButton id={a.id} large />
         <button class="button button-secondary" data-share-anime>
-          Поделиться
+          <Icon name="share" size={18} />
+          <span>Поделиться</span>
         </button>
       </div>
     </aside>
@@ -168,26 +171,13 @@ const timeline = chronology(a);
     </p>
   </section>
   <AnimePlayer anime={a} />
-  {timeline.length > 1 && (
-    <section class="info-panel">
-      <h2>Хронология франшизы</h2>
-      <p class="source-note">
-        Известные связи, порядок по датам выхода. Не гарантированный порядок просмотра.
-      </p>
-      <ol class="franchise-timeline">
-        {timeline.map((item) => (
-          <li class:list={{ current: item.current }}>
-            <span>
-              {displayDate(item.date)} · {item.type}
-            </span>
-            <a href={item.href} aria-current={item.current ? 'page' : undefined}>
-              {item.title}
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )}
+  <FranchiseChronology items={timeline} />
+  <AnimeSection
+    title="Похожие аниме"
+    id="similar-anime"
+    subtitle="Совпадение жанров в каталоге AniRezik"
+    items={related}
+  />
   {a.related.length > 0 && (
     <section class="info-panel">
       <h2>Связанные аниме и сезоны</h2>
@@ -242,11 +232,6 @@ const timeline = chronology(a);
       </ul>
     </section>
   )}
-  <AnimeSection
-    title="Похожие аниме"
-    subtitle="Совпадение жанров в каталоге AniRezik"
-    items={related}
-  />
   <section class="info-panel comments-placeholder">
     <h2>Комментарии</h2>
     <p>Обсуждения появятся в одной из следующих версий.</p>

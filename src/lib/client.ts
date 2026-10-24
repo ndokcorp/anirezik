@@ -1,3 +1,4 @@
+import { initNavigationMotion } from './navigation-motion';
 import { initDetailActions } from './recent-anime';
 import { initImages } from './image-client';
 import { initDescriptions } from './description-client';
@@ -57,6 +58,7 @@ function initFavorites() {
 }
 initFavorites();
 initDetailActions();
+initNavigationMotion();
 initSearch();
 initFavoritesPage();
 

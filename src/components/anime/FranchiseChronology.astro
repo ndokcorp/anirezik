@@ -1,0 +1,47 @@
+---
+import Poster from '../ui/Poster.astro';
+import { animeByShikimoriId } from '../../data/anime';
+import type { chronology } from '../../lib/detail-sections';
+const { items } = Astro.props as { items: ReturnType<typeof chronology> };
+---
+
+{items.length > 1 && (
+  <section class="info-panel chronology-section">
+    <div class="chronology-heading">
+      <h2>Хронология франшизы</h2>
+      <span>{items.length} аниме</span>
+    </div>
+    <p class="source-note">
+      По известным связям и датам выхода · не гарантированный порядок просмотра
+    </p>
+    <ol class="franchise-track">
+      {items.map((item, index) => {
+        const a = animeByShikimoriId.get(item.shikimoriId)!;
+        return (
+          <li class:list={{ current: item.current }}>
+            <span class="chronology-year">{item.current ? 'ВЫ ЗДЕСЬ' : (item.year ?? '—')}</span>
+            <span class="chronology-step" aria-hidden="true">
+              {index + 1}
+            </span>
+            <a
+              class="chronology-card"
+              href={item.href}
+              aria-current={item.current ? 'page' : undefined}
+            >
+              <Poster
+                src={a.poster}
+                alternative={a.posterDetailUrl || undefined}
+                defer
+                alt={`Постер: ${item.title}`}
+              />
+              <strong>{item.title}</strong>
+              <small>
+                {item.year ?? '—'} · {item.type}
+              </small>
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+)}

@@ -19,17 +19,31 @@ export function similarAnime(a: Anime) {
   return [...found.values()];
 }
 export function chronology(a: Anime) {
-  const items = [
-    a,
-    ...a.related
-      .filter((r) =>
-        ['prequel', 'sequel', 'side_story', 'parent_story', 'full_story', 'summary'].includes(
-          r.relationKind,
-        ),
+  const items: Anime[] = [a];
+  const seen = new Set([a.id]);
+  // Follow only imported franchise relations, never character/alternative-setting matches.
+  for (let i = 0; i < items.length && items.length < 60; i++) {
+    for (const relation of items[i].related) {
+      if (
+        ![
+          'prequel',
+          'sequel',
+          'side_story',
+          'parent_story',
+          'full_story',
+          'summary',
+          'spin_off',
+        ].includes(relation.relationKind)
       )
-      .map((r) => animeByShikimoriId.get(r.shikimoriId))
-      .filter((v): v is Anime => !!v),
-  ];
+        continue;
+      const local = animeByShikimoriId.get(relation.shikimoriId);
+      if (local && !seen.has(local.id)) {
+        seen.add(local.id);
+        items.push(local);
+      }
+      if (items.length === 60) break;
+    }
+  }
   return [...new Map(items.map((item) => [item.id, item])).values()]
     .sort(
       (x, y) =>
@@ -37,6 +51,8 @@ export function chronology(a: Anime) {
     )
     .map((item) => ({
       id: item.id,
+      shikimoriId: item.shikimoriId,
+      year: item.year,
       title: item.title,
       href: url(animePath(item)),
       date: item.airedOn,

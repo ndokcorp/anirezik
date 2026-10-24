@@ -9,6 +9,7 @@ const { active = 'home' } = Astro.props;
 <header class="header">
   <Logo />
   <nav class="desktop-nav" aria-label="Основная навигация">
+    <span class="nav-highlight" aria-hidden="true"></span>
     {[
       ['home', '', 'Главная'],
       ['catalog', 'catalog/', 'Каталог'],

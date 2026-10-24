@@ -32,6 +32,23 @@ export function rememberAnime(item: Recent) {
     /* Storage may be disabled. */
   }
 }
+export function shareIcon() {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('width', '18');
+  svg.setAttribute('height', '18');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.6');
+  svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute(
+    'd',
+    'M8 12l8-5M8 12l8 5M8 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0M22 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M22 19a3 3 0 1 1-6 0 3 3 0 0 1 6 0',
+  );
+  svg.append(path);
+  return svg;
+}
 export function initDetailActions() {
   const node = document.querySelector<HTMLElement>('[data-viewed-id]');
   if (node?.dataset.viewedId && node.dataset.viewedTitle)
@@ -43,12 +60,18 @@ export function initDetailActions() {
   document.addEventListener('click', async (event) => {
     const button = (event.target as Element).closest<HTMLButtonElement>('[data-share-anime]');
     if (!button) return;
+    let label = button.querySelector('span');
+    if (!label) {
+      label = document.createElement('span');
+      label.textContent = 'Поделиться';
+      button.replaceChildren(shareIcon(), label);
+    }
     const address = location.href;
     try {
       await navigator.clipboard.writeText(address);
-      button.textContent = 'Ссылка скопирована';
+      label.textContent = 'Ссылка скопирована';
       setTimeout(() => {
-        button.textContent = 'Поделиться';
+        label!.textContent = 'Поделиться';
       }, 2500);
     } catch {
       const field = document.createElement('input');
@@ -58,7 +81,7 @@ export function initDetailActions() {
       button.after(field);
       field.focus({ preventScroll: true });
       field.select();
-      button.textContent = 'Скопируйте ссылку ниже';
+      label.textContent = 'Скопируйте ссылку ниже';
     }
   });
 }

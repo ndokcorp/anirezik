@@ -1,4 +1,4 @@
-import { rememberAnime } from './recent-anime';
+import { rememberAnime, shareIcon } from './recent-anime';
 import { ageLabel } from './card-meta';
 import { loadFavoriteCards } from './card-packages';
 import { renderCards } from './card-renderer';
@@ -14,6 +14,8 @@ type Detail = Anime & {
   hasDescription?: boolean;
   chronology?: {
     id: string;
+    shikimoriId: number;
+    year: number | null;
     title: string;
     href: string;
     date: string | null;
@@ -124,7 +126,8 @@ export async function initAnimeDetail() {
     copy.append(jump);
     const sidebar = el('aside', 'detail-sidebar'),
       actions = el('div', 'detail-actions');
-    const share = el('button', 'button button-secondary', 'Поделиться');
+    const share = el('button', 'button button-secondary');
+    share.append(shareIcon(), el('span', '', 'Поделиться'));
     share.dataset.shareAnime = '';
     actions.append(favoriteButton(a.id, true), share);
     sidebar.append(
@@ -191,7 +194,11 @@ export async function initAnimeDetail() {
     fragment.append(watch);
     if (a.chronology && a.chronology.length > 1) {
       const timeline = panel('Хронология франшизы'),
-        list = el('ol', 'franchise-timeline');
+        list = el('ol', 'franchise-track');
+      timeline.classList.add('chronology-section');
+      const heading = el('div', 'chronology-heading');
+      heading.append(timeline.firstElementChild!, el('span', '', `${a.chronology.length} аниме`));
+      timeline.prepend(heading);
       timeline.append(
         el(
           'p',
@@ -199,16 +206,39 @@ export async function initAnimeDetail() {
           'Известные связи, порядок по датам выхода. Не гарантированный порядок просмотра.',
         ),
       );
-      for (const item of a.chronology) {
+      for (const [index, item] of a.chronology.entries()) {
         const row = el('li', item.current ? 'current' : '');
-        const link = el('a', '', item.title);
+        const link = el('a', 'chronology-card');
         link.href = item.href;
         if (item.current) link.setAttribute('aria-current', 'page');
-        row.append(el('span', '', `${displayDate(item.date)} · ${item.type}`), link);
+        const img = posterImage(fallbackImages(), item.title, '', true);
+        img.dataset.imageId = String(item.shikimoriId || Number(item.id.split(':')[1]));
+        img.dataset.imageTitle = item.title;
+        link.append(
+          img,
+          el('strong', '', item.title),
+          el('small', '', `${item.year ?? '—'} · ${item.type}`),
+        );
+        const step = el('span', 'chronology-step', String(index + 1));
+        step.setAttribute('aria-hidden', 'true');
+        row.append(
+          el('span', 'chronology-year', item.current ? 'ВЫ ЗДЕСЬ' : String(item.year ?? '—')),
+          step,
+          link,
+        );
         list.append(row);
       }
       timeline.append(list);
       fragment.append(timeline);
+    }
+    let similarGrid: HTMLElement | undefined;
+    let similarSection: HTMLElement | undefined;
+    if (a.similarIds?.length) {
+      similarSection = panel('Похожие аниме');
+      similarSection.id = 'similar-anime';
+      similarGrid = el('div', 'anime-grid');
+      similarSection.append(similarGrid);
+      fragment.append(similarSection);
     }
     if (a.related.length) {
       const section = panel('Связанные аниме и сезоны'),
@@ -241,14 +271,6 @@ export async function initAnimeDetail() {
       }
       section.append(list);
       fragment.append(section);
-    }
-    let similarGrid: HTMLElement | undefined;
-    let similarSection: HTMLElement | undefined;
-    if (a.similarIds?.length) {
-      similarSection = panel('Похожие аниме');
-      similarGrid = el('div', 'anime-grid');
-      similarSection.append(similarGrid);
-      fragment.append(similarSection);
     }
     const comments = panel('Комментарии');
     comments.append(el('p', '', 'Обсуждения появятся в одной из следующих версий.'));

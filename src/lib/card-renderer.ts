@@ -35,7 +35,7 @@ export function favoriteButton(id: string, large = false) {
   }))
     svg.setAttribute(key, value);
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute('d', large ? 'M12 5v14M5 12h14' : 'M6 3h12v18l-6-4-6 4z');
+  path.setAttribute('d', 'M6 3h12v18l-6-4-6 4z');
   svg.append(path);
   button.append(svg);
   if (large) button.append(element('span', '', 'В избранное'));

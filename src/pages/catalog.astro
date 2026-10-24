@@ -17,20 +17,24 @@ import { anime, catalog } from '../data/anime';
     </p>
   </div>
   <div class="catalog-toolbar">
-    <input
-      class="catalog-search"
-      id="catalog-search"
-      type="search"
-      placeholder="Название на русском или в оригинале"
-      aria-label="Поиск в каталоге"
-    />
+    <label class="catalog-search-wrap">
+      <Icon name="search" />
+      <input
+        class="catalog-search"
+        id="catalog-search"
+        type="search"
+        placeholder="Название на русском или в оригинале"
+        aria-label="Поиск в каталоге"
+      />
+    </label>
     <button
       class="button button-secondary filter-toggle"
+      aria-label="Фильтры"
+      disabled
       aria-controls="filter-panel"
       aria-expanded="false"
     >
       <Icon name="filter" size={18} />
-      Фильтры
     </button>
   </div>
   <FilterPanel />

@@ -275,12 +275,18 @@ test('настоящий каталог, пагинация, комбиниро�
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(24);
   await page.getByRole('button', { name: 'Показать ещё' }).click();
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(48);
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-studio').selectOption('MAPPA');
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-genre').selectOption('Экшен');
   const filtered = anime.filter((a) => a.studios.includes('MAPPA') && a.genres.includes('Экшен'));
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(
     Math.min(24, filtered.length),
   );
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-sort').selectOption('rating');
   const expected = [...filtered].sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
   await expect(page.locator('#catalog-grid article:visible').first()).toHaveAttribute(
@@ -291,8 +297,14 @@ test('настоящий каталог, пагинация, комбиниро�
   await expect(page.locator('#catalog-empty')).toBeVisible();
   await page.locator('#reset-filters').click();
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(24);
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-year').selectOption('2002');
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-type').selectOption('TV');
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-status').selectOption('Завершён');
   const count = anime.filter(
     (a) => a.year === 2002 && a.type === 'TV' && a.status === 'Завершён',
@@ -331,7 +343,9 @@ test('карточка, достоверная информация и связ�
   await expect(
     page.locator('.related-list').getByRole('link', { name: localRelation.title, exact: true }),
   ).toHaveAttribute('href', new RegExp(`/anime/${relatedTitle.slug}/$`));
-  await expect(page.locator('#anime-player').getByRole('heading', { name: solo.title, exact: true })).toBeVisible();
+  await expect(
+    page.locator('#anime-player').getByRole('heading', { name: solo.title, exact: true }),
+  ).toBeVisible();
   await expect(page.locator('iframe,video,[data-video-episode],[data-video-dub]')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /смотреть|воспроизвести/i })).toHaveCount(0);
   await expect(page.locator('.detail-poster')).toHaveAttribute(
@@ -405,6 +419,8 @@ test('мобильные меню, поиск и фильтр студии', asy
   await expect(page.getByRole('option')).toHaveCount(1);
   await page.locator('.mobile-nav').getByRole('link', { name: 'Каталог' }).click();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-studio').selectOption('ufotable');
   await expect(page.locator('#catalog-grid article:visible')).toHaveCount(
     Math.min(24, anime.filter((a) => a.studios.includes('ufotable')).length),
@@ -793,8 +809,12 @@ test('пакеты изображений загружаются у экрана
   await last.scrollIntoViewIfNeeded();
   await expect(last).toHaveAttribute('src', /^https:\/\/lazy-fixtures/);
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-sort').selectOption('title');
   await expect(page.locator('#catalog-grid')).not.toHaveAttribute('aria-busy', 'true');
+  if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')
+    await page.locator('.filter-toggle').click();
   await page.locator('#filter-sort').selectOption('default');
   await expect(page.locator('#catalog-grid article')).toHaveCount(24);
   await page.locator('#catalog-grid article').first().scrollIntoViewIfNeeded();
@@ -988,6 +1008,8 @@ test('история трёх просмотров, detail actions и мобил
   const input = page.getByRole('combobox');
   await expect(page.locator('#search-results')).toContainText('Недавно просмотрено');
   await expect(page.locator('#search-results [role=option]')).toHaveCount(3);
+  await expect(page.locator('#search-results [role=option] img')).toHaveCount(3);
+  await expect(page.locator('#search-results [role=option] img').first()).toHaveAttribute('src', /^https:\/\/shikimori\.io\//);
   expect((await page.locator('main').boundingBox())!.y).toBe(before!.y);
   expect(await input.evaluate((node) => getComputedStyle(node).fontSize)).toBe('16px');
   await input.fill('Solo Leveling');
@@ -995,5 +1017,40 @@ test('история трёх просмотров, detail actions и мобил
   await expect(page.locator('#search-results [role=option]').first()).toBeVisible();
   await input.fill('');
   await expect(page.locator('#search-results [role=option]')).toHaveCount(3);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('хронология с постерами, компактные фильтры и плавная навигация', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('.genre-filter,.editorial-strip,.genres-section')).toHaveCount(0);
+  const pill = page.locator('.nav-highlight');
+  const before = await pill.evaluate((node) => node.style.transform);
+  await page.locator('.desktop-nav a').nth(1).hover();
+  await expect.poll(() => pill.evaluate((node) => node.style.transform)).not.toBe(before);
+  await page.locator('.desktop-nav a').nth(1).click();
+  await expect(page.locator('#filter-panel')).toBeHidden();
+  await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
+  await expect(page.locator('#filter-panel')).toBeVisible();
+  await page.locator('#filter-type').selectOption('Фильм');
+  await expect(page.locator('#catalog-grid article').first()).toHaveAttribute('data-type', 'Фильм');
+  for (const path of ['anime/solo-leveling/', 'anime/?id=59193']) {
+    await page.goto(path);
+    const track = page.locator('.franchise-track');
+    await track.scrollIntoViewIfNeeded();
+    await expect(track.locator('li.current')).toHaveCount(1);
+    await expect(track.locator('li.current')).toContainText('ВЫ ЗДЕСЬ');
+    const img = track.locator('img').first();
+    await expect(img).toHaveAttribute('src', /^https:\/\/shikimori\.io\//);
+    await expect
+      .poll(() => img.evaluate((node) => (node as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
+    await expect(page.locator('.chronology-section + #similar-anime')).toBeVisible();
+    await expect(page.locator('[data-share-anime] svg')).toHaveCount(1);
+    await expect(page.locator('.detail-actions [data-favorite] svg')).toHaveCount(1);
+    await track.getByRole('link').first().click();
+    await expect(page.locator('.detail-copy h1')).toBeVisible();
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('.chronology-section')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

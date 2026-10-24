@@ -1,3 +1,4 @@
+import { initImages, releaseImages } from './image-client';
 import { recentAnime } from './recent-anime';
 import { queryCatalog } from './catalog-service';
 import { loadImages, fallbackImages } from './image-service';
@@ -34,6 +35,7 @@ export function initSearch() {
   };
   async function search() {
     const current = ++revision;
+    releaseImages(results!);
     results!.replaceChildren();
     selected = -1;
     input!.removeAttribute('aria-activedescendant');
@@ -50,7 +52,20 @@ export function initSearch() {
       recent.forEach((item, i) => {
         const link = document.createElement('a');
         link.href = item.href;
-        link.textContent = item.title;
+        const thumb = document.createElement('img');
+        thumb.src = fallbackImages().poster;
+        thumb.width = 40;
+        thumb.height = 60;
+        thumb.alt = '';
+        thumb.decoding = 'async';
+        thumb.loading = 'lazy';
+        thumb.dataset.imageSrc = thumb.src;
+        thumb.dataset.imageId = item.id.split(':')[1];
+        thumb.dataset.imageTitle = item.title;
+        thumb.dataset.imageFallback = url('assets/poster-placeholder.svg');
+        const title = document.createElement('strong');
+        title.textContent = item.title;
+        link.append(thumb, title);
         link.id = `search-option-${i}`;
         link.setAttribute('role', 'option');
         link.setAttribute('aria-selected', 'false');
@@ -58,6 +73,7 @@ export function initSearch() {
       });
       input!.removeAttribute('aria-busy');
       results!.hidden = false;
+      initImages(results!);
       input!.setAttribute('aria-expanded', 'true');
       return;
     }

@@ -1,15 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroSlider from '../components/anime/HeroSlider.astro';
-import GenreFilter from '../components/GenreFilter.astro';
 import AnimeSection from '../components/anime/AnimeSection.astro';
-import { anime, genres } from '../data/anime';
-import { url } from '../lib/paths';
+import { anime } from '../data/anime';
 ---
 
 <Layout>
   <HeroSlider />
-  <GenreFilter />
   <AnimeSection
     title="Популярное сейчас"
     subtitle="Редакционная подборка · данные Shikimori"
@@ -18,17 +15,6 @@ import { url } from '../lib/paths';
       .filter((a): a is (typeof anime)[number] => !!a)}
     id="popular"
   />
-  <div class="editorial-strip">
-    <span class="editorial-symbol">✦</span>
-    <div>
-      <span class="eyebrow">НАЙДИ СВОЮ ИСТОРИЮ</span>
-      <h2>Целый мир. По ту сторону экрана.</h2>
-      <p>От захватывающих сражений до историй, которые остаются с тобой.</p>
-    </div>
-    <a class="button button-secondary" href={url('catalog/')}>
-      Исследовать каталог <span>↗</span>
-    </a>
-  </div>
   <AnimeSection
     title="Новинки сезона"
     subtitle="Дата начала — в сезоне последнего обновления каталога"
@@ -56,21 +42,4 @@ import { url } from '../lib/paths';
       .map((id) => anime.find((a) => a.shikimoriId === id))
       .filter((a): a is (typeof anime)[number] => !!a)}
   />
-  <section class="genres-section">
-    <div class="section-heading">
-      <h2>Какое сегодня настроение?</h2>
-      <a href={url('genres/')} class="text-link">
-        Все жанры →
-      </a>
-    </div>
-    <div class="genre-tiles">
-      {genres.slice(0, 6).map((g, i) => (
-        <a href={url(`catalog/?genre=${encodeURIComponent(g)}`)}>
-          <span class="genre-number">0{i + 1}</span>
-          <h3>{g}</h3>
-          <span>Открыть подборку ↗</span>
-        </a>
-      ))}
-    </div>
-  </section>
 </Layout>

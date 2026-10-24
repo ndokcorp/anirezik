@@ -69,10 +69,12 @@ export function initCatalog() {
     limit += 24;
     void filter();
   });
-  document.querySelector('.filter-toggle')?.addEventListener('click', () => {
+  const toggle = document.querySelector<HTMLButtonElement>('.filter-toggle');
+  toggle?.addEventListener('click', () => {
     const open = document.querySelector('#filter-panel')!.classList.toggle('open');
     document.querySelector('.filter-toggle')!.setAttribute('aria-expanded', String(open));
   });
+  if (toggle) toggle.disabled = false;
   // The first 24 cards are server-rendered; do not download the full index until needed.
   if (params.size) void filter();
 }
