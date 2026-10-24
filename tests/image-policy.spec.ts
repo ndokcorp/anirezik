@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import sources from '../src/data/image-sources.json' with { type: 'json' };
 import rights from '../src/data/image-rights.json' with { type: 'json' };
+import { ratingValue } from '../src/lib/rating';
 import {
   resolveCatalogImages,
   localPosterExperiment,
@@ -21,6 +22,12 @@ const permission: PosterSource = {
   browserCaching: true,
   scope: { kind: 'all' },
 };
+test('рейтинг: настоящая оценка с одним десятичным знаком; null, 0 и нечисловые значения скрыты', () => {
+  expect(ratingValue(8.74)).toBe('8.7');
+  expect(ratingValue(10)).toBe('10.0');
+  for (const score of [null, undefined, 0, -1, NaN, Infinity, 11])
+    expect(ratingValue(score)).toBeNull();
+});
 test('постеры: production и CI не включают локальный эксперимент', () => {
   expect(localPosterExperiment(true, '1')).toBe(true);
   for (const args of [
@@ -29,7 +36,8 @@ test('постеры: production и CI не включают локальный 
     [true, '0', false],
   ] as const)
     expect(localPosterExperiment(args[0], args[1], args[2])).toBe(false);
-  expect(resolveCatalogImages(a).posterUrl).toBeNull();
+  expect(resolveCatalogImages(a).posterUrl).toBe(a.sourcePosterMainUrl);
+  expect(resolveCatalogImages(a, false, { ...permission, status: 'unknown' }).posterUrl).toBeNull();
   expect(resolveCatalogImages(a, true).imageLicenseStatus).toBe('local-experiment');
   expect(resolveCatalogImages(a, true).poster).toBe(a.sourcePosterMainUrl);
   expect(resolveCatalogImages(a, true).posterDetailUrl).toBe(a.sourcePosterUrl);
@@ -89,7 +97,7 @@ test('постеры: неизвестные origins, HTTP и credentials не �
   }
 });
 
-test('TVmaze: только проверенные пары URL; отзыв разрешения сохраняет исходные иллюстрации', () => {
+test('TVmaze: только проверенные пары URL; отзыв разрешения возвращает нейтральную заглушку', () => {
   const entries = Object.entries(rights).filter(([, item]) => 'remotePoster' in item);
   expect(entries).toHaveLength(20);
   for (const [id, item] of entries) {
@@ -113,10 +121,26 @@ test('TVmaze: только проверенные пары URL; отзыв ра�
         ...sources.tvmaze,
         ...override,
       });
-      expect(blocked.posterUrl).toBe(record.posterUrl || null);
+      expect(blocked.posterUrl).toBeNull();
       expect(blocked.imageSource).not.toBe('TVmaze');
     }
   }
   expect(resolveCatalogImages({ shikimoriId: 5 }).posterUrl).toBeNull();
   expect(resolveCatalogImages({ shikimoriId: 59193 }).posterUrl).toBeNull();
+});
+
+test('согласие по URL: Shikimori основной, TVmaze резерв; HTTP-кеш не является разрешением на хранение', () => {
+  expect(sources.shikimori.browserCaching).toBeNull();
+  expect(sourceApproved(sources.shikimori)).toBe(true);
+  expect(sourceApproved({ ...sources.shikimori, browserCachePolicy: undefined })).toBe(false);
+  expect(sourceApproved({ ...sources.shikimori, browserCaching: false })).toBe(false);
+  const a = {
+    shikimoriId: 1,
+    sourcePosterMainUrl: 'https://shikimori.io/uploads/poster/animes/1/main.webp',
+    sourcePosterUrl: 'https://shikimori.io/uploads/poster/animes/1/original.jpeg',
+  };
+  expect(resolveCatalogImages(a).imageSource).toBe('Shikimori');
+  expect(resolveCatalogImages(a).posterDetailUrl).toBe(a.sourcePosterUrl);
+  expect(resolveCatalogImages({ shikimoriId: 1 }).imageSource).toBe('TVmaze');
+  expect(resolveCatalogImages({ shikimoriId: 199 }).posterUrl).toBeNull();
 });

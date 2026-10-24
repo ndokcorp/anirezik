@@ -1,0 +1,22 @@
+---
+import { ratingValue, ratingLabel, ratingStarPath } from '../../lib/rating';
+interface Props {
+  score: number | null;
+  small?: boolean;
+}
+const { score, small = false } = Astro.props;
+const value = ratingValue(score);
+---
+
+{value && (
+  <span
+    class:list={['card-badge', { 'rating-small': small }]}
+    title={ratingLabel(value)}
+    aria-label={ratingLabel(value)}
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d={ratingStarPath} />
+    </svg>
+    <span>{value}</span>
+  </span>
+)}

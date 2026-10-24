@@ -607,14 +607,40 @@ select:focus-visible,
   position: absolute;
   top: 12px;
   left: 12px;
-  font-size: 7px;
-  letter-spacing: 0.8px;
-  background: #1010169c;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: #101016d9;
   border: 1px solid #ffffff25;
-  border-radius: 5px;
-  backdrop-filter: blur(5px);
-  padding: 3px 6px;
-  color: #f0dfe4;
+  border-radius: 7px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  padding: 7px 8px;
+  color: #fff;
+}
+.card-badge svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  fill: #ffc83d;
+}
+.search-poster {
+  position: relative;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 50px;
+}
+.related-art {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 72px;
 }
 .editorial-strip {
   display: flex;
@@ -1271,10 +1297,10 @@ select:focus-visible,
     width: 22px;
   }
   .card-badge {
-    font-size: 6px;
+    font-size: 13px;
     left: 10px;
     top: 10px;
-    padding: 3px 5px;
+    padding: 6px 7px;
   }
   .section-heading {
     margin-bottom: 17px;
@@ -1587,7 +1613,7 @@ select:focus-visible,
     height: 45px;
   }
   .card-badge {
-    font-size: 5px;
+    font-size: 12px;
   }
   .detail-content {
     grid-template-columns: 75px 1fr;
@@ -1644,4 +1670,17 @@ select:focus-visible,
   height: 8px;
   border-radius: 50%;
   background: var(--red);
+}
+
+.card-badge.rating-small {
+  top: 2px;
+  left: 2px;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 4px;
+  font-size: 9px;
+}
+.card-badge.rating-small svg {
+  width: 9px;
+  height: 9px;
 }

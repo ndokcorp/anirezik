@@ -5,7 +5,11 @@ import { displayDate } from '../lib/dates';
 import permissions from '../data/image-rights.json';
 import { url } from '../lib/paths';
 const licensedPosters = anime
-  .filter((a) => a.imageSource === 'TVmaze' && a.posterUrl)
+  .filter(
+    (a) =>
+      (permissions as Record<string, import('../lib/images').ImagePermission>)[a.shikimoriId]
+        ?.remotePoster,
+  )
   .map((a) => ({
     anime: a,
     source: (permissions as Record<string, import('../lib/images').ImagePermission>)[a.shikimoriId]
@@ -36,17 +40,26 @@ const licensedPosters = anime
       данным.
     </p>
     <p>
-      Для {posterAvailability.tvmaze} сериалов подключены постеры TVmaze по условиям его API. Для{' '}
-      {posterAvailability.original} тайтлов используются оригинальные AI-иллюстрации с
-      соответствующей подписью; остальные карточки показывают нейтральные фирменные заглушки, пока
-      не подтверждены права на постеры. Декоративные баннеры созданы ИИ, могут отличаться от
-      произведений и явно обозначены как неофициальные иллюстрации. Краткие описания исходных 16
-      тайтлов написаны редакцией; чужие тексты автоматически не копируются. Названия произведений
-      принадлежат их правообладателям.
+      Для {posterAvailability.published} аниме подключены постеры Shikimori по сохранённому согласию
+      на бесплатное размещение по URL из API. Постеры TVmaze используются для{' '}
+      {posterAvailability.tvmaze} записей; 20 сопоставлений сохранены как резерв при отсутствии
+      изображения Shikimori. Остальные карточки показывают нейтральные фирменные заглушки. Оценки —
+      реальные оценки пользователей Shikimori. Декоративные широкие иллюстрации созданы ИИ, могут
+      отличаться от произведений и явно обозначены как неофициальные иллюстрации. Краткие описания
+      исходных 16 тайтлов написаны редакцией; чужие тексты автоматически не копируются. Названия
+      произведений принадлежат их правообладателям.
+    </p>
+    <h2>Постеры Shikimori</h2>
+    <p>
+      Основной источник — <a href="https://shikimori.io">Shikimori</a>, изображения принадлежат их
+      правообладателям. Согласие на размещение постеров AniRezik по URL предоставлено владельцем
+      проекта в виде скриншота переписки. Дата сообщения на скриншоте не видна. Коммерческое
+      использование, собственный CDN и бессрочное хранение этим согласием не подтверждаются. Браузер
+      получает изображения напрямую по HTTPS и следует заголовкам HTTP-кеша источника.
     </p>
     {licensedPosters.length > 0 && (
       <>
-        <h2 id="posters">Источники постеров</h2>
+        <h2 id="posters">Резервные постеры TVmaze</h2>
         <p>
           Постеры предоставлены <a href="https://www.tvmaze.com/api#images">TVmaze API</a> по{' '}
           <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Изображения

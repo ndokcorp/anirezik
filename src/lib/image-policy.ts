@@ -1,6 +1,6 @@
 import sources from '../data/image-sources.json' with { type: 'json' };
 import permissions from '../data/image-rights.json' with { type: 'json' };
-import { resolveImages, type ImagePermission } from './images';
+import { resolveImages, imageFallback, type ImagePermission } from './images';
 
 export interface PosterSource {
   status: string;
@@ -9,6 +9,7 @@ export interface PosterSource {
   evidence: string;
   hotlinking: boolean | null;
   browserCaching: boolean | null;
+  browserCachePolicy?: string;
   scope: { kind: string; animeIds?: number[]; urls?: string[] };
   expiresAt?: string | null;
 }
@@ -21,7 +22,8 @@ export function sourceApproved(source: PosterSource) {
     !!source.evidence.trim() &&
     !!source.attribution.trim() &&
     source.hotlinking === true &&
-    source.browserCaching === true &&
+    (source.browserCaching === true ||
+      (source.browserCaching === null && source.browserCachePolicy === 'http-response-headers')) &&
     ['all', 'ids', 'urls'].includes(source.scope?.kind) &&
     (!source.expiresAt ||
       (Number.isFinite(Date.parse(source.expiresAt)) && Date.parse(source.expiresAt) > Date.now()))
@@ -57,6 +59,21 @@ export function resolveCatalogImages(
   alternativeSource: PosterSource = sources.tvmaze,
 ) {
   let original = resolveImages(a.shikimoriId);
+  const backgroundAttribution = original.imageAttribution;
+  // Retain approved wide artwork, but use neutral posters when no real source is available.
+  if (original.imageLicenseStatus === 'original-ai') {
+    original = {
+      ...original,
+      poster: imageFallback,
+      banner: original.bannerUrl || imageFallback,
+      posterUrl: null,
+      posterDetailUrl: null,
+      posterAttribution: null,
+      imageSource: null,
+      imageAttribution: original.bannerUrl ? original.imageAttribution : null,
+      imageLicenseStatus: 'unknown',
+    };
+  }
   const item = (permissions as Record<string, ImagePermission>)[a.shikimoriId];
   const remote = item?.remotePoster;
   if (remote?.source === 'tvmaze' && remote.evidence.trim() && sourceApproved(alternativeSource)) {
@@ -95,7 +112,7 @@ export function resolveCatalogImages(
     banner: original.bannerUrl || main || detail!,
     imageSource: 'Shikimori',
     imageAttribution: original.bannerUrl
-      ? `${attribution}; фон: ${original.imageAttribution}`
+      ? `${attribution}; фон: ${backgroundAttribution}`
       : attribution,
     posterAttribution: attribution,
     imageLicenseStatus: experimental

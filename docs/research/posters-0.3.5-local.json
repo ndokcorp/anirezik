@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-24T10:59:17.721Z",
+  "base": "http://127.0.0.1:4322/anirezik/",
+  "decoded": [
+    {
+      "id": 52299,
+      "main": [
+        225,
+        321
+      ]
+    },
+    {
+      "id": 20,
+      "main": [
+        225,
+        320
+      ]
+    },
+    {
+      "id": 1,
+      "main": [
+        225,
+        339
+      ]
+    },
+    {
+      "id": 5,
+      "main": [
+        225,
+        324
+      ]
+    },
+    {
+      "id": 59193,
+      "main": [
+        225,
+        318
+      ]
+    }
+  ],
+  "checks": [
+    "home/search: real main URL and yellow rating",
+    {
+      "detail": 1,
+      "original": [
+        660,
+        995
+      ]
+    },
+    {
+      "detail": 5,
+      "original": [
+        690,
+        995
+      ]
+    },
+    {
+      "detail": 59193,
+      "original": [
+        425,
+        600
+      ]
+    },
+    "legacy static: original poster; approved wide artwork retained",
+    "mobile catalog and changed query: correct poster/rating",
+    "related anime: real poster and matching rating",
+    "CDN failure: decoded neutral fallback"
+  ],
+  "api": [],
+  "errors": [],
+  "cacheEvents": 19,
+  "repeatCacheEvents": 5,
+  "ok": true
+}

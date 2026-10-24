@@ -1,8 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-// Deterministic regression suite. Real, unmocked TVmaze decoding is checked on Pages separately.
+// Reproducible regressions; real CDN decoding is checked separately on Pages.
 test.beforeEach(async ({ context }) => {
   await context.route('https://static.tvmaze.com/uploads/images/**', (route) =>
+    route.fulfill({
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
+    }),
+  );
+  await context.route('https://shikimori.io/uploads/poster/**', (route) =>
     route.fulfill({
       contentType: 'image/svg+xml',
       body: '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600"><rect width="400" height="600" fill="#800"/></svg>',
@@ -24,7 +30,7 @@ test('production: реестр ограничивает Shikimori независ
   );
   expect(config.experimental).toBe(false);
   const tvmaze = anime.filter((a) => a.imageSource === 'TVmaze');
-  expect(tvmaze).toHaveLength(20);
+  expect(tvmaze).toHaveLength(0);
   for (const a of tvmaze) {
     expect(config.images[a.shikimoriId].poster).toBe(a.posterUrl);
     expect(config.images[a.shikimoriId].posterDetailUrl).toBe(a.posterDetailUrl);
@@ -354,7 +360,16 @@ test('статические ресурсы, базовый путь, SEO, 404, 
   const images = await page
     .locator('img')
     .evaluateAll((imgs) => imgs.map((img) => (img as HTMLImageElement).src));
-  for (const src of new Set(images)) expect((await request.get(src)).ok(), src).toBeTruthy();
+  const permitted = new Set(anime.flatMap((a) => [a.posterUrl, a.posterDetailUrl, a.backdropUrl]));
+  for (const src of new Set(images)) {
+    if (new URL(src).origin === new URL(page.url()).origin)
+      expect((await request.get(src)).ok(), src).toBeTruthy();
+    else
+      expect(
+        permitted.has(src),
+        `External image must come from the approved registry: ${src}`,
+      ).toBe(true);
+  }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /^https:/);
   await page.goto('anime/solo-leveling/');
   await page.goto('favorites/');
@@ -363,6 +378,43 @@ test('статические ресурсы, базовый путь, SEO, 404, 
   const response = await page.goto('missing-page/');
   expect(response?.status()).toBe(404);
   await expect(page.getByRole('heading', { name: 'Эта история пока не найдена' })).toBeVisible();
+});
+
+test('рейтинг: единая жёлтая плашка в SSR, поиске, избранном и связанных миниатюрах', async ({
+  page,
+}) => {
+  const value = solo.score!.toFixed(1);
+  await page.goto('./');
+  const badge = page.locator('#popular [data-anime-id="shikimori:52299"] .card-badge');
+  await expect(badge).toHaveText(value);
+  await expect(badge).toHaveAttribute(
+    'aria-label',
+    `Оценка пользователей Shikimori: ${value} из 10`,
+  );
+  expect(await badge.locator('svg').evaluate((svg) => getComputedStyle(svg).fill)).toBe(
+    'rgb(255, 200, 61)',
+  );
+  expect(
+    await badge.evaluate((b) => parseFloat(getComputedStyle(b).fontSize)),
+  ).toBeGreaterThanOrEqual(12);
+  await page.locator('#global-search').fill('Solo Leveling');
+  await expect(page.locator('#search-results .card-badge').first()).toHaveText(value);
+  await page.locator('#popular [data-favorite="shikimori:52299"]').click();
+  await page.goto('favorites/');
+  await expect(page.locator('#favorites-grid .card-badge')).toHaveText(value);
+  await page.goto('catalog/?q=Solo%20Leveling');
+  await expect(page.locator('#catalog-grid .card-badge').first()).toHaveText(value);
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page
+      .locator('#catalog-grid .card-badge')
+      .first()
+      .evaluate((b) => parseFloat(getComputedStyle(b).fontSize)),
+  ).toBeGreaterThanOrEqual(12);
+  await page.goto('anime/?id=20');
+  await expect(page.locator('.related-list .card-badge').first()).toBeVisible();
+  await expect(page.locator('.related-list .card-badge').first()).toHaveClass(/rating-small/);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test('новый тайтл находится и имеет статическую страницу', async ({ page }) => {

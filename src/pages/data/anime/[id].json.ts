@@ -30,6 +30,7 @@ export const GET: APIRoute = ({ props }) => {
         ...relation,
         href: local ? url(animePath(local)) : relation.sourceUrl,
         external: !local,
+        score: local?.score ?? null,
       };
     }),
   });

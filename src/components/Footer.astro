@@ -15,7 +15,7 @@ import { posterAvailability } from '../data/anime';
     <span>© {new Date().getFullYear()} AniRezik</span>
   </div>
   <p class="footer-note">
-    Некоммерческая бета-версия · Метаданные:{' '}
+    Некоммерческая бета-версия · Метаданные и оценки пользователей:{' '}
     <a href="https://shikimori.io" target="_blank" rel="noopener noreferrer">
       Shikimori
     </a>
@@ -42,7 +42,7 @@ import { posterAvailability } from '../data/anime';
         . <a href={url('about/#posters')}>Источники изображений</a>.{' '}
       </>
     )}
-    Оригинальные AI-иллюстрации подписаны; остальные изображения заменены фирменными заглушками.
-    Видеоконтент не размещается.
+    Широкий AI-арт подписан; при отсутствии разрешённого постера используется фирменная заглушка.
+    <a href={url('about/#posters')}>Источники изображений</a>. Видеоконтент не размещается.
   </p>
 </footer>

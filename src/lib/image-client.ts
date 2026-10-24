@@ -20,7 +20,7 @@ async function revealImage(img: HTMLImageElement) {
             ? 'AI · НЕОФИЦИАЛЬНЫЙ АРТ'
             : art.imageAttribution;
         (img.dataset.imageCredit === 'inline'
-          ? img.parentElement?.querySelector('.related-copy')
+          ? img.closest('.related-link')?.querySelector('.related-copy')
           : img.parentElement
         )?.append(label);
       }

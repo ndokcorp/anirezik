@@ -9,6 +9,7 @@ import AnimeSection from '../../components/anime/AnimeSection.astro';
 import EpisodeList from '../../components/anime/EpisodeList.astro';
 import AnimePlayer from '../../components/anime/AnimePlayer.astro';
 import { displayDate } from '../../lib/dates';
+import Rating from '../../components/ui/Rating.astro';
 export function getStaticPaths() {
   return anime
     .filter((a) => staticPageIds.has(a.shikimoriId))
@@ -161,18 +162,21 @@ for (const candidate of anime) {
                   rel={local ? undefined : 'noopener noreferrer'}
                 >
                   {local && (
-                    <Poster
-                      class="related-poster"
-                      src={local.poster}
-                      defer
-                      alt={
-                        local.imageLicenseStatus === 'original-ai'
-                          ? `AI-иллюстрация: ${item.title}, не официальный постер`
-                          : local.posterUrl
-                            ? `Постер: ${item.title}`
-                            : `Фирменная заглушка: ${item.title}`
-                      }
-                    />
+                    <span class="related-art">
+                      <Poster
+                        class="related-poster"
+                        src={local.poster}
+                        defer
+                        alt={
+                          local.imageLicenseStatus === 'original-ai'
+                            ? `AI-иллюстрация: ${item.title}, не официальный постер`
+                            : local.posterUrl
+                              ? `Постер: ${item.title}`
+                              : `Фирменная заглушка: ${item.title}`
+                        }
+                      />
+                      <Rating score={local.score} small />
+                    </span>
                   )}
                   <span class="related-copy">
                     {item.title}

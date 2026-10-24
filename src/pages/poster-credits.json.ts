@@ -13,9 +13,10 @@ export const GET: APIRoute = () =>
     changes:
       'Shikimori ID mapping; browser CSS crops, blurs and darkens presentation. Original files unchanged.',
     posters: anime
-      .filter((a) => a.imageSource === 'TVmaze' && a.posterUrl)
+      .filter((a) => (permissions as Record<string, ImagePermission>)[a.shikimoriId]?.remotePoster)
       .map((a) => ({
         shikimoriId: a.shikimoriId,
+        active: a.imageSource === 'TVmaze',
         ...(permissions as Record<string, ImagePermission>)[a.shikimoriId].remotePoster,
       })),
   });

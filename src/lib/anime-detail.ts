@@ -4,7 +4,10 @@ import { loadImages, fallbackImages } from './image-service';
 import { initImages } from './image-client';
 import { displayDate } from './dates';
 import { url } from './paths';
-type Detail = Anime & { related: (RelatedAnime & { href: string; external: boolean })[] };
+import { ratingBadge } from './rating';
+type Detail = Anime & {
+  related: (RelatedAnime & { href: string; external: boolean; score: number | null })[];
+};
 function externalLink(text: string, href: string) {
   const link = el('a', '', text);
   link.href = href;
@@ -176,7 +179,11 @@ export async function initAnimeDetail() {
           img.dataset.imageId = String(relation.shikimoriId);
           img.dataset.imageTitle = relation.title;
           img.dataset.imageCredit = 'inline';
-          link.prepend(img);
+          const art = el('span', 'related-art');
+          art.append(img);
+          const rating = ratingBadge(relation.score, true);
+          if (rating) art.append(rating);
+          link.prepend(art);
         }
         row.append(el('span', '', relation.relation), link);
         list.append(row);

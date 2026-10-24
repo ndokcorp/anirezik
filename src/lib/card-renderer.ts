@@ -3,6 +3,7 @@ import type { ClientImages } from './image-service';
 import { fallbackImages } from './image-service';
 import { url } from './paths';
 import { initImages, releaseImages } from './image-client';
+import { ratingBadge } from './rating';
 export function element<K extends keyof HTMLElementTagNameMap>(
   tag: K,
   className = '',
@@ -96,7 +97,8 @@ export function renderCards(
         ),
       );
     link.append(element('div', 'card-shade'));
-    if (a.score) link.append(element('span', 'card-badge', `★ ${a.score.toFixed(2)} · Shikimori`));
+    const rating = ratingBadge(a.score);
+    if (rating) link.append(rating);
     const info = element('div', 'card-info');
     info.append(
       element('span', 'card-original', a.originalTitle),

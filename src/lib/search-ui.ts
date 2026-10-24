@@ -2,6 +2,7 @@ import { queryCatalog } from './catalog-service';
 import { loadImages, fallbackImages } from './image-service';
 import { url } from './paths';
 import type { Anime } from '../types/anime';
+import { ratingBadge } from './rating';
 export type SearchEntry = Pick<
   Anime,
   | 'id'
@@ -88,11 +89,14 @@ export function initSearch() {
       const title = document.createElement('strong');
       title.textContent = a.title;
       const subtitle = document.createElement('small');
-      subtitle.textContent = [a.originalTitle, a.year, a.score ? `★ ${a.score} · Shikimori` : null]
-        .filter(Boolean)
-        .join(' · ');
+      subtitle.textContent = [a.originalTitle, a.year].filter(Boolean).join(' · ');
       text.append(title, subtitle);
-      link.append(image, text);
+      const art = document.createElement('span');
+      art.className = 'search-poster';
+      art.append(image);
+      const rating = ratingBadge(a.score, true);
+      if (rating) art.append(rating);
+      link.append(art, text);
       results!.append(link);
     }
     if (!matches.length) {

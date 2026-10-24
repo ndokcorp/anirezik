@@ -5,6 +5,7 @@ import FavoriteButton from '../ui/FavoriteButton.astro';
 import { searchText } from '../../lib/search';
 import Poster from '../ui/Poster.astro';
 import { animePath } from '../../data/anime';
+import Rating from '../ui/Rating.astro';
 interface Props {
   anime: Anime;
 }
@@ -42,11 +43,7 @@ const { anime: a } = Astro.props;
       <span class="art-label">{a.imageAttribution}</span>
     )}
     <div class="card-shade"></div>
-    {a.score && (
-      <span class="card-badge" title="Оценка пользователей Shikimori">
-        ★ {a.score.toFixed(2)} · Shikimori
-      </span>
-    )}
+    <Rating score={a.score} />
     <div class="card-info">
       <span class="card-original">{a.originalTitle}</span>
       <h3>{a.title}</h3>
