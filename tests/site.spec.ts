@@ -6,6 +6,31 @@ import { test, expect } from '@playwright/test';
 
 // Reproducible regressions; real CDN decoding is checked separately on Pages.
 test.beforeEach(async ({ context }) => {
+  // Offline regression suite: no public API/stream calls. Live playback is checked separately.
+  await context.route('https://anilibria.top/api/v1/**', async (route) => {
+    const id = Number(new URL(route.request().url()).pathname.split('/').at(-1));
+    const ids: Record<number, number> = {
+      9542: 52991,
+      8674: 9253,
+      9600: 52299,
+      9839: 58567,
+      6826: 32281,
+      8789: 40748,
+      9313: 48561,
+      9470: 51009,
+    };
+    await route.fulfill({
+      json: ids[id]
+        ? {
+            id,
+            shikimori: { id: ids[id] },
+            episodes: [],
+            is_blocked_by_geo: false,
+            is_blocked_by_copyrights: false,
+          }
+        : [],
+    });
+  });
   await context.route('https://static.tvmaze.com/uploads/images/**', (route) =>
     route.fulfill({
       contentType: 'image/svg+xml',
@@ -992,7 +1017,7 @@ test('история трёх просмотров, detail actions и мобил
   );
   await page.getByRole('link', { name: 'СМОТРЕТЬ' }).click();
   await expect(page.locator('#anime-player')).toBeInViewport();
-  await expect(page.locator('#anime-player')).toContainText('Просмотр пока недоступен');
+  await expect(page.locator('#anime-player')).toContainText('Релиз пока не найден');
   await expect(page.locator('video,iframe')).toHaveCount(0);
   await page.goto('./');
   await expect(page).toHaveTitle('AniRezik');
@@ -1316,6 +1341,40 @@ test('0.4.0: плеер ленивый, ошибка видима, при сме
   await expect(page.locator('video')).toHaveCount(1);
   await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
   await expect(page.getByRole('button', { name: 'Следующая →', exact: true })).toBeDisabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+import libertyFixture from './fixtures/aniliberty.json' with { type: 'json' };
+test('0.4.1: точный поиск сохраняется, серия выбирается, второй маршрут работает', async ({
+  page,
+}) => {
+  let searches = 0;
+  await page.route('https://anilibria.top/api/v1/**', async (route) => {
+    const address = new URL(route.request().url());
+    if (address.pathname.includes('/search/')) {
+      searches++;
+      await route.fulfill({ json: libertyFixture });
+    } else {
+      const id = Number(address.pathname.split('/').at(-1));
+      await route.fulfill({ json: libertyFixture.find((r) => r.id === id) });
+    }
+  });
+  await page.goto('anime/?id=40748');
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+  await expect(page.locator('[data-video-dub]')).toContainText('AniLiberty');
+  await expect(page.locator('[data-video-episode] option')).toHaveCount(2);
+  await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
+  await expect(page.locator('[data-video-episode]')).toHaveValue('2');
+  await expect(page.locator('video')).toHaveCount(1);
+  await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
+  expect(searches).toBe(1);
+  await page.reload();
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+  expect(searches).toBe(1);
+  await page.goto('anime/solo-leveling/');
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+  await expect(page.locator('[aria-label="Качество"] option')).toHaveCount(3);
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

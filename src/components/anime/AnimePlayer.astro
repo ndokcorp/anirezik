@@ -1,24 +1,30 @@
 ---
 import type { Anime } from '../../types/anime';
-import { getVideoSources } from '../../lib/providers/video';
 import EpisodeSelector from './EpisodeSelector.astro';
 import DubSelector from './DubSelector.astro';
-import { url } from '../../lib/paths';
 import type { VideoSource } from '../../lib/providers/video/types';
 import { safeJson } from '../../lib/serialize';
 interface Props {
-  anime: Pick<Anime, 'id' | 'title' | 'sources'>;
+  anime: Pick<Anime, 'id' | 'title' | 'sources'> &
+    Partial<Pick<Anime, 'originalTitle' | 'englishTitle' | 'aliases' | 'year' | 'type'>>;
   testSources?: VideoSource[];
 }
 const { anime, testSources } = Astro.props;
-const sources =
-  anime.id === 'demo:player' && testSources ? testSources : await getVideoSources(anime.id);
+const sources = anime.id === 'demo:player' && testSources ? testSources : [];
 const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) => a - b);
 ---
 
 <section
   id="anime-player"
   data-player-anime={anime.id}
+  data-player-meta={JSON.stringify({
+    title: anime.title,
+    originalTitle: anime.originalTitle || anime.title,
+    englishTitle: anime.englishTitle,
+    aliases: anime.aliases,
+    year: anime.year ?? null,
+    type: anime.type || '',
+  })}
   class="info-panel player-section"
   aria-labelledby="watch-heading"
 >
@@ -36,13 +42,8 @@ const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) =
   ) : (
     <div class="player-placeholder">
       <strong>AniRezik Player</strong>
-      <p>
-        Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения
-        разрешённого источника.
-      </p>
-      <a class="button button-secondary" href={url('player-test/')}>
-        Проверить плеер
-      </a>
+      <p role="status">Подключаем AniLiberty…</p>
+      <noscript>Для загрузки серий включите JavaScript.</noscript>
     </div>
   )}
   {anime.sources.map((source) => (

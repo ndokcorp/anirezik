@@ -1,4 +1,5 @@
-import { approvedProviders, isAuthorizedSource, getVideoSources } from './providers/video';
+import { approvedProviders, isAuthorizedSource } from './providers/video';
+import { setLibertyMetadata, type MatchMetadata } from './providers/video/aniliberty';
 import { demoProvider } from './providers/video/demo';
 import type { VideoSource } from './providers/video/types';
 import type Hls from 'hls.js';
@@ -16,11 +17,48 @@ const timeLabel = (value: number) => {
 // Shared by pre-rendered and universal detail routes; never invoked by the catalog.
 export async function loadPlayerSources(section: HTMLElement, animeId: string) {
   if (section.querySelector('[data-player]') || !approvedProviders.length) return;
-  const sources = await getVideoSources(animeId);
-  if (!sources.length || !section.isConnected) return;
+  if (section.dataset.playerLoading) return;
+  section.dataset.playerLoading = 'true';
+  const placeholder = section.querySelector<HTMLElement>('.player-placeholder');
+  const status = placeholder?.querySelector('p');
+  if (status) status.textContent = 'Ищем релиз в AniLiberty…';
+  let sources: VideoSource[] = [];
+  try {
+    const meta = JSON.parse(section.dataset.playerMeta || '{}') as MatchMetadata;
+    if (typeof meta.title === 'string' && typeof meta.originalTitle === 'string')
+      setLibertyMetadata(animeId, meta);
+    for (const provider of approvedProviders)
+      sources.push(
+        ...(await provider.getSources(animeId)).filter(
+          (source) => source.animeId === animeId && isAuthorizedSource(source, provider),
+        ),
+      );
+    if (!sources.length) {
+      if (status) status.textContent = 'Релиз пока не найден';
+      return;
+    }
+  } catch (error) {
+    if (status)
+      status.textContent = error instanceof Error ? error.message : 'Не удалось загрузить релиз';
+    if (placeholder && !placeholder.querySelector('button')) {
+      const retry = make('button', 'Повторить поиск');
+      retry.type = 'button';
+      retry.className = 'button button-secondary';
+      retry.onclick = () => {
+        retry.remove();
+        void loadPlayerSources(section, animeId);
+      };
+      placeholder.append(retry);
+    }
+    return;
+  } finally {
+    delete section.dataset.playerLoading;
+  }
+  if (!section.isConnected) return;
   const player = make('div');
   player.className = 'anime-player';
   player.dataset.player = '';
+  player.dataset.title = section.querySelector('h2')?.textContent || '';
   const controls = make('div');
   controls.className = 'video-controls';
   for (const [label, field] of [
@@ -94,7 +132,30 @@ export function initPlayers() {
     previous.type = next.type = 'button';
     previous.className = next.className = 'button button-secondary';
     transport.append(previous, next);
-    player.querySelector('.video-controls')?.after(transport);
+    const layout = make('div');
+    layout.className = 'player-layout';
+    const options = make('aside');
+    options.className = 'player-options';
+    options.setAttribute('aria-label', 'Озвучка и серии');
+    const heading = make('h3', 'ОЗВУЧКА И ЭПИЗОДЫ');
+    const episodeGrid = make('div');
+    episodeGrid.className = 'player-episodes';
+    episodeGrid.setAttribute('role', 'group');
+    episodeGrid.setAttribute('aria-label', 'Список серий');
+    numbers.forEach((n) => {
+      const button = make('button', String(n));
+      button.type = 'button';
+      button.dataset.episode = String(n);
+      button.setAttribute('aria-label', `Выбрать серию ${n}`);
+      button.onclick = () => {
+        episodes.value = String(n);
+        episodes.dispatchEvent(new Event('change'));
+      };
+      episodeGrid.append(button);
+    });
+    options.append(heading, player.querySelector('.video-controls')!, transport, episodeGrid);
+    layout.append(surface, options);
+    player.prepend(layout);
     episodes.replaceChildren(
       ...numbers.map(
         (n) =>
@@ -146,6 +207,14 @@ export function initPlayers() {
       const currentGeneration = generation;
       previous.disabled = numbers.indexOf(active.episodeNumber) === 0;
       next.disabled = numbers.indexOf(active.episodeNumber) === numbers.length - 1;
+      episodeGrid
+        .querySelectorAll<HTMLButtonElement>('button')
+        .forEach((button) =>
+          button.setAttribute(
+            'aria-pressed',
+            String(Number(button.dataset.episode) === active.episodeNumber),
+          ),
+        );
       credit.replaceChildren();
       const link = make('a', active.sourceAttribution.label);
       link.href = active.sourceAttribution.url;
@@ -189,10 +258,25 @@ export function initPlayers() {
       media.playbackRate = rate;
       media.volume = volume;
       media.muted = muted;
+      const poster = document.querySelector<HTMLImageElement>('.detail-poster');
+      if (poster?.currentSrc) media.poster = poster.currentSrc;
       const overlay = make('button', '▶');
       overlay.className = 'player-big-play';
       overlay.type = 'button';
       overlay.setAttribute('aria-label', 'Воспроизвести видео');
+      const intro = make('div');
+      intro.className = 'player-intro';
+      const title = make(
+        'h3',
+        player.dataset.title ||
+          player.closest('section')?.querySelector('h2')?.textContent ||
+          'AniRezik Player',
+      );
+      const summary = make(
+        'p',
+        `${active.animeId === 'demo:player' ? 'Тестовый слот' : 'Эпизод'} ${active.episodeNumber} · ${active.dubbingStudio || active.providerName}`,
+      );
+      intro.append(overlay, title, summary);
       const notice = make('p', 'Нажмите для воспроизведения');
       notice.className = 'player-status';
       notice.setAttribute('role', 'status');
@@ -233,7 +317,13 @@ export function initPlayers() {
         : [{ label: 'Исходное', url: active.playbackUrl! }];
       choices.forEach((q) => qualitySelect.add(new Option(q.label, q.url)));
       qualitySelect.value =
-        quality && choices.some((q) => q.url === quality) ? quality : choices.at(-1)!.url;
+        quality && choices.some((q) => q.url === quality)
+          ? quality
+          : (
+              choices.find(
+                (q) => q.label === (matchMedia('(max-width: 760px)').matches ? '480p' : '720p'),
+              ) || choices.at(-1)!
+            ).url;
       qualitySelect.disabled = choices.length === 1;
       const full = make('button', '⛶');
       full.type = 'button';
@@ -246,7 +336,7 @@ export function initPlayers() {
       retry.type = 'button';
       retry.className = 'button button-secondary';
       retry.hidden = true;
-      screen.append(media, overlay, notice);
+      screen.append(media, intro, notice);
       controls.append(play, seek, clock, mute, sound, speed, qualitySelect, full);
       surface.append(screen, controls, continueButton, retry);
       function persist() {
@@ -269,6 +359,7 @@ export function initPlayers() {
         retry.hidden = false;
         screen.classList.remove('is-loading');
         overlay.hidden = false;
+        intro.hidden = false;
       };
       async function start() {
         if (generation !== currentGeneration) return;
@@ -280,14 +371,17 @@ export function initPlayers() {
           const stream = choices.some((q) => q.url === qualitySelect.value)
             ? qualitySelect.value
             : choices.at(-1)!.url;
-          if (
-            /\.m3u8(?:\?|$)/i.test(stream) &&
-            !media.canPlayType('application/vnd.apple.mpegurl')
-          ) {
+          if (/\.m3u8(?:\?|$)/i.test(stream)) {
             try {
               const { default: HlsEngine } = await import('hls.js');
               if (generation !== currentGeneration) return;
-              if (!HlsEngine.isSupported()) throw new Error('HLS не поддерживается браузером');
+              if (!HlsEngine.isSupported()) {
+                if (!media.canPlayType('application/vnd.apple.mpegurl'))
+                  throw new Error('HLS не поддерживается браузером');
+                media.src = stream;
+                await media.play();
+                return;
+              }
               const provider =
                 active.animeId === 'demo:player'
                   ? demoProvider
@@ -328,8 +422,7 @@ export function initPlayers() {
                   qualitySelect.disabled = false;
                 }
                 void media.play().catch(() => {
-                  notice.textContent = 'Нажмите ▶, чтобы начать';
-                  overlay.hidden = false;
+                  failed('Нажмите ▶, чтобы начать');
                 });
               });
               hls.loadSource(stream);
@@ -352,15 +445,20 @@ export function initPlayers() {
         else media.pause();
       };
       play.onclick = toggle;
-      overlay.onclick = toggle;
+      overlay.onclick = () => {
+        if (!retry.hidden) retry.click();
+        else toggle();
+      };
       media.onclick = toggle;
       media.addEventListener('play', () => {
+        intro.hidden = true;
         overlay.hidden = true;
         play.textContent = 'Ⅱ';
         play.setAttribute('aria-label', 'Пауза');
         continueButton.hidden = true;
       });
       media.addEventListener('pause', () => {
+        intro.hidden = false;
         persist();
         play.textContent = '▶';
         play.setAttribute('aria-label', 'Воспроизвести');
@@ -458,7 +556,7 @@ export function initPlayers() {
         if (entry.episodeNumber === Number(episodes.value))
           dubs.add(
             new Option(
-              `${entry.providerName} · ${entry.audioLanguage}${entry.dubbingStudio ? ' · ' + entry.dubbingStudio : ''}`,
+              `${entry.dubbingStudio || entry.providerName} · ${entry.audioLanguage}`,
               String(index),
             ),
           );

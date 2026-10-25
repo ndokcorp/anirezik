@@ -485,15 +485,15 @@ import {
   type LibertyRelease,
 } from '../src/lib/providers/video/aniliberty';
 import { demoProvider } from '../src/lib/providers/video/demo';
-test('0.4.0: точные ID AniLiberty, неоднозначность и выключенный источник', async () => {
+test('0.4.0: точные ID AniLiberty, неоднозначность и сборка без API', async () => {
   const rows = libertyMappings.map(
     (m) => ({ id: m.releaseId, shikimori: { id: m.shikimoriId } }) as LibertyRelease,
   );
   expect(exactRelease([...rows].reverse(), 9253)?.id).toBe(8674);
-  expect(exactRelease([rows[0], rows[0]], 52991)).toBeNull();
+  expect(exactRelease([rows[0], { ...rows[0], id: 12345 }], 52991)).toBeNull();
   expect(exactRelease(rows, 1)).toBeNull();
   expect(await aniLibertyProvider.getSources('shikimori:52991')).toEqual([]);
-  await expect(aniLibertyAvailabilityAdapter.getUpdates(null)).rejects.toThrow('permission');
+  await expect(aniLibertyAvailabilityAdapter.getUpdates(null)).rejects.toThrow('Browser session');
   expect(await demoProvider.getSources('shikimori:52991')).toEqual([]);
   const demo = (await demoProvider.getSources('demo:player'))[0];
   expect(isAuthorizedSource(demo, demoProvider)).toBe(true);
@@ -526,4 +526,66 @@ test('0.4.0: полная сверка удаляет отозванные се�
       'UZ',
     ),
   ).rejects.toThrow('Invalid');
+});
+
+import libertyFixture from './fixtures/aniliberty.json' with { type: 'json' };
+import { strictTitleCandidates } from '../src/lib/providers/video/aniliberty';
+test('0.4.1: пять точных тайтлов, сезоны и фильм не подменяются', () => {
+  const rows = libertyFixture as LibertyRelease[];
+  for (const [shikimoriId, releaseId] of [
+    [52991, 9542],
+    [9253, 8674],
+    [52299, 9600],
+    [58567, 9839],
+    [32281, 6826],
+  ])
+    expect(exactRelease([...rows].reverse(), shikimoriId)?.id).toBe(releaseId);
+  expect(
+    exactRelease(
+      rows.filter((r) => r.id === 9839),
+      52299,
+    ),
+  ).toBeNull();
+  expect(
+    exactRelease(
+      rows.filter((r) => r.id === 9313),
+      40748,
+    ),
+  ).toBeNull();
+  const candidate = {
+    ...rows[0],
+    shikimori: null,
+    mal: null,
+    year: 2025,
+    type: { value: 'TV' },
+    name: { main: 'Example Season 2', english: 'Example Season 2' },
+  };
+  const target = {
+    title: 'Example Season 2',
+    originalTitle: 'Example Season 2',
+    year: 2025,
+    type: 'TV',
+  };
+  expect(strictTitleCandidates([candidate], target)).toHaveLength(1);
+  expect(strictTitleCandidates([candidate], { ...target, type: 'MOVIE' })).toHaveLength(0);
+  expect(
+    strictTitleCandidates([candidate], {
+      ...target,
+      originalTitle: 'Example Season 1',
+      title: 'Example Season 1',
+    }),
+  ).toHaveLength(0);
+  expect(strictTitleCandidates([candidate], { ...target, year: 2024 })).toHaveLength(0);
+  expect(
+    isAuthorizedSource(
+      { ...source, availableRegions: [], regionChecked: true },
+      { ...provider, regionPolicy: 'provider-response' },
+    ),
+  ).toBe(true);
+  expect(
+    isAuthorizedSource(
+      { ...source, availableRegions: [], regionChecked: false },
+      { ...provider, regionPolicy: 'provider-response' },
+    ),
+  ).toBe(false);
 });

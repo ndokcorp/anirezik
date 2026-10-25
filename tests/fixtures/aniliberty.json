@@ -1,0 +1,367 @@
+[
+  {
+    "id": 6826,
+    "year": 2016,
+    "name": {
+      "main": "Твоё имя",
+      "english": "Kimi no Na wa",
+      "alternative": null
+    },
+    "type": {
+      "value": "MOVIE",
+      "description": "Фильм"
+    },
+    "shikimori": {
+      "id": 32281,
+      "url": "https://shikimori.io/animes/32281",
+      "votes": 146677,
+      "rating": 8.74
+    },
+    "mal": {
+      "id": 32281,
+      "url": "https://myanimelist.net/anime/32281",
+      "votes": 2118049,
+      "rating": 8.82
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2024-08-02T19:52:14+00:00",
+    "episodes": [
+      {
+        "id": "95c22dfe-789e-11ec-ae92-0242ac120002",
+        "ordinal": 1,
+        "duration": 6395,
+        "updated_at": "2019-01-15T08:48:11+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/6826/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/6826/1/720.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 8674,
+    "year": 2011,
+    "name": {
+      "main": "Врата Штейна",
+      "english": "Steins;Gate",
+      "alternative": null
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 9253,
+      "url": "https://shikimori.io/animes/9253",
+      "votes": 110873,
+      "rating": 8.84
+    },
+    "mal": {
+      "id": 9253,
+      "url": "https://myanimelist.net/anime/9253",
+      "votes": 1545144,
+      "rating": 9.07
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2025-07-07T21:44:05+00:00",
+    "episodes": [
+      {
+        "id": "95d48b4b-789e-11ec-ae92-0242ac120002",
+        "ordinal": 1,
+        "duration": 1437,
+        "updated_at": "2020-07-03T19:39:19+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/8674/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/8674/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/8674/1/1080.m3u8"
+      },
+      {
+        "id": "95d48c03-789e-11ec-ae92-0242ac120002",
+        "ordinal": 2,
+        "duration": 1444,
+        "updated_at": "2020-07-24T19:12:01+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/8674/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/8674/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/8674/2/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 8789,
+    "year": 2020,
+    "name": {
+      "main": "Магическая битва",
+      "english": "Jujutsu Kaisen",
+      "alternative": null
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 40748,
+      "url": "https://shikimori.io/animes/40748",
+      "votes": 109215,
+      "rating": 8.26
+    },
+    "mal": {
+      "id": 40748,
+      "url": "https://myanimelist.net/anime/40748",
+      "votes": 2062941,
+      "rating": 8.48
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2024-08-02T19:53:58+00:00",
+    "episodes": [
+      {
+        "id": "95d6e739-789e-11ec-ae92-0242ac120002",
+        "ordinal": 1,
+        "duration": 1435,
+        "updated_at": "2023-06-01T19:06:04+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/8789/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/8789/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/8789/1/1080.m3u8"
+      },
+      {
+        "id": "95d6e7cc-789e-11ec-ae92-0242ac120002",
+        "ordinal": 2,
+        "duration": 1435,
+        "updated_at": "2023-06-01T19:06:48+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/8789/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/8789/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/8789/2/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 9313,
+    "year": 2021,
+    "name": {
+      "main": "Магическая битва 0 Фильм",
+      "english": "Jujutsu Kaisen 0 Movie",
+      "alternative": "Магическая, Битва, 0"
+    },
+    "type": {
+      "value": "MOVIE",
+      "description": "Фильм"
+    },
+    "shikimori": {
+      "id": 48561,
+      "url": "https://shikimori.io/animes/48561",
+      "votes": 49413,
+      "rating": 8.25
+    },
+    "mal": {
+      "id": 48561,
+      "url": "https://myanimelist.net/anime/48561",
+      "votes": 834442,
+      "rating": 8.35
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2024-08-02T19:55:53+00:00",
+    "episodes": [
+      {
+        "id": "7f566132-3b2e-43c2-b592-d763dbfa1120",
+        "ordinal": 1,
+        "duration": 6297,
+        "updated_at": "2022-10-14T17:43:06+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9313/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9313/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9313/1/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 9470,
+    "year": 2023,
+    "name": {
+      "main": "Магическая битва 2",
+      "english": "JUJUTSU KAISEN Season 2",
+      "alternative": null
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 51009,
+      "url": "https://shikimori.io/animes/51009",
+      "votes": 60882,
+      "rating": 8.45
+    },
+    "mal": {
+      "id": 51009,
+      "url": "https://myanimelist.net/anime/51009",
+      "votes": 879912,
+      "rating": 8.69
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2024-08-02T19:57:06+00:00",
+    "episodes": [
+      {
+        "id": "99949557-97b1-4fdd-8893-6845259b5182",
+        "ordinal": 1,
+        "duration": 1435,
+        "updated_at": "2023-07-06T09:38:08+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9470/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9470/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9470/1/1080.m3u8"
+      },
+      {
+        "id": "99a4b4d7-6741-4037-a53e-9a2deee0f27c",
+        "ordinal": 2,
+        "duration": 1435,
+        "updated_at": "2023-07-14T09:49:04+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9470/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9470/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9470/2/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 9542,
+    "year": 2023,
+    "name": {
+      "main": "Провожающая в последний путь Фрирен",
+      "english": "Sousou no Frieren",
+      "alternative": null
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 52991,
+      "url": "https://shikimori.io/animes/52991",
+      "votes": 71529,
+      "rating": 8.84
+    },
+    "mal": {
+      "id": 52991,
+      "url": "https://myanimelist.net/anime/52991",
+      "votes": 946188,
+      "rating": 9.24
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2024-08-02T19:57:34+00:00",
+    "episodes": [
+      {
+        "id": "9a416b99-4487-4d8a-960a-461089d36cad",
+        "ordinal": 1,
+        "duration": 1560,
+        "updated_at": "2023-11-25T10:29:08+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9542/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9542/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9542/1/1080.m3u8"
+      },
+      {
+        "id": "9a416c8a-042a-4f38-bf94-8235b0354ca5",
+        "ordinal": 2,
+        "duration": 1560,
+        "updated_at": "2023-11-25T10:29:14+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9542/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9542/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9542/2/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 9600,
+    "year": 2024,
+    "name": {
+      "main": "Поднятие уровня в одиночку",
+      "english": "Ore dake Level Up na Ken",
+      "alternative": "Solo Leveling"
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 52299,
+      "url": "https://shikimori.io/animes/52299",
+      "votes": 59388,
+      "rating": 8.05
+    },
+    "mal": {
+      "id": 52299,
+      "url": "https://myanimelist.net/anime/52299",
+      "votes": 748632,
+      "rating": 8.13
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2025-06-03T23:45:01+00:00",
+    "episodes": [
+      {
+        "id": "9b07f1a2-f4ac-4044-91e5-2daf362394d7",
+        "ordinal": 1,
+        "duration": 1420,
+        "updated_at": "2024-01-07T00:52:33+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9600/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9600/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9600/1/1080.m3u8"
+      },
+      {
+        "id": "9b15de18-95d5-4af6-9d14-f9f61773e213",
+        "ordinal": 2,
+        "duration": 1420,
+        "updated_at": "2024-01-13T22:08:53+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9600/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9600/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9600/2/1080.m3u8"
+      }
+    ]
+  },
+  {
+    "id": 9839,
+    "year": 2025,
+    "name": {
+      "main": "Поднятие уровня в одиночку 2: Восстаньте из тени",
+      "english": "Ore dake Level Up na Ken Season 2: Arise from the Shadow",
+      "alternative": "Поднятия, Solo Leveling"
+    },
+    "type": {
+      "value": "TV",
+      "description": "ТВ"
+    },
+    "shikimori": {
+      "id": 58567,
+      "url": "https://shikimori.io/animes/58567",
+      "votes": 44893,
+      "rating": 8.39
+    },
+    "mal": {
+      "id": 58567,
+      "url": "https://myanimelist.net/anime/58567",
+      "votes": 539487,
+      "rating": 8.49
+    },
+    "is_blocked_by_geo": false,
+    "is_blocked_by_copyrights": false,
+    "updated_at": "2026-04-07T10:40:55+00:00",
+    "episodes": [
+      {
+        "id": "9de3db5c-5d36-4fc7-909a-ca0d613bd17c",
+        "ordinal": 1,
+        "duration": 1420,
+        "updated_at": "2025-01-04T20:14:29+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9839/1/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9839/1/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9839/1/1080.m3u8"
+      },
+      {
+        "id": "9df201c3-7f9b-4ceb-9cc1-d62fad18d71e",
+        "ordinal": 2,
+        "duration": 1420,
+        "updated_at": "2025-01-13T22:01:08+00:00",
+        "hls_480": "https://cache-rfn.libria.fun/test/9839/2/480.m3u8",
+        "hls_720": "https://cache-rfn.libria.fun/test/9839/2/720.m3u8",
+        "hls_1080": "https://cache-rfn.libria.fun/test/9839/2/1080.m3u8"
+      }
+    ]
+  }
+]

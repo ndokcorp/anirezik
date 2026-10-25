@@ -1,0 +1,18 @@
+{
+  "providerId": "aniliberty",
+  "reviewedAt": "2026-10-25",
+  "status": "permission-granted",
+  "evidence": "docs/rights/ANILIBERTY_PERMISSION.md",
+  "scope": "AniLiberty API and its own dubbed releases for AniRezik, as requested in the user-supplied conversation. Other dubbing providers are not included.",
+  "allowedPlaybackOrigins": [
+    "https://cache-rfn.libria.fun",
+    "https://cache1.cache-ru1.libria.fun",
+    "https://cache1.cache-ru2.libria.fun",
+    "https://cache1.cache-ru3.libria.fun",
+    "https://cache2.cache-ru1.libria.fun",
+    "https://cache2.cache-ru3.libria.fun"
+  ],
+  "regionPolicy": "provider-response",
+  "embeddingAllowed": false,
+  "playbackAllowed": true
+}

@@ -185,19 +185,17 @@ export async function initAnimeDetail() {
     if (a.nextEpisodeAt) fact(counts, 'Следующий эпизод', displayDate(a.nextEpisodeAt));
     const watch = panel(a.title);
     watch.id = 'anime-player';
+    watch.dataset.playerMeta = JSON.stringify({
+      title: a.title,
+      originalTitle: a.originalTitle,
+      englishTitle: a.englishTitle,
+      aliases: a.aliases,
+      year: a.year,
+      type: a.kind || a.type,
+    });
     watch.classList.add('player-section');
     const placeholder = el('div', 'player-placeholder');
-    placeholder.append(
-      el('strong', '', 'AniRezik Player'),
-      el(
-        'p',
-        '',
-        'Просмотр пока недоступен. Здесь появятся серии и выбор озвучки после подключения разрешённого источника.',
-      ),
-    );
-    const demo = el('a', 'button button-secondary', 'Проверить плеер');
-    demo.href = url('player-test/');
-    placeholder.append(demo);
+    placeholder.append(el('strong', '', 'AniRezik Player'), el('p', '', 'Подключаем AniLiberty…'));
     watch.append(placeholder);
     fragment.append(watch);
     void import('./video-player').then(({ loadPlayerSources }) => loadPlayerSources(watch, a.id));

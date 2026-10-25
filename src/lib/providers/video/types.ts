@@ -13,6 +13,7 @@ export interface VideoSource {
   qualities?: { label: string; url: string }[];
   availableRegions: string[];
   sourceAttribution: { label: string; url: string };
+  regionChecked?: boolean;
 }
 export interface VideoRights {
   verified: boolean;
@@ -28,4 +29,5 @@ export interface VideoProvider {
   name: string;
   rights: VideoRights;
   getSources: (animeId: string) => Promise<VideoSource[]>;
+  regionPolicy?: 'provider-response';
 }

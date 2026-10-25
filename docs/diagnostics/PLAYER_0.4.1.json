@@ -1,0 +1,153 @@
+{
+  "checkedAt": "2026-10-25",
+  "mappings": [
+    {
+      "shikimoriId": 32281,
+      "releaseId": 6826,
+      "title": "Твоё имя",
+      "year": 2016,
+      "format": "MOVIE",
+      "episodes": 1,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 9253,
+      "releaseId": 8674,
+      "title": "Врата Штейна",
+      "year": 2011,
+      "format": "TV",
+      "episodes": 25,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 40748,
+      "releaseId": 8789,
+      "title": "Магическая битва",
+      "year": 2020,
+      "format": "TV",
+      "episodes": 24,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 48561,
+      "releaseId": 9313,
+      "title": "Магическая битва 0 Фильм",
+      "year": 2021,
+      "format": "MOVIE",
+      "episodes": 1,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 51009,
+      "releaseId": 9470,
+      "title": "Магическая битва 2",
+      "year": 2023,
+      "format": "TV",
+      "episodes": 23,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 52991,
+      "releaseId": 9542,
+      "title": "Провожающая в последний путь Фрирен",
+      "year": 2023,
+      "format": "TV",
+      "episodes": 28,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 52299,
+      "releaseId": 9600,
+      "title": "Поднятие уровня в одиночку",
+      "year": 2024,
+      "format": "TV",
+      "episodes": 12,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    },
+    {
+      "shikimoriId": 58567,
+      "releaseId": 9839,
+      "title": "Поднятие уровня в одиночку 2: Восстаньте из тени",
+      "year": 2025,
+      "format": "TV",
+      "episodes": 13,
+      "blockedByGeo": false,
+      "blockedByCopyrights": false
+    }
+  ],
+  "playback": {
+    "episodes": 12,
+    "qualities": [
+      "480p",
+      "720p",
+      "1080p"
+    ],
+    "played": true,
+    "status": "",
+    "state": {
+      "time": 2.017914,
+      "duration": 1420.0025079999998,
+      "ready": 4
+    },
+    "errors": [],
+    "streams": [
+      {
+        "status": 200,
+        "type": "application/x-mpegURL"
+      },
+      {
+        "status": 302,
+        "type": "text/html"
+      },
+      {
+        "status": 200,
+        "type": "video/mp2t"
+      },
+      {
+        "status": 302,
+        "type": "text/html"
+      },
+      {
+        "status": 200,
+        "type": "video/mp2t"
+      },
+      {
+        "status": 302,
+        "type": "text/html"
+      },
+      {
+        "status": 200,
+        "type": "video/mp2t"
+      }
+    ]
+  },
+  "qualityResumeEpisode": {
+    "quality": "720p",
+    "resume": 15.005427,
+    "episode": "2",
+    "videoCount": 1,
+    "mobile": true,
+    "errors": [],
+    "failed": [
+      {
+        "origin": "https://cache-rfn.libria.fun",
+        "error": "net::ERR_ABORTED"
+      }
+    ]
+  },
+  "origins": [
+    "https://cache-rfn.libria.fun",
+    "https://cache1.cache-ru1.libria.fun",
+    "https://cache1.cache-ru2.libria.fun",
+    "https://cache1.cache-ru3.libria.fun",
+    "https://cache2.cache-ru1.libria.fun",
+    "https://cache2.cache-ru3.libria.fun"
+  ]
+}
