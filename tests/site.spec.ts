@@ -628,7 +628,7 @@ test('главная и первые 24 карточки не загружают
   await page.goto('catalog/');
   await expect(page.locator('#catalog-grid article')).toHaveCount(24);
   expect(requests.filter((url) => /search-index|\/data\/anime\//.test(url))).toEqual([]);
-  await expect(page.locator('#global-search')).toHaveCount(0);
+  await expect(page.locator('#global-search')).toBeHidden();
   await page.locator('#catalog-search').fill('Solo Leveling');
   await expect(page.locator('#catalog-grid article').first()).toHaveAttribute(
     'data-anime-id',
@@ -1087,7 +1087,7 @@ test('окно фильтров: темы/оценка, новости, стре
   await expect(page.locator('#site-news')).toContainText('0.3.9');
   await page.getByRole('button', { name: 'Закрыть новости' }).click();
   await page.goto('catalog/');
-  await expect(page.locator('#global-search')).toHaveCount(0);
+  await expect(page.locator('#global-search')).toBeHidden();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   const item = anime.find((a) => a.themes.length && (a.score ?? 0) >= 8)!;
   await page.locator('#filter-theme').selectOption(item.themes[0], { force: true });
@@ -1457,6 +1457,14 @@ test('Kodik: основной только для 39535, красные сери
         </script>`,
     });
   });
+  const chooseProvider = async (id: string) => {
+    if ((await page.locator('[data-video-provider]').inputValue()) === id) return;
+    await page.locator('.player-provider-control .select-trigger').click();
+    await page
+      .locator('.player-provider-control')
+      .getByRole('option', { name: new RegExp(id === 'kodik' ? '^Kodik' : '^AniLiberty') })
+      .click();
+  };
   let visit = 0;
   for (const path of ['player-test-kodik/', 'anime/?id=39535', 'anime/shikimori-39535/']) {
     await page.goto(path);
@@ -1464,14 +1472,13 @@ test('Kodik: основной только для 39535, красные сери
     await expect(page.locator('[data-video-provider]')).toHaveValue(
       visit++ === 0 ? 'kodik' : 'aniliberty',
     );
-    await page.locator('[data-video-provider]').selectOption('kodik');
+    await chooseProvider('kodik');
     await expect(page.locator('.player-episodes button')).toHaveCount(11);
-    await expect(page.locator('iframe')).toHaveCount(0);
     await expect(page.locator('[data-video-dub]')).toBeHidden();
     await expect(page.locator('.player-voice-row')).toHaveCount(15);
     const initial = embeds;
     await page.getByRole('button', { name: 'Выбрать серию 1', exact: true }).click();
-    await page.getByRole('button', { name: 'Открыть плеер источника', exact: true }).click();
+    await page.locator('[data-video-surface]').scrollIntoViewIfNeeded();
     await expect(page.locator('iframe')).toHaveAttribute('src', /episode=1$/);
     await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
     await expect(page.locator('iframe')).toHaveCount(1);
@@ -1501,11 +1508,12 @@ test('Kodik: основной только для 39535, красные сери
     await expect(favourite).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('searchbox', { name: 'Поиск озвучки' }).clear();
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('[data-video-surface]').scrollIntoViewIfNeeded();
     await expect(page.locator('.mobile-nav')).toBeHidden();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
-    await page.locator('[data-video-provider]').selectOption('aniliberty');
+    await chooseProvider('aniliberty');
     await expect(page.locator('iframe')).toHaveCount(0);
     await expect(page.locator('video')).toHaveCount(1);
     await expect(page.locator('.player-episodes button')).toHaveCount(fixture.episodes.length);
@@ -1519,4 +1527,208 @@ test('Kodik: основной только для 39535, красные сери
   await expect(page.locator('[data-video-provider] option[value="kodik"]')).toHaveCount(0);
   await page.goto('schedule/');
   await expect(page.getByText('ОЖИДАНИЕ НОВЫХ АНИМЕ', { exact: true })).toBeVisible();
+});
+
+test('0.4.4: компактная шапка, центральный поиск и честный гостевой вход на телефоне', async ({
+  page,
+}) => {
+  for (const viewport of [
+    { width: 1920, height: 1080 },
+    { width: 1366, height: 768 },
+    { width: 390, height: 844 },
+    { width: 375, height: 812 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    if (viewport.width > 900) {
+      const height = await page
+        .locator('.header')
+        .evaluate((n) => n.getBoundingClientRect().height);
+      expect(height).toBeGreaterThanOrEqual(73);
+      expect(height).toBeLessThanOrEqual(78);
+      const rects = await page
+        .locator(
+          '.header > .brand-cluster,.header > .desktop-nav,.header > .header-tools,.header > .desktop-favorite',
+        )
+        .evaluateAll((ns) =>
+          ns.map((n) => ({
+            left: n.getBoundingClientRect().left,
+            right: n.getBoundingClientRect().right,
+          })),
+        );
+      for (let i = 1; i < rects.length; i++)
+        expect(rects[i].left).toBeGreaterThanOrEqual(rects[i - 1].right - 1);
+      continue;
+    }
+    const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
+    await expect(nav.getByRole('link')).toHaveCount(4);
+    await expect(nav.getByRole('link', { name: 'Войти', exact: true })).toBeVisible();
+    await expect(page.locator('.header [data-open-search]')).toHaveCount(0);
+    const search = nav.getByRole('button', { name: 'Открыть поиск', exact: true });
+    const rect = await search.boundingBox();
+    expect(Math.abs(rect!.x + rect!.width / 2 - viewport.width / 2)).toBeLessThan(3);
+    await search.click();
+    const dialog = page.getByRole('dialog', { name: 'Поиск по каталогу AniRezik' });
+    await expect(dialog).toBeVisible();
+    const input = dialog.getByRole('combobox', { name: 'Поиск аниме' });
+    await expect(input).toBeFocused();
+    expect(
+      await input.evaluate((n) => parseFloat(getComputedStyle(n).fontSize)),
+    ).toBeGreaterThanOrEqual(16);
+    await expect(nav).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toBeVisible();
+    await expect(search).toBeFocused();
+    await nav.getByRole('link', { name: 'Каталог', exact: true }).click();
+    await page.waitForURL(/catalog\/$/);
+    await expect(page.locator('#global-search')).toBeEnabled();
+    await page.locator('.mobile-search-center').click();
+    await expect(dialog).toBeVisible();
+    if (viewport.width === 375) {
+      await input.fill('Solo Leveling');
+      await expect(dialog.locator('[role=option]').first()).toBeVisible();
+    }
+    await dialog.getByRole('button', { name: 'Закрыть поиск', exact: true }).click();
+    await page.locator('.mobile-nav').getByRole('link', { name: 'Войти', exact: true }).click();
+    await expect(
+      page.getByRole('heading', { name: 'Вход пока недоступен', exact: true }),
+    ).toBeVisible();
+    expect(await page.locator('meta[name=viewport]').getAttribute('content')).not.toMatch(
+      /user-scalable=no|maximum-scale=1/,
+    );
+  }
+});
+
+test('0.4.4: ленивый iframe, подтверждения 1/2/5, кастомный источник и геометрия 16:9', async ({
+  page,
+}) => {
+  const fixture = { ...libertyFixture[2], id: 239535, shikimori: { id: 39535 } };
+  await page.route('https://anilibria.top/api/v1/**', (route) =>
+    route.fulfill({ json: route.request().url().includes('/search/') ? [fixture] : fixture }),
+  );
+  let frames = 0;
+  await page.route('https://kodikplayer.com/**', (route) => {
+    frames++;
+    return route.fulfill({
+      contentType: 'text/html',
+      body: `<meta charset="utf-8"><body style="margin:0;background:#120d11;color:white"><p>Тестовые события провайдера</p>${[1, 2, 5].map((n) => `<button data-ep="${n}">Подтвердить ${n}</button>`).join('')}<script>document.querySelectorAll('button').forEach(b=>b.onclick=()=>parent.postMessage({key:'kodik_player_current_episode',value:{episode:Number(b.dataset.ep),season:1,translation:{id:location.pathname.includes('/31629/')?610:923}}},'*'))</script>`,
+    });
+  });
+  await page.addInitScript(() =>
+    new MutationObserver((_, o) => {
+      const p = document.querySelector<HTMLElement>('#anime-player');
+      if (p) {
+        p.style.marginTop = '1600px';
+        o.disconnect();
+      }
+    }).observe(document, { childList: true, subtree: true }),
+  );
+  await page.goto('player-test-kodik/');
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+  await page.waitForTimeout(150);
+  expect(frames).toBe(0);
+  await expect(
+    page.getByRole('button', { name: 'Открыть плеер источника', exact: true }),
+  ).toHaveCount(0);
+  await page.locator('[data-video-surface]').scrollIntoViewIfNeeded();
+  await expect(page.locator('iframe')).toHaveCount(1);
+  await expect(page.locator('iframe')).toHaveAttribute('allow', /autoplay 'none'/);
+  await page
+    .frameLocator('iframe')
+    .getByRole('button', { name: 'Подтвердить 1', exact: true })
+    .click();
+  await expect(page.getByRole('button', { name: 'Выбрать серию 1', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  for (const episode of [2, 5]) {
+    await page.getByRole('button', { name: `Выбрать серию ${episode}`, exact: true }).click();
+    await expect(page.locator('iframe')).toHaveAttribute('src', new RegExp(`episode=${episode}$`));
+    await expect(
+      page.getByRole('button', { name: `Выбрать серию ${episode}`, exact: true }),
+    ).toHaveAttribute('data-pending', '');
+    await page
+      .frameLocator('iframe')
+      .getByRole('button', { name: `Подтвердить ${episode}`, exact: true })
+      .waitFor();
+    const before = frames;
+    await page
+      .frameLocator('iframe')
+      .getByRole('button', { name: `Подтвердить ${episode}`, exact: true })
+      .click();
+    await expect(
+      page.getByRole('button', { name: `Выбрать серию ${episode}`, exact: true }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    expect(frames).toBe(before);
+  }
+  await page.getByRole('button', { name: 'Выбрать перевод: AniLibria.TV', exact: true }).click();
+  await expect(page.locator('iframe')).toHaveAttribute('src', /\/serial\/31629\/.*episode=5$/);
+  await page
+    .frameLocator('iframe')
+    .getByRole('button', { name: 'Подтвердить 5', exact: true })
+    .click();
+  await expect(
+    page.getByRole('button', { name: 'Выбрать перевод: AniLibria.TV', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  const picker = page.locator('.player-provider-control .select-trigger');
+  await picker.click();
+  await page.keyboard.press('Escape');
+  await expect(picker).toBeFocused();
+  for (const viewport of [
+    { width: 1920, height: 1080 },
+    { width: 1366, height: 768 },
+    { width: 390, height: 844 },
+    { width: 375, height: 812 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.locator('[data-video-surface]').scrollIntoViewIfNeeded();
+    const box = await page.locator('iframe').boundingBox();
+    expect(Math.abs(box!.width / box!.height - 16 / 9)).toBeLessThan(0.02);
+    const trigger = await picker.boundingBox();
+    expect(trigger!.width).toBeLessThanOrEqual(280);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    if (viewport.width < 900) {
+      expect(
+        await page
+          .getByRole('searchbox', { name: 'Поиск озвучки' })
+          .evaluate((n) => parseFloat(getComputedStyle(n).fontSize)),
+      ).toBeGreaterThanOrEqual(16);
+      const side = await page.locator('.player-voices').boundingBox();
+      expect(side!.y).toBeGreaterThanOrEqual(box!.y + box!.height - 1);
+    }
+  }
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-iframe-active', 'true');
+  await page.evaluate(() =>
+    window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })),
+  );
+  await expect(page.locator('iframe')).toHaveCount(0);
+  await page.evaluate(() =>
+    window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })),
+  );
+  await expect(page.locator('iframe')).toHaveCount(1);
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-iframe-active', 'true');
+  await page.locator('iframe').evaluate((f) => f.dispatchEvent(new Event('error')));
+  await expect(page.locator('.player-frame-notice')).toBeVisible();
+  await page
+    .locator('.player-frame-notice')
+    .getByRole('button', { name: 'Повторить', exact: true })
+    .click();
+  await expect(page.locator('iframe')).toHaveCount(1);
+  await expect(page.locator('[data-player]')).toHaveAttribute('data-iframe-active', 'true');
+  await page.locator('iframe').evaluate((f) => f.dispatchEvent(new Event('error')));
+  await page
+    .locator('.player-frame-notice')
+    .getByRole('button', { name: 'Выбрать AniLiberty', exact: true })
+    .click();
+  await expect(page.locator('iframe')).toHaveCount(0);
+  await expect(page.locator('video')).toHaveCount(1);
+  await picker.focus();
+  await page.keyboard.press('ArrowUp');
+  await page.keyboard.press('Enter');
+  await expect(page.locator('[data-video-provider]')).toHaveValue('kodik');
 });

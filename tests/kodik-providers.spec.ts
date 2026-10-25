@@ -3,6 +3,11 @@ import { kodikProvider } from '../src/lib/providers/video/kodik';
 import { isAuthorizedSource } from '../src/lib/providers/video';
 import mappings from '../src/data/kodik-mappings.json' with { type: 'json' };
 import { kodikEventSource } from '../src/lib/providers/video/kodik-events';
+import {
+  KodikResolver,
+  parseKodikMapping,
+  validateKodikCatalogMetadata,
+} from '../src/lib/providers/video/kodik-resolver';
 import { readProgress, saveProgress, type PlayerProgress } from '../src/lib/player-progress';
 
 test('Kodik: подтверждён только 39535, 11 эпизодов и неизменённые host/path/hash', async () => {
@@ -117,4 +122,50 @@ test('Kodik: iframe policy не разрешает чужой origin, поток
       rights: { ...kodikProvider.rights, verified: false },
     }),
   ).toBe(false);
+});
+
+test('0.4.4: resolver проверяет сезон, формат, год, ссылки озвучек и отдельное разрешение', () => {
+  const id = 'shikimori:39535';
+  const raw = mappings[id];
+  const resolver = new KodikResolver(mappings, [39535]);
+  expect(resolver.resolve(id)).toBe(resolver.resolve(id));
+  expect(new KodikResolver(mappings, []).resolve(id)).toBeNull();
+  for (const mutate of [
+    (row: typeof raw) => {
+      row.shikimoriId = 9253;
+    },
+    (row: typeof raw) => {
+      row.translations[0].season = 2;
+    },
+    (row: typeof raw) => {
+      row.translations[0].year = 2022;
+    },
+    (row: typeof raw) => {
+      row.translations[0].format = 'OVA';
+    },
+    (row: typeof raw) => {
+      row.translations[1].embedUrl = row.translations[0].embedUrl;
+    },
+    (row: typeof raw) => {
+      row.translations[0].embedUrl = 'https://example.com/video';
+    },
+    (row: typeof raw) => {
+      row.episodeQueryVerified = false;
+    },
+  ]) {
+    const row = structuredClone(raw);
+    mutate(row);
+    expect(new KodikResolver({ [id]: row }, [39535]).resolve(id)).toBeNull();
+  }
+  const parsed = parseKodikMapping(id, raw);
+  expect(() =>
+    validateKodikCatalogMetadata(parsed, {
+      title: raw.title,
+      originalTitle: raw.originalTitle,
+      year: 2022,
+      type: 'TV',
+      episodes: 11,
+    }),
+  ).toThrow();
+  expect(new KodikResolver(mappings, [39535]).resolve('shikimori:52299')).toBeNull();
 });

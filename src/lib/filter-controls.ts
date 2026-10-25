@@ -13,7 +13,7 @@ export function closeFilters(dialog: HTMLDialogElement) {
     delete dialog.dataset.closing;
   });
 }
-export function initFilterControls(dialog: HTMLDialogElement) {
+export function initFilterControls(dialog: HTMLElement) {
   dialog
     .querySelectorAll<HTMLSelectElement>('select:not([hidden]):not(:disabled)')
     .forEach((select) => {

@@ -153,6 +153,7 @@ export function initSearch() {
     if (event.key === 'Escape') {
       event.preventDefault(); // Prevent type=search native clearing from reopening recent views.
       close();
+      if (dialog.open) dialog.close();
       return;
     }
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -181,10 +182,44 @@ export function initSearch() {
   document.addEventListener('click', (event) => {
     if (!(event.target as Element).closest('.search-box,[data-open-search]')) close();
   });
-  document.querySelector('[data-open-search]')?.addEventListener('click', () => {
-    document.querySelector('.header')?.classList.toggle('search-open');
+  const box = input.closest<HTMLElement>('.search-box')!;
+  const searchHome = document.createComment('global-search-home');
+  box.before(searchHome);
+  const dialog = document.createElement('dialog');
+  dialog.className = 'global-search-dialog';
+  dialog.setAttribute('aria-label', 'Поиск по каталогу AniRezik');
+  const closeSearch = document.createElement('button');
+  closeSearch.type = 'button';
+  closeSearch.className = 'icon-button';
+  closeSearch.textContent = '×';
+  closeSearch.setAttribute('aria-label', 'Закрыть поиск');
+  closeSearch.onclick = () => dialog.close();
+  dialog.append(closeSearch);
+  document.body.append(dialog);
+  let opener: HTMLElement | null = null;
+  const openSearch = () => {
+    opener = document.activeElement as HTMLElement;
+    if (
+      matchMedia('(max-width: 900px)').matches ||
+      box.classList.contains('catalog-global-search')
+    ) {
+      dialog.append(box);
+      if (!dialog.open) dialog.showModal();
+    } else document.querySelector('.header')?.classList.add('search-open');
     input.focus({ preventScroll: true });
+  };
+  dialog.addEventListener('close', () => {
+    searchHome.after(box);
+    close();
+    input.blur();
+    opener?.focus({ preventScroll: true });
   });
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  document
+    .querySelectorAll('[data-open-search]')
+    .forEach((button) => button.addEventListener('click', openSearch));
   document.addEventListener('keydown', (event) => {
     if (
       event.key === '/' &&
@@ -193,8 +228,7 @@ export function initSearch() {
       !(event.target instanceof HTMLSelectElement)
     ) {
       event.preventDefault();
-      document.querySelector('.header')?.classList.add('search-open');
-      input.focus({ preventScroll: true });
+      openSearch();
     }
   });
   input.disabled = false;

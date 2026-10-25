@@ -1,9 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import { url } from '../../lib/paths';
+const { className = '' } = Astro.props;
 ---
 
-<div class="search-box">
+<div class:list={['search-box', className]}>
   <Icon name="search" />
   <input
     id="global-search"

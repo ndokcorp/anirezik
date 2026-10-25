@@ -2,6 +2,8 @@ import mappings from '../../../data/kodik-mappings.json' with { type: 'json' };
 import rights from '../../../data/kodik-rights.json' with { type: 'json' };
 import type { VideoProvider, VideoSource } from './types';
 import { kodikEventSource } from './kodik-events';
+import { KodikResolver } from './kodik-resolver';
+const resolver = new KodikResolver(mappings, rights.approvedAnimeIds);
 
 /** Curated exact-ID iframe releases only. No API tokens, streams or guessed title matches. */
 export const kodikProvider: VideoProvider = {
@@ -11,25 +13,26 @@ export const kodikProvider: VideoProvider = {
   // The untouched provider iframe handles geo/access decisions; no claim of worldwide rights.
   regionPolicy: 'iframe-enforced',
   iframePolicy: {
-    allow: 'autoplay; fullscreen; picture-in-picture',
+    allow: "autoplay 'none'; fullscreen; picture-in-picture",
     sandbox: null,
     referrerPolicy: 'strict-origin-when-cross-origin',
   },
   readStateEvent: kodikEventSource,
   async getSources(animeId) {
-    const mapping = (mappings as Record<string, (typeof mappings)['shikimori:39535']>)[animeId];
+    const mapping = resolver.resolve(animeId);
     if (!mapping) return [];
     const url = new URL(mapping.embedUrl);
     if (url.origin !== 'https://kodikplayer.com' || url.username || url.password) return [];
     return mapping.translations.flatMap((translation) =>
-      Array.from({ length: translation.episodes }, (_, index): VideoSource => {
-        const embed = new URL(translation.embedUrl);
+      translation.availableEpisodes.map((episode): VideoSource => {
+        const exactEpisodeUrl = translation.episodeUrls?.[String(episode)];
+        const embed = new URL(exactEpisodeUrl || translation.embedUrl);
         if (embed.origin !== 'https://kodikplayer.com' || embed.username || embed.password)
           throw new Error('Invalid curated Kodik embed');
-        embed.searchParams.set('episode', String(index + 1));
+        if (!exactEpisodeUrl) embed.searchParams.set('episode', String(episode));
         return {
           animeId,
-          episodeNumber: index + 1,
+          episodeNumber: episode,
           providerId: 'kodik',
           providerName: 'Kodik',
           audioLanguage: 'ru',

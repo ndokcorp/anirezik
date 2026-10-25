@@ -30,7 +30,11 @@ const { active = 'home' } = Astro.props;
     ))}
   </nav>
   <div class="header-tools">
-    {!Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') && <SearchBar />}
+    <SearchBar
+      className={
+        Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') ? 'catalog-global-search' : ''
+      }
+    />
     <div class="header-library-links">
       <a class="icon-button" href={url('history/')} aria-label="История просмотров">
         <Icon name="clock" />
@@ -40,16 +44,11 @@ const { active = 'home' } = Astro.props;
       </a>
     </div>
   </div>
-  <a class="icon-button desktop-favorite" href={url('profile/')} aria-label="Профиль">
+  <a class="icon-button desktop-favorite" href={url('profile/')} aria-label="Войти">
     <span class="profile-avatar">
       <Icon name="user" />
     </span>
   </a>
-  {!Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') && (
-    <button class="icon-button mobile-search" aria-label="Открыть поиск" data-open-search>
-      <Icon name="search" />
-    </button>
-  )}
   <button
     class="icon-button menu-toggle"
     aria-label="Открыть меню"
@@ -74,7 +73,7 @@ const { active = 'home' } = Astro.props;
       ['collection/?list=favorites', 'Избранное'],
       ['collection/', 'Ваша коллекция'],
       ['history/', 'История просмотров'],
-      ['profile/', 'Профиль'],
+      ['profile/', 'Войти'],
     ].map(([path, label]) => (
       <a href={url(path)}>
         {label}

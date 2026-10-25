@@ -8,16 +8,28 @@ const { active } = Astro.props;
   {[
     ['home', '', 'home', 'Главная'],
     ['catalog', 'catalog/', 'compass', 'Каталог'],
+    ['search', '', 'search', 'Поиск'],
     ['collection', 'collection/', 'collection', 'Коллекция'],
-    ['profile', 'profile/', 'user', 'Профиль'],
-  ].map(([id, path, icon, label]) => (
-    <a
-      href={url(path)}
-      class:list={{ active: active === id || (id === 'collection' && active === 'favorites') }}
-      aria-current={active === id ? 'page' : undefined}
-    >
-      <Icon name={icon} />
-      <span>{label}</span>
-    </a>
-  ))}
+    ['profile', 'profile/', 'user', 'Войти'],
+  ].map(([id, path, icon, label]) =>
+    id === 'search' ? (
+      <button
+        type="button"
+        class="mobile-search-center"
+        data-open-search
+        aria-label="Открыть поиск"
+      >
+        <Icon name="search" />
+      </button>
+    ) : (
+      <a
+        href={url(path)}
+        class:list={{ active: active === id || (id === 'collection' && active === 'favorites') }}
+        aria-current={active === id ? 'page' : undefined}
+      >
+        <Icon name={icon} />
+        <span>{label}</span>
+      </a>
+    ),
+  )}
 </nav>

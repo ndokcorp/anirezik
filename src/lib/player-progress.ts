@@ -7,6 +7,7 @@ export interface PlayerProgress {
   time: number | null;
   duration: number | null;
   updatedAt: string;
+  selectionConfirmed?: boolean;
 }
 const key = 'anirezik:playback:v1';
 const providerKey = 'anirezik:playback-providers:v1';

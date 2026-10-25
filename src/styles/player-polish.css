@@ -1,0 +1,401 @@
+/* 0.4.4: keep stage geometry independent from the translation list. */
+.anime-player[data-provider-layout] .player-layout {
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 23vw, 340px);
+  align-items: start;
+  padding: 6px;
+  gap: 0;
+  border: 1px solid #3c232d;
+  border-radius: 18px;
+  background: #0b090c;
+  overflow: hidden;
+}
+.anime-player[data-provider-layout] .player-stage {
+  min-width: 0;
+  align-self: start;
+}
+.anime-player[data-provider-layout] .player-options {
+  border-radius: 12px 0 0 0;
+  padding: 10px 12px;
+  background: #130e12;
+}
+.anime-player[data-provider-layout] .video-controls {
+  display: flex;
+  margin-bottom: 8px;
+}
+.anime-player[data-provider-layout] .video-controls .player-provider-control {
+  flex: 0 1 260px;
+  width: 260px;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+}
+.player-provider-control .custom-select {
+  width: 100%;
+}
+.player-provider-control .select-trigger {
+  min-height: 40px;
+  font-size: 14px;
+  background: #21151b;
+  border-color: #592936;
+  padding: 8px 12px;
+}
+.player-provider-control .select-options {
+  max-height: min(220px, 40dvh);
+  background: #1b1117;
+  border-color: #602736;
+}
+.player-provider-control .select-options button {
+  min-height: 40px;
+}
+.player-provider-badge {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 4px;
+  padding: 9px 14px;
+  border: 1px solid #65303d;
+  border-radius: 10px;
+  background: #32141f;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.anime-player[data-provider-layout] .player-episodes {
+  gap: 6px;
+  padding: 2px 0;
+}
+.anime-player[data-provider-layout] .player-episodes button {
+  flex-basis: 36px;
+  min-height: 36px;
+}
+.anime-player[data-provider-layout] .player-episodes button[data-pending] {
+  border-style: dashed;
+  border-color: #e7364b;
+  background: #4b1e2a;
+}
+.anime-player[data-provider-layout]
+  .player-stage
+  [data-video-surface]:has(iframe, .player-skeleton) {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+  overflow: visible;
+  border-radius: 0;
+}
+.anime-player[data-provider-layout] .player-stage [data-video-surface] iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16/9;
+  border: 0;
+  border-radius: 0;
+  display: block;
+}
+.player-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, #100d11 20%, #321722 45%, #100d11 70%);
+  background-size: 250% 100%;
+  animation: player-skeleton 1.8s ease-in-out infinite;
+}
+.player-skeleton::after {
+  content: 'Подготовка плеера…';
+  position: absolute;
+  inset: 45% 0 auto;
+  text-align: center;
+  color: #cbb7c1;
+  font-size: 14px;
+}
+@keyframes player-skeleton {
+  to {
+    background-position: -180% 0;
+  }
+}
+.player-selection-status {
+  color: #d7a6b4;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 8px 0 0;
+}
+.player-frame-notice {
+  padding: 10px;
+  border: 1px solid #733144;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.player-frame-notice p {
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+.player-frame-notice .button {
+  min-height: 36px;
+  padding: 8px 14px;
+}
+.anime-player[data-provider-layout] [data-video-credit][hidden],
+.anime-player[data-provider-layout] [data-video-credit]:empty {
+  display: none;
+}
+.anime-player[data-provider-layout] .player-voices {
+  width: 100%;
+  min-height: 0;
+  height: var(--voice-panel-height, 560px);
+  max-height: var(--voice-panel-height, 560px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  border: 0;
+  border-left: 1px solid #38212b;
+  border-radius: 0 12px 12px 0;
+  background: #100c10;
+}
+.player-voices .player-voice-list {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #873349 #170d13;
+}
+.player-voice-list::-webkit-scrollbar {
+  width: 5px;
+}
+.player-voice-list::-webkit-scrollbar-thumb {
+  background: #873349;
+  border-radius: 8px;
+}
+.player-voice-list::-webkit-scrollbar-track {
+  background: #170d13;
+}
+.player-voices input {
+  font-size: 14px;
+  min-height: 40px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: #1b1218;
+}
+.player-voice-row .voice-choice {
+  font-size: 14px;
+  font-weight: 650;
+  color: #f2e8ed;
+  padding: 9px 8px;
+  min-height: 48px;
+}
+.voice-name {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+.voice-name em {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  color: #b49ca7;
+}
+.voice-choice small {
+  background: #27141e;
+  border: 1px solid #4d2635;
+  border-radius: 6px;
+  padding: 3px 5px;
+  font-size: 10px;
+}
+.player-voice-row .voice-favourite {
+  flex-basis: 30px;
+  font-size: 20px;
+}
+.player-voice-row .voice-choice[data-pending] {
+  border-style: dashed;
+  border-color: #9d384e;
+}
+.player-voice-row .voice-choice[aria-pressed='true'] {
+  background: #491725;
+  border-color: #e7364b;
+}
+@media (min-width: 901px) {
+  .header {
+    height: 76px;
+    min-height: 76px;
+    margin-bottom: 24px;
+  }
+  .header .desktop-nav a {
+    font-weight: 600;
+    color: #e7dfe3;
+  }
+  .header .icon-button {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .header .desktop-nav a {
+    font-size: 13px;
+  }
+}
+.header .catalog-global-search {
+  display: none !important;
+}
+.global-search-dialog {
+  width: min(660px, calc(100vw - 24px));
+  max-height: 90dvh;
+  padding: 16px;
+  border: 1px solid #753044;
+  border-radius: 20px;
+  background: #100c10;
+  color: #fff;
+  overflow: auto;
+}
+.global-search-dialog::backdrop {
+  background: #000a;
+  backdrop-filter: blur(5px);
+}
+.global-search-dialog > button {
+  display: block;
+  margin-left: auto;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+.global-search-dialog .search-box {
+  display: flex !important;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.global-search-dialog .search-box input {
+  min-width: 0;
+  flex: 1;
+}
+.global-search-dialog .search-box kbd {
+  display: none;
+}
+.global-search-dialog .search-box .search-results {
+  position: static;
+  flex-basis: 100%;
+  width: 100%;
+  min-width: 0;
+  max-height: 50dvh;
+  overflow: auto;
+  margin-top: 8px;
+}
+@media (max-width: 900px) {
+  input:not([type='range']):not([type='checkbox']):not([type='radio']),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  .mobile-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    gap: 0;
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+  }
+  .mobile-nav a {
+    min-width: 0;
+    min-height: 44px;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.3;
+    color: #d4c7ce;
+  }
+  .mobile-nav svg {
+    width: 23px;
+    height: 23px;
+    stroke-width: 2;
+  }
+  .mobile-search-center {
+    place-self: center;
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #fa6276;
+    border-radius: 50%;
+    background: #e7364b;
+    color: #fff;
+    transform: translateY(-12px);
+    box-shadow:
+      0 5px 20px #0008,
+      0 0 15px #e7364b55;
+  }
+  .mobile-search-center:hover {
+    background: #f0445a;
+  }
+  .site-shell {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+  body:has(
+      .global-search-dialog[open],
+      input:focus,
+      textarea:focus,
+      select:focus,
+      [data-player][data-media-visible='true']
+    )
+    .mobile-nav {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .anime-player[data-provider-layout] .player-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 4px;
+    border-radius: 14px;
+  }
+  .anime-player[data-provider-layout] .player-options {
+    border-radius: 10px 10px 0 0;
+    padding: 10px 8px;
+  }
+  .anime-player[data-provider-layout] .player-voices {
+    height: auto;
+    max-height: none;
+    border-left: 0;
+    border-top: 1px solid #38212b;
+    border-radius: 0 0 10px 10px;
+    padding: 14px 8px;
+  }
+  .player-voices .player-voice-list {
+    flex: auto;
+    max-height: 280px;
+  }
+  .player-voice-row .voice-favourite {
+    flex-basis: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-skeleton {
+    animation: none;
+  }
+}
+.anime-player[data-provider-layout] .player-layout {
+  max-width: 1480px;
+  margin-inline: auto;
+}
+body:has([data-player][data-media-visible='true']) .header {
+  position: relative;
+  top: auto;
+}
+@media (max-width: 760px) {
+  .player-section {
+    padding: 12px 0;
+    border: 0;
+    background: transparent;
+  }
+  .player-provider-caption {
+    display: none;
+  }
+  .player-provider-badge {
+    padding: 7px 12px;
+  }
+}
+@media (max-width: 760px) {
+  .player-provider-badge {
+    margin-top: 0;
+  }
+}

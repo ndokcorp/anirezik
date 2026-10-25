@@ -42,4 +42,5 @@ export interface VideoProvider {
     frame: HTMLIFrameElement,
     sources: VideoSource[],
   ) => VideoSource | null;
+  attributionRequired?: boolean;
 }

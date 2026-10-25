@@ -8,6 +8,11 @@
   "embeddingAllowed": true,
   "playbackAllowed": false,
   "termsUrl": "https://kodikplayer.com/",
-  "allowedEmbedOrigins": ["https://kodikplayer.com"],
-  "allowedPlaybackOrigins": []
+  "allowedEmbedOrigins": [
+    "https://kodikplayer.com"
+  ],
+  "allowedPlaybackOrigins": [],
+  "approvedAnimeIds": [
+    39535
+  ]
 }

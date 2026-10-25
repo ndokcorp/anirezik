@@ -3,6 +3,8 @@ import { setLibertyMetadata, type MatchMetadata } from './providers/video/anilib
 import { demoProvider } from './providers/video/demo';
 import type { VideoSource } from './providers/video/types';
 import type Hls from 'hls.js';
+import { lazyPlayerFrame } from './lazy-player-frame';
+import { initFilterControls } from './filter-controls';
 import { readProgress, saveProgress } from './player-progress';
 import {
   readPlayerProvider,
@@ -126,7 +128,10 @@ export function initPlayers() {
     const credit = player.querySelector<HTMLElement>('[data-video-credit]')!;
     const providers = make('select');
     providers.dataset.videoProvider = '';
-    const providerLabel = make('label', 'Плеер');
+    const providerLabel = make('div');
+    const providerCaption = make('span', 'Плеер');
+    providerCaption.className = 'player-provider-caption';
+    providerLabel.append(providerCaption);
     providerLabel.append(providers);
     const providerIds = [...new Set(sources.map((s) => s.providerId))];
     providers.replaceChildren(
@@ -143,13 +148,23 @@ export function initPlayers() {
       providers.value = preferredProvider;
     const controls = player.querySelector('.video-controls')!;
     controls.append(providerLabel);
+    providers.id = `provider-${sources[0].animeId.replace(/[^a-z0-9-]/gi, '-')}`;
+    providerLabel.className = 'player-provider-control';
+    if (providerIds.length > 1) initFilterControls(providerLabel);
+    else {
+      providers.hidden = true;
+      const badge = make('span', providers.selectedOptions[0].textContent || '');
+      badge.className = 'player-provider-badge';
+      providerLabel.append(badge);
+    }
     // Provider and voice controls above the numbered episode row, as on the reference.
     dubs.closest('label')!.hidden = true;
     episodes.closest('label')!.hidden = true;
     let numbers: number[] = [];
-    let iframeStarted = false;
+    let disposeEmbed: () => void = () => {};
     let saved = readProgress(sources[0].animeId, providers.value);
     let source: VideoSource | undefined;
+    let confirmedSource: VideoSource | undefined;
     let video: HTMLVideoElement | null = null,
       hls: Hls | null = null;
     let generation = 0,
@@ -181,6 +196,48 @@ export function initPlayers() {
     episodeGrid.className = 'player-episodes';
     episodeGrid.setAttribute('role', 'group');
     episodeGrid.setAttribute('aria-label', 'Список серий');
+    const selectionNote = make('p');
+    selectionNote.className = 'player-selection-status';
+    selectionNote.setAttribute('role', 'status');
+    const frameNotice = make('div');
+    frameNotice.className = 'player-frame-notice';
+    frameNotice.hidden = true;
+    function selectedSource() {
+      return source?.embedUrl &&
+        approvedProviders.find((p) => p.id === source?.providerId)?.readStateEvent
+        ? confirmedSource?.providerId === source.providerId
+          ? confirmedSource
+          : undefined
+        : source;
+    }
+    function updateSelection() {
+      const selected = selectedSource();
+      episodeGrid.querySelectorAll<HTMLButtonElement>('button').forEach((button) => {
+        button.setAttribute(
+          'aria-pressed',
+          String(!!selected && Number(button.dataset.episode) === selected.episodeNumber),
+        );
+        button.toggleAttribute(
+          'data-pending',
+          !!source?.embedUrl &&
+            Number(button.dataset.episode) === source.episodeNumber &&
+            selected?.episodeNumber !== source.episodeNumber,
+        );
+      });
+      const pending = !!source?.embedUrl && (!selected || selected !== source);
+      selectionNote.hidden =
+        !source?.embedUrl ||
+        !approvedProviders.find((p) => p.id === source?.providerId)?.readStateEvent;
+      selectionNote.textContent = pending
+        ? selected
+          ? selected.episodeNumber === source!.episodeNumber
+            ? `Ожидаем подтверждения перевода ${source!.providerName}.`
+            : `Подтверждено: ${selected.episodeNumber} · Запрошено: ${source!.episodeNumber}`
+          : `Серия ${source!.episodeNumber} — ждём сигнала ${source!.providerName}.`
+        : selected
+          ? `Последнее подтверждение: серия ${selected.episodeNumber}`
+          : '';
+    }
     function populateEpisodes() {
       const previousEpisode = episodes.value;
       numbers = [
@@ -197,6 +254,7 @@ export function initPlayers() {
         button.dataset.episode = String(n);
         button.setAttribute('aria-label', `Выбрать серию ${n}`);
         button.onclick = () => {
+          if (episodes.value === String(n)) return;
           episodes.value = String(n);
           episodes.dispatchEvent(new Event('change'));
         };
@@ -204,7 +262,14 @@ export function initPlayers() {
       });
     }
     populateEpisodes();
-    options.append(heading, player.querySelector('.video-controls')!, transport, episodeGrid);
+    options.append(
+      heading,
+      player.querySelector('.video-controls')!,
+      transport,
+      episodeGrid,
+      selectionNote,
+      frameNotice,
+    );
     heading.hidden = true;
     transport.hidden = true;
     stage.append(options, surface);
@@ -222,6 +287,17 @@ export function initPlayers() {
     voices.append(voiceHeading, voiceSearch, voiceList);
     layout.append(stage, voices);
     player.prepend(layout);
+    const stageSize = new ResizeObserver(() =>
+      player.style.setProperty(
+        '--voice-panel-height',
+        `${Math.ceil(stage.getBoundingClientRect().height)}px`,
+      ),
+    );
+    stageSize.observe(stage);
+    const visibility = new IntersectionObserver((entries) => {
+      player.dataset.mediaVisible = String(entries.some((e) => e.isIntersecting));
+    });
+    visibility.observe(layout);
     if (
       saved &&
       sources.some(
@@ -237,6 +313,9 @@ export function initPlayers() {
       saveCurrent();
       saveCurrent = () => {};
       generation++;
+      disposeEmbed();
+      disposeEmbed = () => {};
+      frameNotice.hidden = true;
       started = false;
       hls?.destroy();
       hls = null;
@@ -253,6 +332,7 @@ export function initPlayers() {
       stop();
       source = sources[Number(dubs.value)];
       if (!source) return;
+      updateSelection();
       renderVoices();
       const active = source;
       if (
@@ -267,54 +347,50 @@ export function initPlayers() {
       const currentGeneration = generation;
       previous.disabled = numbers.indexOf(active.episodeNumber) === 0;
       next.disabled = numbers.indexOf(active.episodeNumber) === numbers.length - 1;
-      episodeGrid
-        .querySelectorAll<HTMLButtonElement>('button')
-        .forEach((button) =>
-          button.setAttribute(
-            'aria-pressed',
-            String(Number(button.dataset.episode) === active.episodeNumber),
-          ),
-        );
       credit.replaceChildren();
       const link = make('a', active.sourceAttribution.label);
       link.href = active.sourceAttribution.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      credit.append(link);
+      const currentProvider = approvedProviders.find((p) => p.id === active.providerId);
+      credit.hidden = active.providerId === 'kodik' && !currentProvider?.attributionRequired;
+      if (!credit.hidden) credit.append(link);
       if (active.embedUrl) {
-        const iframeNotice = make('p', 'Озвучка и субтитры выбираются внутри плеера источника.');
-        credit.append(iframeNotice);
-        const load = make('button', 'Открыть плеер источника');
-        load.type = 'button';
-        load.className = 'button button-primary';
-        const openFrame = () => {
-          iframeStarted = true;
-          const frame = make('iframe');
-          frame.src = active.embedUrl!;
-          frame.title = `${active.providerName} · серия ${active.episodeNumber}`;
-          const policy = approvedProviders.find(p => p.id === active.providerId)?.iframePolicy;
-          frame.allow = policy?.allow || 'autoplay; fullscreen; picture-in-picture';
-          frame.referrerPolicy = policy?.referrerPolicy || 'strict-origin-when-cross-origin';
-          if (policy?.sandbox !== null)
-            frame.setAttribute('sandbox', policy?.sandbox || 'allow-scripts allow-same-origin allow-presentation');
-          frame.allowFullscreen = true;
-          surface.replaceChildren(frame);
-          player.dataset.iframeActive = 'true';
-          savePlayerProvider(active.animeId, active.providerId);
-          saveProgress({
-            animeId: active.animeId,
-            providerId: active.providerId,
-            releaseId: active.releaseId || '',
-            episodeNumber: active.episodeNumber,
-            audio: active.audioLanguage + '|' + (active.dubbingStudio || ''),
-            time: null,
-            duration: null,
-            updatedAt: new Date().toISOString(),
-          });
-        };
-        load.onclick = openFrame;
-        if (iframeStarted) openFrame();
-        else surface.append(load);
+        // A loaded document is not a playback or episode confirmation.
+        disposeEmbed = lazyPlayerFrame(surface, active, currentProvider?.iframePolicy, {
+          loaded: () => {
+            if (generation !== currentGeneration) return;
+            player.dataset.iframeActive = 'true';
+            frameNotice.hidden = true;
+            savePlayerProvider(active.animeId, active.providerId);
+          },
+          failed: (timeout) => {
+            if (generation !== currentGeneration) return;
+            frameNotice.replaceChildren(
+              make('p', timeout ? 'Плеер отвечает дольше обычного.' : 'Не удалось открыть плеер.'),
+            );
+            const retry = make('button', 'Повторить');
+            retry.type = 'button';
+            retry.className = 'button button-secondary';
+            retry.onclick = render;
+            frameNotice.append(retry);
+            const alternative = providerIds.find((id) => id !== active.providerId);
+            if (alternative) {
+              const backup = make(
+                'button',
+                `Выбрать ${sources.find((s) => s.providerId === alternative)!.providerName}`,
+              );
+              backup.type = 'button';
+              backup.className = 'button button-secondary';
+              backup.onclick = () => {
+                providers.value = alternative;
+                providers.dispatchEvent(new Event('change', { bubbles: true }));
+              };
+              frameNotice.append(backup);
+            }
+            frameNotice.hidden = false;
+          },
+        });
         return;
       }
       const screen = make('div');
@@ -653,13 +729,25 @@ export function initPlayers() {
           choice.type = 'button';
           choice.className = 'voice-choice';
           choice.setAttribute('aria-label', `Выбрать перевод: ${label}`);
-          choice.setAttribute('aria-pressed', String(!!source && voiceKey(source) === key));
+          choice.toggleAttribute(
+            'data-pending',
+            !!source?.embedUrl &&
+              voiceKey(source) === key &&
+              (!selectedSource() || voiceKey(selectedSource()!) !== key),
+          );
+          choice.setAttribute(
+            'aria-pressed',
+            String(!!selectedSource() && voiceKey(selectedSource()!) === key),
+          );
           const text = make('span', label);
           const badge = make(
             'small',
             `${new Set(group.indices.map((i) => sources[i].episodeNumber)).size} эп.`,
           );
-          choice.append(text, badge);
+          const details = make('span');
+          details.className = 'voice-name';
+          details.append(text, make('em', group.entry.subtitles.length ? 'Субтитры' : 'Озвучка'));
+          choice.append(details, badge);
           choice.onclick = () => {
             if (source && voiceKey(source) === key) return;
             const index =
@@ -681,16 +769,22 @@ export function initPlayers() {
       if (!player.isConnected || !source?.embedUrl) return;
       const frame = surface.querySelector('iframe');
       if (!frame) return;
-      if (event.source !== frame.contentWindow || event.origin !== new URL(source.embedUrl).origin) return;
-      const provider = approvedProviders.find(p => p.id === source!.providerId);
-      const selected = provider?.readStateEvent?.(event, frame, sources.filter(s => s.animeId === source!.animeId && s.providerId === source!.providerId));
+      if (event.source !== frame.contentWindow || event.origin !== new URL(source.embedUrl).origin)
+        return;
+      const provider = approvedProviders.find((p) => p.id === source!.providerId);
+      const selected = provider?.readStateEvent?.(
+        event,
+        frame,
+        sources.filter((s) => s.animeId === source!.animeId && s.providerId === source!.providerId),
+      );
       if (!selected || !sources.includes(selected) || selected.providerId !== provider?.id) return;
       savePlayerProvider(selected.animeId, selected.providerId);
+      confirmedSource = selected;
       source = selected;
       episodes.value = String(selected.episodeNumber);
       dubs.replaceChildren(
         ...sources.flatMap((entry, index) =>
-        entry.providerId === selected.providerId && entry.episodeNumber === selected.episodeNumber
+          entry.providerId === selected.providerId && entry.episodeNumber === selected.episodeNumber
             ? [new Option(entry.dubbingStudio || entry.providerName, String(index))]
             : [],
         ),
@@ -706,6 +800,7 @@ export function initPlayers() {
             String(Number(button.dataset.episode) === selected.episodeNumber),
           ),
         );
+      updateSelection();
       frame.title = `${selected.providerName} · серия ${selected.episodeNumber}`;
       renderVoices();
       saveProgress({
@@ -717,6 +812,7 @@ export function initPlayers() {
         time: null,
         duration: null,
         updatedAt: new Date().toISOString(),
+        selectionConfirmed: true,
       });
     };
     window.addEventListener('message', onProviderMessage);
@@ -756,12 +852,15 @@ export function initPlayers() {
       quality = '';
       render();
     };
+    let activeProvider = providers.value;
     providers.onchange = () => {
+      if (providers.value === activeProvider) return;
+      activeProvider = providers.value;
       stop();
       savePlayerProvider(sources[0].animeId, providers.value);
       saved = readProgress(sources[0].animeId, providers.value);
       restoreTime = saved?.time || 0;
-      iframeStarted = false;
+      confirmedSource = undefined;
       source = undefined;
       populateEpisodes();
       if (saved && numbers.includes(saved.episodeNumber))
@@ -778,9 +877,23 @@ export function initPlayers() {
     };
     window.addEventListener('pagehide', () => {
       window.removeEventListener('message', onProviderMessage);
-      saveCurrent();
-      video?.pause();
-      hls?.stopLoad();
+      stop();
+      stageSize.disconnect();
+      visibility.disconnect();
+      delete player.dataset.mediaVisible;
+    });
+    window.addEventListener('pageshow', (event) => {
+      if (!event.persisted || !player.isConnected) return;
+      window.addEventListener('message', onProviderMessage);
+      stageSize.observe(stage);
+      visibility.observe(layout);
+      saved = readProgress(sources[0].animeId, providers.value);
+      restoreTime = saved?.time || 0;
+      source = undefined;
+      populateEpisodes();
+      if (saved && numbers.includes(saved.episodeNumber))
+        episodes.value = String(saved.episodeNumber);
+      populate();
     });
     populate();
   });

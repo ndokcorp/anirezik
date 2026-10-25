@@ -3879,7 +3879,7 @@ html {
 .anime-player[data-provider-layout] [data-video-surface] { width: 100%; border-radius: 0 0 14px 14px; background: #080708; }
 .anime-player[data-provider-layout] [data-video-surface] > .button { margin: 24px; }
 .anime-player[data-provider-layout] [data-video-surface] iframe { display: block; width: 100%; height: clamp(300px,52vw,700px); aspect-ratio: auto; border: 0; border-radius: 0; }
-body:has([data-player][data-iframe-active='true']) .mobile-nav { display: none; }
+body:has([data-player][data-media-visible='true']) .mobile-nav { display: none; }
 @media(max-width:420px) { .anime-player[data-provider-layout] .player-options { padding: 8px; } .anime-player[data-provider-layout] .video-controls { gap: 6px; } .anime-player[data-provider-layout] .video-controls select { font-size: 11px; } .anime-player[data-provider-layout] .player-episodes button { flex-basis: 34px; min-height: 36px; } }
 .anime-player[data-provider-layout] [data-video-surface]:has(iframe) { border-radius: 0; overflow: visible; }
 
