@@ -35,7 +35,9 @@ export function initFilterControls(dialog: HTMLElement, options: { signal?: Abor
       list.id = `${select.id}-options`;
       button.setAttribute('aria-controls', list.id);
       const sync = () => {
-        button.textContent = (select.selectedOptions[0]?.textContent || 'Выбрать') + ' ⌄';
+        button.textContent =
+          (select.selectedOptions[0]?.textContent || 'Выбрать') +
+          (dialog.classList.contains('player-settings') ? '' : ' ⌄');
         list
           .querySelectorAll<HTMLElement>('[role=option]')
           .forEach((item, i) =>

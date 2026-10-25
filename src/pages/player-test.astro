@@ -2,13 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import AnimePlayer from '../components/anime/AnimePlayer.astro';
 import { demoProvider } from '../lib/providers/video/demo';
-const anime = { id: 'demo:player', title: 'AniRize · тест', sources: [] };
+const anime = { id: 'demo:player', title: 'AniRezik · тест', sources: [] };
 const sources = await demoProvider.getSources(anime.id);
 ---
 
-<Layout title="Проверка AniRize" active="catalog" noindex>
+<Layout title="Проверка AniRezik" active="catalog" noindex>
   <div class="page-heading">
-    <h1>AniRize</h1>
+    <h1>AniRezik</h1>
     <p>
       Разрешённый трейлер Sintel. Оба тестовых слота используют один трейлер для проверки
       переключения. Это не эпизоды аниме.

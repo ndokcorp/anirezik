@@ -34,19 +34,6 @@
   outline: 2px solid #e7364b;
   outline-offset: 2px;
 }
-.player-brand {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  padding: 4px 8px;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-shadow: 0 1px 4px #000;
-  pointer-events: none;
-  background: #09090b77;
-  border-radius: 6px;
-}
 .anirize-screen .player-controls {
   position: absolute;
   inset: auto 0 0;
@@ -75,7 +62,7 @@
   border-radius: 7px;
 }
 .anirize-screen .player-controls button:hover {
-  background: #e7364b66;
+  background: #0005;
 }
 .anirize-screen .player-clock {
   margin-right: auto;
@@ -142,7 +129,7 @@
   pointer-events: auto;
 }
 .player-invideo-nav button:hover {
-  background: #e7364b;
+  background: #0005;
 }
 .player-invideo-nav button:disabled {
   opacity: 0.25;
@@ -281,11 +268,6 @@
     width: 30px;
     height: 30px;
   }
-  .player-brand {
-    top: 6px;
-    right: 6px;
-    font-size: 10px;
-  }
   .player-invideo-nav {
     inset: 40% 6px auto;
   }
@@ -317,5 +299,319 @@
     width: clamp(220px, 35vw, 520px);
     max-width: 520px;
     margin-left: auto;
+  }
+}
+
+/* Player chrome refinements; the official iframe is never restyled. */
+.anime-player[data-provider-layout] .player-episodes button::after {
+  display: none;
+}
+.player-voice-row .voice-choice {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s;
+}
+.player-voice-row .voice-choice[aria-pressed='true'] {
+  background: linear-gradient(110deg, #6d1b30, #36121e 65%, #1d1017);
+  border-color: #a13a50;
+  box-shadow: inset 3px 0 #e7364b;
+  animation: voice-selected 0.3s ease-out;
+}
+.player-voice-row .voice-choice[aria-pressed='true']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 20%, #ff809a25 48%, transparent 75%);
+  transform: translateX(-100%);
+  animation: voice-sheen 3.5s ease-in-out infinite;
+}
+@keyframes voice-selected {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes voice-sheen {
+  0%,
+  20% {
+    transform: translateX(-100%);
+  }
+  70%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+.anirize-screen .player-intro {
+  gap: 10px;
+  padding: 12px 16px 64px;
+}
+.player-intro-title {
+  margin: 0;
+  max-width: 85%;
+  font-size: clamp(16px, 2.2vw, 27px);
+  line-height: 1.2;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.player-intro-meta {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #0008;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+}
+.anirize-screen .player-continue {
+  pointer-events: auto;
+  min-height: 34px;
+  padding: 7px 12px;
+  margin: 0;
+  font-size: 12px;
+  background: #171719dd;
+  border-color: #ffffff40;
+}
+.anirize-screen .player-continue:hover {
+  background: #29292cee;
+}
+.player-invideo-nav .player-nav-next {
+  margin-left: auto;
+}
+.anirize-screen .player-control-bar > button {
+  position: relative;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+.anirize-screen .player-controls button:hover {
+  background: transparent;
+}
+.player-control-bar > button::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  white-space: nowrap;
+  pointer-events: none;
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: #18191de8;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  transition-delay: 0s;
+  z-index: 8;
+}
+.player-control-bar > button:last-child::after {
+  left: auto;
+  right: 0;
+  transform: translate(0, 4px);
+}
+.player-control-bar > button:first-child::after {
+  left: 0;
+  transform: translate(0, 4px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .anirize-screen .player-control-bar > button:hover,
+  .player-invideo-nav button:hover {
+    transform: scale(1.08);
+    background: #0005;
+  }
+  .player-control-bar > button:hover::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition-delay: 1s;
+  }
+  .player-control-bar > button:first-child:hover::after,
+  .player-control-bar > button:last-child:hover::after {
+    transform: translate(0, 0);
+  }
+}
+.player-control-bar > button:focus-visible::after {
+  opacity: 1;
+  transition-delay: 1s;
+}
+.player-invideo-nav button {
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+.player-settings .select-trigger {
+  position: relative;
+  padding-right: 29px;
+  text-align: left;
+}
+.player-settings .select-trigger::after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: 11px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+.player-settings .select-trigger[aria-expanded='true']::after {
+  transform: translateY(4px) rotate(225deg);
+}
+.player-settings > .player-auto-next {
+  position: relative;
+  grid-template-columns: minmax(0, 1fr) 64px;
+}
+.player-auto-next input {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 30px;
+  opacity: 0;
+  z-index: 2;
+  margin: 0;
+}
+.player-auto-next .player-switch-track {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  width: 64px;
+  height: 28px;
+  border-radius: 20px;
+  background: #48484c;
+  transition: background-color 0.25s;
+  pointer-events: none;
+}
+.player-switch-track::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+.player-switch-track::after {
+  content: attr(data-off);
+  position: absolute;
+  right: 6px;
+  top: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+}
+.player-auto-next input:checked + .player-switch-track {
+  background: #e7364b;
+}
+.player-auto-next input:checked + .player-switch-track::before {
+  transform: translateX(36px);
+}
+.player-auto-next input:checked + .player-switch-track::after {
+  content: attr(data-on);
+  right: auto;
+  left: 8px;
+}
+.player-auto-next input:focus-visible + .player-switch-track {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.player-quality-badge {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  border-radius: 5px;
+  padding: 1px 3px;
+  background: #e7364b;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.2;
+  pointer-events: none;
+}
+.player-timeline-wrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+.player-timeline-preview {
+  position: absolute;
+  bottom: calc(100% + 9px);
+  transform: translateX(-50%);
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: #1b1d22ed;
+  font-size: 12px;
+  color: #fff;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.player-timeline-preview::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 4px);
+  border: 4px solid transparent;
+  border-top-color: #1b1d22ed;
+}
+@media (min-width: 761px) {
+  .anirize-screen .player-control-bar > button:first-child {
+    width: 42px;
+    min-width: 42px;
+    height: 40px;
+  }
+  .player-control-bar > button:first-child > svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+@media (max-width: 520px) {
+  .anirize-screen .player-intro {
+    gap: 5px;
+    padding: 5px 8px 48px;
+  }
+  .anirize-screen .player-intro .player-big-play {
+    width: 44px;
+    height: 44px;
+  }
+  .player-intro-title {
+    font-size: 14px;
+  }
+  .player-intro-meta {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+  .anirize-screen .player-continue {
+    min-height: 26px;
+    padding: 4px 8px;
+    font-size: 10px;
+    max-width: 90%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-voice-row .voice-choice[aria-pressed='true'],
+  .player-voice-row .voice-choice[aria-pressed='true']::before {
+    animation: none;
+  }
+  .player-switch-track,
+  .player-switch-track::before,
+  .player-control-bar > button,
+  .player-control-bar > button::after,
+  .player-invideo-nav button {
+    transition: none;
   }
 }

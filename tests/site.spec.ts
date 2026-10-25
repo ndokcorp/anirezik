@@ -1465,7 +1465,7 @@ test('Kodik: основной только для 39535, красные сери
     await page.locator('.player-provider-control .select-trigger').click();
     await page
       .locator('.player-provider-control')
-      .getByRole('option', { name: new RegExp(id === 'kodik' ? '^Kodik' : '^AniLiberty') })
+      .getByRole('option', { name: new RegExp(id === 'kodik' ? '^Kodik' : '^AniRezik') })
       .click();
   };
   let visit = 0;
@@ -1522,7 +1522,7 @@ test('Kodik: основной только для 39535, красные сери
     await expect(page.locator('.player-episodes button')).toHaveCount(fixture.episodes.length);
     await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
     await expect(
-      page.getByRole('button', { name: 'Продолжить с 0:42', exact: true }),
+      page.getByRole('button', { name: /^Продолжить с 0:42 · AniLibria$/ }),
     ).toBeVisible();
   }
   await page.goto('anime/solo-leveling/');
@@ -1610,7 +1610,9 @@ test('0.4.4: ленивый iframe, подтверждения 1/2/5, касто
 }) => {
   const fixture = { ...libertyFixture[2], id: 239535, shikimori: { id: 39535 } };
   await page.route('https://anilibria.top/api/v1/**', (route) =>
-    route.fulfill({ json: route.request().url().includes('/search/') ? [fixture] : fixture }),
+    route.fulfill({
+      json: route.request().url().includes('/search/') ? [fixture] : fixture,
+    }),
   );
   let frames = 0;
   await page.route('https://kodikplayer.com/**', (route) => {
@@ -1726,7 +1728,7 @@ test('0.4.4: ленивый iframe, подтверждения 1/2/5, касто
   await page.locator('iframe').evaluate((f) => f.dispatchEvent(new Event('error')));
   await page
     .locator('.player-frame-notice')
-    .getByRole('button', { name: 'Выбрать AniLiberty', exact: true })
+    .getByRole('button', { name: 'Выбрать AniRezik', exact: true })
     .click();
   await expect(page.locator('iframe')).toHaveCount(0);
   await expect(page.locator('video')).toHaveCount(1);
@@ -1847,6 +1849,9 @@ test('mobile polish: compact neutral banner, poster rating and simpler mobile he
 // Explicit media doubles test controls only, without requesting a provider stream.
 async function mockAniRizeMedia(page: import('@playwright/test').Page) {
   await page.addInitScript(() => {
+    Object.defineProperty(window, 'MediaSource', { configurable: true, value: undefined });
+    Object.defineProperty(window, 'ManagedMediaSource', { configurable: true, value: undefined });
+    HTMLMediaElement.prototype.canPlayType = () => 'probably';
     const state = new WeakMap<HTMLMediaElement, { time: number; paused: boolean }>();
     const get = (media: HTMLMediaElement) => {
       let value = state.get(media);
@@ -1932,17 +1937,17 @@ test('AniRize: video click, hour clock, keyboard, settings and exact auto-next',
   await page.keyboard.press('m');
   await expect(screen.getByRole('button', { name: 'Выключить звук', exact: true })).toBeVisible();
   await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
-  const settings = screen.getByRole('group', { name: 'Настройки AniRize' });
+  const settings = screen.getByRole('group', { name: 'Настройки AniRezik' });
   await expect(settings).toBeVisible();
   await settings.getByRole('button', { name: 'Скорость', exact: true }).click();
   await settings.getByRole('option', { name: '1.5×', exact: true }).click();
   expect(await media.evaluate((v: HTMLVideoElement) => v.playbackRate)).toBe(1.5);
-  await settings.getByRole('checkbox', { name: 'Автопереключение серий' }).check();
+  await settings.getByRole('switch', { name: 'Автопереключение серий' }).check();
   expect(await page.evaluate(() => localStorage.getItem('anirezik:auto-next:v1'))).toBe('true');
   await media.evaluate((v) => v.dispatchEvent(new Event('ended')));
   await expect(page.locator('[data-video-episode]')).toHaveValue('2');
   await expect(screen.getByRole('button', { name: 'Пауза', exact: true })).toBeVisible();
-  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeDisabled();
+  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toHaveCount(0);
   await screen.locator('video').evaluate((v) => v.dispatchEvent(new Event('ended')));
   await expect(page.locator('[data-video-episode]')).toHaveValue('2');
 });
@@ -2008,4 +2013,95 @@ test('AniRize search: short loading stays directly below the mobile input, deskt
   const headerBar = (await page.locator('.header-tools .search-box').boundingBox())!;
   expect(headerBar.width).toBeLessThanOrEqual(521);
   expect(headerBar.x).toBeGreaterThan(900);
+});
+
+test('AniRezik controls: hover time, delayed hints and saved intro continuation', async ({
+  page,
+}) => {
+  await mockAniRizeMedia(page);
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      'anirezik:playback:v1',
+      JSON.stringify({
+        'demo:player': {
+          animeId: 'demo:player',
+          providerId: 'sintel-test',
+          releaseId: 'sintel-trailer',
+          episodeNumber: 1,
+          audio: 'Оригинальная дорожка|',
+          time: 51,
+          duration: 6395,
+          updatedAt: new Date().toISOString(),
+        },
+      }),
+    ),
+  );
+  await page.goto('player-test/');
+  const screen = page.locator('.anirize-screen');
+  await expect(screen.locator('.player-brand')).toHaveCount(0);
+  await expect(screen.locator('.player-intro-meta')).toContainText('1 серия');
+  const resume = screen.getByRole('button', { name: /^Продолжить с 0:51 ·/ });
+  await expect(resume).toBeVisible();
+  await resume.click();
+  await expect
+    .poll(() => screen.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime))
+    .toBe(51);
+  const timeline = screen.getByRole('slider', { name: 'Позиция видео' });
+  await timeline.hover({ position: { x: (await timeline.boundingBox())!.width / 2, y: 2 } });
+  await expect(screen.locator('.player-timeline-preview')).toBeVisible();
+  await expect(screen.locator('.player-timeline-preview')).toHaveText(/53:1[6-9]/);
+  const settings = screen.getByRole('button', { name: 'Настройки', exact: true });
+  await settings.hover();
+  expect(await settings.evaluate((el) => getComputedStyle(el, '::after').opacity)).toBe('0');
+  await expect
+    .poll(() => settings.evaluate((el) => getComputedStyle(el, '::after').opacity))
+    .toBe('1');
+  await settings.click();
+  const toggle = screen.getByRole('switch', { name: 'Автопереключение серий' });
+  await toggle.check();
+  await expect(toggle).toBeChecked();
+  await toggle.uncheck();
+  await expect(toggle).not.toBeChecked();
+});
+
+test('AniRezik controls: exact episode bounds, provider label, voice and quality badges', async ({
+  page,
+}) => {
+  await mockAniRizeMedia(page);
+  const base = libertyFixture.find((row) => row.id === 9600)!;
+  const fixture = {
+    ...base,
+    episodes: [...base.episodes, { ...base.episodes[1], id: 'test-third-episode', ordinal: 3 }],
+  };
+  await page.route('https://anilibria.top/api/v1/**', (route) =>
+    route.fulfill({
+      json: route.request().url().includes('/search/')
+        ? [fixture]
+        : new URL(route.request().url()).pathname.endsWith('/6826')
+          ? libertyFixture[0]
+          : fixture,
+    }),
+  );
+  await page.goto('anime/solo-leveling/');
+  const screen = page.locator('.anirize-screen');
+  await expect(page.locator('.player-provider-badge')).toHaveText('AniRezik (3 эп.)');
+  await expect(screen.locator('.player-intro-meta')).toHaveText('1 серия · AniLibria');
+  await expect(screen.getByRole('button', { name: 'Предыдущая серия', exact: true })).toHaveCount(
+    0,
+  );
+  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeVisible();
+  await expect(screen.locator('.player-quality-badge')).toHaveText('HD');
+  await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
+  await screen.getByRole('button', { name: 'Качество', exact: true }).click();
+  await screen.getByRole('option', { name: '1080p', exact: true }).click();
+  await expect(screen.locator('.player-quality-badge')).toHaveText('FHD');
+  await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
+  await expect(screen.getByRole('button', { name: 'Предыдущая серия', exact: true })).toBeVisible();
+  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeVisible();
+  await screen.getByRole('button', { name: 'Следующая серия', exact: true }).click();
+  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toHaveCount(0);
+  await expect(screen.getByRole('button', { name: 'Предыдущая серия', exact: true })).toBeVisible();
+  await page.goto('anime/your-name/');
+  await expect(page.locator('.anirize-screen')).toBeVisible();
+  await expect(page.locator('.player-invideo-nav button')).toHaveCount(0);
 });

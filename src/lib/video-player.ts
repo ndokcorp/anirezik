@@ -6,7 +6,12 @@ import type Hls from 'hls.js';
 import { lazyPlayerFrame } from './lazy-player-frame';
 import { initFilterControls } from './filter-controls';
 import { readProgress, saveProgress } from './player-progress';
-import { formatPlayerTime as timeLabel, playerIcon, bindPlayerGestures } from './player-controls';
+import {
+  formatPlayerTime as timeLabel,
+  playerIcon,
+  bindPlayerGestures,
+  createTimelinePreview,
+} from './player-controls';
 import {
   readAutoNext,
   saveAutoNext,
@@ -137,7 +142,7 @@ export function initPlayers() {
       ...providerIds.map(
         (id) =>
           new Option(
-            `${sources.find((s) => s.providerId === id)!.providerName} (${new Set(sources.filter((s) => s.providerId === id).map((s) => s.episodeNumber)).size} эп.)`,
+            `${id === 'aniliberty' ? 'AniRezik' : sources.find((s) => s.providerId === id)!.providerName} (${new Set(sources.filter((s) => s.providerId === id).map((s) => s.episodeNumber)).size} эп.)`,
             id,
           ),
       ),
@@ -387,7 +392,7 @@ export function initPlayers() {
             if (alternative) {
               const backup = make(
                 'button',
-                `Выбрать ${sources.find((s) => s.providerId === alternative)!.providerName}`,
+                `Выбрать ${alternative === 'aniliberty' ? 'AniRezik' : sources.find((s) => s.providerId === alternative)!.providerName}`,
               );
               backup.type = 'button';
               backup.className = 'button button-secondary';
@@ -410,7 +415,7 @@ export function initPlayers() {
       screen.className = 'player-screen anirize-screen';
       screen.tabIndex = 0;
       screen.setAttribute('role', 'group');
-      screen.setAttribute('aria-label', 'Плеер AniRize');
+      screen.setAttribute('aria-label', 'Плеер AniRezik');
       const media = make('video');
       video = media;
       media.preload = 'none';
@@ -429,9 +434,7 @@ export function initPlayers() {
       const intro = make('div');
       intro.className = 'player-intro';
       intro.append(overlay);
-      const brand = make('span', 'AniRize');
-      brand.className = 'player-brand';
-      const notice = make('p', 'Нажмите для воспроизведения');
+      const notice = make('p');
       notice.className = 'player-status';
       notice.setAttribute('role', 'status');
       const controls = make('div');
@@ -486,7 +489,10 @@ export function initPlayers() {
       full.append(playerIcon('fullscreen'));
       full.type = 'button';
       full.setAttribute('aria-label', 'Полный экран');
-      const continueButton = make('button', `Продолжить с ${timeLabel(restoreTime)}`);
+      const continueButton = make(
+        'button',
+        `Продолжить с ${timeLabel(restoreTime)} · ${voiceLabel(active)}`,
+      );
       continueButton.type = 'button';
       continueButton.className = 'button button-secondary player-continue';
       continueButton.hidden = restoreTime < 3;
@@ -499,7 +505,7 @@ export function initPlayers() {
       settingsButton.append(playerIcon('settings'));
       settingsButton.setAttribute('aria-label', 'Настройки');
       settingsButton.setAttribute('aria-expanded', 'false');
-      settingsButton.title = 'Настройки';
+      settingsButton.className = 'player-settings-toggle';
       const settings = make('div');
       settings.className = 'player-settings';
       settings.hidden = true;
@@ -507,7 +513,7 @@ export function initPlayers() {
       speed.id = `${settings.id}-speed`;
       qualitySelect.id = `${settings.id}-quality`;
       settings.setAttribute('role', 'group');
-      settings.setAttribute('aria-label', 'Настройки AniRize');
+      settings.setAttribute('aria-label', 'Настройки AniRezik');
       settingsButton.setAttribute('aria-controls', settings.id);
       for (const [text, select] of [
         ['Качество', qualitySelect],
@@ -521,13 +527,19 @@ export function initPlayers() {
       autoRow.className = 'player-auto-next';
       const auto = make('input');
       auto.type = 'checkbox';
+      auto.setAttribute('role', 'switch');
       auto.checked = autoNext;
       auto.setAttribute('aria-label', 'Автопереключение серий');
       auto.onchange = () => {
         autoNext = auto.checked;
         saveAutoNext(autoNext);
       };
-      autoRow.append(make('span', 'Автопереключение серий'), auto);
+      const switchTrack = make('span');
+      switchTrack.className = 'player-switch-track';
+      switchTrack.setAttribute('aria-hidden', 'true');
+      switchTrack.dataset.off = 'ВЫКЛ';
+      switchTrack.dataset.on = 'ВКЛ';
+      autoRow.append(make('span', 'Автопереключение серий'), auto, switchTrack);
       settings.append(autoRow);
       const closeSettings = () => {
         settings.hidden = true;
@@ -564,7 +576,9 @@ export function initPlayers() {
         [previous, 'previous', 'Предыдущая серия'],
         [next, 'next', 'Следующая серия'],
       ] as const) {
+        if (control.disabled) continue;
         const button = make('button');
+        button.className = `player-nav-${icon}`;
         button.type = 'button';
         button.append(playerIcon(icon));
         button.disabled = control.disabled;
@@ -580,9 +594,29 @@ export function initPlayers() {
       const bar = make('div');
       bar.className = 'player-control-bar';
       bar.append(play, clock, mute, sound, settingsButton, full);
-      controls.append(seek, bar);
-      screen.append(media, intro, brand, episodeNav, notice, controls, settings);
-      surface.append(screen, continueButton, retry);
+      controls.append(createTimelinePreview(seek, media, ui.signal), bar);
+      const introTitle = make(
+        'h3',
+        player.dataset.title || player.closest('section')?.querySelector('h2')?.textContent || '',
+      );
+      introTitle.className = 'player-intro-title';
+      const introMeta = make('p', `${active.episodeNumber} серия · ${voiceLabel(active)}`);
+      introMeta.className = 'player-intro-meta';
+      intro.append(introTitle, introMeta, continueButton);
+      screen.append(media, intro, episodeNav, notice, controls, settings);
+      surface.append(screen, retry);
+      const qualityBadge = make('span');
+      qualityBadge.className = 'player-quality-badge';
+      qualityBadge.setAttribute('aria-hidden', 'true');
+      settingsButton.append(qualityBadge);
+      const updateQualityBadge = (height?: number) => {
+        const value =
+          height ??
+          Number(qualitySelect.selectedOptions[0]?.textContent?.match(/(\d{3,4})p/)?.[1] || 0);
+        qualityBadge.textContent = value >= 1080 ? 'FHD' : value >= 720 ? 'HD' : '';
+        qualityBadge.hidden = !qualityBadge.textContent;
+      };
+      updateQualityBadge();
       function persist() {
         if (!started || !Number.isFinite(media.duration) || media.duration <= 0) return;
         saveProgress({
@@ -655,6 +689,10 @@ export function initPlayers() {
                   hls = null;
                   failed('Не удалось загрузить HLS. Повторите попытку.');
                 }
+              });
+              hls.on(HlsEngine.Events.LEVEL_SWITCHED, (_event, data) => {
+                if (generation === currentGeneration && hls)
+                  updateQualityBadge(hls.levels[data.level]?.height);
               });
               hls.on(HlsEngine.Events.MANIFEST_PARSED, () => {
                 if (hls && hls.levels.length > 1 && choices.length === 1) {
@@ -775,7 +813,7 @@ export function initPlayers() {
         const silent = muted || volume === 0;
         mute.replaceChildren(playerIcon(silent ? 'muted' : 'volume'));
         mute.setAttribute('aria-label', silent ? 'Включить звук' : 'Выключить звук');
-        mute.title = `${silent ? 'Включить звук' : 'Выключить звук'} (m)`;
+
         sound.value = String(silent ? 0 : volume);
       };
       media.addEventListener('volumechange', syncVolume);
@@ -796,6 +834,7 @@ export function initPlayers() {
         media.playbackRate = rate = Number(speed.value);
       };
       qualitySelect.onchange = () => {
+        updateQualityBadge();
         if (hls && (qualitySelect.value === 'auto' || qualitySelect.value.startsWith('level:'))) {
           hls.currentLevel =
             qualitySelect.value === 'auto' ? -1 : Number(qualitySelect.value.slice(6));
@@ -836,6 +875,11 @@ export function initPlayers() {
           if (generation === currentGeneration) void start();
         });
     }
+    function voiceLabel(entry: VideoSource) {
+      return entry.providerId === 'aniliberty'
+        ? 'AniLibria'
+        : entry.dubbingStudio || entry.providerName;
+    }
     function voiceKey(entry: VideoSource) {
       return `${entry.providerId}:${entry.translationId || `${entry.dubbingStudio || entry.providerName}|${entry.audioLanguage}|${entry.subtitles.join(',')}`}`;
     }
@@ -854,7 +898,7 @@ export function initPlayers() {
       [...groups.entries()]
         .sort(([a], [b]) => Number(favourites.has(b)) - Number(favourites.has(a)))
         .forEach(([key, group]) => {
-          const label = group.entry.dubbingStudio || group.entry.providerName;
+          const label = voiceLabel(group.entry);
           if (!label.toLocaleLowerCase().includes(query)) return;
           const row = make('div');
           row.className = 'player-voice-row';
