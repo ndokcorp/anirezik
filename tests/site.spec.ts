@@ -1568,7 +1568,10 @@ test('0.4.4: компактная шапка, центральный поиск 
       continue;
     }
     const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
-    await expect(nav.getByRole('link')).toHaveCount(4);
+    await expect(nav.getByRole('link')).toHaveCount(5);
+    await expect(
+      nav.getByRole('link', { name: 'История просмотров', exact: true }),
+    ).toHaveAttribute('href', /\/history\/$/);
     await expect(nav.getByRole('link', { name: 'Войти', exact: true })).toBeVisible();
     await expect(page.locator('.header [data-open-search]')).toHaveCount(0);
     const search = nav.getByRole('button', { name: 'Открыть поиск', exact: true });
@@ -2277,3 +2280,37 @@ for (const width of [320, 390, 1280])
       true,
     );
   });
+
+test('mobile history button sits beside catalog, keeps centered search and opens history at 320px', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto('./');
+  const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
+  const links = nav.getByRole('link');
+  await expect(links).toHaveCount(5);
+  const catalog = nav.getByRole('link', { name: 'Каталог', exact: true });
+  const history = nav.getByRole('link', { name: 'История просмотров', exact: true });
+  const a = (await catalog.boundingBox())!,
+    b = (await history.boundingBox())!;
+  expect(b.x).toBeGreaterThan(a.x);
+  expect(Math.abs(a.x + a.width - b.x)).toBeLessThan(1);
+  for (const item of await nav.locator('a,button').all()) {
+    const r = (await item.boundingBox())!;
+    expect(r.width).toBeGreaterThanOrEqual(43.9);
+    expect(r.height).toBeGreaterThanOrEqual(44);
+  }
+  const search = (await nav.getByRole('button', { name: 'Открыть поиск' }).boundingBox())!;
+  expect(Math.abs(search.x + search.width / 2 - 160)).toBeLessThan(1);
+  await history.click();
+  await expect(page).toHaveURL(/\/history\/$/);
+  await expect(
+    page.getByRole('heading', { name: 'История просмотров', exact: true }),
+  ).toBeVisible();
+  await expect(nav.getByRole('link', { name: 'История просмотров', exact: true })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await expect(nav.getByRole('link', { name: 'Каталог', exact: true })).not.toHaveClass(/active/);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

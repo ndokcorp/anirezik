@@ -295,7 +295,7 @@
   }
   .mobile-nav {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 54px repeat(2, minmax(0, 1.5fr));
     align-items: center;
     gap: 0;
     padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
@@ -401,5 +401,19 @@ body:has([data-player][data-media-visible='true']) .header {
 @media (max-width: 760px) {
   .player-provider-badge {
     margin-top: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .mobile-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 48px repeat(2, minmax(0, 1.5fr));
+    padding-inline: 4px;
+  }
+  .mobile-nav a {
+    font-size: 10px;
+  }
+  .mobile-search-center {
+    width: 48px;
+    height: 48px;
   }
 }

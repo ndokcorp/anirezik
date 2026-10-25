@@ -2,12 +2,14 @@
 import Icon from '../ui/Icon.astro';
 import { url } from '../../lib/paths';
 const { active } = Astro.props;
+const current = Astro.url.pathname.endsWith('/history/') ? 'history' : active;
 ---
 
 <nav class="mobile-nav" aria-label="Мобильная навигация">
   {[
     ['home', '', 'home', 'Главная'],
     ['catalog', 'catalog/', 'compass', 'Каталог'],
+    ['history', 'history/', 'clock', 'История'],
     ['search', '', 'search', 'Поиск'],
     ['collection', 'collection/', 'collection', 'Коллекция'],
     ['profile', 'profile/', 'user', 'Войти'],
@@ -24,8 +26,9 @@ const { active } = Astro.props;
     ) : (
       <a
         href={url(path)}
-        class:list={{ active: active === id || (id === 'collection' && active === 'favorites') }}
-        aria-current={active === id ? 'page' : undefined}
+        aria-label={id === 'history' ? 'История просмотров' : undefined}
+        class:list={{ active: current === id || (id === 'collection' && current === 'favorites') }}
+        aria-current={current === id ? 'page' : undefined}
       >
         <Icon name={icon} />
         <span>{label}</span>
