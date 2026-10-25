@@ -1,6 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { collectionLabels } from '../lib/local-library';
+import Icon from '../components/ui/Icon.astro';
+const icons: Record<string, string> = {
+  watching: 'play',
+  completed: 'check',
+  planned: 'bookmark',
+  rewatching: 'clock',
+};
 ---
 
 <Layout title="Ваша коллекция" active="collection" noindex>
@@ -8,32 +15,50 @@ import { collectionLabels } from '../lib/local-library';
     <div class="page-heading">
       <h1>Ваша коллекция</h1>
     </div>
-    <div class="collection-tabs">
+    <div class="collection-filter list-picker" data-collection-filter>
       <button
         class="button button-secondary"
-        data-collection-status="favorites"
-        aria-pressed="false"
+        type="button"
+        aria-expanded="false"
+        aria-controls="collection-filter-options"
       >
-        Избранные аниме
+        <Icon name="filter" size={18} />
+        <span>Фильтр</span>
+        <strong data-selected-list>Смотрю</strong>
+        <Icon name="arrow" size={16} />
       </button>
-      {Object.entries(collectionLabels).map(([id, label]) => (
+      <div
+        class="list-options"
+        id="collection-filter-options"
+        role="group"
+        aria-label="Фильтр коллекции"
+        hidden
+      >
         <button
           class="button button-secondary"
-          data-collection-status={id}
-          aria-pressed={id === 'watching'}
+          data-collection-status="favorites"
+          aria-pressed="false"
         >
-          {label}
+          <Icon name="star" size={20} />
+          <span class="list-label">Избранные аниме</span>
         </button>
-      ))}
+        {Object.entries(collectionLabels).map(([id, label]) => (
+          <button
+            class="button button-secondary"
+            data-collection-status={id}
+            aria-pressed={id === 'watching'}
+          >
+            <Icon name={icons[id]} size={20} />
+            <span class="list-label">{label}</span>
+          </button>
+        ))}
+      </div>
     </div>
     <p class="collection-count" data-library-count></p>
     <p data-library-status role="status"></p>
     <div class="anime-grid"></div>
     <button class="button button-secondary load-more" data-library-more hidden>
       Показать ещё
-    </button>
-    <button class="button button-secondary" data-library-retry>
-      Обновить список
     </button>
     <noscript>Для локальных списков включите JavaScript.</noscript>
   </section>

@@ -348,7 +348,7 @@ test('карточка, достоверная информация и связ�
   await page.locator('#catalog-grid article:visible .card-link').first().click();
   await expect(page.locator('.detail-copy h1')).toHaveText(solo.title);
   await expect(page.getByText('A-1 Pictures', { exact: true })).toBeVisible();
-  await expect(page.locator('.banner-rating')).toContainText(solo.score!.toFixed(1));
+  await expect(page.locator('.poster-rating')).toContainText(solo.score!.toFixed(1));
   await expect(page.locator('.description')).toHaveText(descriptions.get(solo.shikimoriId)!.text);
   for (const genre of solo.genres)
     await expect(
@@ -1159,9 +1159,11 @@ test('0.3.11: четыре списка коллекции и история о�
   await picker.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(picker.locator('> button')).toContainText('В планах');
   await page.goto('collection/');
+  await page.locator('[data-collection-filter] > button').click();
   await page.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
   await page.reload();
+  await page.locator('[data-collection-filter] > button').click();
   await page.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
   await page.goto('history/');
@@ -1176,7 +1178,7 @@ test('0.3.11: тёмные списки, диапазон лет и стабил
   const after = await page.locator('.desktop-nav').boundingBox();
   if (before && after) expect(Math.abs(before.x - after.x)).toBeLessThan(2);
   await expect(
-    page.getByRole('link', { name: 'История просмотров', exact: true }).first(),
+    page.locator('.site-footer').getByRole('link', { name: /История Просмотров/i }),
   ).toBeVisible();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   const genre = page.locator('#filter-genre + .custom-select');
@@ -1213,12 +1215,14 @@ test('0.3.12: удаление из коллекции и три мобильн�
     .getByRole('button', { name: 'В планах', exact: true })
     .click();
   await page.goto('collection/');
+  await page.locator('[data-collection-filter] > button').click();
   await page.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
   await expect(page.locator('[data-library-count]')).toContainText('1');
   await page.getByRole('button', { name: /Удалить из коллекции:/ }).click();
-  await expect(page.locator('[data-library-status]')).toContainText('пока нет');
+  await expect(page.locator('[data-library-status]')).toHaveText('');
   await page.reload();
+  await page.locator('[data-collection-filter] > button').click();
   await page.getByRole('button', { name: 'В планах', exact: true }).click();
   await expect(page.locator('[data-anime-id="shikimori:36027"]')).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -1248,7 +1252,7 @@ test('0.3.13: топ-5 с постерами, общие кнопки шапки
   page,
 }) => {
   await page.goto('./');
-  await expect(page.locator('.header-library-links a')).toHaveCount(2);
+  await expect(page.locator('.header-library-links a')).toHaveCount(0);
   await expect(page.locator('.hero-watermark')).toHaveCount(0);
   for (let i = 0; i < 5; i++) {
     if (i) await page.locator(`[data-slide-to="${i}"]`).click();
@@ -1293,13 +1297,13 @@ test('0.3.14: компактная шапка и баннер, избранно�
   await page.goto('./');
   await page.locator('#popular [data-favorite="shikimori:52299"]').click();
   await page.goto('collection/?list=favorites');
-  await expect(page.getByRole('button', { name: 'Избранные аниме', exact: true })).toHaveAttribute(
+  await expect(page.locator('[data-collection-status=favorites]')).toHaveAttribute(
     'aria-pressed',
     'true',
   );
   await expect(page.locator('[data-anime-id="shikimori:52299"]')).toBeVisible();
   await page.locator('[data-favorite="shikimori:52299"]').click();
-  await expect(page.locator('[data-library-status]')).toContainText('пока нет');
+  await expect(page.locator('[data-library-status]')).toHaveText('');
   for (const viewport of [320, 390]) {
     await page.setViewportSize({ width: viewport, height: 844 });
     await page.goto('./');
@@ -1310,11 +1314,8 @@ test('0.3.14: компактная шапка и баннер, избранно�
       await page.locator('.hero').evaluate((e) => e.getBoundingClientRect().height),
     ).toBeLessThanOrEqual(351);
     expect(
-      await page
-        .locator('.header-library-links a')
-        .first()
-        .evaluate((e) => e.getBoundingClientRect().width),
-    ).toBeGreaterThanOrEqual(32);
+      await page.locator('.header .menu-toggle').evaluate((e) => e.getBoundingClientRect().width),
+    ).toBeGreaterThanOrEqual(44);
     await expect(
       page.locator('.mobile-nav').getByRole('link', { name: 'Коллекция', exact: true }),
     ).toHaveAttribute('href', /collection\/$/);
@@ -1367,6 +1368,7 @@ test('0.4.1: точный поиск сохраняется, серия выби
   await page.goto('anime/?id=40748');
   await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
   await expect(page.locator('[data-video-dub]')).toContainText('AniLiberty');
+  await expect(page.locator('[data-video-credit]')).toBeHidden();
   await expect(page.locator('[data-video-episode] option')).toHaveCount(2);
   await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
   await expect(page.locator('[data-video-episode]')).toHaveValue('2');
@@ -1732,4 +1734,112 @@ test('0.4.4: ленивый iframe, подтверждения 1/2/5, касто
   await page.keyboard.press('ArrowUp');
   await page.keyboard.press('Enter');
   await expect(page.locator('[data-video-provider]')).toHaveValue('kodik');
+});
+
+test('mobile polish: search stays above the simulated keyboard without nested background', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.addInitScript(() => {
+    const viewport = Object.assign(new EventTarget(), { height: 812, offsetTop: 0 });
+    Object.defineProperty(window, 'visualViewport', { configurable: true, value: viewport });
+  });
+  await page.goto('./');
+  await page.locator('.mobile-search-center').click();
+  const dialog = page.getByRole('dialog', { name: 'Поиск по каталогу AniRezik' });
+  const input = dialog.getByRole('combobox');
+  await expect(input).toBeFocused();
+  await expect(dialog).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(dialog).toHaveCSS('border-top-width', '0px');
+  await page.evaluate(() => {
+    Object.assign(window.visualViewport!, { height: 320, offsetTop: 42 });
+    window.visualViewport!.dispatchEvent(new Event('resize'));
+  });
+  const bar = await input.boundingBox(),
+    close = await dialog.getByRole('button', { name: 'Закрыть поиск' }).boundingBox();
+  expect(bar!.y).toBeGreaterThanOrEqual(42);
+  expect(bar!.y + bar!.height).toBeLessThan(362);
+  expect(close!.y + close!.height).toBeLessThan(362);
+  expect(Math.abs(close!.y - bar!.y)).toBeLessThan(6);
+  await input.fill('Solo Leveling');
+  await expect(dialog.locator('[role=option]').first()).toBeVisible();
+  const results = await page.locator('#search-results').boundingBox();
+  expect(results!.y + results!.height).toBeLessThanOrEqual(363);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await dialog.getByRole('button', { name: 'Закрыть поиск' }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.locator('.mobile-search-center')).toBeFocused();
+});
+
+test('mobile polish: list icons, animated dismissal and automatic collection filter', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('anime/?id=36027');
+  const picker = page.locator('.detail-actions .list-picker');
+  await picker.locator('>button').click();
+  await expect(picker.locator('.list-options button svg')).toHaveCount(4);
+  await picker.locator('>button').click();
+  await picker.locator('>button').click();
+  await expect(picker.locator('>button')).toHaveAttribute('aria-expanded', 'true');
+  await page.waitForTimeout(180); // A cancelled close animation must not hide the reopened menu.
+  await expect(picker.locator('.list-options')).toBeVisible();
+  await picker.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(picker.locator('.list-options')).toBeHidden();
+  await picker.locator('>button').click();
+  await page.keyboard.press('Escape');
+  await expect(picker.locator('.list-options')).toBeHidden();
+  await expect(picker.locator('>button')).toBeFocused();
+  await page.goto('collection/');
+  await expect(page.locator('[data-library-status]')).toHaveText('');
+  await expect(page.getByRole('button', { name: 'Обновить список', exact: true })).toHaveCount(0);
+  const filter = page.locator('[data-collection-filter]');
+  await filter.locator('>button').click();
+  await filter.getByRole('button', { name: 'В планах', exact: true }).click();
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await expect(filter.locator('.list-options')).toBeHidden();
+  await expect(page.locator('[data-library-count]')).toContainText('1');
+  await page.reload();
+  await expect(filter.locator('>button')).toContainText('В планах');
+  await expect(page.locator('[data-anime-id="shikimori:36027"]')).toBeVisible();
+  await filter.locator('>button').click();
+  await filter.getByRole('button', { name: 'Просмотрено', exact: true }).click();
+  await expect(page.locator('.anime-grid')).toBeEmpty();
+  await expect(page.locator('[data-library-status]')).toHaveText('');
+});
+
+test('mobile polish: compact neutral banner, poster rating and simpler mobile header on both detail routes', async ({
+  page,
+}) => {
+  for (const width of [375, 1366]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const path of ['anime/solo-leveling/', 'anime/?id=52299']) {
+      await page.goto(path);
+      await expect(page.locator('.detail-copy h1')).toBeVisible();
+      await expect(page.locator('.detail-banner img,.banner-rating')).toHaveCount(0);
+      await expect(page.locator('.detail-poster-wrap .poster-rating')).toContainText(
+        solo.score!.toFixed(1),
+      );
+      await expect(page.locator('.chronology-section > .source-note')).toHaveCount(0);
+      await expect(page.locator('#similar-anime')).toContainText(
+        'Схожие аниме по жанрам в каталоге',
+      );
+      await expect(page.locator('.header-library-links')).toHaveCount(0);
+      const poster = await page.locator('.detail-poster').boundingBox();
+      const badge = await page.locator('.poster-rating').boundingBox();
+      expect(badge!.x).toBeGreaterThanOrEqual(poster!.x);
+      expect(badge!.x - poster!.x).toBeLessThan(12);
+      expect(badge!.y - poster!.y).toBeLessThan(12);
+      if (width < 900) {
+        const button = await page
+          .getByRole('button', { name: 'Открыть меню', exact: true })
+          .boundingBox();
+        expect(button!.width).toBeGreaterThanOrEqual(44);
+        expect(button!.height).toBeGreaterThanOrEqual(44);
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+    }
+  }
 });

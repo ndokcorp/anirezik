@@ -3,6 +3,7 @@ import type { VideoProvider, VideoSource } from './types';
 export const demoProvider: VideoProvider = {
   id: 'sintel-test',
   name: 'Sintel · тест плеера',
+  attributionRequired: true,
   rights: {
     verified: true,
     embeddingAllowed: false,

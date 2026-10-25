@@ -11,6 +11,30 @@ import {
 import type { CollectionStatus } from './local-library';
 import { loadFavoriteCards } from './card-packages';
 import { renderCards } from './card-renderer';
+import { libraryMenu } from './library-menu';
+function listIcon(status: string) {
+  const paths: Record<string, string> = {
+    watching: 'm8 4 12 8-12 8z',
+    completed: 'm5 12 4 4L19 6',
+    planned: 'M6 3h12v18l-6-4-6 4z',
+    rewatching: 'M3 11a9 9 0 1 1 2 7M3 3v8h8',
+  };
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  for (const [key, value] of Object.entries({
+    viewBox: '0 0 24 24',
+    width: '20',
+    height: '20',
+    fill: 'none',
+    stroke: 'currentColor',
+    'stroke-width': '1.8',
+    'aria-hidden': 'true',
+  }))
+    icon.setAttribute(key, value);
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', paths[status]);
+  icon.append(path);
+  return icon;
+}
 export function initListPicker(root: ParentNode = document) {
   root.querySelectorAll<HTMLElement>('.detail-actions').forEach((actions) => {
     if (actions.querySelector('.list-picker')) return;
@@ -27,6 +51,9 @@ export function initListPicker(root: ParentNode = document) {
     menu.hidden = true;
     menu.setAttribute('role', 'group');
     menu.setAttribute('aria-label', 'Добавить в список');
+    menu.id = `list-${id.replace(/\W/g, '-')}`;
+    button.setAttribute('aria-controls', menu.id);
+    const dropdown = libraryMenu(wrapper, button, menu);
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.className = 'button button-secondary collection-remove';
@@ -47,12 +74,14 @@ export function initListPicker(root: ParentNode = document) {
     for (const [status, label] of Object.entries(collectionLabels)) {
       const item = document.createElement('button');
       item.type = 'button';
-      item.textContent = label;
+      const text = document.createElement('span');
+      text.className = 'list-label';
+      text.textContent = label;
+      item.append(listIcon(status), text);
       item.dataset.status = status;
       item.addEventListener('click', () => {
         if (setCollection(id, status as CollectionStatus)) {
-          menu.hidden = true;
-          button.setAttribute('aria-expanded', 'false');
+          dropdown.close(true);
           sync();
           button.focus();
         } else {
@@ -61,23 +90,6 @@ export function initListPicker(root: ParentNode = document) {
       });
       menu.append(item);
     }
-    button.addEventListener('click', () => {
-      menu.hidden = !menu.hidden;
-      button.setAttribute('aria-expanded', String(!menu.hidden));
-    });
-    wrapper.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        menu.hidden = true;
-        button.setAttribute('aria-expanded', 'false');
-        button.focus();
-      }
-    });
-    document.addEventListener('click', (event) => {
-      if (!wrapper.contains(event.target as Node)) {
-        menu.hidden = true;
-        button.setAttribute('aria-expanded', 'false');
-      }
-    });
     window.addEventListener('storage', sync);
     document.addEventListener('anirezik:library-change', sync);
     wrapper.append(button, menu);
@@ -95,8 +107,15 @@ export function initLibraryPage() {
     grid = root.querySelector<HTMLElement>('.anime-grid')!,
     more = root.querySelector<HTMLButtonElement>('[data-library-more]')!;
   const tabs = root.querySelectorAll<HTMLButtonElement>('[data-collection-status]');
+  const filter = root.querySelector<HTMLElement>('[data-collection-filter]');
+  const dropdown = filter
+    ? libraryMenu(filter, filter.querySelector('button')!, filter.querySelector('.list-options')!)
+    : null;
+  const list = new URLSearchParams(location.search).get('list');
   let selected: CollectionStatus | 'favorites' =
-    new URLSearchParams(location.search).get('list') === 'favorites' ? 'favorites' : 'watching';
+    list === 'favorites' || Object.hasOwn(collectionLabels, list || '')
+      ? (list as CollectionStatus | 'favorites')
+      : 'watching';
   async function render() {
     const current = ++revision;
     const saved = collection();
@@ -107,10 +126,19 @@ export function initLibraryPage() {
         : Object.keys(saved).filter((id) => saved[id] === selected);
     const count = root!.querySelector<HTMLElement>('[data-library-count]');
     if (count) count.textContent = `Аниме в выбранном списке: ${ids.length}`;
+    const filterLabel = root!.querySelector('[data-selected-list]');
+    if (filterLabel)
+      filterLabel.textContent =
+        selected === 'favorites' ? 'Избранные аниме' : collectionLabels[selected];
     tabs.forEach((tab) =>
       tab.setAttribute('aria-pressed', String(tab.dataset.collectionStatus === selected)),
     );
-    status.textContent = ids.length ? 'Загрузка…' : 'В этом списке пока нет аниме.';
+    status.textContent = ids.length
+      ? 'Загрузка…'
+      : isHistory
+        ? 'В этом списке пока нет аниме.'
+        : '';
+    renderCards(grid, []);
     more.hidden = ids.length <= limit;
     try {
       const result = await loadFavoriteCards(ids.slice(0, limit));
@@ -142,7 +170,9 @@ export function initLibraryPage() {
         ? `Некоторые записи недоступны: ${unavailable}. Список сохранён.`
         : ids.length
           ? ''
-          : 'В этом списке пока нет аниме.';
+          : isHistory
+            ? 'В этом списке пока нет аниме.'
+            : '';
     } catch {
       if (current === revision)
         status.textContent = 'Не удалось загрузить карточки. Список сохранён. Повторите попытку.';
@@ -153,6 +183,7 @@ export function initLibraryPage() {
       selected = tab.dataset.collectionStatus as CollectionStatus | 'favorites';
       history.replaceState(null, '', `${location.pathname}?list=${selected}`);
       limit = 24;
+      dropdown?.close(true);
       void render();
     }),
   );

@@ -35,14 +35,6 @@ const { active = 'home' } = Astro.props;
         Astro.url.pathname.replace(/\/$/, '').endsWith('/catalog') ? 'catalog-global-search' : ''
       }
     />
-    <div class="header-library-links">
-      <a class="icon-button" href={url('history/')} aria-label="История просмотров">
-        <Icon name="clock" />
-      </a>
-      <a class="icon-button" href={url('collection/')} aria-label="Ваша коллекция">
-        <Icon name="collection" />
-      </a>
-    </div>
   </div>
   <a class="icon-button desktop-favorite" href={url('profile/')} aria-label="Войти">
     <span class="profile-avatar">

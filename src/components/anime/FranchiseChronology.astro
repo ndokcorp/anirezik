@@ -12,7 +12,6 @@ const { items } = Astro.props as { items: ReturnType<typeof chronology> };
       <h2>Хронология франшизы</h2>
       <span>{items.length} аниме</span>
     </div>
-    <p class="source-note">Предыстории → продолжения; независимые ветки — по датам выхода</p>
     <ol class="franchise-track">
       {items.map((item, index) => {
         const a = animeByShikimoriId.get(item.shikimoriId)!;

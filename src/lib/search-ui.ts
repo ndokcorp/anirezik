@@ -77,7 +77,7 @@ export function initSearch() {
       input!.setAttribute('aria-expanded', 'true');
       return;
     }
-    results!.textContent = 'Загрузка поискового индекса…';
+    results!.textContent = 'Загрузка…';
     results!.hidden = false;
     input!.setAttribute('aria-expanded', 'true');
     input!.setAttribute('aria-busy', 'true');
@@ -197,6 +197,14 @@ export function initSearch() {
   dialog.append(closeSearch);
   document.body.append(dialog);
   let opener: HTMLElement | null = null;
+  const positionSearch = () => {
+    const viewport = window.visualViewport;
+    dialog.style.setProperty('--search-top', `${(viewport?.offsetTop || 0) + 12}px`);
+    dialog.style.setProperty(
+      '--search-height',
+      `${Math.max(120, (viewport?.height || innerHeight) - 24)}px`,
+    );
+  };
   const openSearch = (event?: Event) => {
     // Safari does not focus a button on pointer clicks; remember the actual opener.
     opener =
@@ -208,11 +216,18 @@ export function initSearch() {
       box.classList.contains('catalog-global-search')
     ) {
       dialog.append(box);
+      positionSearch();
       if (!dialog.open) dialog.showModal();
+      window.visualViewport?.addEventListener('resize', positionSearch);
+      window.visualViewport?.addEventListener('scroll', positionSearch);
+      window.addEventListener('resize', positionSearch);
     } else document.querySelector('.header')?.classList.add('search-open');
     input.focus({ preventScroll: true });
   };
   dialog.addEventListener('close', () => {
+    window.visualViewport?.removeEventListener('resize', positionSearch);
+    window.visualViewport?.removeEventListener('scroll', positionSearch);
+    window.removeEventListener('resize', positionSearch);
     searchHome.after(box);
     close();
     input.blur();

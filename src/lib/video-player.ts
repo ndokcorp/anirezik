@@ -352,8 +352,11 @@ export function initPlayers() {
       link.href = active.sourceAttribution.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      const currentProvider = approvedProviders.find((p) => p.id === active.providerId);
-      credit.hidden = active.providerId === 'kodik' && !currentProvider?.attributionRequired;
+      const currentProvider =
+        active.providerId === demoProvider.id
+          ? demoProvider
+          : approvedProviders.find((p) => p.id === active.providerId);
+      credit.hidden = !currentProvider?.attributionRequired;
       if (!credit.hidden) credit.append(link);
       if (active.embedUrl) {
         // A loaded document is not a playback or episode confirmation.

@@ -69,29 +69,8 @@ export async function initAnimeDetail() {
       throw new Error('schema');
     const images = (await loadImages([a.shikimoriId]))[a.shikimoriId] || fallbackImages();
     const fragment = document.createDocumentFragment();
-    const banner = el('div', 'detail-banner');
-    if (images.backdropUrl || images.posterUrl) {
-      const img = el('img', images.backdropUrl ? '' : 'poster-backdrop');
-      img.src = (images.backdropUrl || images.posterDetailUrl || images.posterUrl)!;
-      const alternate = images.backdropUrl
-        ? images.posterDetailUrl || images.posterUrl
-        : images.posterUrl;
-      if (alternate && alternate !== img.src) img.dataset.imageAlternative = alternate;
-      img.alt = '';
-      img.width = 1600;
-      img.height = 500;
-      img.decoding = 'async';
-      img.dataset.bannerImage = '';
-      banner.append(img);
-    } else banner.classList.add('neutral-banner');
-    const bannerRating = ratingBadge(a.score);
-    if (bannerRating) {
-      const badge = el('div', 'banner-rating');
-      badge.append(bannerRating);
-      banner.append(badge);
-    }
-    if (images.backdropUrl && images.imageAttribution)
-      banner.append(el('span', 'banner-attribution', images.imageAttribution));
+    const banner = el('div', 'detail-banner neutral-banner');
+    banner.setAttribute('aria-hidden', 'true');
     fragment.append(banner);
     const article = el('article', 'detail-content'),
       copy = el('div', 'detail-copy');
@@ -138,14 +117,21 @@ export async function initAnimeDetail() {
     share.append(shareIcon(), el('span', '', 'Поделиться'));
     share.dataset.shareAnime = '';
     actions.append(favoriteButton(a.id, true), share);
-    sidebar.append(
+    const posterWrap = el('div', 'detail-poster-wrap');
+    posterWrap.append(
       posterImage(
         { ...images, poster: images.posterDetailUrl || images.poster },
         a.title,
         'detail-poster',
       ),
-      actions,
     );
+    const score = ratingBadge(a.score);
+    if (score) {
+      const badge = el('div', 'poster-rating');
+      badge.append(score);
+      posterWrap.append(badge);
+    }
+    sidebar.append(posterWrap, actions);
     article.append(sidebar, copy);
     fragment.append(article);
     const info = panel('Сведения об аниме'),
@@ -206,13 +192,6 @@ export async function initAnimeDetail() {
       const heading = el('div', 'chronology-heading');
       heading.append(timeline.firstElementChild!, el('span', '', `${a.chronology.length} аниме`));
       timeline.prepend(heading);
-      timeline.append(
-        el(
-          'p',
-          'source-note',
-          'Предыстории → продолжения; независимые ветки — по датам выхода. Порядок спорных ответвлений не подтверждён.',
-        ),
-      );
       for (const [index, item] of a.chronology.entries()) {
         const row = el('li', item.current ? 'current' : '');
         const link = el('a', 'chronology-card');
@@ -248,7 +227,10 @@ export async function initAnimeDetail() {
       similarSection = panel('Похожие аниме');
       similarSection.id = 'similar-anime';
       similarGrid = el('div', 'anime-grid');
-      similarSection.append(similarGrid);
+      similarSection.append(
+        el('p', 'section-subtitle', 'Схожие аниме по жанрам в каталоге'),
+        similarGrid,
+      );
       fragment.append(similarSection);
     }
     const comments = panel('Комментарии');

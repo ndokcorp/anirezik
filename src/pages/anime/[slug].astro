@@ -4,6 +4,7 @@ import Icon from '../../components/ui/Icon.astro';
 import Layout from '../../layouts/Layout.astro';
 import Banner from '../../components/anime/Banner.astro';
 import Poster from '../../components/ui/Poster.astro';
+import Rating from '../../components/ui/Rating.astro';
 import { anime, staticPageIds } from '../../data/anime';
 import { url } from '../../lib/paths';
 import FavoriteButton from '../../components/ui/FavoriteButton.astro';
@@ -31,19 +32,24 @@ const timeline = chronology(a);
   }
   active="catalog"
 >
-  <Banner anime={a} />
+  <Banner />
   <article class="detail-content" data-viewed-id={a.id} data-viewed-title={a.title}>
     <aside class="detail-sidebar">
-      <Poster
-        class="detail-poster"
-        src={a.posterDetailUrl || a.poster}
-        alternative={a.posterUrl || undefined}
-        alt={
-          a.imageLicenseStatus === 'original-ai'
-            ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
-            : 'Постер: ' + a.title
-        }
-      />
+      <div class="detail-poster-wrap">
+        <Poster
+          class="detail-poster"
+          src={a.posterDetailUrl || a.poster}
+          alternative={a.posterUrl || undefined}
+          alt={
+            a.imageLicenseStatus === 'original-ai'
+              ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'
+              : 'Постер: ' + a.title
+          }
+        />
+        <div class="poster-rating">
+          <Rating score={a.score} />
+        </div>
+      </div>
       <div class="detail-actions">
         <FavoriteButton id={a.id} large />
         <button class="button button-secondary" data-share-anime>
@@ -182,7 +188,7 @@ const timeline = chronology(a);
   <AnimeSection
     title="Похожие аниме"
     id="similar-anime"
-    subtitle="Совпадение жанров в каталоге AniRezik"
+    subtitle="Схожие аниме по жанрам в каталоге"
     items={related}
   />
   <section class="info-panel comments-placeholder">
