@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { url } from '../lib/paths';
+import config from '../data/anivibe-embeds.json';
+const embed = config.embeds['shikimori:52299'];
+---
+
+<Layout title="Тест AniVibe · Solo Leveling" active="catalog" noindex>
+  <div class="page-heading">
+    <p class="eyebrow">ТЕСТОВЫЙ ИСТОЧНИК</p>
+    <h1>AniVibe · Solo Leveling</h1>
+    <p>Поднятие уровня в одиночку · Shikimori ID 52299. Основной плеер AniLiberty не изменён.</p>
+  </div>
+  <section class="info-panel anivibe-test" aria-labelledby="test-heading">
+    <h2 id="test-heading">Проверка партнёрского плеера</h2>
+    <p>Плеер AniVibe загрузится только после нажатия кнопки. Затем нажмите Play внутри плеера.</p>
+    <ol>
+      <li>Выберите первую серию и запустите воспроизведение.</li>
+      <li>
+        Проверьте, появилось ли движущееся изображение, слышен ли звук и увеличивается ли время.
+      </li>
+      <li>Посмотрите 20–30 секунд. При необходимости включите звук внутри плеера.</li>
+      <li>Повторите проверку на телефоне. Выбор серии и озвучки находится внутри AniVibe.</li>
+    </ol>
+    <div class="test-actions">
+      <button type="button" class="button button-primary" data-start-anivibe data-embed={embed}>
+        Запустить тест
+      </button>
+      <a class="button button-secondary" href={url('anime/solo-leveling/')}>
+        Открыть основную страницу Solo Leveling
+      </a>
+    </div>
+    <p role="status" data-anivibe-status>
+      Плеер ещё не загружен. Воспроизведение проверяется вручную.
+    </p>
+    <div data-anivibe-test-host></div>
+    <p>
+      Если видео не запускается, запишите браузер, устройство и сообщение об ошибке. Открытие окна
+      плеера само по себе не подтверждает воспроизведение.
+    </p>
+    <noscript>Для запуска теста включите JavaScript.</noscript>
+  </section>
+</Layout>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-start-anivibe]');
+  button?.addEventListener('click', () => {
+    const host = document.querySelector('[data-anivibe-test-host]');
+    if (!host || host.querySelector('iframe') || !button.dataset.embed) return;
+    const frame = document.createElement('iframe');
+    frame.src = button.dataset.embed;
+    frame.width = '100%';
+    frame.height = '650';
+    frame.setAttribute('frameborder', '0');
+    frame.allow = 'autoplay; fullscreen; picture-in-picture';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    frame.title = 'AniVibe · Solo Leveling · тест воспроизведения';
+    host.append(frame);
+    button.disabled = true;
+    button.textContent = 'Тест запущен';
+    const status = document.querySelector('[data-anivibe-status]');
+    if (status)
+      status.textContent =
+        'Плеер добавлен. Нажмите Play внутри AniVibe и проверьте изображение, звук и ход времени.';
+  });
+</script>
+
+<style>
+  .anivibe-test {
+    margin-bottom: 40px;
+    min-width: 0;
+  }
+  .anivibe-test li {
+    margin-bottom: 10px;
+  }
+  .test-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .test-actions .button {
+    white-space: normal;
+    text-align: center;
+  }
+  [data-anivibe-test-host] {
+    min-width: 0;
+  }
+  [data-anivibe-test-host] :global(iframe) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    border: 0;
+    border-radius: 16px;
+    background: #080809;
+    margin: 20px 0;
+  }
+</style>

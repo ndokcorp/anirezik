@@ -1378,3 +1378,35 @@ test('0.4.1: точный поиск сохраняется, серия выби
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
+
+test('AniVibe test page loads the exact official iframe only on explicit start', async ({
+  page,
+}) => {
+  const requests: string[] = [];
+  await page.route('https://anivibe.pro/**', async (route) => {
+    requests.push(route.request().url());
+    await route.fulfill({ contentType: 'text/html', body: '<p>AniVibe iframe fixture</p>' });
+  });
+  await page.goto('player-test-anivibe/');
+  await expect(page.locator('iframe')).toHaveCount(0);
+  expect(requests).toEqual([]);
+  await expect(
+    page.getByRole('link', { name: 'Открыть основную страницу Solo Leveling' }),
+  ).toHaveAttribute('href', new URL('../anime/solo-leveling/', page.url()).pathname);
+  await page.getByRole('button', { name: 'Запустить тест', exact: true }).click();
+  const frame = page.locator('[data-anivibe-test-host] iframe');
+  await expect(frame).toHaveCount(1);
+  await expect(frame).toHaveAttribute(
+    'src',
+    'https://anivibe.pro/partner-player/avp_4sius5X1AU31/52299?episode=1',
+  );
+  await expect(frame).toHaveAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+  await expect(frame).toHaveAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  await expect(frame).toHaveAttribute('height', '650');
+  await expect(frame).toHaveAttribute('width', '100%');
+  await expect(frame).toHaveAttribute('frameborder', '0');
+  await expect(frame).toHaveAttribute('allowfullscreen', '');
+  await expect(page.getByRole('button', { name: 'Тест запущен' })).toBeDisabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

@@ -1,0 +1,8 @@
+{
+  "enabled": false,
+  "reason": "Iframe loads on registered origin; media playback is not verified.",
+  "origin": "https://ndokcorp.github.io",
+  "embeds": {
+    "shikimori:52299": "https://anivibe.pro/partner-player/avp_4sius5X1AU31/52299?episode=1"
+  }
+}
