@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AnimePlayer from '../components/anime/AnimePlayer.astro';
+import { animeByShikimoriId, animePath } from '../data/anime';
+import { url } from '../lib/paths';
+const anime = animeByShikimoriId.get(39535)!;
+---
+
+<Layout title={`${anime.title} · Kodik`} active="catalog" noindex>
+  <div class="page-heading">
+    <p class="eyebrow">ПЕРВЫЙ СЕЗОН · ЧАСТЬ 1 · 11 СЕРИЙ</p>
+    <h1>{anime.title}</h1>
+    <p>
+      Kodik — основной источник этого подтверждённого релиза. AniLiberty доступен как резерв, если
+      релиз найден.
+    </p>
+    <a class="button button-secondary" href={url(animePath(anime))}>
+      Открыть страницу аниме
+    </a>
+  </div>
+  <AnimePlayer anime={anime} />
+</Layout>

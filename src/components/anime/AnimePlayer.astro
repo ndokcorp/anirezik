@@ -41,8 +41,8 @@ const episodes = [...new Set(sources.map((s) => s.episodeNumber))].sort((a, b) =
     </div>
   ) : (
     <div class="player-placeholder">
-      <strong>AniRezik Player</strong>
-      <p role="status">Подключаем AniLiberty…</p>
+      <strong>{anime.title}</strong>
+      <p role="status">Подключаем доступные источники…</p>
       <noscript>Для загрузки серий включите JavaScript.</noscript>
     </div>
   )}

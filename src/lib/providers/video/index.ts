@@ -1,7 +1,8 @@
 import type { VideoProvider, VideoSource } from './types';
 import { aniLibertyProvider } from './aniliberty';
+import { kodikProvider } from './kodik';
 // No provider is implicitly approved by an API result, a studio name, or a URL.
-export const approvedProviders: ReadonlyArray<VideoProvider> = [aniLibertyProvider];
+export const approvedProviders: ReadonlyArray<VideoProvider> = [kodikProvider, aniLibertyProvider];
 function allowedUrl(value: string | undefined, origins: string[]): boolean {
   if (!value) return false;
   try {
@@ -39,7 +40,11 @@ export function isAuthorizedSource(
     source.providerName === provider.name &&
     Number.isFinite(source.episodeNumber) &&
     source.episodeNumber > 0 &&
-    ((provider.regionPolicy === 'provider-response' && source.regionChecked === true) ||
+    ((provider.regionPolicy === 'iframe-enforced' &&
+      !!source.embedUrl &&
+      !source.playbackUrl &&
+      !source.qualities?.length) ||
+      (provider.regionPolicy === 'provider-response' && source.regionChecked === true) ||
       source.availableRegions.includes('*') ||
       (!!region && source.availableRegions.includes(region.toUpperCase()))) &&
     (!source.embedUrl ||

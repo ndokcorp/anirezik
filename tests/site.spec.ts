@@ -1337,10 +1337,13 @@ test('0.4.0: плеер ленивый, ошибка видима, при сме
   await expect(page.locator('.player-status')).toContainText(/Ошибка|не смог/);
   await expect(page.getByRole('button', { name: 'Повторить', exact: true })).toBeVisible();
   expect(requests).toBeGreaterThan(0);
-  await page.locator('[data-video-episode]').selectOption('2');
+  await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
   await expect(page.locator('video')).toHaveCount(1);
   await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
-  await expect(page.getByRole('button', { name: 'Следующая →', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Выбрать серию 2', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
@@ -1409,4 +1412,111 @@ test('AniVibe test page loads the exact official iframe only on explicit start',
   await expect(page.getByRole('button', { name: 'Тест запущен' })).toBeDisabled();
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('Kodik: основной только для 39535, красные серии управляют iframe, AniLiberty остаётся резервом', async ({
+  page,
+}) => {
+  const fixture = { ...libertyFixture[2], id: 239535, shikimori: { id: 39535 } }; // Test double, never catalog data.
+  await page.addInitScript(() => {
+    if (!localStorage.getItem('anirezik:playback:v1'))
+      localStorage.setItem(
+        'anirezik:playback:v1',
+        JSON.stringify({
+          'shikimori:39535': {
+            animeId: 'shikimori:39535',
+            providerId: 'aniliberty',
+            releaseId: '239535',
+            episodeNumber: 2,
+            audio: 'Русский|AniLiberty',
+            time: 42,
+            duration: 1200,
+            updatedAt: new Date().toISOString(),
+          },
+        }),
+      );
+  });
+  await page.route('https://anilibria.top/api/v1/**', (route) =>
+    route.fulfill({
+      json: route.request().url().includes('/search/')
+        ? [fixture]
+        : Number(new URL(route.request().url()).pathname.split('/').at(-1)) === fixture.id
+          ? fixture
+          : libertyFixture.find(
+              (row) => row.id === Number(new URL(route.request().url()).pathname.split('/').at(-1)),
+            ),
+    }),
+  );
+  let embeds = 0;
+  await page.route('https://kodikplayer.com/**', (route) => {
+    embeds++;
+    return route.fulfill({
+      contentType: 'text/html',
+      body: `<button id="sync">Provider episode/translation event fixture</button><script>
+        document.querySelector('#sync').onclick=()=>parent.postMessage({key:'kodik_player_current_episode',value:{episode:3,season:1,translation:{id:610,title:'AniLibria.TV'}}},'*');
+        </script>`,
+    });
+  });
+  let visit = 0;
+  for (const path of ['player-test-kodik/', 'anime/?id=39535', 'anime/shikimori-39535/']) {
+    await page.goto(path);
+    await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+    await expect(page.locator('[data-video-provider]')).toHaveValue(
+      visit++ === 0 ? 'kodik' : 'aniliberty',
+    );
+    await page.locator('[data-video-provider]').selectOption('kodik');
+    await expect(page.locator('.player-episodes button')).toHaveCount(11);
+    await expect(page.locator('iframe')).toHaveCount(0);
+    await expect(page.locator('[data-video-dub]')).toBeHidden();
+    await expect(page.locator('.player-voice-row')).toHaveCount(15);
+    const initial = embeds;
+    await page.getByRole('button', { name: 'Выбрать серию 1', exact: true }).click();
+    await page.getByRole('button', { name: 'Открыть плеер источника', exact: true }).click();
+    await expect(page.locator('iframe')).toHaveAttribute('src', /episode=1$/);
+    await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
+    await expect(page.locator('iframe')).toHaveCount(1);
+    await expect(page.locator('iframe')).toHaveAttribute('src', /episode=2$/);
+    await expect(page.locator('iframe')).not.toHaveAttribute('sandbox', /.+/);
+    expect(embeds).toBeGreaterThan(initial);
+    const beforeSync = embeds;
+    await page
+      .frameLocator('iframe')
+      .getByRole('button', { name: 'Provider episode/translation event fixture' })
+      .click();
+    await expect(
+      page.getByRole('button', { name: 'Выбрать серию 3', exact: true }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(
+      page.getByRole('button', { name: 'Выбрать перевод: AniLibria.TV', exact: true }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('iframe')).toHaveAttribute('src', /episode=2$/);
+    expect(embeds).toBe(beforeSync);
+    await page.getByRole('searchbox', { name: 'Поиск озвучки' }).fill('AniLibria');
+    await expect(page.locator('.player-voice-row')).toHaveCount(1);
+    const favourite = page.getByRole('button', {
+      name: 'Любимая озвучка: AniLibria.TV',
+      exact: true,
+    });
+    if (visit === 1) await favourite.click();
+    await expect(favourite).toHaveAttribute('aria-pressed', 'true');
+    await page.getByRole('searchbox', { name: 'Поиск озвучки' }).clear();
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(page.locator('.mobile-nav')).toBeHidden();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await page.locator('[data-video-provider]').selectOption('aniliberty');
+    await expect(page.locator('iframe')).toHaveCount(0);
+    await expect(page.locator('video')).toHaveCount(1);
+    await expect(page.locator('.player-episodes button')).toHaveCount(fixture.episodes.length);
+    await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
+    await expect(
+      page.getByRole('button', { name: 'Продолжить с 0:42', exact: true }),
+    ).toBeVisible();
+  }
+  await page.goto('anime/solo-leveling/');
+  await expect(page.locator('[data-video-provider]')).toHaveValue('aniliberty');
+  await expect(page.locator('[data-video-provider] option[value="kodik"]')).toHaveCount(0);
+  await page.goto('schedule/');
+  await expect(page.getByText('ОЖИДАНИЕ НОВЫХ АНИМЕ', { exact: true })).toBeVisible();
 });

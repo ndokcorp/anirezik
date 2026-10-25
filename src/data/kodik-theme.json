@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "status": "awaiting-official-customization-contract",
+  "officialMechanism": null,
+  "colors": {
+    "accent": "#E7364B",
+    "controls": "#1B1B1B",
+    "secondary": "#282828",
+    "text": "#FFFFFF",
+    "timeline": "#2D2D2D"
+  }
+}

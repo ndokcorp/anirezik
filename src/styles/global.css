@@ -3855,3 +3855,58 @@ html {
 .player-screen:has(.player-intro:not([hidden])) video { object-fit: cover; }
 @media (max-width: 1050px) { .player-layout { grid-template-columns: minmax(0, 1fr) 240px; } .player-options { padding: 14px; } }
 @media (max-width: 760px) { .player-layout { grid-template-columns: minmax(0, 1fr); } .player-options { border-left: 0; border-top: 1px solid #29222b; } .player-options .video-controls { grid-template-columns: 1fr 1fr; gap: 10px; } .player-options h3 { margin-bottom: 14px; } .player-episodes { grid-template-columns: repeat(8, minmax(0, 1fr)); max-height: 132px; } .player-intro { gap: 10px; padding: 16px; } .player-intro .player-big-play { width: 58px; height: 58px; font-size: 24px; } .player-intro h3 { font-size: 17px; } .player-intro p { font-size: 10px; } .player-layout .player-status { font-size: 10px; } .player-section { padding-inline: 12px; } }
+
+.provider-switcher { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.provider-switcher [aria-pressed="true"] { background: #57101b; border-color: #e51a37; }
+.anivibe-panel { min-width: 0; }
+.anivibe-panel iframe { display: block; width: 100%; height: 650px; border: 1px solid #352329; border-radius: 18px; background: #080809; }
+.anivibe-panel p { color: #aaa2aa; font-size: 14px; margin-bottom: 14px; }
+.player-section [hidden] { display: none !important; }
+@media (max-width: 760px) { .anivibe-panel iframe { height: 560px; } }
+
+/* Unified source/episode controls above the video; provider iframe remains untouched. */
+.anime-player[data-provider-layout] .player-layout { display: flex; flex-direction: column; overflow: visible; border-radius: 14px; }
+.anime-player[data-provider-layout] .player-options { width: 100%; padding: 12px; border: 0; background: #181315; border-radius: 14px 14px 0 0; }
+.anime-player[data-provider-layout] .player-options [hidden] { display: none !important; }
+.anime-player[data-provider-layout] .video-controls { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin: 0 0 10px; }
+.anime-player[data-provider-layout] .video-controls label { min-width: 0; font-size: 12px; color: #c7b7bd; }
+.anime-player[data-provider-layout] .video-controls select { width: 100%; min-height: 40px; border: 1px solid #5a2936; border-radius: 8px; background: #21191d; color: #fff; font-size: 13px; padding: 8px; }
+.anime-player[data-provider-layout] .video-controls select:disabled { opacity: 1; color: #cbbdc3; cursor: default; }
+.anime-player[data-provider-layout] .player-episodes { display: flex; flex-wrap: wrap; gap: 6px; max-height: 160px; padding: 0; }
+.anime-player[data-provider-layout] .player-episodes button { position: relative; flex: 0 0 38px; min-height: 38px; border-radius: 5px; background: #282024; border: 1px solid #40232d; font-size: 14px; }
+.anime-player[data-provider-layout] .player-episodes button::after { content: ''; position: absolute; top: 0; right: 0; border-top: 6px solid #a42c43; border-left: 6px solid transparent; }
+.anime-player[data-provider-layout] .player-episodes button[aria-pressed='true'] { background: #d6193b; border-color: #ff4563; color: #fff; box-shadow: none; }
+.anime-player[data-provider-layout] [data-video-surface] { width: 100%; border-radius: 0 0 14px 14px; background: #080708; }
+.anime-player[data-provider-layout] [data-video-surface] > .button { margin: 24px; }
+.anime-player[data-provider-layout] [data-video-surface] iframe { display: block; width: 100%; height: clamp(300px,52vw,700px); aspect-ratio: auto; border: 0; border-radius: 0; }
+body:has([data-player][data-iframe-active='true']) .mobile-nav { display: none; }
+@media(max-width:420px) { .anime-player[data-provider-layout] .player-options { padding: 8px; } .anime-player[data-provider-layout] .video-controls { gap: 6px; } .anime-player[data-provider-layout] .video-controls select { font-size: 11px; } .anime-player[data-provider-layout] .player-episodes button { flex-basis: 34px; min-height: 36px; } }
+.anime-player[data-provider-layout] [data-video-surface]:has(iframe) { border-radius: 0; overflow: visible; }
+
+/* 0.4.3 MultiPlayer: source on the left, searchable voices beside the untouched media surface. */
+.anime-player[data-provider-layout] { --player-accent: #e7364b; }
+.anime-player[data-provider-layout] .player-layout { display: grid; grid-template-columns: minmax(0,1fr) 285px; align-items: stretch; }
+.player-stage { min-width: 0; }
+.anime-player[data-provider-layout] .video-controls { display: flex; justify-content: flex-start; }
+.anime-player[data-provider-layout] .video-controls > label { width: min(100%,320px); }
+.anime-player[data-provider-layout] .player-episodes { padding: 3px 0; }
+.anime-player[data-provider-layout] .player-episodes button { transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.anime-player[data-provider-layout] .player-episodes button:hover { background: #53232e; border-color: var(--player-accent); transform: translateY(-1px); box-shadow: 0 3px 10px #e7364b30; }
+.anime-player[data-provider-layout] .player-episodes button[aria-pressed='true'] { background: var(--player-accent); border-color: #ff7283; box-shadow: 0 0 0 1px #e7364b55,0 3px 12px #e7364b30; }
+.player-voices { min-width: 0; padding: 18px 12px; background: #100d10; border-left: 1px solid #39212a; }
+.player-voices h3 { color: #c9b9c1; font-size: 11px; line-height: 1.6; letter-spacing: .08em; margin: 0 0 12px; }
+.player-voices input { width: 100%; min-height: 42px; border: 1px solid #3c2730; border-radius: 10px; padding: 10px 12px; background: #20181d; color: #fff; font: inherit; font-size: 13px; margin-bottom: 12px; }
+.player-voice-list { max-height: 650px; overflow-y: auto; scrollbar-color: #8b293d #181015; }
+.player-voice-row { display: flex; align-items: stretch; gap: 4px; margin-bottom: 5px; }
+.player-voice-row button { min-height: 44px; color: #cfc2c9; background: transparent; border: 1px solid transparent; border-radius: 9px; cursor: pointer; font: inherit; transition: background .18s,border-color .18s; }
+.player-voice-row .voice-favourite { flex: 0 0 34px; font-size: 22px; padding: 4px; }
+.player-voice-row .voice-favourite[aria-pressed='true'] { color: var(--player-accent); }
+.player-voice-row .voice-choice { display: flex; flex: 1; gap: 8px; align-items: center; justify-content: space-between; padding: 9px 8px; min-width: 0; text-align: left; font-size: 13px; }
+.voice-choice span { overflow-wrap: anywhere; }
+.voice-choice small { flex-shrink: 0; color: #d2a5b2; font-size: 10px; }
+.player-voice-row button:hover { background: #322029; border-color: #70404e; }
+.player-voice-row .voice-choice[aria-pressed='true'] { background: #551d2c; border-color: var(--player-accent); color: #fff; }
+.player-voice-row button:focus-visible, .player-episodes button:focus-visible { outline: 2px solid var(--player-accent); outline-offset: 2px; }
+@media(max-width:760px) { .anime-player[data-provider-layout] .player-layout { grid-template-columns: minmax(0,1fr); } .player-voices { border-left: 0; border-top: 1px solid #39212a; padding: 14px 10px; } .player-voice-list { max-height: 300px; } .player-voice-row .voice-favourite { flex-basis: 44px; } }
+@media(prefers-reduced-motion:reduce) { .anime-player[data-provider-layout] .player-episodes button, .player-voice-row button { transition: none; } .anime-player[data-provider-layout] .player-episodes button:hover { transform: none; } }
+.anime-player[data-provider-layout] .player-controls input[type='range'] { accent-color: var(--player-accent); }

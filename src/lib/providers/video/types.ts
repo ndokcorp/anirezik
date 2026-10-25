@@ -10,6 +10,8 @@ export interface VideoSource {
   playbackUrl?: string;
   releaseId?: string;
   episodeId?: string;
+  translationId?: string;
+  seasonNumber?: number;
   qualities?: { label: string; url: string }[];
   availableRegions: string[];
   sourceAttribution: { label: string; url: string };
@@ -29,5 +31,15 @@ export interface VideoProvider {
   name: string;
   rights: VideoRights;
   getSources: (animeId: string) => Promise<VideoSource[]>;
-  regionPolicy?: 'provider-response';
+  regionPolicy?: 'provider-response' | 'iframe-enforced';
+  iframePolicy?: {
+    allow: string;
+    sandbox: string | null;
+    referrerPolicy: ReferrerPolicy;
+  };
+  readStateEvent?: (
+    event: MessageEvent,
+    frame: HTMLIFrameElement,
+    sources: VideoSource[],
+  ) => VideoSource | null;
 }

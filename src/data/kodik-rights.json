@@ -1,0 +1,13 @@
+{
+  "providerId": "kodik",
+  "reviewedAt": "2026-10-25",
+  "evidence": "docs/rights/KODIK_PERMISSION.md",
+  "scope": "User-authorized official iframe for the curated Shikimori 39535 mapping only; no API or stream access.",
+  "regionPolicy": "iframe-enforced",
+  "verified": true,
+  "embeddingAllowed": true,
+  "playbackAllowed": false,
+  "termsUrl": "https://kodikplayer.com/",
+  "allowedEmbedOrigins": ["https://kodikplayer.com"],
+  "allowedPlaybackOrigins": []
+}

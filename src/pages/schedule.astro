@@ -5,7 +5,7 @@ import { url } from '../lib/paths';
 
 <Layout title="Расписание" active="schedule">
   <div class="page-heading">
-    <span class="eyebrow">В ОЖИДАНИИ НОВЫХ ИСТОРИЙ</span>
+    <span class="eyebrow schedule-eyebrow">ОЖИДАНИЕ НОВЫХ АНИМЕ</span>
     <h1>Расписание</h1>
   </div>
   <div class="empty-state">
@@ -20,3 +20,11 @@ import { url } from '../lib/paths';
     </a>
   </div>
 </Layout>
+<style>
+  .schedule-eyebrow {
+    font-size: clamp(15px, 1.3vw, 19px);
+    font-weight: 800;
+    color: #e7364b;
+    letter-spacing: 0.12em;
+  }
+</style>

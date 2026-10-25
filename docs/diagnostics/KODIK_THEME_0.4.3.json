@@ -1,0 +1,23 @@
+{
+  "sameExactURL": true,
+  "queryNames": [
+    "translations",
+    "only_episode",
+    "only_season",
+    "episode",
+    "skip_button"
+  ],
+  "yummy": {
+    "customization": true,
+    "accent": "rgb(255, 102, 102)"
+  },
+  "anirezik": {
+    "customization": true,
+    "accent": "rgb(254, 254, 254)"
+  },
+  "originSpoofed": false,
+  "mediaStarted": false,
+  "checkedDate": "2026-10-25",
+  "internalThemeAppliedToAniRezik": false,
+  "officialMechanismConfirmed": false
+}

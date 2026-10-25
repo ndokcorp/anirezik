@@ -195,7 +195,7 @@ export async function initAnimeDetail() {
     });
     watch.classList.add('player-section');
     const placeholder = el('div', 'player-placeholder');
-    placeholder.append(el('strong', '', 'AniRezik Player'), el('p', '', 'Подключаем AniLiberty…'));
+    placeholder.append(el('strong', '', a.title), el('p', '', 'Подключаем доступные источники…'));
     watch.append(placeholder);
     fragment.append(watch);
     void import('./video-player').then(({ loadPlayerSources }) => loadPlayerSources(watch, a.id));

@@ -1,0 +1,118 @@
+{
+  "shikimori:39535": {
+    "title": "Реинкарнация безработного: История о приключениях в другом мире",
+    "season": 1,
+    "episodes": 11,
+    "embedUrl": "https://kodikplayer.com/serial/31186/258ba8e2fc0d21280ed03466cf737de1/720p",
+    "confirmedAt": "2026-10-25",
+    "evidence": "User-confirmed Shikimori 39535; provider title TV-1 part 1 and 11 episodes; episode=2 verified in provider UI.",
+    "translations": [
+      {
+        "id": "923",
+        "label": "AnimeVost",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31186/258ba8e2fc0d21280ed03466cf737de1/720p"
+      },
+      {
+        "id": "609",
+        "label": "AniDUB",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31619/e8c345b0f79ce9a481fd882f51329547/720p"
+      },
+      {
+        "id": "2403",
+        "label": "AniJoy",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31191/d36de707a967f79413c4b10d5ac22d79/720p"
+      },
+      {
+        "id": "610",
+        "label": "AniLibria.TV",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31629/880238774075aed88cf132d176fbf2e2/720p"
+      },
+      {
+        "id": "958",
+        "label": "AniRise",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31856/e786010d3e315bcc6521041987fc5258/720p"
+      },
+      {
+        "id": "3759",
+        "label": "AniStar & DEEP",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/76541/07c8687034ca7264bca9746202e1da0e/720p"
+      },
+      {
+        "id": "739",
+        "label": "Animedia",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31590/eaf881e7572073c62f74c5765f82bfbc/720p"
+      },
+      {
+        "id": "2228",
+        "label": "Freedub Studio",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/49600/0c4c180813dfde559c0853aaaba9f589/720p"
+      },
+      {
+        "id": "557",
+        "label": "JAM",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31574/f90093000fda8f0fce3032d5bcd7c775/720p"
+      },
+      {
+        "id": "1237",
+        "label": "Jisedai",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31659/15086815a176c095cdecbc80db15ac49/720p"
+      },
+      {
+        "id": "1647",
+        "label": "Sergei Vasya",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/32337/88e1f87863e42840082d803c5580b9d6/720p"
+      },
+      {
+        "id": "643",
+        "label": "Studio Band",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31563/ecfc22b4c7f3827b243c7a6cb6bfa49b/720p"
+      },
+      {
+        "id": "3084",
+        "label": "ТО Дубляжная",
+        "type": "voice",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/32721/4517b170cd231164e27cf76dcbee1810/720p"
+      },
+      {
+        "id": "1273",
+        "label": "Wakanim.Subtitles",
+        "type": "subtitles",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/31564/d41a35f26c4f6be04407ac3e9cfdc1c6/720p"
+      },
+      {
+        "id": "869",
+        "label": "Субтитры",
+        "type": "subtitles",
+        "episodes": 11,
+        "embedUrl": "https://kodikplayer.com/serial/34825/416895e2c4efee26b67d574f1de8f0f7/720p"
+      }
+    ],
+    "translationEvidence": "Provider iframe public translation menu metadata, 2026-10-25; no media URLs or API tokens."
+  }
+}
