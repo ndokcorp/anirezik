@@ -142,6 +142,8 @@ test('импорт дедуплицирует 120 записей, кешируе
     id: String(100000 + i),
     url: `https://shikimori.io/animes/${100000 + i}`,
   }));
+  // This test checks a fresh cache: its timestamp must not expire with the calendar.
+  const now = new Date();
   let calls = 0;
   const api = {
     query: async () => {
@@ -154,13 +156,13 @@ test('импорт дедуплицирует 120 записей, кешируе
       output,
       cacheDir,
       api,
-      now: new Date('2026-10-24T00:00:00Z'),
+      now,
     });
     expect(snapshot.anime).toHaveLength(120);
     expect(new Set(snapshot.anime.map((a) => a.id)).size).toBe(120);
     const before = await readFile(output, 'utf8');
     const beforeCalls = calls;
-    await syncCatalog({ output, cacheDir, api, now: new Date('2026-10-24T00:00:00Z') });
+    await syncCatalog({ output, cacheDir, api, now });
     expect(calls).toBe(beforeCalls);
     await expect(
       syncCatalog({
