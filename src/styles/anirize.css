@@ -351,16 +351,6 @@
   gap: 10px;
   padding: 12px 16px 64px;
 }
-.player-intro-title {
-  margin: 0;
-  max-width: 85%;
-  font-size: clamp(16px, 2.2vw, 27px);
-  line-height: 1.2;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 .player-intro-meta {
   margin: 0;
   padding: 4px 10px;
@@ -588,9 +578,6 @@
     width: 44px;
     height: 44px;
   }
-  .player-intro-title {
-    font-size: 14px;
-  }
   .player-intro-meta {
     font-size: 11px;
     padding: 2px 6px;
@@ -754,7 +741,6 @@
   .player-settings > .player-auto-next {
     grid-template-columns: minmax(0, 1fr) 60px;
   }
-  .player-intro-title[hidden],
   .player-intro-meta[hidden] {
     display: none;
   }
@@ -763,5 +749,64 @@
   .anirize-screen .player-controls,
   .player-invideo-nav {
     transition: none;
+  }
+}
+
+/* Center the play target independently of optional episode/resume details. */
+.anirize-screen .player-intro {
+  --intro-play-size: 78px;
+  padding: 0;
+}
+.anirize-screen .player-intro .player-big-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--intro-play-size);
+  height: var(--intro-play-size);
+}
+.player-intro-details {
+  position: absolute;
+  top: calc(50% + var(--intro-play-size) / 2 + 8px);
+  left: 5%;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.player-intro-details .player-intro-meta {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.anirize-screen:not(.has-started) .player-controls {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+@media (max-width: 520px) {
+  .anirize-screen .player-intro {
+    --intro-play-size: 44px;
+  }
+  .player-intro-details {
+    top: calc(50% + 28px);
+    gap: 4px;
+  }
+}
+
+@media (max-width: 520px) {
+  .player-intro-details {
+    top: calc(50% + 25px);
+    gap: 3px;
+  }
+  .player-intro-details .player-intro-meta {
+    font-size: 10px;
+    line-height: 1.2;
+    padding: 2px 6px;
+  }
+  .player-intro-details .player-continue {
+    min-height: 24px;
+    line-height: 1.2;
+    padding: 3px 8px;
   }
 }

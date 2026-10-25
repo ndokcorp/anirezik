@@ -2092,10 +2092,17 @@ test('AniRezik controls: exact episode bounds, provider label, voice and quality
   );
   await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeVisible();
   await expect(screen.locator('.player-quality-badge')).toHaveText('HD');
+  await screen.locator('.player-big-play').click();
   await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
   await screen.getByRole('button', { name: 'Качество', exact: true }).click();
   await screen.getByRole('option', { name: '1080p', exact: true }).click();
   await expect(screen.locator('.player-quality-badge')).toHaveText('FHD');
+  await screen.getByRole('button', { name: 'Пауза', exact: true }).click();
+  await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
+  await screen.getByRole('button', { name: 'Качество', exact: true }).click();
+  await screen.getByRole('option', { name: '720p', exact: true }).click();
+  await expect(screen.locator('.player-controls')).toBeVisible();
+  await expect(screen.locator('.player-intro-meta')).toBeHidden();
   await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
   await expect(screen.getByRole('button', { name: 'Предыдущая серия', exact: true })).toBeVisible();
   await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeVisible();
@@ -2222,3 +2229,51 @@ test('0.4.6: Shikimori main and original fall back to the approved same-title TV
     .poll(() => poster.evaluate((i: HTMLImageElement) => i.naturalWidth))
     .toBeGreaterThan(0);
 });
+
+for (const width of [320, 390, 1280])
+  test(`player startup: centered play and hidden controls until first play at ${width}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await mockAniRizeMedia(page);
+    await page.addInitScript(() =>
+      localStorage.setItem(
+        'anirezik:playback:v1',
+        JSON.stringify({
+          'demo:player': {
+            animeId: 'demo:player',
+            providerId: 'sintel-test',
+            releaseId: 'sintel-trailer',
+            episodeNumber: 1,
+            audio: 'Оригинальная дорожка|',
+            time: 51,
+            duration: 6395,
+            updatedAt: new Date().toISOString(),
+          },
+        }),
+      ),
+    );
+    await page.goto('player-test/');
+    const screen = page.locator('.anirize-screen');
+    await screen.scrollIntoViewIfNeeded();
+    await expect(screen.locator('.player-intro-title')).toHaveCount(0);
+    const controls = screen.locator('.player-controls');
+    await expect(controls).toBeHidden();
+    const play = screen.locator('.player-big-play');
+    const a = (await screen.boundingBox())!,
+      b = (await play.boundingBox())!;
+    expect(Math.abs(b.x + b.width / 2 - (a.x + a.width / 2))).toBeLessThan(1);
+    expect(Math.abs(b.y + b.height / 2 - (a.y + a.height / 2))).toBeLessThan(1);
+    await expect(screen.locator('.player-continue')).toBeVisible();
+    const resume = (await screen.locator('.player-continue').boundingBox())!;
+    expect(resume.y + resume.height).toBeLessThanOrEqual(a.y + a.height);
+    await play.click();
+    await expect(controls).toBeVisible();
+    await screen.getByRole('button', { name: 'Пауза', exact: true }).click();
+    await expect(controls).toBeVisible();
+    await expect(play).toBeVisible();
+    await expect(screen.locator('.player-intro-meta')).toBeHidden();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+  });

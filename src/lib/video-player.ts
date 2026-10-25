@@ -166,6 +166,7 @@ export function initPlayers() {
     dubs.closest('label')!.hidden = true;
     episodes.closest('label')!.hidden = true;
     let numbers: number[] = [];
+    const playedSelections = new Set<string>();
     let disposeEmbed: () => void = () => {};
     let disposeNativeUI: () => void = () => {};
     let autoNext = readAutoNext(),
@@ -414,6 +415,9 @@ export function initPlayers() {
       disposeNativeUI = () => ui.abort();
       const screen = make('div');
       screen.className = 'player-screen anirize-screen';
+      const selectionKey = `${active.providerId}|${active.releaseId}|${active.episodeNumber}|${voiceKey(active)}`;
+      const alreadyPlayed = playedSelections.has(selectionKey);
+      screen.classList.toggle('has-started', alreadyPlayed);
       screen.tabIndex = 0;
       screen.setAttribute('role', 'group');
       screen.setAttribute('aria-label', 'Плеер AniRezik');
@@ -496,7 +500,7 @@ export function initPlayers() {
       );
       continueButton.type = 'button';
       continueButton.className = 'button button-secondary player-continue';
-      continueButton.hidden = restoreTime < 3;
+      continueButton.hidden = restoreTime < 3 || alreadyPlayed;
       const retry = make('button', 'Повторить');
       retry.type = 'button';
       retry.className = 'button button-secondary';
@@ -596,14 +600,13 @@ export function initPlayers() {
       bar.className = 'player-control-bar';
       bar.append(play, clock, mute, sound, settingsButton, full);
       controls.append(createTimelinePreview(seek, media, ui.signal), bar);
-      const introTitle = make(
-        'h3',
-        player.dataset.title || player.closest('section')?.querySelector('h2')?.textContent || '',
-      );
-      introTitle.className = 'player-intro-title';
       const introMeta = make('p', `${active.episodeNumber} серия · ${voiceLabel(active)}`);
       introMeta.className = 'player-intro-meta';
-      intro.append(introTitle, introMeta, continueButton);
+      introMeta.hidden = alreadyPlayed;
+      const introDetails = make('div');
+      introDetails.className = 'player-intro-details';
+      introDetails.append(introMeta, continueButton);
+      intro.append(introDetails);
       screen.append(media, intro, episodeNav, notice, controls, settings);
       bindFullscreenIdle(surface, screen, media, settings, ui.signal);
       surface.append(screen, retry);
@@ -736,8 +739,8 @@ export function initPlayers() {
       };
       bindPlayerGestures(screen, media, { toggle, mute: () => mute.click(), signal: ui.signal });
       media.addEventListener('play', () => {
+        playedSelections.add(selectionKey);
         screen.classList.add('has-started');
-        introTitle.hidden = true;
         introMeta.hidden = true;
         intro.hidden = true;
         overlay.hidden = true;
