@@ -42,6 +42,7 @@ export function libraryMenu(wrapper: HTMLElement, button: HTMLButtonElement, men
       { duration: duration() },
     );
     if (focus) menu.querySelector<HTMLButtonElement>('[aria-pressed=true],button')?.focus();
+    else button.focus({ preventScroll: true }); // Safari pointer clicks need explicit focus for Escape.
   }
   button.addEventListener('click', () =>
     button.getAttribute('aria-expanded') === 'true' ? close() : open(),
