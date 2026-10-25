@@ -6,7 +6,8 @@ import Banner from '../../components/anime/Banner.astro';
 import Poster from '../../components/ui/Poster.astro';
 import Rating from '../../components/ui/Rating.astro';
 import { anime, staticPageIds } from '../../data/anime';
-import { url } from '../../lib/paths';
+import { url, animeRoute } from '../../lib/paths';
+import { safeJson } from '../../lib/serialize';
 import FavoriteButton from '../../components/ui/FavoriteButton.astro';
 import AnimeSection from '../../components/anime/AnimeSection.astro';
 import { chronology, similarAnime } from '../../lib/detail-sections';
@@ -17,7 +18,7 @@ import { descriptions } from '../../lib/descriptions';
 export function getStaticPaths() {
   return anime
     .filter((a) => staticPageIds.has(a.shikimoriId))
-    .map((a) => ({ params: { slug: a.slug }, props: { a } }));
+    .map((a) => ({ params: { slug: String(a.shikimoriId) }, props: { a } }));
 }
 const { a } = Astro.props;
 const related = similarAnime(a);
@@ -32,14 +33,25 @@ const timeline = chronology(a);
   }
   active="catalog"
 >
+  <script
+    type="application/ld+json"
+    set:html={safeJson({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: a.title,
+      url: new URL(url(animeRoute(a.shikimoriId)), Astro.site).href,
+      identifier: { '@type': 'PropertyValue', propertyID: 'Shikimori', value: a.shikimoriId },
+    })}
+  />
   <Banner />
   <article class="detail-content" data-viewed-id={a.id} data-viewed-title={a.title}>
     <aside class="detail-sidebar">
       <div class="detail-poster-wrap">
         <Poster
           class="detail-poster"
-          src={a.posterDetailUrl || a.poster}
-          alternative={a.posterUrl || undefined}
+          src={a.poster}
+          recovery={a.posterRecoveryUrl || undefined}
+          alternative={a.posterDetailUrl || undefined}
           alt={
             a.imageLicenseStatus === 'original-ai'
               ? 'AI-иллюстрация: ' + a.title + ' · не официальный постер'

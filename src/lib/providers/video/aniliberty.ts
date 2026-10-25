@@ -1,6 +1,8 @@
 import type { VideoProvider, VideoSource } from './types';
 import type { AvailabilityAdapter } from './updates';
-import mappings from '../../../data/aniliberty-mappings.json' with { type: 'json' };
+import seeds from '../../../data/aniliberty-mappings.json' with { type: 'json' };
+import indexed from '../../../data/aniliberty-index.json' with { type: 'json' };
+const mappings = { ...indexed.mappings, ...seeds };
 import permission from '../../../data/video-rights.json' with { type: 'json' };
 export interface LibertyEpisode {
   id: string;
@@ -76,6 +78,21 @@ const season = (names: string[]) => {
 const format = (value: string) =>
   ({ Фильм: 'MOVIE', 'ТВ-сериал': 'TV', Спецвыпуск: 'SPECIAL', 'TV Special': 'SPECIAL' })[value] ||
   value.toUpperCase();
+/** An official external ID does not override contradictory remake/year/format metadata. */
+export function releaseMetadataMatches(row: LibertyRelease, target?: MatchMetadata) {
+  if (!target) return true;
+  if (target.year && row.year && target.year !== row.year) return false;
+  if (target.type && row.type?.value && format(target.type) !== format(row.type.value))
+    return false;
+  const targetSeason = season([
+    target.title,
+    target.originalTitle,
+    target.englishTitle || '',
+    ...(target.aliases || []),
+  ]);
+  const otherSeason = season([row.name.main, row.name.english || '', row.name.alternative || '']);
+  return targetSeason === null || otherSeason === null || targetSeason === otherSeason;
+}
 export function strictTitleCandidates(rows: LibertyRelease[], target: MatchMetadata) {
   const names = [target.originalTitle, target.englishTitle || '', ...(target.aliases || [])].filter(
     Boolean,
@@ -136,9 +153,14 @@ export class AniLibertyApi {
   private inFlight = new Map<string, Promise<unknown>>();
   private tail: Promise<unknown> = Promise.resolve();
   private lastRequest = 0;
-  constructor(private fetcher: typeof fetch = (...args) => fetch(...args)) {}
+  private fetcher: typeof fetch;
+  constructor(fetcher: typeof fetch = (...args) => fetch(...args)) {
+    this.fetcher = fetcher;
+  }
   request<T>(path: string): Promise<T> {
-    if (!/^\/(app\/search\/releases\?|anime\/releases(?:\/|\?))/.test(path))
+    if (
+      !/^\/(app\/search\/releases\?|anime\/catalog\/releases\?|anime\/releases(?:\/|\?))/.test(path)
+    )
       return Promise.reject(new Error('Unsupported endpoint'));
     const cached = this.cache.get(path);
     if (cached && Date.now() - cached.at < 180_000) return Promise.resolve(cached.value as T);
@@ -183,6 +205,23 @@ export class AniLibertyApi {
       throw new Error('Некорректный релиз AniLiberty');
     return row;
   }
+  async catalogPage(page: number, limit = 30) {
+    if (
+      !Number.isSafeInteger(page) ||
+      page < 1 ||
+      !Number.isSafeInteger(limit) ||
+      limit < 1 ||
+      limit > 50
+    )
+      throw new Error('Invalid catalog bounds');
+    const rows = await this.request<unknown>(
+      `/anime/catalog/releases?page=${page}&limit=${limit}&f[sorting]=FRESH_AT_DESC`,
+    );
+    if (!Array.isArray(rows)) throw new Error('Invalid AniLiberty catalog');
+    return rows.filter(
+      (row): row is LibertyRelease => !!row && Number.isSafeInteger(row.id) && row.name && row.type,
+    );
+  }
   latest() {
     return this.request<LibertyRelease[]>('/anime/releases/latest?limit=10');
   }
@@ -196,6 +235,8 @@ export async function findLibertyRelease(
   const saved = storedMappings()[id] || (mappings as Record<string, Mapping>)[id];
   if (saved) {
     const row = await libertyApi.release(saved.releaseId);
+    if (!releaseMetadataMatches(row, target))
+      throw new Error('needs-review: внешний ID противоречит году, сезону или формату.');
     if (
       exactRelease([row], id, target?.malId || saved.malId) ||
       (saved.basis === 'metadata' && target && strictTitleCandidates([row], target).length === 1)
@@ -224,6 +265,8 @@ export async function findLibertyRelease(
     const match = exactRelease(matches, id, target.malId);
     if (match) {
       const full = await libertyApi.release(match.id);
+      if (!releaseMetadataMatches(full, target))
+        throw new Error('needs-review: внешний ID противоречит метаданным.');
       if (!exactRelease([full], id, target.malId))
         throw new Error('Идентификатор релиза не совпадает');
       remember(id, full, full.shikimori?.id ? 'shikimori.id' : 'mal.id');

@@ -1,5 +1,5 @@
 import { recordHistory } from './local-library';
-import { url } from './paths';
+import { url, animeRoute } from './paths';
 const key = 'anirezik:recent:v1';
 type Recent = { id: string; title: string; href: string };
 export function recentAnime(): Recent[] {
@@ -18,7 +18,8 @@ export function recentAnime(): Recent[] {
           v.href.startsWith(url('anime/')) &&
           !v.href.includes('\\'),
       )
-      .slice(0, 3);
+      .slice(0, 3)
+      .map((item) => ({ ...item, href: url(animeRoute(Number(item.id.split(':')[1]))) }));
   } catch {
     return [];
   }

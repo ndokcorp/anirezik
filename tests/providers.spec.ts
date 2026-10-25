@@ -378,12 +378,8 @@ test('компактный индекс сохраняет языки/алиас
     ].filter((q): q is string => !!q))
       expect(searchAnime(restored, query).map((a) => a.id)).toContain(item.id);
   }
-  expect(restored.find((a) => a.shikimoriId === 52299)!.href).toBe(
-    '/anirezik/anime/solo-leveling/',
-  );
-  expect(restored.find((a) => a.shikimoriId !== 52299)!.href).toMatch(
-    /\/anirezik\/anime\/\?id=\d+/,
-  );
+  expect(restored.find((a) => a.shikimoriId === 52299)!.href).toBe('/anirezik/anime/52299/');
+  expect(restored.find((a) => a.shikimoriId !== 52299)!.href).toMatch(/\/anirezik\/anime\/\d+\//);
   expect(JSON.stringify(packed)).not.toMatch(
     /description|sourcePosterUrl|related|https:\/\/shikimori/,
   );
@@ -492,7 +488,15 @@ test('0.4.0: точные ID AniLiberty, неоднозначность и сб�
     (m) => ({ id: m.releaseId, shikimori: { id: m.shikimoriId } }) as LibertyRelease,
   );
   expect(exactRelease([...rows].reverse(), 9253)?.id).toBe(8674);
-  expect(exactRelease([rows[0], { ...rows[0], id: 12345 }], 52991)).toBeNull();
+  expect(
+    exactRelease(
+      [
+        rows.find((r) => r.shikimori?.id === 52991)!,
+        { ...rows.find((r) => r.shikimori?.id === 52991)!, id: 12345 },
+      ],
+      52991,
+    ),
+  ).toBeNull();
   expect(exactRelease(rows, 1)).toBeNull();
   expect(await aniLibertyProvider.getSources('shikimori:52991')).toEqual([]);
   await expect(aniLibertyAvailabilityAdapter.getUpdates(null)).rejects.toThrow('Browser session');
@@ -590,4 +594,26 @@ test('0.4.1: пять точных тайтлов, сезоны и фильм н
       { ...provider, regionPolicy: 'provider-response' },
     ),
   ).toBe(false);
+});
+
+import { releaseMetadataMatches } from '../src/lib/providers/video/aniliberty';
+test('0.4.6: official ID does not override remake/year/format contradictions', () => {
+  const row = {
+    id: 10294,
+    year: 2011,
+    name: { main: 'Hunter x Hunter (2011)' },
+    type: { value: 'TV' },
+    shikimori: { id: 136 },
+  } as LibertyRelease;
+  const target = {
+    title: 'Hunter x Hunter',
+    originalTitle: 'Hunter x Hunter',
+    year: 1999,
+    type: 'TV',
+  };
+  expect(releaseMetadataMatches(row, target)).toBe(false);
+  expect(releaseMetadataMatches({ ...row, year: 1999 }, target)).toBe(true);
+  expect(releaseMetadataMatches({ ...row, year: 1999, type: { value: 'MOVIE' } }, target)).toBe(
+    false,
+  );
 });

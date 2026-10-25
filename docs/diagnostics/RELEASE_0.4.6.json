@@ -1,0 +1,88 @@
+{
+  "version": "0.4.6",
+  "checkedAt": "2026-10-26",
+  "urls": {
+    "numeric": 30704,
+    "fullSSR": 3000,
+    "universalBootstraps": 27704,
+    "legacyDocuments": 30720,
+    "previousPublishedPagesPreserved": 3000,
+    "buildMiB": 310.4
+  },
+  "posters": {
+    "catalog": 30704,
+    "missingShikimoriUrls": 1947,
+    "malformedStoredUrls": 0,
+    "sampleExistingUrlsChecked": 8,
+    "sampleHttp200": 8,
+    "sampleMissingGraphqlPosterNull": 8,
+    "restoredIds": [
+      98,
+      143,
+      149
+    ],
+    "restored": 3,
+    "remainingWithoutApprovedImage": 1944,
+    "unprobedRemoteUrlsNotDeclaredHealthy": 28749
+  },
+  "player": {
+    "existingSeeds": 5,
+    "newConfirmedIds": [
+      21,
+      269,
+      5060,
+      56733
+    ],
+    "totalSeededExactMappings": 9,
+    "newEpisodesFromApi": {
+      "21": 28,
+      "269": 357,
+      "5060": 25,
+      "56733": 5
+    },
+    "needsReview": [
+      {
+        "shikimoriId": 136,
+        "releaseId": 10294,
+        "reason": "1999 original versus 2011 remake"
+      }
+    ],
+    "catalogPageExamined": 30,
+    "providerCatalogReportedTotal": 1873,
+    "fullCatalogImported": false
+  },
+  "playback": [
+    {
+      "id": 21,
+      "played": true,
+      "time": 1.0136,
+      "duration": 1500.0826020000002,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": 269,
+      "played": true,
+      "time": 1.017727,
+      "duration": 1384.5416749999995,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": 5060,
+      "played": true,
+      "time": 1.015269,
+      "duration": 302.010079,
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": 56733,
+      "played": true,
+      "time": 1.015439,
+      "duration": 1420.0025009999993,
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}

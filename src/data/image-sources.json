@@ -32,7 +32,7 @@
       "kind": "urls",
       "animeIds": [
         1, 20, 21, 269, 1535, 1735, 5114, 9253, 16498, 20583, 30276, 31240, 31964, 33352, 38000,
-        40748, 44511, 50265, 52299, 52991
+        40748, 44511, 50265, 52299, 52991, 98, 143, 149
       ],
       "urls": [
         "https://static.tvmaze.com/uploads/images/medium_portrait/178/446548.jpg",
@@ -74,7 +74,13 @@
         "https://static.tvmaze.com/uploads/images/medium_portrait/497/1244908.jpg",
         "https://static.tvmaze.com/uploads/images/original_untouched/497/1244908.jpg",
         "https://static.tvmaze.com/uploads/images/medium_portrait/479/1198409.jpg",
-        "https://static.tvmaze.com/uploads/images/original_untouched/479/1198409.jpg"
+        "https://static.tvmaze.com/uploads/images/original_untouched/479/1198409.jpg",
+        "https://static.tvmaze.com/uploads/images/medium_portrait/57/144328.jpg",
+        "https://static.tvmaze.com/uploads/images/original_untouched/57/144328.jpg",
+        "https://static.tvmaze.com/uploads/images/medium_portrait/64/161569.jpg",
+        "https://static.tvmaze.com/uploads/images/original_untouched/64/161569.jpg",
+        "https://static.tvmaze.com/uploads/images/medium_portrait/48/121825.jpg",
+        "https://static.tvmaze.com/uploads/images/original_untouched/48/121825.jpg"
       ]
     },
     "expiresAt": null,

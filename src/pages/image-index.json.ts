@@ -21,6 +21,7 @@ export const GET: APIRoute = () =>
           a.shikimoriId,
           {
             poster: imageUrl(a.poster, import.meta.env.BASE_URL),
+            posterRecoveryUrl: a.posterRecoveryUrl || null,
             posterUrl: a.posterUrl ? imageUrl(a.posterUrl, import.meta.env.BASE_URL) : null,
             posterDetailUrl: a.posterDetailUrl
               ? imageUrl(a.posterDetailUrl, import.meta.env.BASE_URL)

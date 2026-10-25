@@ -119,7 +119,7 @@ test('постеры: неизвестные origins, HTTP и credentials не �
 
 test('TVmaze: только проверенные пары URL; отзыв разрешения возвращает нейтральную заглушку', () => {
   const entries = Object.entries(rights).filter(([, item]) => 'remotePoster' in item);
-  expect(entries).toHaveLength(20);
+  expect(entries).toHaveLength(23);
   for (const [id, item] of entries) {
     const record = item as import('../src/lib/images').ImagePermission;
     const remote = record.remotePoster!;

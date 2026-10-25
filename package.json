@@ -1,6 +1,6 @@
 {
   "name": "anirezik",
-  "version": "0.4.4",
+  "version": "0.4.6",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,7 +17,8 @@
     "dev:posters": "node scripts/dev-posters.mjs",
     "test:posters:live": "node scripts/verify-remote-posters.mjs",
     "test:posters:surfaces": "node scripts/verify-poster-surfaces.mjs",
-    "sync:descriptions": "node scripts/sync-descriptions.ts"
+    "sync:descriptions": "node scripts/sync-descriptions.ts",
+    "sync:aniliberty": "node scripts/sync-aniliberty-index.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

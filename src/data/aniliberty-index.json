@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-25T21:04:23.584Z",
+  "mappings": {
+    "21": {
+      "releaseId": 10290,
+      "basis": "shikimori.id",
+      "checkedAt": "2026-10-26",
+      "title": "Ван-Пис",
+      "year": 1999,
+      "format": "TV"
+    },
+    "269": {
+      "releaseId": 8452,
+      "basis": "shikimori.id",
+      "checkedAt": "2026-10-26",
+      "title": "Блич",
+      "year": 2004,
+      "format": "TV"
+    },
+    "5060": {
+      "releaseId": 8986,
+      "basis": "shikimori.id",
+      "checkedAt": "2026-10-26",
+      "title": "Хеталия и страны Оси",
+      "year": 2009,
+      "format": "ONA"
+    },
+    "56733": {
+      "releaseId": 10306,
+      "basis": "shikimori.id",
+      "checkedAt": "2026-10-25T21:04:25.122Z",
+      "title": "Магический исследователь",
+      "year": 2026,
+      "format": "TV"
+    }
+  }
+}

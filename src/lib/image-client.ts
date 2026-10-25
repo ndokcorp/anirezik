@@ -9,6 +9,7 @@ async function revealImage(img: HTMLImageElement) {
     const art = images[id];
     if (art) {
       img.dataset.imageSrc = art.poster;
+      if (art.posterRecoveryUrl) img.dataset.imageRecovery = art.posterRecoveryUrl;
       if (art.posterDetailUrl && art.posterDetailUrl !== art.poster)
         img.dataset.imageAlternative = art.posterDetailUrl;
       img.alt = `${art.imageLicenseStatus === 'original-ai' ? 'AI-иллюстрация, не официальный постер' : 'Постер'}: ${img.dataset.imageTitle || ''}`;
@@ -47,6 +48,7 @@ async function revealImage(img: HTMLImageElement) {
   if (img.isConnected && img.dataset.imageSrc) {
     delete img.dataset.failed;
     delete img.dataset.alternativeTried;
+    delete img.dataset.recoveryTried;
     img.hidden = false;
     img.classList.remove('image-failed');
     img.src = img.dataset.imageSrc;
@@ -81,6 +83,15 @@ export function initImages(root: ParentNode = document) {
           img.dataset.alternativeTried = 'true';
           if ('bannerImage' in img.dataset) img.classList.add('poster-backdrop');
           img.src = img.dataset.imageAlternative;
+          return;
+        }
+        if (
+          img.dataset.imageRecovery &&
+          !img.dataset.recoveryTried &&
+          img.dataset.imageRecovery !== img.src
+        ) {
+          img.dataset.recoveryTried = 'true';
+          img.src = img.dataset.imageRecovery;
           return;
         }
         if (img.dataset.failed) {

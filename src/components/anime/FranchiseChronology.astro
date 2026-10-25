@@ -29,6 +29,7 @@ const { items } = Astro.props as { items: ReturnType<typeof chronology> };
               <span class="chronology-art">
                 <Poster
                   src={a.poster}
+                  recovery={a.posterRecoveryUrl || undefined}
                   alternative={a.posterDetailUrl || undefined}
                   defer
                   alt={`Постер: ${item.title}`}

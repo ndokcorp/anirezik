@@ -30,6 +30,7 @@ export interface Anime {
   poster: string;
   posterUrl?: string | null;
   posterDetailUrl?: string | null;
+  posterRecoveryUrl?: string | null;
   bannerUrl?: string | null;
   backdropUrl?: string | null;
   imageSource?: string | null;

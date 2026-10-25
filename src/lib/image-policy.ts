@@ -111,6 +111,7 @@ export function resolveCatalogImages(
     poster: main || detail!,
     posterUrl: main || detail!,
     posterDetailUrl: detail || main!,
+    posterRecoveryUrl: original.imageSource === 'TVmaze' ? original.posterUrl : null,
     banner: original.bannerUrl || main || detail!,
     imageSource: 'Shikimori',
     imageAttribution: original.bannerUrl

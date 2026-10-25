@@ -7,8 +7,17 @@ interface Props {
   loading?: 'eager' | 'lazy';
   defer?: boolean;
   alternative?: string;
+  recovery?: string;
 }
-const { src, alt, class: className, loading = 'lazy', defer = false, alternative } = Astro.props;
+const {
+  src,
+  alt,
+  class: className,
+  loading = 'lazy',
+  defer = false,
+  alternative,
+  recovery,
+} = Astro.props;
 ---
 
 <RemotePoster
@@ -17,5 +26,6 @@ const { src, alt, class: className, loading = 'lazy', defer = false, alternative
   class={className}
   loading={loading}
   defer={defer}
+  recovery={recovery}
   alternative={alternative}
 />

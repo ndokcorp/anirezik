@@ -3,6 +3,7 @@ export interface ClientImages {
   poster: string;
   posterUrl: string | null;
   posterDetailUrl?: string | null;
+  posterRecoveryUrl?: string | null;
   backdropUrl: string | null;
   imageSource: string | null;
   imageAttribution: string | null;
@@ -50,7 +51,7 @@ function imageRecord(value: unknown): value is ClientImages {
     ['unknown', 'original-ai', 'permission-granted', 'local-experiment'].includes(
       a.imageLicenseStatus,
     ) &&
-    [a.poster, a.posterUrl, a.posterDetailUrl, a.backdropUrl].every(
+    [a.poster, a.posterUrl, a.posterDetailUrl, a.posterRecoveryUrl, a.backdropUrl].every(
       (v) =>
         v == null ||
         (typeof v === 'string' &&

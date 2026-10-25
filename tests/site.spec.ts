@@ -142,7 +142,7 @@ test('production: реестр ограничивает Shikimori независ
   );
   expect(config.experimental).toBe(false);
   const tvmaze = anime.filter((a) => a.imageSource === 'TVmaze');
-  expect(tvmaze).toHaveLength(0);
+  expect(tvmaze.map((a) => a.shikimoriId).sort((a, b) => a - b)).toEqual([98, 143, 149]);
   for (const a of tvmaze) {
     expect(config.images[a.shikimoriId].poster).toBe(a.posterUrl);
     expect(config.images[a.shikimoriId].posterDetailUrl).toBe(a.posterDetailUrl);
@@ -168,7 +168,7 @@ test('production: реестр ограничивает Shikimori независ
   await page.goto('anime/?id=3929');
   await expect(page.locator('.detail-poster')).toBeVisible();
   const a = anime.find((a) => a.shikimoriId === 3929)!;
-  const expected = a.posterDetailUrl || a.poster;
+  const expected = a.poster;
   await expect(page.locator('.detail-poster')).toHaveAttribute(
     'src',
     /^https:/.test(expected)
@@ -212,11 +212,11 @@ test('пакеты постеров: оригинал деталей, отказ
   );
   await page.goto('anime/?id=3929');
   const poster = page.locator('.detail-poster');
-  await expect(poster).toHaveAttribute('src', images['3929'].posterDetailUrl);
+  await expect(poster).toHaveAttribute('src', images['3929'].poster);
   await expect
     .poll(() => poster.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
     .toBe(true);
-  await expect(poster).toHaveAttribute('src', images['3929'].posterDetailUrl);
+  await expect(poster).toHaveAttribute('src', images['3929'].poster);
   expect(
     await poster.evaluate(async (img: HTMLImageElement) => {
       await img.decode();
@@ -276,7 +276,7 @@ test('поиск: русский, английский, оригинальный
   await input.fill('Соло левелинг');
   await input.press('ArrowDown');
   await input.press('Enter');
-  await expect(page).toHaveURL(/anime\/solo-leveling\//);
+  await expect(page).toHaveURL(/anime\/52299\//);
   await expect(page.locator('.detail-copy h1')).toHaveText(solo.title);
   await input.fill('Наруто');
   await expect(page.getByRole('option').first()).toBeVisible();
@@ -373,7 +373,7 @@ test('карточка, достоверная информация и связ�
   const relatedTitle = anime.find((item) => item.shikimoriId === localRelation.shikimoriId)!;
   await expect(
     page.locator('.franchise-track').getByRole('link').filter({ hasText: localRelation.title }),
-  ).toHaveAttribute('href', new RegExp(`/anime/${relatedTitle.slug}/$`));
+  ).toHaveAttribute('href', new RegExp(`/anime/${relatedTitle.shikimoriId}/$`));
   await expect(
     page.locator('#anime-player').getByRole('heading', { name: solo.title, exact: true }),
   ).toBeVisible();
@@ -381,7 +381,7 @@ test('карточка, достоверная информация и связ�
   await expect(page.getByRole('button', { name: /смотреть|воспроизвести/i })).toHaveCount(0);
   await expect(page.locator('.detail-poster')).toHaveAttribute(
     'src',
-    imageUrl(solo.posterDetailUrl || solo.poster, process.env.BASE_PATH || '/'),
+    imageUrl(solo.poster, process.env.BASE_PATH || '/'),
   );
 });
 test('избранное мигрирует со старых ID и сохраняет неизвестные записи', async ({ page }) => {
@@ -551,7 +551,7 @@ test('поиск за пределами первоначальной тысяч
     const title = anime.find((a) => a.shikimoriId === id)!;
     await page.goto('./');
     await page.getByRole('combobox').fill(title.originalTitle);
-    await page.locator(`#search-results a[href$="/anime/${title.slug}/"]`).click();
+    await page.locator(`#search-results a[href$="/anime/${title.shikimoriId}/"]`).click();
     await expect(page.locator('.detail-copy h1')).toHaveText(title.title);
     await expect(page.locator('.detail-copy .description')).not.toBeEmpty();
     await expect(page.getByRole('link', { name: 'Открыть на Shikimori ↗' })).toHaveAttribute(
@@ -582,6 +582,7 @@ test('поиск за пределами первоначальной тысяч
 test('реальное декодирование изображения и fallback при сетевом сбое', async ({ page }) => {
   // Both approved sizes must fail before the neutral fallback is expected.
   await page.route('https://shikimori.io/uploads/poster/**', (route) => route.abort('failed'));
+  await page.route('https://static.tvmaze.com/uploads/images/**', (route) => route.abort('failed'));
   await page.goto('anime/solo-leveling/');
   const image = page.locator('.detail-poster');
   await expect(image).toHaveAttribute('src', /poster-placeholder.svg$/);
@@ -680,7 +681,7 @@ test('редкий старый тайтл: универсальный марш�
   if (!staticPageIds.has(rare.shikimoriId))
     await expect(
       page.getByRole('option').filter({ has: page.getByText(rare.title, { exact: true }) }),
-    ).toHaveAttribute('href', new RegExp(`/anime/\\?id=${rare.shikimoriId}$`));
+    ).toHaveAttribute('href', new RegExp(`/anime/${rare.shikimoriId}/$`));
 });
 
 test('универсальная страница честно обрабатывает неправильный ID, 404 и отказ JSON', async ({
@@ -929,7 +930,7 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
   for (const id of ids) {
     await page.goto(`anime/?id=${id}`);
     const img = page.locator('.detail-poster');
-    await expect(img).toHaveAttribute('src', all[id].posterDetailUrl);
+    await expect(img).toHaveAttribute('src', all[id].poster);
     await expect
       .poll(() =>
         img.evaluate(
@@ -961,8 +962,8 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('anime/?id=1');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.reload();
-  await expect(page.locator('.detail-poster')).toHaveAttribute('src', all[1].posterDetailUrl);
+  await page.goto('anime/?id=1');
+  await expect(page.locator('.detail-poster')).toHaveAttribute('src', all[1].poster);
   await context.unroute('https://permission-fixtures.invalid/**');
   let errors = 0;
   all[1].posterDetailUrl = 'https://permission-fixtures.invalid/new-missing.svg';
@@ -970,7 +971,7 @@ test('постеры ID 1, 5, 59193 и связанные сезоны: compact/
     errors++;
     return r.abort('failed');
   });
-  await page.reload();
+  await page.goto('anime/?id=1');
   await expect(page.locator('.detail-poster')).toHaveAttribute('src', /poster-placeholder.svg$/);
   expect(errors).toBeLessThan(5);
   expect(calls.some((u) => /shikimori.*\/api\//.test(u))).toBe(false);
@@ -1398,7 +1399,7 @@ test('AniVibe test page loads the exact official iframe only on explicit start',
   expect(requests).toEqual([]);
   await expect(
     page.getByRole('link', { name: 'Открыть основную страницу Solo Leveling' }),
-  ).toHaveAttribute('href', new URL('../anime/solo-leveling/', page.url()).pathname);
+  ).toHaveAttribute('href', new URL('../anime/52299/', page.url()).pathname);
   await page.getByRole('button', { name: 'Запустить тест', exact: true }).click();
   const frame = page.locator('[data-anivibe-test-host] iframe');
   await expect(frame).toHaveCount(1);
@@ -1420,7 +1421,7 @@ test('AniVibe test page loads the exact official iframe only on explicit start',
 test('Kodik: основной только для 39535, красные серии управляют iframe, AniLiberty остаётся резервом', async ({
   page,
 }) => {
-  const fixture = { ...libertyFixture[2], id: 239535, shikimori: { id: 39535 } }; // Test double, never catalog data.
+  const fixture = { ...libertyFixture[2], id: 239535, year: 2021, shikimori: { id: 39535 } }; // Test double, never catalog data.
   await page.addInitScript(() => {
     if (!localStorage.getItem('anirezik:playback:v1'))
       localStorage.setItem(
@@ -1608,7 +1609,7 @@ test('0.4.4: компактная шапка, центральный поиск 
 test('0.4.4: ленивый iframe, подтверждения 1/2/5, кастомный источник и геометрия 16:9', async ({
   page,
 }) => {
-  const fixture = { ...libertyFixture[2], id: 239535, shikimori: { id: 39535 } };
+  const fixture = { ...libertyFixture[2], id: 239535, year: 2021, shikimori: { id: 39535 } };
   await page.route('https://anilibria.top/api/v1/**', (route) =>
     route.fulfill({
       json: route.request().url().includes('/search/') ? [fixture] : fixture,
@@ -2104,4 +2105,120 @@ test('AniRezik controls: exact episode bounds, provider label, voice and quality
   await page.goto('anime/your-name/');
   await expect(page.locator('.anirize-screen')).toBeVisible();
   await expect(page.locator('.player-invideo-nav button')).toHaveCount(0);
+});
+
+test('0.4.6: numeric URLs preserve identity, canonical and legacy links', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('anirezik:auto-next:v1', 'true');
+    localStorage.setItem(
+      'anirezik:player-provider:v1',
+      JSON.stringify({ 'shikimori:39535': 'kodik' }),
+    );
+  });
+  for (const id of [54744, 39535, 52299, 3929]) {
+    const response = await page.goto(`anime/${id}/`);
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page).toHaveURL(new RegExp(`/anime/${id}/$`));
+    await expect(page.locator('link[rel=canonical]')).toHaveAttribute(
+      'href',
+      new RegExp(`/anime/${id}/$`),
+    );
+    await page.reload();
+    await expect(page.locator('h1')).toBeVisible();
+  }
+  await page.goto('anime/shikimori-54744/');
+  await expect(page).toHaveURL(/\/anime\/54744\/$/);
+  expect(await page.evaluate(() => localStorage.getItem('anirezik:auto-next:v1'))).toBe('true');
+  expect(
+    JSON.parse((await page.evaluate(() => localStorage.getItem('anirezik:player-provider:v1')))!)[
+      'shikimori:39535'
+    ],
+  ).toBe('kodik');
+  await page.goto('catalog/?q=Solo%20Leveling');
+  await expect(page.locator('#catalog-grid .card-link').first()).toHaveAttribute(
+    'href',
+    /\/anime\/\d+\/$/,
+  );
+});
+
+test('0.4.6: exact pointer seek and fullscreen inactivity hides only playing chrome', async ({
+  page,
+}) => {
+  await mockAniRizeMedia(page);
+  await page.goto('player-test/');
+  const screen = page.locator('.anirize-screen');
+  await screen.locator('.player-big-play').click();
+  const timeline = screen.getByRole('slider', { name: 'Позиция видео' });
+  await timeline.scrollIntoViewIfNeeded();
+  const box = (await timeline.boundingBox())!;
+  await timeline.evaluate((el) =>
+    el.addEventListener(
+      'pointermove',
+      (e) => (el.dataset.testPointerX = String((e as PointerEvent).clientX)),
+    ),
+  );
+  await page.mouse.move(box.x + box.width * 0.95, box.y + box.height / 2);
+  const pointerX = Number(await timeline.getAttribute('data-test-pointer-x'));
+  const expectedPosition = (6395 * (pointerX - box.x)) / box.width;
+  const preview = await screen.locator('.player-timeline-preview').textContent();
+  await page.mouse.down();
+  await page.mouse.up();
+  const position = await screen.locator('video').evaluate((v: HTMLVideoElement) => v.currentTime);
+  expect(Math.abs(position - expectedPosition)).toBeLessThan(0.11);
+  expect(preview).toBe(
+    await screen.locator('video').evaluate((v: HTMLVideoElement) => {
+      const n = Math.floor(v.currentTime);
+      return `${Math.floor(n / 3600)}:${String(Math.floor((n % 3600) / 60)).padStart(2, '0')}:${String(n % 60).padStart(2, '0')}`;
+    }),
+  );
+  await page.evaluate(() => {
+    const surface = document.querySelector<HTMLElement>('[data-video-surface]')!;
+    Object.defineProperty(document, 'fullscreenElement', {
+      configurable: true,
+      get: () => surface,
+    });
+    document.dispatchEvent(new Event('fullscreenchange'));
+  });
+  await expect(screen).toHaveClass(/is-ui-idle/, { timeout: 4500 });
+  const bounds = (await screen.boundingBox())!;
+  await page.mouse.move(bounds.x + 40, bounds.y + 40);
+  await expect(screen).not.toHaveClass(/is-ui-idle/);
+  await screen.getByRole('button', { name: 'Пауза', exact: true }).click();
+  await expect(screen.locator('.player-intro-title')).toBeHidden();
+  await expect(screen.locator('.player-intro-meta')).toBeHidden();
+  await expect(screen.locator('.player-big-play')).toBeVisible();
+});
+
+test('0.4.6: quieter mobile startup and favourite star inside the voice card', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await mockAniRizeMedia(page);
+  await page.goto('player-test/');
+  const screen = page.locator('.anirize-screen');
+  await expect(screen.locator('.player-controls')).toHaveCSS('opacity', '0');
+  const choice = page.locator('.voice-choice').first(),
+    star = page.locator('.voice-favourite').first();
+  const a = (await choice.boundingBox())!,
+    b = (await star.boundingBox())!;
+  expect(b.x).toBeGreaterThanOrEqual(a.x);
+  expect(b.x + b.width).toBeLessThan(a.x + a.width);
+  await expect(choice.locator('em')).toHaveText('ОЗВУЧКА');
+  await screen.locator('.player-big-play').click();
+  await expect(screen.locator('.player-controls')).toHaveCSS('opacity', '1');
+  await screen.getByRole('button', { name: 'Пауза', exact: true }).click();
+  await expect(screen.locator('.player-intro-meta')).toBeHidden();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('0.4.6: Shikimori main and original fall back to the approved same-title TVmaze poster', async ({
+  page,
+  context,
+}) => {
+  await context.route('https://shikimori.io/uploads/poster/**', (r) => r.abort());
+  await page.goto('anime/52299/');
+  const poster = page.locator('.detail-poster');
+  await expect(poster).toHaveAttribute('src', /^https:\/\/static\.tvmaze\.com\//);
+  await expect
+    .poll(() => poster.evaluate((i: HTMLImageElement) => i.naturalWidth))
+    .toBeGreaterThan(0);
 });

@@ -10,7 +10,7 @@ import { element as el, favoriteButton, posterImage } from './card-renderer';
 import { loadImages, fallbackImages } from './image-service';
 import { initImages } from './image-client';
 import { displayDate } from './dates';
-import { url } from './paths';
+import { url, animeRoute } from './paths';
 import { ratingBadge } from './rating';
 import { initDescriptions } from './description-client';
 type Detail = Anime & {
@@ -45,7 +45,9 @@ export async function initAnimeDetail() {
   const container = document.querySelector<HTMLElement>('#anime-detail'),
     status = document.querySelector<HTMLElement>('#anime-status');
   if (!container || !status) return;
-  const id = new URLSearchParams(location.search).get('id');
+  const id =
+    new URLSearchParams(location.search).get('id') ||
+    /\/anime\/(\d+)\/?$/.exec(location.pathname)?.[1];
   if (!id || !/^\d{1,9}$/.test(id) || Number(id) < 1) {
     status.textContent = 'Укажите корректный Shikimori ID. Аниме не загружено.';
     return;
@@ -67,6 +69,12 @@ export async function initAnimeDetail() {
       !Array.isArray(a.related)
     )
       throw new Error('schema');
+    const canonical = new URL(url(animeRoute(a.shikimoriId)), location.origin);
+    history.replaceState(history.state, '', canonical.pathname + location.hash);
+    document
+      .querySelector<HTMLLinkElement>('link[rel=canonical]')
+      ?.setAttribute('href', canonical.href);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
     const images = (await loadImages([a.shikimoriId]))[a.shikimoriId] || fallbackImages();
     const fragment = document.createDocumentFragment();
     const banner = el('div', 'detail-banner neutral-banner');
@@ -118,13 +126,7 @@ export async function initAnimeDetail() {
     share.dataset.shareAnime = '';
     actions.append(favoriteButton(a.id, true), share);
     const posterWrap = el('div', 'detail-poster-wrap');
-    posterWrap.append(
-      posterImage(
-        { ...images, poster: images.posterDetailUrl || images.poster },
-        a.title,
-        'detail-poster',
-      ),
-    );
+    posterWrap.append(posterImage(images, a.title, 'detail-poster'));
     const score = ratingBadge(a.score);
     if (score) {
       const badge = el('div', 'poster-rating');
@@ -260,6 +262,17 @@ export async function initAnimeDetail() {
     container.hidden = false;
     status.hidden = true;
     document.title = `${a.title} — AniRezik`;
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+    const schema = document.createElement('script');
+    schema.type = 'application/ld+json';
+    schema.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: a.title,
+      url: canonical.href,
+      identifier: { '@type': 'PropertyValue', propertyID: 'Shikimori', value: a.shikimoriId },
+    });
+    document.head.append(schema);
     initImages(container);
     initDescriptions(container);
     initSurfaceControls(container);

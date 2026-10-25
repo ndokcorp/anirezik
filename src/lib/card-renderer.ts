@@ -59,6 +59,7 @@ export function posterImage(images: ClientImages, title: string, className = '',
   const alternative =
     images.poster === images.posterDetailUrl ? images.posterUrl : images.posterDetailUrl;
   if (alternative && alternative !== images.poster) img.dataset.imageAlternative = alternative;
+  if (images.posterRecoveryUrl) img.dataset.imageRecovery = images.posterRecoveryUrl;
   if (defer) {
     img.dataset.imageSrc = images.poster;
     img.src = img.dataset.imageFallback;

@@ -13,6 +13,7 @@ export const GET: APIRoute = ({ props }) => {
     banner,
     posterUrl,
     posterDetailUrl,
+    posterRecoveryUrl,
     bannerUrl,
     backdropUrl,
     imageSource,

@@ -1,3 +1,4 @@
+import { animeRoute } from './paths';
 import type { Anime } from '../types/anime';
 export type IndexRow = [
   number,
@@ -94,7 +95,7 @@ export function unpackIndex(data: PackedIndex, base: string): CatalogEntry[] {
     id: `shikimori:${r[0]}`,
     shikimoriId: r[0],
     slug: r[13] || `shikimori-${r[0]}`,
-    href: `${base.replace(/\/$/, '')}/${r[13] ? `anime/${r[13]}/` : `anime/?id=${r[0]}`}`,
+    href: `${base.replace(/\/$/, '')}/${animeRoute(r[0])}`,
     title: r[1],
     originalTitle: r[2] || r[1],
     englishTitle: r[3],

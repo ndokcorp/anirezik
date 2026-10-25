@@ -11,6 +11,7 @@ import {
   playerIcon,
   bindPlayerGestures,
   createTimelinePreview,
+  bindFullscreenIdle,
 } from './player-controls';
 import {
   readAutoNext,
@@ -604,6 +605,7 @@ export function initPlayers() {
       introMeta.className = 'player-intro-meta';
       intro.append(introTitle, introMeta, continueButton);
       screen.append(media, intro, episodeNav, notice, controls, settings);
+      bindFullscreenIdle(surface, screen, media, settings, ui.signal);
       surface.append(screen, retry);
       const qualityBadge = make('span');
       qualityBadge.className = 'player-quality-badge';
@@ -734,6 +736,9 @@ export function initPlayers() {
       };
       bindPlayerGestures(screen, media, { toggle, mute: () => mute.click(), signal: ui.signal });
       media.addEventListener('play', () => {
+        screen.classList.add('has-started');
+        introTitle.hidden = true;
+        introMeta.hidden = true;
         intro.hidden = true;
         overlay.hidden = true;
         play.replaceChildren(playerIcon('pause'));
@@ -934,7 +939,7 @@ export function initPlayers() {
           );
           const details = make('span');
           details.className = 'voice-name';
-          details.append(text, make('em', group.entry.subtitles.length ? 'Субтитры' : 'Озвучка'));
+          details.append(text, make('em', group.entry.subtitles.length ? 'СУБТИТРЫ' : 'ОЗВУЧКА'));
           choice.append(details, badge);
           choice.onclick = () => {
             if (source && voiceKey(source) === key) return;

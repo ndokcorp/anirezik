@@ -1,3 +1,4 @@
+import { animeRoute } from '../lib/paths';
 import { resolveCatalogImages } from '../lib/image-policy';
 import { experimentalPosters } from '../lib/image-mode';
 import { readFileSync } from 'node:fs';
@@ -39,8 +40,7 @@ export const posterAvailability = {
       a.imageSource === 'Shikimori' && a.imageLicenseStatus === 'local-experiment' && a.posterUrl,
   ).length,
 };
-export const animePath = (a: Pick<Anime, 'shikimoriId' | 'slug'>) =>
-  staticPageIds.has(a.shikimoriId) ? `anime/${a.slug}/` : `anime/?id=${a.shikimoriId}`;
+export const animePath = (a: Pick<Anime, 'shikimoriId' | 'slug'>) => animeRoute(a.shikimoriId);
 const preferredGenres = ['Экшен', 'Фэнтези', 'Романтика', 'Комедия', 'Драма', 'Приключения'];
 export const genres = [...new Set(anime.flatMap((a) => a.genres))].sort((a, b) => {
   const rank = (g: string) =>

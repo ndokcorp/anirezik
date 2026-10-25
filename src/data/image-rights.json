@@ -334,5 +334,53 @@
       "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
       "evidence": "https://api.tvmaze.com/shows/69956 · https://www.tvmaze.com/api#images · https://www.tvmaze.com/threads/56/image-copyright-attribution · reviewed 2026-10-24"
     }
+  },
+  "98": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 17155,
+      "title": "My-HiME",
+      "premiered": "2004-09-30",
+      "sourceUrl": "https://www.tvmaze.com/shows/17155/my-hime",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/57/144328.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/57/144328.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/17155 · same title/alias, premiere year, Japanese Animation TV · Shikimori 98 · reviewed 2026-10-26; docs/research/RELEASE_0.4.6.md"
+    }
+  },
+  "143": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 18751,
+      "title": "Kannazuki no Miko",
+      "premiered": "2004-10-02",
+      "sourceUrl": "https://www.tvmaze.com/shows/18751/kannazuki-no-miko",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/64/161569.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/64/161569.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/18751 · same title/alias, premiere year, Japanese Animation TV · Shikimori 143 · reviewed 2026-10-26; docs/research/RELEASE_0.4.6.md"
+    }
+  },
+  "149": {
+    "imageAttribution": "",
+    "imageLicenseStatus": "unknown",
+    "evidence": "",
+    "remotePoster": {
+      "source": "tvmaze",
+      "showId": 14335,
+      "title": "Loveless",
+      "premiered": "2005-04-06",
+      "sourceUrl": "https://www.tvmaze.com/shows/14335/loveless",
+      "posterUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/48/121825.jpg",
+      "posterDetailUrl": "https://static.tvmaze.com/uploads/images/original_untouched/48/121825.jpg",
+      "imageAttribution": "TVmaze · постер сериала · CC BY-SA 4.0",
+      "evidence": "https://api.tvmaze.com/shows/14335 · same title/alias, premiere year, Japanese Animation TV · Shikimori 149 · reviewed 2026-10-26; docs/research/RELEASE_0.4.6.md"
+    }
   }
 }

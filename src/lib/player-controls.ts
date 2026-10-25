@@ -165,12 +165,41 @@ export function createTimelinePreview(
     preview.style.left = `${Math.max(32, Math.min(wrapper.clientWidth - 32, fraction * wrapper.clientWidth))}px`;
     preview.hidden = false;
   };
+  const ratioAt = (event: PointerEvent) => {
+    const box = seek.getBoundingClientRect();
+    return Math.max(0, Math.min(1, (event.clientX - box.left) / box.width));
+  };
+  const moveTo = (event: PointerEvent) => {
+    if (seek.disabled || !Number.isFinite(media.duration) || media.duration <= 0) return;
+    seek.value = String(ratioAt(event) * media.duration);
+    seek.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+  seek.addEventListener(
+    'pointerdown',
+    (event) => {
+      if (seek.disabled || event.button !== 0) return;
+      event.preventDefault();
+      seek.focus({ preventScroll: true });
+      seek.setPointerCapture(event.pointerId);
+      moveTo(event);
+    },
+    { signal },
+  );
   seek.addEventListener(
     'pointermove',
     (event) => {
-      if (event.pointerType !== 'mouse') return;
-      const box = seek.getBoundingClientRect();
-      show((event.clientX - box.left) / box.width);
+      if (seek.hasPointerCapture(event.pointerId)) moveTo(event);
+      else if (event.pointerType === 'mouse') show(ratioAt(event));
+    },
+    { signal },
+  );
+  seek.addEventListener(
+    'pointerup',
+    (event) => {
+      if (!seek.hasPointerCapture(event.pointerId)) return;
+      moveTo(event);
+      seek.releasePointerCapture(event.pointerId);
+      if (event.pointerType !== 'mouse') preview.hidden = true;
     },
     { signal },
   );
@@ -190,4 +219,37 @@ export function createTimelinePreview(
     { signal },
   );
   return wrapper;
+}
+
+/** Fullscreen chrome only. Pauses and settings remain accessible, and cleanup is abortable. */
+export function bindFullscreenIdle(
+  surface: HTMLElement,
+  screen: HTMLElement,
+  media: HTMLVideoElement,
+  settings: HTMLElement,
+  signal: AbortSignal,
+) {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const active = () => document.fullscreenElement === surface;
+  const wake = () => {
+    clearTimeout(timer);
+    screen.classList.remove('is-ui-idle');
+    if (!active() || media.paused) return;
+    timer = setTimeout(() => {
+      if (active() && !media.paused && settings.hidden) screen.classList.add('is-ui-idle');
+    }, 3000);
+  };
+  for (const name of ['pointermove', 'pointerdown', 'keydown', 'focusin'])
+    screen.addEventListener(name, wake, { signal });
+  document.addEventListener('fullscreenchange', wake, { signal });
+  media.addEventListener('play', wake, { signal });
+  media.addEventListener('pause', wake, { signal });
+  signal.addEventListener(
+    'abort',
+    () => {
+      clearTimeout(timer);
+      screen.classList.remove('is-ui-idle');
+    },
+    { once: true },
+  );
 }

@@ -7,14 +7,28 @@ interface Props {
   loading?: 'eager' | 'lazy';
   defer?: boolean;
   alternative?: string;
+  recovery?: string;
 }
-const { src, alt, class: className, loading = 'lazy', defer = false, alternative } = Astro.props;
+const {
+  src,
+  alt,
+  class: className,
+  loading = 'lazy',
+  defer = false,
+  alternative,
+  recovery,
+} = Astro.props;
 ---
 
 <img
   class={className}
   src={imageUrl(defer ? imageFallback : src, import.meta.env.BASE_URL)}
   data-image-src={defer ? imageUrl(src, import.meta.env.BASE_URL) : undefined}
+  data-image-recovery={
+    recovery && recovery !== src && recovery !== alternative
+      ? imageUrl(recovery, import.meta.env.BASE_URL)
+      : undefined
+  }
   data-image-fallback={imageUrl(imageFallback, import.meta.env.BASE_URL)}
   data-image-alternative={
     alternative && alternative !== src ? imageUrl(alternative, import.meta.env.BASE_URL) : undefined

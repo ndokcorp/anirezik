@@ -28,6 +28,7 @@ const { anime: a } = Astro.props;
   <a href={url(animePath(a))} class="card-link">
     <Poster
       src={a.poster}
+      recovery={a.posterRecoveryUrl || undefined}
       alternative={a.posterDetailUrl || undefined}
       defer
       alt={
