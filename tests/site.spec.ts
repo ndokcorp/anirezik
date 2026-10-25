@@ -435,6 +435,7 @@ test('мобильные меню, поиск и фильтр студии', asy
   await page.getByRole('button', { name: 'Открыть поиск' }).click();
   await page.getByRole('combobox').fill('Соло левелинг');
   await expect(page.getByRole('option')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Закрыть поиск', exact: true }).click();
   await page.locator('.mobile-nav').getByRole('link', { name: 'Каталог' }).click();
   await page.getByRole('button', { name: 'Фильтры', exact: true }).click();
   if ((await page.locator('.filter-toggle').getAttribute('aria-expanded')) === 'false')

@@ -266,10 +266,13 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  height: auto;
+  min-height: 46px;
 }
 .global-search-dialog .search-box input {
   min-width: 0;
   flex: 1;
+  height: 44px;
 }
 .global-search-dialog .search-box kbd {
   display: none;
@@ -282,6 +285,7 @@
   max-height: 50dvh;
   overflow: auto;
   margin-top: 8px;
+  margin-bottom: 12px;
 }
 @media (max-width: 900px) {
   input:not([type='range']):not([type='checkbox']):not([type='radio']),

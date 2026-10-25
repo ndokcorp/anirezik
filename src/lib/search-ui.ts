@@ -197,8 +197,12 @@ export function initSearch() {
   dialog.append(closeSearch);
   document.body.append(dialog);
   let opener: HTMLElement | null = null;
-  const openSearch = () => {
-    opener = document.activeElement as HTMLElement;
+  const openSearch = (event?: Event) => {
+    // Safari does not focus a button on pointer clicks; remember the actual opener.
+    opener =
+      event?.currentTarget instanceof HTMLElement
+        ? event.currentTarget
+        : (document.activeElement as HTMLElement);
     if (
       matchMedia('(max-width: 900px)').matches ||
       box.classList.contains('catalog-global-search')
