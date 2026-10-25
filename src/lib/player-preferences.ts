@@ -1,5 +1,20 @@
 const providerKey = 'anirezik:player-provider:v1';
 const favouriteKey = 'anirezik:voice-favourites:v1';
+const autoNextKey = 'anirezik:auto-next:v1';
+export function readAutoNext(): boolean {
+  try {
+    return localStorage.getItem(autoNextKey) === 'true';
+  } catch {
+    return false;
+  }
+}
+export function saveAutoNext(value: boolean) {
+  try {
+    localStorage.setItem(autoNextKey, String(value));
+  } catch {
+    /* Optional storage. */
+  }
+}
 export function readPlayerProvider(animeId: string): string | null {
   try {
     const value = JSON.parse(localStorage.getItem(providerKey) || '{}')[animeId];

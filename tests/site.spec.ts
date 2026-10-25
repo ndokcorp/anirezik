@@ -1843,3 +1843,169 @@ test('mobile polish: compact neutral banner, poster rating and simpler mobile he
     }
   }
 });
+
+// Explicit media doubles test controls only, without requesting a provider stream.
+async function mockAniRizeMedia(page: import('@playwright/test').Page) {
+  await page.addInitScript(() => {
+    const state = new WeakMap<HTMLMediaElement, { time: number; paused: boolean }>();
+    const get = (media: HTMLMediaElement) => {
+      let value = state.get(media);
+      if (!value) {
+        value = { time: 0, paused: true };
+        state.set(media, value);
+      }
+      return value;
+    };
+    Object.defineProperties(HTMLMediaElement.prototype, {
+      duration: {
+        configurable: true,
+        get() {
+          return 6395;
+        },
+      },
+      paused: {
+        configurable: true,
+        get() {
+          return get(this).paused;
+        },
+      },
+      currentTime: {
+        configurable: true,
+        get() {
+          return get(this).time;
+        },
+        set(value: number) {
+          get(this).time = value;
+          this.dispatchEvent(new Event('timeupdate'));
+        },
+      },
+      src: {
+        configurable: true,
+        get() {
+          return this.dataset.mockSrc || '';
+        },
+        set(value: string) {
+          this.dataset.mockSrc = value;
+          queueMicrotask(() => this.dispatchEvent(new Event('loadedmetadata')));
+        },
+      },
+    });
+    HTMLMediaElement.prototype.play = async function () {
+      get(this).paused = false;
+      this.dispatchEvent(new Event('play'));
+      this.dispatchEvent(new Event('playing'));
+    };
+    HTMLMediaElement.prototype.pause = function () {
+      if (!get(this).paused) {
+        get(this).paused = true;
+        this.dispatchEvent(new Event('pause'));
+      }
+    };
+    HTMLMediaElement.prototype.load = function () {};
+  });
+}
+
+test('AniRize: video click, hour clock, keyboard, settings and exact auto-next', async ({
+  page,
+}) => {
+  await mockAniRizeMedia(page);
+  await page.goto('player-test/');
+  const screen = page.locator('.anirize-screen');
+  const media = screen.locator('video');
+  await expect(screen).toBeVisible();
+  await media.click({ position: { x: 100, y: 60 } });
+  await expect(screen.getByRole('button', { name: 'Пауза', exact: true })).toBeVisible();
+  await media.evaluate((v: HTMLVideoElement) => (v.currentTime = 4));
+  await expect(screen.locator('.player-clock')).toHaveText('0:04 / 1:46:35');
+  await screen.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBe(14);
+  await page.keyboard.press('ArrowLeft');
+  await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBe(4);
+  await media.click({ position: { x: 100, y: 60 } });
+  await expect(screen.getByRole('button', { name: 'Воспроизвести', exact: true })).toBeVisible();
+  await screen.getByRole('button', { name: 'Выключить звук', exact: true }).click();
+  await expect(
+    screen.getByRole('button', { name: 'Включить звук', exact: true }).locator('svg'),
+  ).toHaveCount(1);
+  await screen.focus();
+  await page.keyboard.press('m');
+  await expect(screen.getByRole('button', { name: 'Выключить звук', exact: true })).toBeVisible();
+  await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
+  const settings = screen.getByRole('group', { name: 'Настройки AniRize' });
+  await expect(settings).toBeVisible();
+  await settings.getByRole('button', { name: 'Скорость', exact: true }).click();
+  await settings.getByRole('option', { name: '1.5×', exact: true }).click();
+  expect(await media.evaluate((v: HTMLVideoElement) => v.playbackRate)).toBe(1.5);
+  await settings.getByRole('checkbox', { name: 'Автопереключение серий' }).check();
+  expect(await page.evaluate(() => localStorage.getItem('anirezik:auto-next:v1'))).toBe('true');
+  await media.evaluate((v) => v.dispatchEvent(new Event('ended')));
+  await expect(page.locator('[data-video-episode]')).toHaveValue('2');
+  await expect(screen.getByRole('button', { name: 'Пауза', exact: true })).toBeVisible();
+  await expect(screen.getByRole('button', { name: 'Следующая серия', exact: true })).toBeDisabled();
+  await screen.locator('video').evaluate((v) => v.dispatchEvent(new Event('ended')));
+  await expect(page.locator('[data-video-episode]')).toHaveValue('2');
+});
+
+test('AniRize: touch double taps seek without pausing and feedback fades', async ({
+  browser,
+  baseURL,
+}) => {
+  const context = await browser.newContext({
+    baseURL,
+    hasTouch: true,
+    viewport: { width: 390, height: 844 },
+  });
+  const page = await context.newPage();
+  await mockAniRizeMedia(page);
+  await page.goto('player-test/');
+  const screen = page.locator('.anirize-screen');
+  await screen.scrollIntoViewIfNeeded();
+  await screen.locator('.player-big-play').click();
+  const media = screen.locator('video');
+  await media.evaluate((v: HTMLVideoElement) => (v.currentTime = 40));
+  const box = (await screen.boundingBox())!;
+  const tap = async (x: number) => {
+    await page.touchscreen.tap(x, box.y + box.height * 0.3);
+    await page.touchscreen.tap(x, box.y + box.height * 0.3);
+  };
+  await tap(box.x + box.width * 0.8);
+  await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBe(50);
+  await expect(screen.locator('.player-seek-feedback')).toHaveClass(/visible/);
+  expect(await media.evaluate((v: HTMLVideoElement) => v.paused)).toBe(false);
+  await expect(screen.locator('.player-seek-feedback')).not.toHaveClass(/visible/, {
+    timeout: 2000,
+  });
+  await tap(box.x + box.width * 0.2);
+  await expect.poll(() => media.evaluate((v: HTMLVideoElement) => v.currentTime)).toBe(40);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await context.close();
+});
+
+test('AniRize search: short loading stays directly below the mobile input, desktop bar is bounded', async ({
+  page,
+}) => {
+  let release!: () => void;
+  const pending = new Promise<void>((resolve) => (release = resolve));
+  await page.route('**/search-index.json', async (route) => {
+    await pending;
+    await route.continue();
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+  await page.locator('.mobile-search-center').click();
+  const dialog = page.getByRole('dialog', { name: 'Поиск по каталогу AniRezik' });
+  const input = dialog.getByRole('combobox');
+  await input.fill('Мо');
+  await expect(dialog.locator('#search-results')).toContainText('Загрузка');
+  const bar = (await input.boundingBox())!,
+    results = (await dialog.locator('#search-results').boundingBox())!;
+  expect(results.y - bar.y - bar.height).toBeGreaterThanOrEqual(0);
+  expect(results.y - bar.y - bar.height).toBeLessThan(20);
+  release();
+  await dialog.getByRole('button', { name: 'Закрыть поиск' }).click();
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  const headerBar = (await page.locator('.header-tools .search-box').boundingBox())!;
+  expect(headerBar.width).toBeLessThanOrEqual(521);
+  expect(headerBar.x).toBeGreaterThan(900);
+});

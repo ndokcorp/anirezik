@@ -6,7 +6,10 @@ import type Hls from 'hls.js';
 import { lazyPlayerFrame } from './lazy-player-frame';
 import { initFilterControls } from './filter-controls';
 import { readProgress, saveProgress } from './player-progress';
+import { formatPlayerTime as timeLabel, playerIcon, bindPlayerGestures } from './player-controls';
 import {
+  readAutoNext,
+  saveAutoNext,
   readPlayerProvider,
   savePlayerProvider,
   readVoiceFavourites,
@@ -17,10 +20,6 @@ const make = <K extends keyof HTMLElementTagNameMap>(tag: K, text = '') => {
   const node = document.createElement(tag);
   node.textContent = text;
   return node;
-};
-const timeLabel = (value: number) => {
-  const seconds = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
-  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 };
 // Shared by pre-rendered and universal detail routes; never invoked by the catalog.
 export async function loadPlayerSources(section: HTMLElement, animeId: string) {
@@ -162,6 +161,10 @@ export function initPlayers() {
     episodes.closest('label')!.hidden = true;
     let numbers: number[] = [];
     let disposeEmbed: () => void = () => {};
+    let disposeNativeUI: () => void = () => {};
+    let autoNext = readAutoNext(),
+      autoStartRequested = false,
+      lastAudibleVolume = 1;
     let saved = readProgress(sources[0].animeId, providers.value);
     let source: VideoSource | undefined;
     let confirmedSource: VideoSource | undefined;
@@ -313,6 +316,8 @@ export function initPlayers() {
       saveCurrent();
       saveCurrent = () => {};
       generation++;
+      disposeNativeUI();
+      disposeNativeUI = () => {};
       disposeEmbed();
       disposeEmbed = () => {};
       frameNotice.hidden = true;
@@ -359,6 +364,7 @@ export function initPlayers() {
       credit.hidden = !currentProvider?.attributionRequired;
       if (!credit.hidden) credit.append(link);
       if (active.embedUrl) {
+        autoStartRequested = false;
         // A loaded document is not a playback or episode confirmation.
         disposeEmbed = lazyPlayerFrame(surface, active, currentProvider?.iframePolicy, {
           loaded: () => {
@@ -396,8 +402,15 @@ export function initPlayers() {
         });
         return;
       }
+      const autoStart = autoStartRequested;
+      autoStartRequested = false;
+      const ui = new AbortController();
+      disposeNativeUI = () => ui.abort();
       const screen = make('div');
-      screen.className = 'player-screen';
+      screen.className = 'player-screen anirize-screen';
+      screen.tabIndex = 0;
+      screen.setAttribute('role', 'group');
+      screen.setAttribute('aria-label', 'Плеер AniRize');
       const media = make('video');
       video = media;
       media.preload = 'none';
@@ -408,32 +421,27 @@ export function initPlayers() {
       media.muted = muted;
       const poster = document.querySelector<HTMLImageElement>('.detail-poster');
       if (poster?.currentSrc) media.poster = poster.currentSrc;
-      const overlay = make('button', '▶');
+      const overlay = make('button');
+      overlay.append(playerIcon('play'));
       overlay.className = 'player-big-play';
       overlay.type = 'button';
       overlay.setAttribute('aria-label', 'Воспроизвести видео');
       const intro = make('div');
       intro.className = 'player-intro';
-      const title = make(
-        'h3',
-        player.dataset.title ||
-          player.closest('section')?.querySelector('h2')?.textContent ||
-          'AniRezik Player',
-      );
-      const summary = make(
-        'p',
-        `${active.animeId === 'demo:player' ? 'Тестовый слот' : 'Эпизод'} ${active.episodeNumber} · ${active.dubbingStudio || active.providerName}`,
-      );
-      intro.append(overlay, title, summary);
+      intro.append(overlay);
+      const brand = make('span', 'AniRize');
+      brand.className = 'player-brand';
       const notice = make('p', 'Нажмите для воспроизведения');
       notice.className = 'player-status';
       notice.setAttribute('role', 'status');
       const controls = make('div');
       controls.className = 'player-controls';
-      const play = make('button', '▶');
+      const play = make('button');
+      play.append(playerIcon('play'));
       play.type = 'button';
       play.setAttribute('aria-label', 'Воспроизвести');
       const seek = make('input');
+      seek.className = 'player-timeline';
       seek.type = 'range';
       seek.min = '0';
       seek.max = '0';
@@ -443,7 +451,8 @@ export function initPlayers() {
       seek.setAttribute('aria-label', 'Позиция видео');
       const clock = make('span', '0:00 / 0:00');
       clock.className = 'player-clock';
-      const mute = make('button', '♫');
+      const mute = make('button');
+      mute.append(playerIcon('volume'));
       mute.type = 'button';
       mute.setAttribute('aria-label', 'Выключить звук');
       const sound = make('input');
@@ -473,7 +482,8 @@ export function initPlayers() {
               ) || choices.at(-1)!
             ).url;
       qualitySelect.disabled = choices.length === 1;
-      const full = make('button', '⛶');
+      const full = make('button');
+      full.append(playerIcon('fullscreen'));
       full.type = 'button';
       full.setAttribute('aria-label', 'Полный экран');
       const continueButton = make('button', `Продолжить с ${timeLabel(restoreTime)}`);
@@ -484,9 +494,95 @@ export function initPlayers() {
       retry.type = 'button';
       retry.className = 'button button-secondary';
       retry.hidden = true;
-      screen.append(media, intro, notice);
-      controls.append(play, seek, clock, mute, sound, speed, qualitySelect, full);
-      surface.append(screen, controls, continueButton, retry);
+      const settingsButton = make('button');
+      settingsButton.type = 'button';
+      settingsButton.append(playerIcon('settings'));
+      settingsButton.setAttribute('aria-label', 'Настройки');
+      settingsButton.setAttribute('aria-expanded', 'false');
+      settingsButton.title = 'Настройки';
+      const settings = make('div');
+      settings.className = 'player-settings';
+      settings.hidden = true;
+      settings.id = `settings-${generation}-${active.animeId.replace(/\W/g, '-')}`;
+      speed.id = `${settings.id}-speed`;
+      qualitySelect.id = `${settings.id}-quality`;
+      settings.setAttribute('role', 'group');
+      settings.setAttribute('aria-label', 'Настройки AniRize');
+      settingsButton.setAttribute('aria-controls', settings.id);
+      for (const [text, select] of [
+        ['Качество', qualitySelect],
+        ['Скорость', speed],
+      ] as const) {
+        const row = make('label');
+        row.append(make('span', text), select);
+        settings.append(row);
+      }
+      const autoRow = make('label');
+      autoRow.className = 'player-auto-next';
+      const auto = make('input');
+      auto.type = 'checkbox';
+      auto.checked = autoNext;
+      auto.setAttribute('aria-label', 'Автопереключение серий');
+      auto.onchange = () => {
+        autoNext = auto.checked;
+        saveAutoNext(autoNext);
+      };
+      autoRow.append(make('span', 'Автопереключение серий'), auto);
+      settings.append(autoRow);
+      const closeSettings = () => {
+        settings.hidden = true;
+        settingsButton.setAttribute('aria-expanded', 'false');
+      };
+      settingsButton.onclick = () => {
+        settings.hidden = !settings.hidden;
+        settingsButton.setAttribute('aria-expanded', String(!settings.hidden));
+        settingsButton.focus({ preventScroll: true });
+      };
+      settings.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          event.stopPropagation();
+          closeSettings();
+          settingsButton.focus();
+        }
+      });
+      document.addEventListener(
+        'click',
+        (event) => {
+          if (
+            !settings.contains(event.target as Node) &&
+            !settingsButton.contains(event.target as Node)
+          )
+            closeSettings();
+        },
+        { signal: ui.signal },
+      );
+      initFilterControls(settings, { signal: ui.signal });
+      const episodeNav = make('div');
+      episodeNav.className = 'player-invideo-nav';
+      for (const [control, icon, label] of [
+        [previous, 'previous', 'Предыдущая серия'],
+        [next, 'next', 'Следующая серия'],
+      ] as const) {
+        const button = make('button');
+        button.type = 'button';
+        button.append(playerIcon(icon));
+        button.disabled = control.disabled;
+        button.setAttribute('aria-label', label);
+        button.title = label;
+        button.onclick = () => {
+          if (control.disabled) return;
+          autoStartRequested = !media.paused;
+          control.click();
+        };
+        episodeNav.append(button);
+      }
+      const bar = make('div');
+      bar.className = 'player-control-bar';
+      bar.append(play, clock, mute, sound, settingsButton, full);
+      controls.append(seek, bar);
+      screen.append(media, intro, brand, episodeNav, notice, controls, settings);
+      surface.append(screen, continueButton, retry);
       function persist() {
         if (!started || !Number.isFinite(media.duration) || media.duration <= 0) return;
         saveProgress({
@@ -568,9 +664,10 @@ export function initPlayers() {
                   );
                   qualitySelect.value = 'auto';
                   qualitySelect.disabled = false;
+                  initFilterControls(settings, { signal: ui.signal });
                 }
                 void media.play().catch(() => {
-                  failed('Нажмите ▶, чтобы начать');
+                  failed('Нажмите «Воспроизвести», чтобы начать');
                 });
               });
               hls.loadSource(stream);
@@ -597,18 +694,20 @@ export function initPlayers() {
         if (!retry.hidden) retry.click();
         else toggle();
       };
-      media.onclick = toggle;
+      bindPlayerGestures(screen, media, { toggle, mute: () => mute.click(), signal: ui.signal });
       media.addEventListener('play', () => {
         intro.hidden = true;
         overlay.hidden = true;
-        play.textContent = 'Ⅱ';
+        play.replaceChildren(playerIcon('pause'));
+        screen.classList.add('is-playing');
         play.setAttribute('aria-label', 'Пауза');
         continueButton.hidden = true;
       });
       media.addEventListener('pause', () => {
         intro.hidden = false;
         persist();
-        play.textContent = '▶';
+        play.replaceChildren(playerIcon('play'));
+        screen.classList.remove('is-playing');
         play.setAttribute('aria-label', 'Воспроизвести');
         overlay.hidden = false;
       });
@@ -634,27 +733,65 @@ export function initPlayers() {
           }
         }
       });
-      media.addEventListener('timeupdate', () => {
+      const updateClock = () => {
         seek.value = String(media.currentTime);
         clock.textContent = `${timeLabel(media.currentTime)} / ${timeLabel(media.duration)}`;
+        seek.style.setProperty(
+          '--progress',
+          `${Number.isFinite(media.duration) && media.duration > 0 ? Math.max(0, Math.min(100, (media.currentTime / media.duration) * 100)) : 0}%`,
+        );
+      };
+      media.addEventListener('durationchange', updateClock);
+      media.addEventListener('loadedmetadata', updateClock);
+      media.addEventListener('timeupdate', () => {
+        updateClock();
         if (Date.now() - lastSave > 5000) persist();
       });
       media.addEventListener('ended', () => {
+        if (generation !== currentGeneration) return;
         persist();
         notice.textContent = 'Видео завершено';
+        if (
+          autoNext &&
+          sources.some(
+            (entry) =>
+              entry.providerId === active.providerId &&
+              entry.episodeNumber === active.episodeNumber + 1 &&
+              voiceKey(entry) === voiceKey(active),
+          )
+        ) {
+          autoStartRequested = true;
+          episodes.value = String(active.episodeNumber + 1);
+          episodes.dispatchEvent(new Event('change'));
+        }
       });
       seek.oninput = () => {
         if (Number.isFinite(media.duration)) media.currentTime = Number(seek.value);
       };
-      mute.onclick = () => {
-        media.muted = !media.muted;
+      const syncVolume = () => {
+        volume = media.volume;
         muted = media.muted;
-        mute.textContent = muted ? '×' : '♫';
-        mute.setAttribute('aria-label', muted ? 'Включить звук' : 'Выключить звук');
+        if (volume > 0) lastAudibleVolume = volume;
+        const silent = muted || volume === 0;
+        mute.replaceChildren(playerIcon(silent ? 'muted' : 'volume'));
+        mute.setAttribute('aria-label', silent ? 'Включить звук' : 'Выключить звук');
+        mute.title = `${silent ? 'Включить звук' : 'Выключить звук'} (m)`;
+        sound.value = String(silent ? 0 : volume);
+      };
+      media.addEventListener('volumechange', syncVolume);
+      mute.onclick = () => {
+        if (media.muted || media.volume === 0) {
+          media.muted = false;
+          if (media.volume === 0) media.volume = lastAudibleVolume;
+        } else media.muted = true;
+        syncVolume();
       };
       sound.oninput = () => {
-        media.volume = volume = Number(sound.value);
+        media.muted = false;
+        media.volume = Number(sound.value);
+        syncVolume();
       };
+      syncVolume();
       speed.onchange = () => {
         media.playbackRate = rate = Number(speed.value);
       };
@@ -694,6 +831,10 @@ export function initPlayers() {
         started = false;
         void start();
       };
+      if (autoStart)
+        queueMicrotask(() => {
+          if (generation === currentGeneration) void start();
+        });
     }
     function voiceKey(entry: VideoSource) {
       return `${entry.providerId}:${entry.translationId || `${entry.dubbingStudio || entry.providerName}|${entry.audioLanguage}|${entry.subtitles.join(',')}`}`;

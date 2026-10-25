@@ -13,9 +13,9 @@ export function closeFilters(dialog: HTMLDialogElement) {
     delete dialog.dataset.closing;
   });
 }
-export function initFilterControls(dialog: HTMLElement) {
+export function initFilterControls(dialog: HTMLElement, options: { signal?: AbortSignal } = {}) {
   dialog
-    .querySelectorAll<HTMLSelectElement>('select:not([hidden]):not(:disabled)')
+    .querySelectorAll<HTMLSelectElement>('select:not([hidden]):not(:disabled):not(.select-native)')
     .forEach((select) => {
       const wrapper = document.createElement('div');
       wrapper.className = 'custom-select';
@@ -94,9 +94,13 @@ export function initFilterControls(dialog: HTMLElement) {
           ]?.focus();
         }
       });
-      document.addEventListener('click', (event) => {
-        if (!wrapper.contains(event.target as Node)) close();
-      });
+      document.addEventListener(
+        'click',
+        (event) => {
+          if (!wrapper.contains(event.target as Node)) close();
+        },
+        { signal: options.signal },
+      );
       select.classList.add('select-native');
       select.tabIndex = -1;
       select.setAttribute('aria-hidden', 'true');
