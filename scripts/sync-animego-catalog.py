@@ -152,8 +152,11 @@ class Sync:
   for i in duplicates:self.db.execute('UPDATE pages SET status="review",reason="multiple-pages-for-shikimori-id" WHERE shiki=?',(i,))
   self.db.commit(); baseline=set(self.config('baseline'))
   queue=self.db.execute('SELECT * FROM pages WHERE status="matched"').fetchall()
+  priorities=json.loads((ROOT/'src/data/animego-sync-priorities.json').read_text(encoding='utf-8'))
+  if any(type(i) is not int or i not in self.byid for i in priorities):raise ValueError('Invalid AnimeGO sync priority')
+  priority=set(priorities)
   episode_errors=0
-  for row in sorted(queue,key=lambda r:(r['shiki'] in baseline,r['shiki'])):
+  for row in sorted(queue,key=lambda r:(r['shiki'] not in priority,r['shiki'] in baseline,r['shiki'])):
    try:self.collect(row);episode_errors=0
    except urllib.error.HTTPError as error:
     if error.code not in [500,502,503,504]:raise
