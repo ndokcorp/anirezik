@@ -180,7 +180,7 @@
     },
     "chromiumDecoded": true,
     "webkitDecoded": false,
-    "note": "Chromium decoded real frames. WebKit stopped on another previously unknown official CDN redirect; cache-cloud19.libria.fun was subsequently registered from observed HTTP 200 responses. No WebKit success claimed before a decoded proof.",
+    "note": "Chromium decoded real frames in GitHub macOS. WebKit received HTTP 200 from all observed approved CDN origins, but currentTime stopped at 0.1834222 seconds; video playback is not counted as successful. The complete Chromium/Firefox/WebKit interface regression suites passed before production deploy.",
     "chromiumProof": {
       "shikimoriId": 1,
       "releaseId": 8443,
@@ -190,19 +190,91 @@
         "width": 390,
         "height": 844
       },
-      "time": 1.651898,
+      "time": 1.486357,
       "width": 640,
       "height": 360,
       "paused": false,
-      "decodedFrames": 42,
+      "decodedFrames": 38,
       "selected": [
         "1",
         "AniLibriaРћР—Р’РЈР§РљРђ26 СЌРї."
       ],
       "geoBlocked": false,
       "copyrightBlocked": false
+    },
+    "webkitTransport": {
+      "shikimoriId": 1,
+      "browser": "webkit",
+      "responses": [
+        {
+          "origin": "https://cache.libria.fun",
+          "status": 200
+        },
+        {
+          "origin": "https://cache.libria.fun",
+          "status": 302
+        },
+        {
+          "origin": "https://cache-cloud9.libria.fun",
+          "status": 200
+        },
+        {
+          "origin": "https://cache.libria.fun",
+          "status": 302
+        },
+        {
+          "origin": "https://cache-cloud10.libria.fun",
+          "status": 200
+        },
+        {
+          "origin": "https://cache.libria.fun",
+          "status": 302
+        },
+        {
+          "origin": "https://cache-cloud19.libria.fun",
+          "status": 200
+        }
+      ],
+      "notice": [
+        ""
+      ],
+      "media": [
+        {
+          "ready": 4,
+          "time": 0.1834222
+        }
+      ]
     }
   },
   "windowsWebkit": "Native HLS unavailable in the installed Windows WebKit build; not a playback success",
-  "hlsStored": false
+  "hlsStored": false,
+  "production": {
+    "version": "0.4.8",
+    "checkedAt": "2026-10-26T15:55:49.369Z",
+    "results": [
+      {
+        "shikimoriId": 1,
+        "releaseId": 8443,
+        "url": "https://ndokcorp.github.io/anirezik/anime/1/",
+        "time": 1.011011,
+        "width": 640,
+        "height": 360,
+        "frames": 26
+      },
+      {
+        "shikimoriId": 30458,
+        "releaseId": 1531,
+        "url": "https://ndokcorp.github.io/anirezik/anime/30458/",
+        "time": 1.020117,
+        "width": 640,
+        "height": 360,
+        "frames": 27
+      },
+      {
+        "legacyRedirect": true,
+        "url": "https://ndokcorp.github.io/anirezik/anime/52299/"
+      }
+    ],
+    "workflow": "https://github.com/ndokcorp/anirezik/actions/runs/40351402196"
+  }
 }
