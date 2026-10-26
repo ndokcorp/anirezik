@@ -8,6 +8,10 @@ on:
       refresh:
         type: boolean
         default: true
+      publish:
+        description: Publish the fully tested candidate; disable to verify queue recovery only
+        type: boolean
+        default: true
   schedule:
     - cron: '41 */6 * * *'
 permissions:
@@ -49,12 +53,14 @@ jobs:
       - name: Continue the queue sequentially
         if: steps.sync.outputs.can_continue == 'true'
         uses: actions/github-script@v7
+        env:
+          PUBLISH: ${{ github.event_name == 'schedule' || inputs.publish }}
         with:
           script: |
-            await github.rest.actions.createWorkflowDispatch({owner:context.repo.owner, repo:context.repo.repo, workflow_id:'sync-aniliberty.yml', ref:'main', inputs:{max_requests:'100',refresh:'false'}});
+            await github.rest.actions.createWorkflowDispatch({owner:context.repo.owner, repo:context.repo.repo, workflow_id:'sync-aniliberty.yml', ref:'main', inputs:{max_requests:'100',refresh:'false',publish:process.env.PUBLISH}});
   publish:
     needs: sync
-    if: needs.sync.outputs.complete == 'true'
+    if: needs.sync.outputs.complete == 'true' && (github.event_name == 'schedule' || inputs.publish)
     uses: ./.github/workflows/pages.yml
     permissions:
       contents: write

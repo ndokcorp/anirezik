@@ -1353,7 +1353,7 @@ test('0.4.0: плеер ленивый, ошибка видима, при сме
 });
 
 import libertyFixture from './fixtures/aniliberty.json' with { type: 'json' };
-test('0.4.1: точный поиск сохраняется, серия выбирается, второй маршрут работает', async ({
+test('0.4.8: статический индекс исключает поиск, серия выбирается, второй маршрут работает', async ({
   page,
 }) => {
   let searches = 0;
@@ -1376,10 +1376,10 @@ test('0.4.1: точный поиск сохраняется, серия выби
   await expect(page.locator('[data-video-episode]')).toHaveValue('2');
   await expect(page.locator('video')).toHaveCount(1);
   await expect(page.locator('video')).not.toHaveAttribute('src', /.+/);
-  expect(searches).toBe(1);
+  expect(searches).toBe(0);
   await page.reload();
   await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
-  expect(searches).toBe(1);
+  expect(searches).toBe(0);
   await page.goto('anime/solo-leveling/');
   await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
   await expect(page.locator('[aria-label="Качество"] option')).toHaveCount(3);
