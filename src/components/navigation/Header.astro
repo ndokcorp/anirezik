@@ -41,6 +41,14 @@ const { active = 'home' } = Astro.props;
       <Icon name="user" />
     </span>
   </a>
+  <a
+    class="icon-button mobile-history"
+    href={url('history/')}
+    aria-label="История просмотров"
+    aria-current={Astro.url.pathname.endsWith('/history/') ? 'page' : undefined}
+  >
+    <Icon name="clock" />
+  </a>
   <button
     class="icon-button menu-toggle"
     aria-label="Открыть меню"

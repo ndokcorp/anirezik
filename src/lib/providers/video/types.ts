@@ -14,6 +14,7 @@ export interface VideoSource {
   seasonNumber?: number;
   qualities?: { label: string; url: string }[];
   availableRegions: string[];
+  blockedRegions?: string[];
   sourceAttribution: { label: string; url: string };
   regionChecked?: boolean;
 }

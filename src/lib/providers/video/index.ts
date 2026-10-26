@@ -40,6 +40,7 @@ export function isAuthorizedSource(
     source.providerName === provider.name &&
     Number.isFinite(source.episodeNumber) &&
     source.episodeNumber > 0 &&
+    (!region || !source.blockedRegions?.includes(region.toUpperCase())) &&
     ((provider.regionPolicy === 'iframe-enforced' &&
       !!source.embedUrl &&
       !source.playbackUrl &&

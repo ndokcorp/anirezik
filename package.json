@@ -1,13 +1,13 @@
 {
   "name": "anirezik",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
-    "check": "node scripts/validate-kodik-mappings.ts && astro check && tsc --noEmit",
+    "check": "node scripts/validate-kodik-mappings.ts && node scripts/validate-kodik-cache.ts && astro check && tsc --noEmit",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "format": "prettier --write .",
@@ -18,7 +18,9 @@
     "test:posters:live": "node scripts/verify-remote-posters.mjs",
     "test:posters:surfaces": "node scripts/verify-poster-surfaces.mjs",
     "sync:descriptions": "node scripts/sync-descriptions.ts",
-    "sync:aniliberty": "node scripts/sync-aniliberty-index.ts"
+    "sync:aniliberty": "node scripts/sync-aniliberty-index.ts",
+    "kodik:plan": "node scripts/sync-kodik.ts --plan",
+    "kodik:sync": "node scripts/sync-kodik.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

@@ -534,7 +534,7 @@ export function initPlayers() {
       auto.type = 'checkbox';
       auto.setAttribute('role', 'switch');
       auto.checked = autoNext;
-      auto.setAttribute('aria-label', 'Автопереключение серий');
+      auto.setAttribute('aria-label', 'Авто-Переключение серий');
       auto.onchange = () => {
         autoNext = auto.checked;
         saveAutoNext(autoNext);
@@ -544,7 +544,7 @@ export function initPlayers() {
       switchTrack.setAttribute('aria-hidden', 'true');
       switchTrack.dataset.off = 'ВЫКЛ';
       switchTrack.dataset.on = 'ВКЛ';
-      autoRow.append(make('span', 'Автопереключение серий'), auto, switchTrack);
+      autoRow.append(make('span', 'Авто-Переключение серий'), auto, switchTrack);
       settings.append(autoRow);
       const closeSettings = () => {
         settings.hidden = true;
@@ -641,6 +641,8 @@ export function initPlayers() {
         notice.textContent = message;
         retry.hidden = false;
         screen.classList.remove('is-loading');
+        screen.classList.remove('is-playing');
+        intro.inert = false;
         overlay.hidden = false;
         intro.hidden = false;
       };
@@ -742,15 +744,17 @@ export function initPlayers() {
         playedSelections.add(selectionKey);
         screen.classList.add('has-started');
         introMeta.hidden = true;
-        intro.hidden = true;
-        overlay.hidden = true;
+        intro.inert = true;
         play.replaceChildren(playerIcon('pause'));
         screen.classList.add('is-playing');
         play.setAttribute('aria-label', 'Пауза');
         continueButton.hidden = true;
       });
       media.addEventListener('pause', () => {
-        intro.hidden = false;
+        intro.inert = false;
+        screen.classList.remove('is-loading');
+        if (notice.textContent === 'Загрузка…' || notice.textContent === 'Загрузка видео…')
+          notice.textContent = '';
         persist();
         play.replaceChildren(playerIcon('play'));
         screen.classList.remove('is-playing');

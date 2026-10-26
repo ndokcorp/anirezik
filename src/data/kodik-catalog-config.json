@@ -1,0 +1,21 @@
+{
+  "enabled": false,
+  "apiOrigin": "https://kodik-api.com",
+  "apiAccessApproved": false,
+  "contractConfirmed": false,
+  "rateLimitsConfirmed": false,
+  "cachePublicationApproved": false,
+  "embeddingApproved": false,
+  "playbackSampleVerified": false,
+  "permissionEvidence": null,
+  "approvalRevision": "unapproved",
+  "reviewedAt": null,
+  "scope": "selected",
+  "approvedAnimeIds": [],
+  "allowedEmbedOrigins": ["https://kodikplayer.com"],
+  "ttlHours": 24,
+  "minRequestIntervalMs": 1500,
+  "maxRequestsPerRun": 200,
+  "maxRequestsPerDay": 1000,
+  "probeIds": [39535, 45576, 52299, 58567, 52991, 9253, 32281, 777]
+}

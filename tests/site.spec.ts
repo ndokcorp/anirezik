@@ -7,6 +7,7 @@ import { test, expect } from '@playwright/test';
 // Reproducible regressions; real CDN decoding is checked separately on Pages.
 test.beforeEach(async ({ context }) => {
   // Offline regression suite: no public API/stream calls. Live playback is checked separately.
+  await context.route('**/data/video/kodik/*.json', (route) => route.fulfill({ status: 404 }));
   await context.route('https://anilibria.top/api/v1/**', async (route) => {
     const id = Number(new URL(route.request().url()).pathname.split('/').at(-1));
     const ids: Record<number, number> = {
@@ -1568,9 +1569,9 @@ test('0.4.4: компактная шапка, центральный поиск 
       continue;
     }
     const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
-    await expect(nav.getByRole('link')).toHaveCount(5);
+    await expect(nav.getByRole('link')).toHaveCount(4);
     await expect(
-      nav.getByRole('link', { name: 'История просмотров', exact: true }),
+      page.locator('.header').getByRole('link', { name: 'История просмотров', exact: true }),
     ).toHaveAttribute('href', /\/history\/$/);
     await expect(nav.getByRole('link', { name: 'Войти', exact: true })).toBeVisible();
     await expect(page.locator('.header [data-open-search]')).toHaveCount(0);
@@ -1946,7 +1947,7 @@ test('AniRize: video click, hour clock, keyboard, settings and exact auto-next',
   await settings.getByRole('button', { name: 'Скорость', exact: true }).click();
   await settings.getByRole('option', { name: '1.5×', exact: true }).click();
   expect(await media.evaluate((v: HTMLVideoElement) => v.playbackRate)).toBe(1.5);
-  await settings.getByRole('switch', { name: 'Автопереключение серий' }).check();
+  await settings.getByRole('switch', { name: 'Авто-Переключение серий' }).check();
   expect(await page.evaluate(() => localStorage.getItem('anirezik:auto-next:v1'))).toBe('true');
   await media.evaluate((v) => v.dispatchEvent(new Event('ended')));
   await expect(page.locator('[data-video-episode]')).toHaveValue('2');
@@ -2061,7 +2062,7 @@ test('AniRezik controls: hover time, delayed hints and saved intro continuation'
     .poll(() => settings.evaluate((el) => getComputedStyle(el, '::after').opacity))
     .toBe('1');
   await settings.click();
-  const toggle = screen.getByRole('switch', { name: 'Автопереключение серий' });
+  const toggle = screen.getByRole('switch', { name: 'Авто-Переключение серий' });
   await toggle.check();
   await expect(toggle).toBeChecked();
   await toggle.uncheck();
@@ -2281,25 +2282,23 @@ for (const width of [320, 390, 1280])
     );
   });
 
-test('mobile history button sits beside catalog, keeps centered search and opens history at 320px', async ({
+test('0.4.7: mobile history is beside the top menu; bottom navigation keeps five positions', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 812 });
   await page.goto('./');
   const nav = page.getByRole('navigation', { name: 'Мобильная навигация' });
-  const links = nav.getByRole('link');
-  await expect(links).toHaveCount(5);
-  const catalog = nav.getByRole('link', { name: 'Каталог', exact: true });
-  const history = nav.getByRole('link', { name: 'История просмотров', exact: true });
-  const a = (await catalog.boundingBox())!,
-    b = (await history.boundingBox())!;
-  expect(b.x).toBeGreaterThan(a.x);
-  expect(Math.abs(a.x + a.width - b.x)).toBeLessThan(1);
-  for (const item of await nav.locator('a,button').all()) {
-    const r = (await item.boundingBox())!;
-    expect(r.width).toBeGreaterThanOrEqual(43.9);
-    expect(r.height).toBeGreaterThanOrEqual(44);
-  }
+  await expect(nav.getByRole('link')).toHaveCount(4);
+  await expect(nav.getByRole('link', { name: 'История просмотров' })).toHaveCount(0);
+  const history = page
+    .locator('.header')
+    .getByRole('link', { name: 'История просмотров', exact: true });
+  const a = (await history.boundingBox())!,
+    b = (await page.getByRole('button', { name: 'Открыть меню', exact: true }).boundingBox())!;
+  expect(a.width).toBeGreaterThanOrEqual(44);
+  expect(a.height).toBeGreaterThanOrEqual(44);
+  expect(a.x + a.width).toBeLessThanOrEqual(b.x);
+  expect(Math.abs(a.y - b.y)).toBeLessThan(2);
   const search = (await nav.getByRole('button', { name: 'Открыть поиск' }).boundingBox())!;
   expect(Math.abs(search.x + search.width / 2 - 160)).toBeLessThan(1);
   await history.click();
@@ -2307,10 +2306,74 @@ test('mobile history button sits beside catalog, keeps centered search and opens
   await expect(
     page.getByRole('heading', { name: 'История просмотров', exact: true }),
   ).toBeVisible();
-  await expect(nav.getByRole('link', { name: 'История просмотров', exact: true })).toHaveAttribute(
-    'aria-current',
-    'page',
-  );
-  await expect(nav.getByRole('link', { name: 'Каталог', exact: true })).not.toHaveClass(/active/);
+  await expect(page.locator('.header .mobile-history')).toHaveAttribute('aria-current', 'page');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(page.locator('.header .mobile-history')).toBeHidden();
 });
+
+for (const width of [320, 390, 844, 1280])
+  test(`0.4.7: pause play fade, contained image and compact settings at ${width}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: width === 844 ? 390 : 900 });
+    await mockAniRizeMedia(page);
+    const fixture = libertyFixture.find((row) => row.id === 9600)!;
+    await page.route('https://anilibria.top/api/v1/**', (route) =>
+      route.fulfill({ json: route.request().url().includes('/search/') ? [fixture] : fixture }),
+    );
+    await page.goto('anime/52299/');
+    const screen = page.locator('.anirize-screen');
+    await screen.scrollIntoViewIfNeeded();
+    const media = screen.locator('video'),
+      play = screen.locator('.player-big-play');
+    await expect(media).toHaveCSS('object-fit', 'contain');
+    await play.click();
+    await expect(play).toBeHidden();
+    await screen.getByRole('button', { name: 'Пауза', exact: true }).click();
+    await expect(play).toBeVisible();
+    const a = (await screen.boundingBox())!,
+      b = (await play.boundingBox())!;
+    expect(Math.abs(b.x + b.width / 2 - a.x - a.width / 2)).toBeLessThan(1);
+    expect(Math.abs(b.y + b.height / 2 - a.y - a.height / 2)).toBeLessThan(1);
+    await expect(screen.locator('.player-intro')).toHaveCSS('opacity', '1');
+    await expect(media).toHaveCSS('object-fit', 'contain');
+    await expect(media).toHaveCSS('transform', 'none');
+    await play.click();
+    await expect(screen.locator('.player-intro')).toHaveCSS('opacity', '0');
+    await screen.getByRole('button', { name: 'Настройки', exact: true }).click();
+    const panel = screen.locator('.player-settings');
+    const closed = (await panel.boundingBox())!;
+    if (width <= 900) {
+      expect(closed.width).toBeLessThanOrEqual(230);
+      expect(closed.width).toBeLessThan(a.width * 0.8);
+    }
+    for (const label of ['Качество', 'Скорость']) {
+      await panel.getByRole('button', { name: label, exact: true }).click();
+      const list = panel.getByRole('listbox'),
+        opened = (await panel.boundingBox())!;
+      await expect(list).toBeVisible();
+      if (width <= 900) {
+        expect(Math.abs(opened.height - closed.height)).toBeLessThan(1);
+        const r = (await list.boundingBox())!;
+        expect(r.y).toBeGreaterThanOrEqual(a.y - 1);
+        expect(r.y + r.height).toBeLessThanOrEqual(a.y + a.height);
+        expect(r.height).toBeLessThanOrEqual(opened.height);
+      }
+      await page.keyboard.press('Escape');
+    }
+    await expect(panel.getByRole('switch', { name: 'Авто-Переключение серий' })).toBeVisible();
+    const autoBounds = (await panel.locator('.player-auto-next').boundingBox())!;
+    expect(autoBounds.y + autoBounds.height).toBeLessThanOrEqual(closed.y + closed.height);
+    if (width === 844) {
+      const voices = (await page.locator('.player-voices').boundingBox())!;
+      expect(voices.width).toBeLessThanOrEqual(212);
+      expect(voices.x).toBeGreaterThanOrEqual(a.x + a.width - 1);
+      expect(a.width).toBeGreaterThan(voices.width * 2);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    if (!process.env.CI && [320, 844].includes(width))
+      await screen.screenshot({ path: `.cache/047-player-${width}.png` });
+  });

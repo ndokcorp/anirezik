@@ -1,0 +1,22 @@
+{
+  "version": "0.4.7",
+  "date": "2026-10-26",
+  "kodik": {
+    "catalogIds": 30704,
+    "liveApiIdsProcessed": 0,
+    "newApiReleases": 0,
+    "newKodikAnime": 0,
+    "publicAnimeIds": [39535],
+    "manualTranslations": 15,
+    "manualDistinctEpisodes": 11,
+    "animeWithoutEnabledKodik": 30703,
+    "providerAvailabilityOfRemaining": "not-tested",
+    "newNeedsReviewReleases": "not-tested",
+    "apiEnabled": false,
+    "automaticUpdatesEnabled": false,
+    "credentialStored": false,
+    "pending": "User promised provider terms screenshot before activation"
+  },
+  "uiViewports": [320, 390, 844, 1280],
+  "noAniLibertyAdapterChanges": true
+}

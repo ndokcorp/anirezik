@@ -1,0 +1,98 @@
+name: Refresh approved Kodik catalog
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: 'Optional selected Shikimori IDs; empty resumes the approved catalog queue'
+        required: false
+        default: '39535,52299,32281'
+        type: string
+      publish:
+        description: 'Publish only after approved terms and verified real playback; empty IDs resumes catalog'
+        default: false
+        type: boolean
+  schedule:
+    - cron: '17 */6 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: kodik-cache
+  cancel-in-progress: false
+jobs:
+  prepare:
+    # API access needs approved terms; publication separately requires a real playback sample.
+    # Scheduled updates stay off until the owner enables KODIK_AUTO_UPDATE.
+    if: >-
+      github.ref == 'refs/heads/main' && vars.KODIK_API_ENABLED == 'true' &&
+      (github.event_name != 'schedule' || vars.KODIK_AUTO_UPDATE == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    outputs:
+      artifact: kodik-cache-${{ github.run_id }}
+      publish: ${{ github.event_name == 'schedule' || inputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Validate local rights and cache policy
+        run: node scripts/validate-kodik-cache.ts
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            .cache/kodik-catalog/entries
+            .cache/kodik-catalog/queue.json
+          key: kodik-v2-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: kodik-v2-${{ runner.os }}-
+      - name: Resume the bounded queue with the approved partner credential
+        env:
+          KODIK_API_TOKEN: ${{ secrets.KODIK_API_TOKEN }}
+          KODIK_IDS: ${{ inputs.ids }}
+          KODIK_PUBLISH: ${{ github.event_name == 'schedule' || inputs.publish }}
+        shell: bash
+        run: |
+          if [ "$KODIK_PUBLISH" != 'true' ]; then
+            npm run kodik:sync -- --ids="${KODIK_IDS:-39535,52299,32281}"
+          elif [ -n "$KODIK_IDS" ]; then
+            npm run kodik:sync -- --ids="$KODIK_IDS" --publish-cache
+          else
+            npm run kodik:sync -- --catalog --publish-cache
+          fi
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            .cache/kodik-catalog/entries
+            .cache/kodik-catalog/queue.json
+          key: kodik-v2-${{ runner.os }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - run: node scripts/validate-kodik-cache.ts
+      - uses: actions/upload-artifact@v4
+        if: github.event_name == 'schedule' || inputs.publish
+        with:
+          name: kodik-cache-${{ github.run_id }}
+          path: public/data/video/
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kodik-report-${{ github.run_id }}
+          path: .cache/kodik-catalog/report.json
+          retention-days: 3
+      - uses: actions/upload-artifact@v4
+        if: github.event_name != 'schedule' && !inputs.publish
+        with:
+          name: kodik-probe-${{ github.run_id }}
+          path: .cache/kodik-catalog/entries/
+          retention-days: 3
+  validate-and-publish:
+    needs: prepare
+    if: needs.prepare.outputs.publish == 'true'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
+    with:
+      kodik_artifact: ${{ needs.prepare.outputs.artifact }}

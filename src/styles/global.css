@@ -3852,7 +3852,6 @@ html {
 .player-screen.is-loading .player-intro { pointer-events: none; }
 .player-screen.is-loading .player-big-play { visibility: hidden; }
 .player-layout .player-status { font-size: 12px; bottom: 0; }
-.player-screen:has(.player-intro:not([hidden])) video { object-fit: cover; }
 @media (max-width: 1050px) { .player-layout { grid-template-columns: minmax(0, 1fr) 240px; } .player-options { padding: 14px; } }
 @media (max-width: 760px) { .player-layout { grid-template-columns: minmax(0, 1fr); } .player-options { border-left: 0; border-top: 1px solid #29222b; } .player-options .video-controls { grid-template-columns: 1fr 1fr; gap: 10px; } .player-options h3 { margin-bottom: 14px; } .player-episodes { grid-template-columns: repeat(8, minmax(0, 1fr)); max-height: 132px; } .player-intro { gap: 10px; padding: 16px; } .player-intro .player-big-play { width: 58px; height: 58px; font-size: 24px; } .player-intro h3 { font-size: 17px; } .player-intro p { font-size: 10px; } .player-layout .player-status { font-size: 10px; } .player-section { padding-inline: 12px; } }
 

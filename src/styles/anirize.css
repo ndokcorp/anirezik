@@ -8,9 +8,28 @@
 .anirize-screen video {
   touch-action: manipulation;
 }
+.player-screen.anirize-screen video {
+  object-fit: contain;
+  transform: none;
+}
 .anirize-screen .player-intro {
   pointer-events: none;
   background: #0003;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.16s ease,
+    visibility 0s;
+}
+.anirize-screen.is-playing .player-intro {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.16s ease,
+    visibility 0s 0.16s;
+}
+.anirize-screen.is-playing .player-intro button {
+  pointer-events: none;
 }
 .anirize-screen .player-big-play {
   pointer-events: auto;
@@ -747,8 +766,66 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .anirize-screen .player-controls,
+  .anirize-screen .player-intro,
   .player-invideo-nav {
     transition: none;
+  }
+}
+
+/* 0.4.7: mobile menus replace their contents instead of growing over the video. */
+@media (max-width: 900px) {
+  .player-settings {
+    width: min(228px, 76%);
+    right: 6px;
+    bottom: 49px;
+    max-height: calc(100% - 51px);
+    padding: 4px 7px;
+  }
+  .player-settings > label {
+    grid-template-columns: 58px minmax(0, 1fr);
+    min-height: 26px;
+    padding: 1px 0;
+    font-size: 11px;
+    gap: 5px;
+  }
+  .player-settings .custom-select {
+    position: static;
+  }
+  .player-settings .select-trigger {
+    min-height: 24px;
+    padding: 2px 24px 2px 6px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  .player-settings .select-trigger::after {
+    top: 6px;
+  }
+  .player-settings .select-options {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    max-height: 100%;
+    margin: 0;
+    z-index: 1;
+    border-radius: 10px;
+  }
+  .player-settings .select-options button {
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .player-settings > .player-auto-next {
+    grid-template-columns: minmax(0, 1fr) 60px;
+    line-height: 1.25;
+    min-height: 30px;
+    margin-top: 2px;
+  }
+  .player-settings .player-switch-track,
+  .player-settings .player-auto-next input {
+    width: 60px;
+  }
+  .player-settings .player-auto-next input:checked + .player-switch-track::before {
+    transform: translateX(32px);
   }
 }
 

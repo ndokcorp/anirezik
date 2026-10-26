@@ -9,7 +9,6 @@ const current = Astro.url.pathname.endsWith('/history/') ? 'history' : active;
   {[
     ['home', '', 'home', 'Главная'],
     ['catalog', 'catalog/', 'compass', 'Каталог'],
-    ['history', 'history/', 'clock', 'История'],
     ['search', '', 'search', 'Поиск'],
     ['collection', 'collection/', 'collection', 'Коллекция'],
     ['profile', 'profile/', 'user', 'Войти'],
@@ -26,7 +25,6 @@ const current = Astro.url.pathname.endsWith('/history/') ? 'history' : active;
     ) : (
       <a
         href={url(path)}
-        aria-label={id === 'history' ? 'История просмотров' : undefined}
         class:list={{ active: current === id || (id === 'collection' && current === 'favorites') }}
         aria-current={current === id ? 'page' : undefined}
       >

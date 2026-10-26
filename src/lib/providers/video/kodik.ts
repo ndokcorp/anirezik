@@ -3,7 +3,15 @@ import rights from '../../../data/kodik-rights.json' with { type: 'json' };
 import type { VideoProvider, VideoSource } from './types';
 import { kodikEventSource } from './kodik-events';
 import { KodikResolver } from './kodik-resolver';
+import config from '../../../data/kodik-catalog-config.json' with { type: 'json' };
+import { KodikStaticResolver } from './kodik-catalog-cache';
+import { url } from '../../paths';
 const resolver = new KodikResolver(mappings, rights.approvedAnimeIds);
+const catalogResolver = new KodikStaticResolver(config, async (id) => {
+  const response = await fetch(url(`data/video/kodik/${id}.json`));
+  if (!response.ok) throw new Error('Kodik cache unavailable');
+  return response.json();
+});
 
 /** Curated exact-ID iframe releases only. No API tokens, streams or guessed title matches. */
 export const kodikProvider: VideoProvider = {
@@ -20,7 +28,7 @@ export const kodikProvider: VideoProvider = {
   readStateEvent: kodikEventSource,
   async getSources(animeId) {
     const mapping = resolver.resolve(animeId);
-    if (!mapping) return [];
+    if (!mapping) return catalogResolver.getSources(animeId);
     const url = new URL(mapping.embedUrl);
     if (url.origin !== 'https://kodikplayer.com' || url.username || url.password) return [];
     return mapping.translations.flatMap((translation) =>
