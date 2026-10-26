@@ -41,6 +41,7 @@ jobs:
         if: steps.sync.outputs.complete == 'true'
         with:
           name: animego-complete-candidate
+          include-hidden-files: true
           path: .cache/animego-full/candidate/
       - name: Continue sequentially; never retry a blocked endpoint indefinitely
         if: steps.sync.outputs.can_continue == 'true'
@@ -70,6 +71,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: animego-complete-candidate
+          include-hidden-files: true
           path: .cache/animego-full/candidate
       - uses: actions/setup-node@v4
         with:

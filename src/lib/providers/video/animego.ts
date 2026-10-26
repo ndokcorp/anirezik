@@ -42,7 +42,7 @@ export function parseAnimeGoSources(input: unknown, id: number): VideoSource[] {
     !r.format ||
     !Number.isFinite(Date.parse(r.checkedAt || '')) ||
     !Array.isArray(r.entries) ||
-    r.entries.length > 10000
+    r.entries.length > 100000
   )
     throw Error('Invalid AnimeGO cache identity or metadata');
   const page = new URL(r.sourceUrl || '');

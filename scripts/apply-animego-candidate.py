@@ -10,7 +10,7 @@ cat={a['shikimoriId']:a for a in read(ROOT/'src/data/catalog.json')['anime']}
 for id in index['ids']:
  raw=read(C/f'public/data/video/animego/{id}.json'); a=cat[id];assert raw['shikimoriId']==id and raw['year']==a['year'] and raw['originalTitle']==a['originalTitle'] and raw['format'].lower()==a['kind'];seen=set()
  page=urllib.parse.urlparse(raw['sourceUrl']);assert page.scheme=='https' and page.netloc=='animego.me' and page.path.endswith('-'+str(raw['animegoId']))
- assert raw['entries']
+ assert raw['entries'] and len(raw['entries'])<=100000
  for row in raw['entries']:
   u=urllib.parse.urlparse(row['embedUrl']);assert u.scheme=='https' and u.netloc=='animego.me' and re.fullmatch(r'/cdn-iframe/[1-9]\d*(?:/[^?#]*)?',u.path) and not u.fragment
   assert all(k=='dubbing' for k in urllib.parse.parse_qs(u.query,keep_blank_values=True))
