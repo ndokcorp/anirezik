@@ -3,8 +3,17 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { validateLibertyState } from './lib/aniliberty-sync.ts';
 const branch = 'codex/aniliberty-sync-state';
 const file = '.cache/aniliberty-index/progress-v2.json';
-const git = (...args: string[]) =>
-  execFileSync('git', args, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+const git = (...args: string[]) => {
+  try {
+    return execFileSync('git', args, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      maxBuffer: 16 * 1024 * 1024,
+    }).trim();
+  } catch {
+    throw Error(`Checkpoint git ${args[0]} failed`);
+  }
+};
 let parent = '';
 try {
   git('fetch', '--no-tags', 'origin', `refs/heads/${branch}:refs/remotes/origin/${branch}`);
@@ -35,11 +44,13 @@ if (process.argv[2] === 'restore') {
     console.log('Checkpoint unchanged');
     process.exit(0);
   }
-  git('config', 'user.name', 'github-actions[bot]');
-  git('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com');
   const commit = execFileSync(
     'git',
     [
+      '-c',
+      'user.name=github-actions[bot]',
+      '-c',
+      'user.email=41898282+github-actions[bot]@users.noreply.github.com',
       'commit-tree',
       tree,
       ...(parent ? ['-p', parent] : []),

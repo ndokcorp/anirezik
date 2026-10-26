@@ -16,20 +16,49 @@ for (const [id, release, category] of samples)
     test.skip(process.env.ANILIBERTY_LIVE !== '1', 'Explicit live verification only');
     test.setTimeout(55000);
     expect((index.mappings as Record<string, { releaseId: number }>)[id].releaseId).toBe(release);
-    const response = page.waitForResponse((r) =>
-      new URL(r.url()).pathname.endsWith(`/anime/releases/${release}`),
+    const response = page.waitForResponse(
+      (r) => new URL(r.url()).pathname.endsWith(`/anime/releases/${release}`),
+      { timeout: 20000 },
     );
     await page.goto(`anime/${id}/`);
     await page.locator('#anime-player').scrollIntoViewIfNeeded();
     const player = page.locator('[data-player]');
-    await player.scrollIntoViewIfNeeded();
-    const raw = await (await response).json();
+    const http = await response;
+    expect(http.status()).toBe(200);
+    const raw = await http.json();
     const row = raw.data || raw;
+    const origins = [
+      ...new Set(
+        (row.episodes || []).flatMap((ep: Record<string, unknown>) =>
+          ['hls_480', 'hls_720', 'hls_1080'].flatMap((key) => {
+            try {
+              return typeof ep[key] === 'string' && ep[key]
+                ? [new URL(ep[key] as string).origin]
+                : [];
+            } catch {
+              return [];
+            }
+          }),
+        ),
+      ),
+    ];
+    await writeFile(
+      info.outputPath('availability.json'),
+      JSON.stringify({
+        shikimoriId: id,
+        releaseId: row.id,
+        externalId: row.shikimori?.id,
+        episodeCount: row.episodes?.length,
+        geo: row.is_blocked_by_geo,
+        copyright: row.is_blocked_by_copyrights,
+        origins,
+      }),
+    );
     expect(Number(row.shikimori.id)).toBe(id);
     expect(row.is_blocked_by_geo).toBe(false);
     expect(row.is_blocked_by_copyrights).toBe(false);
     const video = player.locator('video');
-    await video.waitFor();
+    await video.waitFor({ timeout: 15000 });
     await video.evaluate((v: HTMLVideoElement) => {
       v.muted = true;
     });

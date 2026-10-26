@@ -5,6 +5,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      liberty_build_run:
+        description: Existing verified build run for isolated live video diagnostics
+        type: string
+        default: ''
       liberty_live:
         type: boolean
         default: false
@@ -33,6 +37,7 @@ env:
   BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
 jobs:
   verify:
+    if: inputs.liberty_build_run == '' || inputs.liberty_build_run == null
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -134,6 +139,43 @@ jobs:
         with:
           name: playwright-${{ matrix.browser }}
           path: playwright-report/
+  live-probe:
+    if: inputs.liberty_build_run != '' && inputs.liberty_build_run != null && github.ref != 'refs/heads/main'
+    runs-on: macos-15
+    permissions:
+      contents: read
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: .pages
+          run-id: ${{ inputs.liberty_build_run }}
+          github-token: ${{ github.token }}
+      - run: mkdir -p dist && tar -xf .pages/artifact.tar -C dist
+      - run: npx playwright install ${{ matrix.browser }}
+      - name: Verify live samples only
+        env:
+          ANILIBERTY_LIVE: '1'
+        run: npm test -- --project=live-${{ matrix.browser }} --retries=0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aniliberty-live-${{ matrix.browser }}
+          path: |
+            test-results/**/playback.json
+            test-results/**/availability.json
+          if-no-files-found: ignore
   publish-metadata:
     if: github.ref == 'refs/heads/main' && inputs.metadata_artifact != '' && inputs.metadata_artifact != null
     needs: [verify, browsers]
