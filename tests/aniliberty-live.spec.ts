@@ -132,7 +132,7 @@ for (const [id, release, category] of samples)
           notice: await page.locator('.player-status').allTextContents(),
           media: await page
             .locator('video')
-            .evaluateAll((v) =>
+            .evaluateAll((v: HTMLVideoElement[]) =>
               v.map((x) => ({ error: x.error?.code, ready: x.readyState, time: x.currentTime })),
             ),
         }),
