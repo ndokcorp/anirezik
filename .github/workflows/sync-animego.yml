@@ -1,0 +1,100 @@
+name: Full approved AnimeGO catalog coverage
+on:
+  workflow_dispatch:
+    inputs:
+      max_requests:
+        type: string
+        default: '500'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: animego-full-catalog
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      complete: ${{ steps.sync.outputs.complete }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install beautifulsoup4==4.14.3
+      - run: python scripts/animego-checkpoint.py restore
+      - id: sync
+        env:
+          REQUEST_BUDGET: ${{ inputs.max_requests || '500' }}
+        run: python -u scripts/sync-animego-catalog.py --max-requests="$REQUEST_BUDGET"
+      - name: Save cursor even after an API error
+        if: always() && hashFiles('.cache/animego-full/state.sqlite') != ''
+        run: python scripts/animego-checkpoint.py save
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('.cache/animego-full/report.json') != ''
+        with:
+          name: animego-progress
+          path: .cache/animego-full/report.json
+      - uses: actions/upload-artifact@v4
+        if: steps.sync.outputs.complete == 'true'
+        with:
+          name: animego-complete-candidate
+          path: .cache/animego-full/candidate/
+      - name: Continue sequentially; never retry a blocked endpoint indefinitely
+        if: steps.sync.outputs.can_continue == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({owner:context.repo.owner,repo:context.repo.repo,workflow_id:'sync-animego.yml',ref:'main',inputs:{max_requests:'500'}});
+  publish:
+    needs: sync
+    if: needs.sync.outputs.complete == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      BASE_PATH: /anirezik
+      SITE_URL: https://ndokcorp.github.io
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          name: animego-complete-candidate
+          path: .cache/animego-full/candidate
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Capture publication base
+        run: git rev-parse HEAD > .cache/animego-publication-base
+      - run: python scripts/apply-animego-candidate.py --apply
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      # Data-only expansion: no repeated full browser suite or catalog import.
+      - name: Commit the validated complete cache without overwriting concurrent changes
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$(cat .cache/animego-publication-base)"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- public/data/video/animego src/data/animego-index.json src/data/animego-sync-report.json src/data/site-updates.json package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish complete validated AnimeGO 0.5.0 coverage [skip ci]'
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

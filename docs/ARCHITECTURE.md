@@ -163,3 +163,7 @@ The sync workflow persists sanitized state on codex/aniliberty-sync-state and re
 ## 0.4.9: curated AnimeGO bridge
 
 `animego.ts` implements the existing VideoProvider contract with an allowlisted same-site cache index and exact AnimeGO-hosted iframe URLs, collected from observed per-episode player metadata. It does not call AnimeGO APIs from the browser, guess embed paths, use CVH API credentials or expose direct streams. `animego-rights.json` records the user-provided permission; region enforcement remains inside the original iframe. The static JSON holds namespaced AnimeGO translation IDs, distinct from Shikimori IDs. Resolver deduplicates bounded per-title requests; SSR stays offline. No undocumented iframe state events are fabricated. The existing UI and provider order remain intact. See research/RELEASE_0.4.9.md for the reviewed scope and manual refresh command.
+
+## 0.5.0: full AnimeGO queue
+
+`scripts/sync-animego-catalog.py` implements a resumable SQLite-backed full sitemap → exact metadata → observed episode iframe queue. Source activation remains in the existing AnimeGO adapter. The separate checkpoint branch contains compressed sanitized metadata and observed iframe URLs; serial Actions batches resume without catalog-wide browser calls. A complete candidate is validated and built before the dedicated Pages publish job updates version/cache. No new player or GUI changes; no broad repeated browser suite. See [release status and limits](research/RELEASE_0.5.0.md).
