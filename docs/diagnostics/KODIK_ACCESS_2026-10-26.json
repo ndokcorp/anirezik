@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-26T11:28:42.493223+00:00",
+  "permissionReceived": true,
+  "evidence": "docs/rights/KODIK_API_PERMISSION.md",
+  "requestsSent": 1,
+  "results": [
+    {
+      "shikimoriId": 39535,
+      "httpStatus": 401,
+      "status": "authorization-rejected"
+    }
+  ],
+  "notAttemptedIds": [
+    52299,
+    32281
+  ],
+  "successfulApiIds": 0,
+  "newKodikAnime": 0,
+  "publicKodikIds": [
+    39535
+  ],
+  "existingKodikVoiceTracks": 13,
+  "existingKodikSubtitleTracks": 2,
+  "existingKodikEpisodes": 11,
+  "confirmedAniLibertyIds": [
+    21,
+    269,
+    5060,
+    9253,
+    32281,
+    52299,
+    52991,
+    56733,
+    58567
+  ],
+  "confirmedUniquePlayerIds": 10,
+  "githubSecretConfigured": false,
+  "mainSiteChanged": false,
+  "requiredAction": "Configure a working AniRezik token in GitHub Secret KODIK_API_TOKEN",
+  "credentialValuesIncluded": false
+}
