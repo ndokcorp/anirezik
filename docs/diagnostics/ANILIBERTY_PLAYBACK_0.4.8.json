@@ -178,9 +178,30 @@
         "https://cache.libria.fun"
       ]
     },
-    "chromiumDecoded": false,
+    "chromiumDecoded": true,
     "webkitDecoded": false,
-    "note": "API returns cache.libria.fun, flags false, playback currentTime remained 0. Not counted as successful playback. Further safe transport diagnostics are separate."
+    "note": "Chromium decoded real frames. WebKit stopped on another previously unknown official CDN redirect; cache-cloud19.libria.fun was subsequently registered from observed HTTP 200 responses. No WebKit success claimed before a decoded proof.",
+    "chromiumProof": {
+      "shikimoriId": 1,
+      "releaseId": 8443,
+      "category": "old TV",
+      "browser": "chromium",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "time": 1.651898,
+      "width": 640,
+      "height": 360,
+      "paused": false,
+      "decodedFrames": 42,
+      "selected": [
+        "1",
+        "AniLibriaРћР—Р’РЈР§РљРђ26 СЌРї."
+      ],
+      "geoBlocked": false,
+      "copyrightBlocked": false
+    }
   },
   "windowsWebkit": "Native HLS unavailable in the installed Windows WebKit build; not a playback success",
   "hlsStored": false

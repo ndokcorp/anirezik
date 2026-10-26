@@ -14,7 +14,8 @@
     "https://cache.libria.fun",
     "https://cache-cloud9.libria.fun",
     "https://cache-cloud10.libria.fun",
-    "https://cache-cloud22.libria.fun"
+    "https://cache-cloud22.libria.fun",
+    "https://cache-cloud19.libria.fun"
   ],
   "regionPolicy": "provider-response",
   "embeddingAllowed": false,
