@@ -1,8 +1,13 @@
 import type { VideoProvider, VideoSource } from './types';
 import { aniLibertyProvider } from './aniliberty';
 import { kodikProvider } from './kodik';
+import { animeGoProvider } from './animego';
 // No provider is implicitly approved by an API result, a studio name, or a URL.
-export const approvedProviders: ReadonlyArray<VideoProvider> = [kodikProvider, aniLibertyProvider];
+export const approvedProviders: ReadonlyArray<VideoProvider> = [
+  kodikProvider,
+  aniLibertyProvider,
+  animeGoProvider,
+];
 function allowedUrl(value: string | undefined, origins: string[]): boolean {
   if (!value) return false;
   try {

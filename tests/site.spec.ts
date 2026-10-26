@@ -2,11 +2,51 @@ import { featuredAnime } from '../src/lib/featured-anime';
 import { descriptions } from '../src/lib/descriptions';
 import licensedDescriptions from '../src/data/licensed-descriptions.json' with { type: 'json' };
 import { ageLabel } from '../src/lib/card-meta';
+import animeGoBurn from '../public/data/video/animego/41468.json' with { type: 'json' };
 import { test, expect } from '@playwright/test';
+
+test('0.4.9: reviewed AnimeGO iframe uses exact episode URLs on desktop and mobile', async ({
+  page,
+}) => {
+  await page.route('**/data/video/animego/41468.json', (route) =>
+    route.fulfill({ json: animeGoBurn }),
+  );
+  // Deterministic UI fixture only. Live playback is separately tested without network interception.
+  await page.route('https://animego.me/cdn-iframe/**', (route) =>
+    route.fulfill({ contentType: 'text/html', body: '<body>Provider UI fixture</body>' }),
+  );
+  for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('anime/41468/');
+    await page.locator('#anime-player').scrollIntoViewIfNeeded();
+    await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true');
+    await expect(page.locator('iframe')).toHaveAttribute('src', animeGoBurn.entries[0].embedUrl);
+    await expect(page.locator('iframe')).toHaveAttribute(
+      'referrerpolicy',
+      'strict-origin-when-cross-origin',
+    );
+    await expect(page.locator('iframe')).toHaveAttribute(
+      'allow',
+      'autoplay; fullscreen; picture-in-picture',
+    );
+    await page.getByRole('button', { name: 'Выбрать серию 2', exact: true }).click();
+    await expect(page.locator('iframe')).toHaveAttribute(
+      'src',
+      animeGoBurn.entries.find((e) => e.episodeNumber === 2)!.embedUrl,
+    );
+    await expect(page.locator('iframe')).toHaveCount(1);
+    const box = await page.locator('iframe').boundingBox();
+    expect(box!.width).toBeLessThanOrEqual(viewport.width);
+  }
+});
 
 // Reproducible regressions; real CDN decoding is checked separately on Pages.
 test.beforeEach(async ({ context }) => {
   // Offline regression suite: no public API/stream calls. Live playback is checked separately.
+  await context.route('**/data/video/animego/*.json', (route) => route.fulfill({ status: 404 }));
   await context.route('**/data/video/kodik/*.json', (route) => route.fulfill({ status: 404 }));
   await context.route('https://anilibria.top/api/v1/**', async (route) => {
     const id = Number(new URL(route.request().url()).pathname.split('/').at(-1));

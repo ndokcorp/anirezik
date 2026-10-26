@@ -1,0 +1,12 @@
+{
+  "providerId": "animego-cvh",
+  "verified": true,
+  "embeddingAllowed": true,
+  "playbackAllowed": false,
+  "termsUrl": "https://animego.me/terms",
+  "reviewedAt": "2026-10-27",
+  "evidence": "docs/rights/ANIMEGO_PERMISSION.md",
+  "scope": "User-provided AnimeGO permission: only exact AnimeGO-hosted CVH bridge iframe URLs returned by its player metadata for reviewed matches. No direct media, CVH partner API, copied publisher credentials, or third-party standalone embeds.",
+  "allowedEmbedOrigins": ["https://animego.me"],
+  "allowedPlaybackOrigins": []
+}
