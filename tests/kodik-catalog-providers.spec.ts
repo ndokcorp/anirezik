@@ -13,6 +13,7 @@ import {
   cachedKodikSources,
   readKodikCatalogEntry,
   type KodikCatalogConfig,
+  catalogAccessReady,
 } from '../src/lib/providers/video/kodik-catalog-cache';
 
 const catalog = JSON.parse(readFileSync('src/data/catalog.json', 'utf8')).anime as CatalogAnime[];
@@ -32,6 +33,27 @@ const approved = (): KodikCatalogConfig => ({
   approvalRevision: 'test-only-contract',
   reviewedAt: new Date(now).toISOString(),
   approvedAnimeIds: [...sampleIds],
+});
+test('bounded diagnostic consent cannot authorize a catalog sweep or a faster/larger budget', () => {
+  const probe = {
+    ...approved(),
+    rateLimitsConfirmed: false,
+    boundedProbeApproved: true,
+    approvedAnimeIds: [39535, 52299, 32281],
+    minRequestIntervalMs: 15000,
+    maxRequestsPerRun: 3,
+    maxRequestsPerDay: 3,
+  };
+  expect(catalogAccessReady(probe)).toBe(true);
+  for (const c of [
+    { ...probe, scope: 'catalog' },
+    { ...probe, approvedAnimeIds: [39535, 52299, 32281, 52991] },
+    { ...probe, minRequestIntervalMs: 14999 },
+    { ...probe, maxRequestsPerRun: 4 },
+    { ...probe, maxRequestsPerDay: 4 },
+    { ...probe, boundedProbeApproved: false },
+  ])
+    expect(catalogAccessReady(c)).toBe(false);
 });
 // Test doubles only: these made-up URLs and release IDs never enter public data.
 const embed = (id: number) => `https://kodikplayer.com/seria/${id}/${'a'.repeat(32)}/720p`;

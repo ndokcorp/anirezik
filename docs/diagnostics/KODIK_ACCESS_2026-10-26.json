@@ -1,41 +1,35 @@
 {
-  "checkedAt": "2026-10-26T11:28:42.493223+00:00",
+  "checkedAt": "2026-10-26T11:42:59.523362+00:00",
   "permissionReceived": true,
   "evidence": "docs/rights/KODIK_API_PERMISSION.md",
-  "requestsSent": 1,
+  "requestsSent": 2,
   "results": [
     {
+      "context": "local",
+      "shikimoriId": 39535,
+      "httpStatus": 401,
+      "status": "authorization-rejected"
+    },
+    {
+      "context": "github-actions",
       "shikimoriId": 39535,
       "httpStatus": 401,
       "status": "authorization-rejected"
     }
   ],
-  "notAttemptedIds": [
-    52299,
-    32281
-  ],
+  "notAttemptedIds": [52299, 32281],
   "successfulApiIds": 0,
   "newKodikAnime": 0,
-  "publicKodikIds": [
-    39535
-  ],
+  "publicKodikIds": [39535],
   "existingKodikVoiceTracks": 13,
   "existingKodikSubtitleTracks": 2,
   "existingKodikEpisodes": 11,
-  "confirmedAniLibertyIds": [
-    21,
-    269,
-    5060,
-    9253,
-    32281,
-    52299,
-    52991,
-    56733,
-    58567
-  ],
+  "confirmedAniLibertyIds": [21, 269, 5060, 9253, 32281, 52299, 52991, 56733, 58567],
   "confirmedUniquePlayerIds": 10,
-  "githubSecretConfigured": false,
+  "githubSecretConfigured": true,
   "mainSiteChanged": false,
-  "requiredAction": "Configure a working AniRezik token in GitHub Secret KODIK_API_TOKEN",
-  "credentialValuesIncluded": false
+  "requiredAction": "Have Kodik activate server API access for the key or update KODIK_API_TOKEN with a working credential",
+  "credentialValuesIncluded": false,
+  "githubActionsRun": 40316527021,
+  "automaticApiRequestsEnabled": false
 }
