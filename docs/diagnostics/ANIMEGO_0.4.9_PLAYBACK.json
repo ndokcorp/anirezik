@@ -79,5 +79,39 @@
     "requestsTotal": 278,
     "stop": null,
     "episodeVoiceEntries": 688
+  },
+  "production": {
+    "workflow": "https://github.com/ndokcorp/anirezik/actions/runs/40387743840",
+    "commit": "cb7c017",
+    "deploy": "success",
+    "browsers": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "publicPlayback": {
+      "url": "https://ndokcorp.github.io/anirezik/anime/41468/",
+      "shikimoriId": 41468,
+      "source": "CVH · AnimeGO",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "time": 9.384903,
+      "duration": 1194.1617499999998,
+      "width": 1280,
+      "height": 720,
+      "frames": 235,
+      "paused": false
+    },
+    "preservedSources": {
+      "52299": [
+        "aniliberty",
+        "animego-cvh"
+      ],
+      "39535": [
+        "kodik"
+      ]
+    }
   }
 }
