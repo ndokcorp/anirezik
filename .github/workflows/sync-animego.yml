@@ -2,6 +2,9 @@ name: Full approved AnimeGO catalog coverage
 on:
   workflow_dispatch:
     inputs:
+      publish_completed_cache:
+        type: boolean
+        default: false
       max_requests:
         type: string
         default: '500'
@@ -13,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   sync:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && inputs.publish_completed_cache != true
     runs-on: ubuntu-latest
     timeout-minutes: 25
     outputs:
@@ -51,7 +54,7 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({owner:context.repo.owner,repo:context.repo.repo,workflow_id:'sync-animego.yml',ref:'main',inputs:{max_requests:'500'}});
   publish:
     needs: sync
-    if: needs.sync.outputs.complete == 'true'
+    if: always() && github.ref == 'refs/heads/main' && (needs.sync.outputs.complete == 'true' || inputs.publish_completed_cache == true)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -69,10 +72,22 @@ jobs:
         with:
           ref: main
       - uses: actions/download-artifact@v4
+        if: inputs.publish_completed_cache != true
         with:
           name: animego-complete-candidate
           include-hidden-files: true
           path: .cache/animego-full/candidate
+      - name: Stage completed cache collected on the permitted local host
+        if: inputs.publish_completed_cache == true
+        run: |
+          python - <<'PY'
+          import shutil
+          from pathlib import Path
+          target=Path('.cache/animego-full/candidate')
+          for name in ['src/data/animego-index.json','src/data/animego-sync-report.json']:
+            p=target/name;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(name,p)
+          shutil.copytree('public/data/video/animego',target/'public/data/video/animego',dirs_exist_ok=True)
+          PY
       - uses: actions/setup-node@v4
         with:
           node-version: 24
