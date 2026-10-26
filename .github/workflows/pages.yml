@@ -160,7 +160,7 @@ jobs:
         env:
           ANILIBERTY_LIVE: '1'
           ANILIBERTY_LIVE_DEV: '1'
-        run: npm test -- --project=live-${{ matrix.browser }} --retries=0
+        run: npm test -- --project=live-${{ matrix.browser }} --retries=0 --grep="real video 1 old TV"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

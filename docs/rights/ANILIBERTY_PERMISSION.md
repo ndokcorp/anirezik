@@ -19,3 +19,5 @@
 0.4.8, 26.10.2026: официальный /anime/releases/8443 из Chromium и WebKit macOS GitHub Actions вернул 26 серий, Shikimori 1, оба флага блокировки false и HLS origin https://cache.libria.fun. Этот точный HTTPS origin добавлен в тот же реестр собственных потоков AniLiberty; wildcard, прокси, подмена Origin/Referer и отключение проверок не используются. Диагностика сохраняет только origin, не подписанные URL.
 
 Обычный запрос сегментов официального потока из обоих движков подтвердил перенаправление cache.libria.fun → https://cache-cloud9.libria.fun и HTTP 200. Прежний строгий redirect guard прерывал этот неизвестный origin. Добавлен только наблюдённый точный origin cache-cloud9.libria.fun; guard и исходные параметры потока сохранены.
+
+Следующий ограниченный просмотр подтвердил HTTP 200 перенаправлений на cache-cloud10.libria.fun (Cowboy Bebop, оба движка) и cache-cloud22.libria.fun (New Saga). Оба точных HTTPS origin внесены в реестр. Это наблюдённые официальные переходы исходного cache.libria.fun, не предположение по шаблону имён.

@@ -12,7 +12,9 @@
     "https://cache2.cache-ru1.libria.fun",
     "https://cache2.cache-ru3.libria.fun",
     "https://cache.libria.fun",
-    "https://cache-cloud9.libria.fun"
+    "https://cache-cloud9.libria.fun",
+    "https://cache-cloud10.libria.fun",
+    "https://cache-cloud22.libria.fun"
   ],
   "regionPolicy": "provider-response",
   "embeddingAllowed": false,
