@@ -18,6 +18,7 @@ import {
 const catalog = JSON.parse(readFileSync('src/data/catalog.json', 'utf8')).anime as CatalogAnime[];
 const anime = (id: number) => catalog.find((a) => a.shikimoriId === id)!;
 const now = Date.now();
+const sampleIds = [39535, 45576, 52299, 58567, 52991, 9253, 32281, 777];
 const approved = (): KodikCatalogConfig => ({
   ...config,
   enabled: true,
@@ -30,7 +31,7 @@ const approved = (): KodikCatalogConfig => ({
   permissionEvidence: 'docs/rights/TEST_ONLY.md',
   approvalRevision: 'test-only-contract',
   reviewedAt: new Date(now).toISOString(),
-  approvedAnimeIds: [...config.probeIds],
+  approvedAnimeIds: [...sampleIds],
 });
 // Test doubles only: these made-up URLs and release IDs never enter public data.
 const embed = (id: number) => `https://kodikplayer.com/seria/${id}/${'a'.repeat(32)}/720p`;
@@ -144,8 +145,8 @@ test('0.4.5: auth/rate errors halt the queue; transport errors and JSON never ex
 });
 
 test('0.4.5: eight catalog IDs cover separate seasons, a movie and OVA; only returned episode URLs are used', () => {
-  expect(config.probeIds).toHaveLength(8);
-  for (const id of config.probeIds) {
+  expect(sampleIds).toHaveLength(8);
+  for (const id of sampleIds) {
     const { entry } = normalizeKodikSearch(fixture(id), anime(id), approved(), now);
     expect(entry.status).toBe('found');
     expect(entry.shikimoriId).toBe(id);
@@ -308,7 +309,7 @@ test('0.4.7: CLI plan is offline; live catalog and more than ten IDs still requi
   ).toHaveLength(1);
   expect(
     report.results.filter((r: { status: string }) => r.status === 'not-tested-api-access-required'),
-  ).toHaveLength(7);
+  ).toHaveLength(config.probeIds.length - 1);
   const live = spawnSync(process.execPath, ['scripts/sync-kodik.ts'], { env, encoding: 'utf8' });
   expect(live.status).toBe(1);
   expect(live.stderr).toContain('own-key-and-provider-contract-required');

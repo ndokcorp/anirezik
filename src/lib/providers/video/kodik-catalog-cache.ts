@@ -6,6 +6,7 @@ export interface KodikCatalogConfig {
   apiAccessApproved: boolean;
   contractConfirmed: boolean;
   rateLimitsConfirmed: boolean;
+  boundedProbeApproved?: boolean;
   cachePublicationApproved: boolean;
   embeddingApproved: boolean;
   playbackSampleVerified: boolean;
@@ -52,7 +53,13 @@ export function catalogAccessReady(config: KodikCatalogConfig) {
   return (
     config.apiAccessApproved &&
     config.contractConfirmed &&
-    config.rateLimitsConfirmed &&
+    (config.rateLimitsConfirmed ||
+      (config.boundedProbeApproved === true &&
+        config.scope === 'selected' &&
+        config.approvedAnimeIds.length <= 3 &&
+        config.minRequestIntervalMs >= 15000 &&
+        config.maxRequestsPerRun <= 3 &&
+        config.maxRequestsPerDay <= 3)) &&
     /^docs\/rights\/[A-Z0-9_-]+\.md$/i.test(config.permissionEvidence || '') &&
     shortText(config.approvalRevision) &&
     config.approvalRevision !== 'unapproved' &&

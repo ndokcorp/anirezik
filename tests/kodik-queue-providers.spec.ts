@@ -13,7 +13,7 @@ test('0.4.7: queue exceeds ten IDs, deduplicates and respects the configured int
   const state = queueState(undefined, 'test', clock);
   const result = await runKodikQueue({
     anime: [...rows(25), ...rows(4)],
-    config,
+    config: { ...config, maxRequestsPerRun: 25, maxRequestsPerDay: 25 },
     state,
     now: () => clock,
     wait: async (ms) => {

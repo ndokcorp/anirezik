@@ -23,7 +23,8 @@ jobs:
     # API access needs approved terms; publication separately requires a real playback sample.
     # Scheduled updates stay off until the owner enables KODIK_AUTO_UPDATE.
     if: >-
-      github.ref == 'refs/heads/main' && vars.KODIK_API_ENABLED == 'true' &&
+      vars.KODIK_API_ENABLED == 'true' &&
+      (github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && !inputs.publish)) &&
       (github.event_name != 'schedule' || vars.KODIK_AUTO_UPDATE == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 55
