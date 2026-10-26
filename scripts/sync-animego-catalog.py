@@ -130,10 +130,15 @@ class Sync:
  def run(self):
   self.initialize()
   # All metadata first: duplicate season/title mappings are detected before activating sources.
+  consecutive_errors=0
   for row in self.db.execute('SELECT url FROM pages WHERE status="pending" ORDER BY url').fetchall():
-   try: meta=audit.parse_metadata(self.get(urllib.parse.urlparse(row['url']).path),row['url']); self.accept_metadata(row['url'],meta)
+   try: meta=audit.parse_metadata(self.get(urllib.parse.urlparse(row['url']).path),row['url']); self.accept_metadata(row['url'],meta);consecutive_errors=0
    except urllib.error.HTTPError as e:
-    if e.code in [404,410]: self.db.execute('UPDATE pages SET status="not-found",reason=? WHERE url=?',(str(e.code),row['url']))
+    if e.code in [404,410]: self.db.execute('UPDATE pages SET status="not-found",reason=? WHERE url=?',(str(e.code),row['url']));consecutive_errors=0
+    elif e.code in [500,502,503,504]:
+     consecutive_errors+=1
+     if consecutive_errors>=3:raise
+     self.db.execute('UPDATE pages SET status="review",reason=? WHERE url=?',('upstream-http-'+str(e.code)+'-after-retries',row['url']))
     else:raise
    except ValueError as e:
     if 'Unrecognized public title page' in str(e): self.db.execute('UPDATE pages SET status="review",reason="unrecognized-page" WHERE url=?',(row['url'],))
@@ -147,23 +152,31 @@ class Sync:
   for i in duplicates:self.db.execute('UPDATE pages SET status="review",reason="multiple-pages-for-shikimori-id" WHERE shiki=?',(i,))
   self.db.commit(); baseline=set(self.config('baseline'))
   queue=self.db.execute('SELECT * FROM pages WHERE status="matched"').fetchall()
+  episode_errors=0
   for row in sorted(queue,key=lambda r:(r['shiki'] in baseline,r['shiki'])):
-   m=json.loads(row['meta']);i=row['shiki'];a=self.byid[i]
-   first=self.response('/player/'+str(m['animegoId']))
-   eps=first['episodes']
-   if not eps:
-    if m['format']=='MOVIE':eps={'1':None}
-    else:self.db.execute('UPDATE pages SET status=?,reason="episode-list-unavailable" WHERE url=?',('no-cvh' if first.get('missing') else 'review',row['url']));self.db.commit();continue
-   entries=[]
-   for n,episodeid in sorted(eps.items(),key=lambda p:int(p[0])):
-    data=first if int(n)==1 else self.response('/player/videos/'+episodeid)
-    entries.extend({**v,'episodeNumber':int(n)} for v in data['rows'])
-   if not entries:
-    self.db.execute('UPDATE pages SET status="no-cvh" WHERE url=?',(row['url'],));self.db.commit();continue
-   output={'version':1,'shikimoriId':i,'animegoId':m['animegoId'],'title':a['title'],'originalTitle':a['originalTitle'],'year':a['year'],'format':m['format'],'sourceUrl':m['url'],'checkedAt':self.now(),'entries':entries}
-   self.db.execute('INSERT OR REPLACE INTO ready VALUES(?,?)',(i,json.dumps(output,ensure_ascii=False)))
-   self.db.execute('UPDATE pages SET status="ready" WHERE url=?',(row['url'],));self.db.commit()
-   print(json.dumps({'stage':'episodes','id':i,'episodes':len({e['episodeNumber'] for e in entries}),'voices':len({e['translationId'] for e in entries}),'requests':self.used}),flush=True)
+   try:self.collect(row);episode_errors=0
+   except urllib.error.HTTPError as error:
+    if error.code not in [500,502,503,504]:raise
+    episode_errors+=1
+    if episode_errors>=3:raise
+    self.db.execute('UPDATE pages SET status="review",reason=? WHERE url=?',('episode-upstream-http-'+str(error.code)+'-after-retries',row['url']));self.db.commit()
+ def collect(self,row):
+  m=json.loads(row['meta']);i=row['shiki'];a=self.byid[i]
+  first=self.response('/player/'+str(m['animegoId']))
+  eps=first['episodes']
+  if not eps:
+   if m['format']=='MOVIE':eps={'1':None}
+   else:self.db.execute('UPDATE pages SET status=?,reason="episode-list-unavailable" WHERE url=?',('no-cvh' if first.get('missing') else 'review',row['url']));self.db.commit();return
+  entries=[]
+  for n,episodeid in sorted(eps.items(),key=lambda p:int(p[0])):
+   data=first if int(n)==1 else self.response('/player/videos/'+episodeid)
+   entries.extend({**v,'episodeNumber':int(n)} for v in data['rows'])
+  if not entries:
+   self.db.execute('UPDATE pages SET status="no-cvh" WHERE url=?',(row['url'],));self.db.commit();return
+  output={'version':1,'shikimoriId':i,'animegoId':m['animegoId'],'title':a['title'],'originalTitle':a['originalTitle'],'year':a['year'],'format':m['format'],'sourceUrl':m['url'],'checkedAt':self.now(),'entries':entries}
+  self.db.execute('INSERT OR REPLACE INTO ready VALUES(?,?)',(i,json.dumps(output,ensure_ascii=False)))
+  self.db.execute('UPDATE pages SET status="ready" WHERE url=?',(row['url'],));self.db.commit()
+  print(json.dumps({'stage':'episodes','id':i,'episodes':len({e['episodeNumber'] for e in entries}),'voices':len({e['translationId'] for e in entries}),'requests':self.used}),flush=True)
  def report(self,error=None):
   counts=dict(self.db.execute('SELECT status,count(*) FROM pages GROUP BY status').fetchall()); ready=[json.loads(r[0]) for r in self.db.execute('SELECT data FROM ready')]
   initial=self.config('initialAnimeGoIds') or []; baseline=set(self.config('baseline') or [])
