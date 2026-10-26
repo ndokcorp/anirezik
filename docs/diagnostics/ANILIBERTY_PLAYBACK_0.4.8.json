@@ -1,0 +1,187 @@
+{
+  "version": "0.4.8",
+  "checkedAt": "2026-10-26",
+  "localChromium": {
+    "mobile": [
+      {
+        "shikimoriId": 1,
+        "releaseId": 8443,
+        "category": "old TV",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.928884,
+        "width": 640,
+        "height": 360,
+        "paused": false,
+        "decodedFrames": 49,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ26 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 30458,
+        "releaseId": 1531,
+        "category": "OVA",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.880467,
+        "width": 640,
+        "height": 360,
+        "paused": false,
+        "decodedFrames": 48,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ1 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 32281,
+        "releaseId": 6826,
+        "category": "movie",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.906092,
+        "width": 640,
+        "height": 360,
+        "paused": false,
+        "decodedFrames": 48,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ1 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 32827,
+        "releaseId": 6011,
+        "category": "ONA",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 2.060355,
+        "width": 640,
+        "height": 360,
+        "paused": false,
+        "decodedFrames": 52,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ12 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 52991,
+        "releaseId": 9542,
+        "category": "completed TV",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.962443,
+        "width": 853,
+        "height": 480,
+        "paused": false,
+        "decodedFrames": 50,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ28 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 53397,
+        "releaseId": 9489,
+        "category": "new TV",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.920221,
+        "width": 853,
+        "height": 480,
+        "paused": false,
+        "decodedFrames": 49,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ12 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      },
+      {
+        "shikimoriId": 64505,
+        "releaseId": 10354,
+        "category": "ongoing",
+        "browser": "chromium",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "time": 1.079037,
+        "width": 853,
+        "height": 480,
+        "paused": false,
+        "decodedFrames": 28,
+        "selected": [
+          "1",
+          "AniLibriaРћР—Р’РЈР§РљРђ2 СЌРї."
+        ],
+        "geoBlocked": false,
+        "copyrightBlocked": false
+      }
+    ],
+    "desktop": {
+      "shikimoriId": 1,
+      "releaseId": 8443,
+      "browser": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "time": 1.022089,
+      "width": 1280,
+      "height": 720,
+      "decodedFrames": 27
+    },
+    "distinctDecodedReleases": 7
+  },
+  "githubMacOS": {
+    "apiAvailability": {
+      "shikimoriId": 1,
+      "releaseId": 8443,
+      "externalId": 1,
+      "episodeCount": 26,
+      "geo": false,
+      "copyright": false,
+      "origins": [
+        "https://cache.libria.fun"
+      ]
+    },
+    "chromiumDecoded": false,
+    "webkitDecoded": false,
+    "note": "API returns cache.libria.fun, flags false, playback currentTime remained 0. Not counted as successful playback. Further safe transport diagnostics are separate."
+  },
+  "windowsWebkit": "Native HLS unavailable in the installed Windows WebKit build; not a playback success",
+  "hlsStored": false
+}
