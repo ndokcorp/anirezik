@@ -91,9 +91,9 @@ jobs:
       matrix:
         include:
           - browser: chromium
-            os: ubuntu-latest
+            os: macos-15
           - browser: firefox
-            os: ubuntu-latest
+            os: macos-15
           - browser: webkit
             os: macos-15
     steps:
@@ -178,6 +178,7 @@ jobs:
           path: |
             test-results/**/playback.json
             test-results/**/availability.json
+            test-results/**/transport.json
           if-no-files-found: ignore
   publish-metadata:
     if: github.ref == 'refs/heads/main' && inputs.metadata_artifact != '' && inputs.metadata_artifact != null
