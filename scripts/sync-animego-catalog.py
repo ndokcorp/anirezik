@@ -46,10 +46,12 @@ class Sync:
   for a in self.catalog:
    for n in [a['originalTitle'],a.get('englishTitle') or '',*a.get('aliases',[])]:
     if n and audit.key(n): self.names[audit.key(n)].add(a['shikimoriId'])
-  digest=hashlib.sha256((ROOT/'src/data/catalog.json').read_bytes()).hexdigest()
+  digest=hashlib.sha256(json.dumps(self.catalog,sort_keys=True,ensure_ascii=True,separators=(',',':')).encode()).hexdigest()
   old=self.config('catalogDigest')
-  if old and old!=digest: raise ValueError('Catalog changed; review checkpoint before resuming')
-  self.setconfig('catalogDigest',digest)
+  kind=self.config('catalogDigestKind')
+  if old and kind=='semantic-v1' and old!=digest: raise ValueError('Catalog changed; review checkpoint before resuming')
+  if kind!='semantic-v1':self.setconfig('matchingVersion',0)
+  self.setconfig('catalogDigest',digest);self.setconfig('catalogDigestKind','semantic-v1')
   if not self.config('baseline'):
    baseline=set(map(int,json.loads((ROOT/'src/data/aniliberty-index.json').read_text())['mappings']))|{39535}|set(json.loads((ROOT/'src/data/animego-index.json').read_text())['ids'])
    self.setconfig('baseline',sorted(baseline))
