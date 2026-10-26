@@ -8,3 +8,6 @@ playwright-report/
 *.previous
 .env.*
 !.env.example
+
+# Python research tools
+__pycache__/

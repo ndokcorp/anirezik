@@ -1,0 +1,3685 @@
+{
+  "version": "0.4.9-research",
+  "population": 30704,
+  "sampling": "50 with current provider / 50 without; census of all six editorial-popular flags plus deterministic probability sampling of non-popular titles within all nonempty era x format cells (minimum one). Editorial flags are not external viewing/popularity ranks. Unequal probabilities: raw sample rate is not catalog coverage.",
+  "summary": {
+    "sampleSize": 100,
+    "sitemapUrls": 3075,
+    "indexLookups": 100,
+    "searchEndpointRequests": 0,
+    "metadataPageRequestsTotal": 43,
+    "remainingMetadataPages": 0,
+    "states": {
+      "not-located-in-sitemap": 73,
+      "metadata-confirmed": 27
+    },
+    "pageFound": 27,
+    "declaredVoicesPresent": 27,
+    "approvedEmbeds": 0,
+    "playbackTested": 0,
+    "playbackConfirmed": 0,
+    "actualVideoCoverageEstimate": null,
+    "failure": null,
+    "caveat": "Sitemap discovery is incomplete and slug-based; not-located is UNKNOWN, not absent. This is metadata detection, not permitted embed/video coverage. No population video estimate or false zero percent.",
+    "sampleWithConfiguredProvider": 50,
+    "sampleWithoutConfiguredProvider": 50,
+    "metadataConfirmedWithConfiguredProvider": 25,
+    "metadataConfirmedWithoutConfiguredProvider": 2,
+    "sampleEditorialPopular": 6,
+    "embedPresenceTestedInSample": false,
+    "embedsFoundInSample": null,
+    "noVideoSourcesInSample": null,
+    "ambiguousMetadataMatches": 0,
+    "partnerAuthPerTitleInSample": null,
+    "newProductionProviders": 0
+  },
+  "pilots": [
+    {
+      "shikimoriId": 54744,
+      "title": "Аля иногда кокетничает со мной по-русски",
+      "originalTitle": "Tokidoki Bosotto Russia-go de Dereru Tonari no Alya-san",
+      "year": 2024,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 52299,
+      "title": "Поднятие уровня в одиночку",
+      "originalTitle": "Ore dake Level Up na Ken",
+      "year": 2024,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": true,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477"
+      ],
+      "pages": [
+        {
+          "animegoId": 2477,
+          "url": "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477",
+          "title": "Поднятие уровня в одиночку",
+          "alternativeNames": [
+            "Solo Leveling"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "Студийная Банда",
+            "AnimeVost",
+            "AniStar",
+            "AniRise",
+            "JAM CLUB",
+            "Amber",
+            "TVShows",
+            "Субтитры",
+            "Dream Cast",
+            "КОМНАТА ДИДИ",
+            "AniDub Online"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2477,
+        "url": "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477",
+        "title": "Поднятие уровня в одиночку",
+        "alternativeNames": [
+          "Solo Leveling"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "Студийная Банда",
+          "AnimeVost",
+          "AniStar",
+          "AniRise",
+          "JAM CLUB",
+          "Amber",
+          "TVShows",
+          "Субтитры",
+          "Dream Cast",
+          "КОМНАТА ДИДИ",
+          "AniDub Online"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 53397,
+      "title": "Стать сильнее! Новая сага",
+      "originalTitle": "Tsuyokute New Saga",
+      "year": 2025,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/stat-silnee-novaya-saga-2820"
+      ],
+      "pages": [
+        {
+          "animegoId": 2820,
+          "url": "https://animego.me/anime/stat-silnee-novaya-saga-2820",
+          "title": "Стать сильнее! Новая сага",
+          "alternativeNames": [
+            "New Saga"
+          ],
+          "year": 2025,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AnimeVost",
+            "AniStar",
+            "Субтитры",
+            "Dream Cast",
+            "AniLiberty"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2820,
+        "url": "https://animego.me/anime/stat-silnee-novaya-saga-2820",
+        "title": "Стать сильнее! Новая сага",
+        "alternativeNames": [
+          "New Saga"
+        ],
+        "year": 2025,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AnimeVost",
+          "AniStar",
+          "Субтитры",
+          "Dream Cast",
+          "AniLiberty"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 1,
+      "title": "Ковбой Бибоп",
+      "originalTitle": "Cowboy Bebop",
+      "year": 1998,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/kovboy-bibop-276"
+      ],
+      "pages": [
+        {
+          "animegoId": 276,
+          "url": "https://animego.me/anime/kovboy-bibop-276",
+          "title": "Ковбой Бибоп",
+          "alternativeNames": [
+            "Cowboy Bebop"
+          ],
+          "year": 1998,
+          "format": "TV",
+          "declaredEpisodes": 26,
+          "declaredVoices": [
+            "SHIZA Project",
+            "KANSAI"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 276,
+        "url": "https://animego.me/anime/kovboy-bibop-276",
+        "title": "Ковбой Бибоп",
+        "alternativeNames": [
+          "Cowboy Bebop"
+        ],
+        "year": 1998,
+        "format": "TV",
+        "declaredEpisodes": 26,
+        "declaredVoices": [
+          "SHIZA Project",
+          "KANSAI"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 64505,
+      "title": "Путь аса: Акт II 2. Часть 2",
+      "originalTitle": "Diamond no Ace: Act II Second Season Part 2",
+      "year": 2026,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/put-asa-akt-ii-2-chast-2-3997"
+      ],
+      "pages": [
+        {
+          "animegoId": 3997,
+          "url": "https://animego.me/anime/put-asa-akt-ii-2-chast-2-3997",
+          "title": "Путь аса: Акт II 2. Часть 2",
+          "alternativeNames": [
+            "Ace of Diamond Act II Season 2 Part 2"
+          ],
+          "year": 2026,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AnimeVost",
+            "AniStar",
+            "Профессиональный многоголосый",
+            "Субтитры",
+            "AniLiberty"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 3997,
+        "url": "https://animego.me/anime/put-asa-akt-ii-2-chast-2-3997",
+        "title": "Путь аса: Акт II 2. Часть 2",
+        "alternativeNames": [
+          "Ace of Diamond Act II Season 2 Part 2"
+        ],
+        "year": 2026,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AnimeVost",
+          "AniStar",
+          "Профессиональный многоголосый",
+          "Субтитры",
+          "AniLiberty"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 32281,
+      "title": "Твоё имя",
+      "originalTitle": "Kimi no Na wa.",
+      "year": 2016,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/tvoe-imya-107"
+      ],
+      "pages": [
+        {
+          "animegoId": 107,
+          "url": "https://animego.me/anime/tvoe-imya-107",
+          "title": "Твоё имя",
+          "alternativeNames": [
+            "Your Name."
+          ],
+          "year": 2016,
+          "format": "MOVIE",
+          "declaredEpisodes": null,
+          "declaredVoices": [
+            "AniLibria",
+            "SHIZA Project",
+            "STEPonee",
+            "Дубляж"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 107,
+        "url": "https://animego.me/anime/tvoe-imya-107",
+        "title": "Твоё имя",
+        "alternativeNames": [
+          "Your Name."
+        ],
+        "year": 2016,
+        "format": "MOVIE",
+        "declaredEpisodes": null,
+        "declaredVoices": [
+          "AniLibria",
+          "SHIZA Project",
+          "STEPonee",
+          "Дубляж"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 56838,
+      "title": "Одна комната, солнечный свет, ангел",
+      "originalTitle": "One Room, Hiatari Futsuu, Tenshi-tsuki.",
+      "year": 2024,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": null,
+      "populationN": null,
+      "sampleN": null,
+      "candidateUrls": [
+        "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573"
+      ],
+      "pages": [
+        {
+          "animegoId": 2573,
+          "url": "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573",
+          "title": "Студия, солнечная сторона, есть ангел Одна комната, солнечный свет, ангел",
+          "alternativeNames": [
+            "Studio Apartment, Good Lighting, Angel Included",
+            "Одна комната, солнечный свет, ангел"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AnimeVost",
+            "AniStar",
+            "Субтитры"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2573,
+        "url": "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573",
+        "title": "Студия, солнечная сторона, есть ангел Одна комната, солнечный свет, ангел",
+        "alternativeNames": [
+          "Studio Apartment, Good Lighting, Angel Included",
+          "Одна комната, солнечный свет, ангел"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AnimeVost",
+          "AniStar",
+          "Субтитры"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    }
+  ],
+  "sample": [
+    {
+      "shikimoriId": 20,
+      "title": "Наруто",
+      "originalTitle": "Naruto",
+      "year": 2002,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": false,
+      "stratum": "False|editorial-census|20",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 16498,
+      "title": "Атака титанов",
+      "originalTitle": "Shingeki no Kyojin",
+      "year": 2013,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": false,
+      "stratum": "False|editorial-census|16498",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 44511,
+      "title": "Человек-бензопила",
+      "originalTitle": "Chainsaw Man",
+      "year": 2022,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": false,
+      "stratum": "False|editorial-census|44511",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 64836,
+      "title": "Гнездо",
+      "originalTitle": "Dungji",
+      "year": 2005,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|MOVIE",
+      "populationN": 714,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 34124,
+      "title": "Ух ты, начальник!",
+      "originalTitle": "Uobbuchou",
+      "year": 2007,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|ONA",
+      "populationN": 210,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 32781,
+      "title": "Воздерживаться",
+      "originalTitle": "Refrain (Music)",
+      "year": 2009,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|OTHER",
+      "populationN": 1125,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 46048,
+      "title": "Liang Liang Kan Hai",
+      "originalTitle": "Liang Liang Kan Hai",
+      "year": 2000,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|OTHER",
+      "populationN": 1125,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 359,
+      "title": "Лихая баскетбольная команда Кодзу",
+      "originalTitle": "I'll/CKBC",
+      "year": 2002,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|OVA",
+      "populationN": 1260,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 24865,
+      "title": "Друзья Амиго",
+      "originalTitle": "Amigo Tomodachi",
+      "year": 2000,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|OVA",
+      "populationN": 1260,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 46167,
+      "title": "Yingxiong Qi Ge Ban",
+      "originalTitle": "Yingxiong Qi Ge Ban",
+      "year": 2002,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|TV",
+      "populationN": 1604,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 5854,
+      "title": "Легенда о герое Кондоре III",
+      "originalTitle": "Shen Diao Xia Lu III: Shi liu nian zhi yue",
+      "year": 2007,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2000-2009|TV",
+      "populationN": 1604,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 44815,
+      "title": "Duo Bao Xingyun Xing Da Dianying: Jin Gu Bang Chuanqi 2 - Sha Seng De Ni Xi",
+      "originalTitle": "Duo Bao Xingyun Xing Da Dianying: Jin Gu Bang Chuanqi 2 - Sha Seng De Ni Xi",
+      "year": 2015,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|MOVIE",
+      "populationN": 1542,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 51250,
+      "title": "Автоботы вперёд",
+      "originalTitle": "Qiche Ren Zongdongyuan",
+      "year": 2015,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|MOVIE",
+      "populationN": 1542,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 16389,
+      "title": "Комати и Дангоро",
+      "originalTitle": "Komachi to Dangorou",
+      "year": 2012,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|ONA",
+      "populationN": 1891,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 36491,
+      "title": "Расколотая битвой синева небес",
+      "originalTitle": "Doupo Cangqiong",
+      "year": 2017,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|ONA",
+      "populationN": 1891,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 37098,
+      "title": "Медведи-соседи: Новогодний подарок",
+      "originalTitle": "Xiong Chumo: Nianhuo",
+      "year": 2014,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|OTHER",
+      "populationN": 2906,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 58842,
+      "title": "Onmyou Hyakki Monogatari PV",
+      "originalTitle": "Onmyou Hyakki Monogatari PV",
+      "year": 2019,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|OTHER",
+      "populationN": 2906,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 23735,
+      "title": "Даймидалер: Принц против Пингвиньей Империи — Спецвыпуски",
+      "originalTitle": "Kenzen Robo Daimidaler Specials",
+      "year": 2014,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|OTHER",
+      "populationN": 2906,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 9675,
+      "title": "Одному лишь Богу ведомый мир: Флаг 0",
+      "originalTitle": "Kami nomi zo Shiru Sekai: Flag 0",
+      "year": 2010,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|OVA",
+      "populationN": 1121,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 17541,
+      "title": "Осколки твоего сердца",
+      "originalTitle": "Kotowari: Kimi no Kokoro no Koboreta Kakera",
+      "year": 2013,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|OVA",
+      "populationN": 1121,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 46937,
+      "title": "Xiaolong Tianpin Gongfang",
+      "originalTitle": "Xiaolong Tianpin Gongfang",
+      "year": 2014,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|TV",
+      "populationN": 2783,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 43255,
+      "title": "San Mao Qiyu Ji",
+      "originalTitle": "San Mao Qiyu Ji",
+      "year": 2010,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|TV",
+      "populationN": 2783,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 45013,
+      "title": "Dan Jihua",
+      "originalTitle": "Dan Jihua",
+      "year": 2013,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2010-2019|TV",
+      "populationN": 2783,
+      "sampleN": 3,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 50206,
+      "title": "Перекрёсток Такано",
+      "originalTitle": "Takano Kousaten",
+      "year": 2021,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|MOVIE",
+      "populationN": 504,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 54739,
+      "title": "Займитесь любовью",
+      "originalTitle": "Make Love",
+      "year": 2020,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|ONA",
+      "populationN": 1323,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 41468,
+      "title": "Сжечь ведьму",
+      "originalTitle": "Burn the Witch",
+      "year": 2020,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|ONA",
+      "populationN": 1323,
+      "sampleN": 2,
+      "candidateUrls": [
+        "https://animego.me/anime/szhech-vedmu-1637"
+      ],
+      "pages": [
+        {
+          "animegoId": 1637,
+          "url": "https://animego.me/anime/szhech-vedmu-1637",
+          "title": "Сжечь ведьму",
+          "alternativeNames": [
+            "Burn the Witch"
+          ],
+          "year": 2020,
+          "format": "ONA",
+          "declaredEpisodes": 3,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AniMedia",
+            "AniStar"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1637,
+        "url": "https://animego.me/anime/szhech-vedmu-1637",
+        "title": "Сжечь ведьму",
+        "alternativeNames": [
+          "Burn the Witch"
+        ],
+        "year": 2020,
+        "format": "ONA",
+        "declaredEpisodes": 3,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AniMedia",
+          "AniStar"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 55338,
+      "title": "Цепная ловушка",
+      "originalTitle": "Chained Trap",
+      "year": 2023,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|OTHER",
+      "populationN": 1808,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 53797,
+      "title": "Новое дыхание",
+      "originalTitle": "Shin Kokyuu",
+      "year": 2021,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|OTHER",
+      "populationN": 1808,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 48651,
+      "title": "Отделение извлечения спермы",
+      "originalTitle": "Sakusei Byoutou The Animation",
+      "year": 2021,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|OVA",
+      "populationN": 214,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 50606,
+      "title": "Треугольник Аякаси",
+      "originalTitle": "Ayakashi Triangle",
+      "year": 2023,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2020-2023|TV",
+      "populationN": 718,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 61162,
+      "title": "Тимпуй: Удачи вам, госпожа Эри",
+      "originalTitle": "Chinpui: Eri-sama no Good Luck",
+      "year": 2025,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|MOVIE",
+      "populationN": 343,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 58333,
+      "title": "У каждого рода есть своя история",
+      "originalTitle": "Uji ni wa Monogatari ga Aru",
+      "year": 2024,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|ONA",
+      "populationN": 794,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 62300,
+      "title": "Скорость",
+      "originalTitle": "Speed (Music)",
+      "year": 2025,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|OTHER",
+      "populationN": 1121,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 61248,
+      "title": "Gorogura Gorogoro Gu ga Dekkai-hen",
+      "originalTitle": "Gorogura Gorogoro Gu ga Dekkai-hen",
+      "year": 2025,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|OTHER",
+      "populationN": 1121,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 64297,
+      "title": "Башня в тумане",
+      "originalTitle": "Muchuu no Tou",
+      "year": 2026,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|OVA",
+      "populationN": 143,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 56838,
+      "title": "Одна комната, солнечный свет, ангел",
+      "originalTitle": "One Room, Hiatari Futsuu, Tenshi-tsuki.",
+      "year": 2024,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|2024-plus|TV",
+      "populationN": 658,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573"
+      ],
+      "pages": [
+        {
+          "animegoId": 2573,
+          "url": "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573",
+          "title": "Студия, солнечная сторона, есть ангел Одна комната, солнечный свет, ангел",
+          "alternativeNames": [
+            "Studio Apartment, Good Lighting, Angel Included",
+            "Одна комната, солнечный свет, ангел"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AnimeVost",
+            "AniStar",
+            "Субтитры"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2573,
+        "url": "https://animego.me/anime/studiya-solnechnaya-storona-est-angel-2573",
+        "title": "Студия, солнечная сторона, есть ангел Одна комната, солнечный свет, ангел",
+        "alternativeNames": [
+          "Studio Apartment, Good Lighting, Angel Included",
+          "Одна комната, солнечный свет, ангел"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AnimeVost",
+          "AniStar",
+          "Субтитры"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 2646,
+      "title": "Дорами и Дораэмон: Семь загадок школы роботов",
+      "originalTitle": "Dorami & Doraemons: Robot Gakkou Nanafushigi!?",
+      "year": 1996,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|MOVIE",
+      "populationN": 1827,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 6072,
+      "title": "Одиннадцать котят и Альбатрос",
+      "originalTitle": "11-piki no Neko to Ahoudori",
+      "year": 1986,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|MOVIE",
+      "populationN": 1827,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 53024,
+      "title": "Касюра: Кардинальный фанк",
+      "originalTitle": "Kashura: Cardinal Funk",
+      "year": 1999,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|ONA",
+      "populationN": 4,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 57272,
+      "title": "Lucky Chunhyang",
+      "originalTitle": "Lucky Chunhyang",
+      "year": 1956,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|OTHER",
+      "populationN": 1053,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 56656,
+      "title": "Obake Nante Nai sa",
+      "originalTitle": "Obake Nante Nai sa",
+      "year": 1966,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|OTHER",
+      "populationN": 1053,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 9409,
+      "title": "Опустошитель Ди-1",
+      "originalTitle": "D-1 Devastator",
+      "year": 1992,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|OVA",
+      "populationN": 1425,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 9542,
+      "title": "Путцун влюбляется",
+      "originalTitle": "Puttsun Make Love",
+      "year": 1987,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|OVA",
+      "populationN": 1425,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 6383,
+      "title": "Нападающий Кэн!",
+      "originalTitle": "Chargeman Ken!",
+      "year": 1974,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|TV",
+      "populationN": 1159,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 3909,
+      "title": "Удивительный человек",
+      "originalTitle": "Bikkuriman",
+      "year": 1987,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|before-2000|TV",
+      "populationN": 1159,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 55143,
+      "title": "Левша",
+      "originalTitle": "Hidari",
+      "year": null,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|unknown|MOVIE",
+      "populationN": 57,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 64457,
+      "title": "Меч грядущего: Учение святого мудреца",
+      "originalTitle": "Jian Lai Movie: Wen Sheng Yi Mai",
+      "year": null,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|unknown|ONA",
+      "populationN": 155,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 65107,
+      "title": "Комитет судного дня",
+      "originalTitle": "Kochira, Shuumatsu Teitai Iinkai.",
+      "year": null,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|unknown|OTHER",
+      "populationN": 80,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 35171,
+      "title": "Молодец! Дорожная безопасность Момотаро",
+      "originalTitle": "Appare! Momotarou no Koutsuu Anzen",
+      "year": null,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|unknown|OVA",
+      "populationN": 82,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 46407,
+      "title": "Koala Kai Xue La",
+      "originalTitle": "Koala Kai Xue La",
+      "year": null,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": false,
+      "stratum": "False|unknown|TV",
+      "populationN": 488,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 38000,
+      "title": "Клинок, рассекающий демонов",
+      "originalTitle": "Kimetsu no Yaiba",
+      "year": 2019,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": true,
+      "stratum": "True|editorial-census|38000",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40748,
+      "title": "Магическая битва",
+      "originalTitle": "Jujutsu Kaisen",
+      "year": 2020,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": true,
+      "stratum": "True|editorial-census|40748",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/magicheskaya-bitva-2026-09-29-1635"
+      ],
+      "pages": [
+        {
+          "animegoId": 1635,
+          "url": "https://animego.me/anime/magicheskaya-bitva-2026-09-29-1635",
+          "title": "Магическая битва",
+          "alternativeNames": [
+            "Jujutsu Kaisen"
+          ],
+          "year": 2020,
+          "format": "TV",
+          "declaredEpisodes": 24,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AniFilm",
+            "SHIZA Project",
+            "AniMedia",
+            "Amazing Dubbing",
+            "AnimeVost",
+            "AniStar",
+            "AniRise",
+            "JAM CLUB",
+            "Профессиональный многоголосый",
+            "TVShows"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1635,
+        "url": "https://animego.me/anime/magicheskaya-bitva-2026-09-29-1635",
+        "title": "Магическая битва",
+        "alternativeNames": [
+          "Jujutsu Kaisen"
+        ],
+        "year": 2020,
+        "format": "TV",
+        "declaredEpisodes": 24,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AniFilm",
+          "SHIZA Project",
+          "AniMedia",
+          "Amazing Dubbing",
+          "AnimeVost",
+          "AniStar",
+          "AniRise",
+          "JAM CLUB",
+          "Профессиональный многоголосый",
+          "TVShows"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 52299,
+      "title": "Поднятие уровня в одиночку",
+      "originalTitle": "Ore dake Level Up na Ken",
+      "year": 2024,
+      "format": "TV",
+      "popular": true,
+      "hasCurrentPlayer": true,
+      "stratum": "True|editorial-census|52299",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477"
+      ],
+      "pages": [
+        {
+          "animegoId": 2477,
+          "url": "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477",
+          "title": "Поднятие уровня в одиночку",
+          "alternativeNames": [
+            "Solo Leveling"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "Студийная Банда",
+            "AnimeVost",
+            "AniStar",
+            "AniRise",
+            "JAM CLUB",
+            "Amber",
+            "TVShows",
+            "Субтитры",
+            "Dream Cast",
+            "КОМНАТА ДИДИ",
+            "AniDub Online"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2477,
+        "url": "https://animego.me/anime/podnyatie-urovnya-v-odinochku-s1-2477",
+        "title": "Поднятие уровня в одиночку",
+        "alternativeNames": [
+          "Solo Leveling"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "Студийная Банда",
+          "AnimeVost",
+          "AniStar",
+          "AniRise",
+          "JAM CLUB",
+          "Amber",
+          "TVShows",
+          "Субтитры",
+          "Dream Cast",
+          "КОМНАТА ДИДИ",
+          "AniDub Online"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 3784,
+      "title": "Евангелион 2.22: Ты (не) пройдёшь",
+      "originalTitle": "Evangelion Movie 2: Ha",
+      "year": 2009,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2000-2009|MOVIE",
+      "populationN": 6,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/evangelion-222-ty-ne-proydesh-867"
+      ],
+      "pages": [
+        {
+          "animegoId": 867,
+          "url": "https://animego.me/anime/evangelion-222-ty-ne-proydesh-867",
+          "title": "Евангелион 2.22: Ты (не) пройдешь",
+          "alternativeNames": [
+            "Evangelion: 2.0 You Can (Not) Advance"
+          ],
+          "year": 2009,
+          "format": "MOVIE",
+          "declaredEpisodes": null,
+          "declaredVoices": [
+            "AniLibria",
+            "SHIZA Project",
+            "Reanimedia"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 867,
+        "url": "https://animego.me/anime/evangelion-222-ty-ne-proydesh-867",
+        "title": "Евангелион 2.22: Ты (не) пройдешь",
+        "alternativeNames": [
+          "Evangelion: 2.0 You Can (Not) Advance"
+        ],
+        "year": 2009,
+        "format": "MOVIE",
+        "declaredEpisodes": null,
+        "declaredVoices": [
+          "AniLibria",
+          "SHIZA Project",
+          "Reanimedia"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 5060,
+      "title": "Хеталия и страны Оси",
+      "originalTitle": "Hetalia Axis Powers",
+      "year": 2009,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2000-2009|ONA",
+      "populationN": 2,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 5593,
+      "title": "Псы: Пули и резня",
+      "originalTitle": "Dogs: Bullets & Carnage",
+      "year": 2009,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2000-2009|OVA",
+      "populationN": 3,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 322,
+      "title": "Райский поцелуй",
+      "originalTitle": "Paradise Kiss",
+      "year": 2005,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2000-2009|TV",
+      "populationN": 49,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 30585,
+      "title": "Тайфун Норуды",
+      "originalTitle": "Taifuu no Noruda",
+      "year": 2015,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|MOVIE",
+      "populationN": 61,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 29511,
+      "title": "Музыкальные девчонки. Фильм",
+      "originalTitle": "Ongaku Shoujo",
+      "year": 2015,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|MOVIE",
+      "populationN": 61,
+      "sampleN": 2,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40100,
+      "title": "Готовим с валькириями",
+      "originalTitle": "Nu Wushen de Canzhuo",
+      "year": 2019,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|ONA",
+      "populationN": 15,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/gotovim-s-val-kiriyami-3580"
+      ],
+      "pages": [
+        {
+          "animegoId": 3580,
+          "url": "https://animego.me/anime/gotovim-s-val-kiriyami-3580",
+          "title": "Готовим с валькириями",
+          "alternativeNames": [
+            "Cooking with Valkyries"
+          ],
+          "year": 2019,
+          "format": "ONA",
+          "declaredEpisodes": 10,
+          "declaredVoices": [
+            "AniLibria",
+            "ХЗ Лол"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 3580,
+        "url": "https://animego.me/anime/gotovim-s-val-kiriyami-3580",
+        "title": "Готовим с валькириями",
+        "alternativeNames": [
+          "Cooking with Valkyries"
+        ],
+        "year": 2019,
+        "format": "ONA",
+        "declaredEpisodes": 10,
+        "declaredVoices": [
+          "AniLibria",
+          "ХЗ Лол"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 35814,
+      "title": "Фантазия Гранблю: Тыквенная лампа",
+      "originalTitle": "Granblue Fantasy The Animation: Kabocha no Lantern",
+      "year": 2017,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|OTHER",
+      "populationN": 2,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 37449,
+      "title": "Удар крови III",
+      "originalTitle": "Strike the Blood III",
+      "year": 2018,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|OVA",
+      "populationN": 27,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 31904,
+      "title": "Приказ, изменивший мир",
+      "originalTitle": "Big Order (TV)",
+      "year": 2016,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 34368,
+      "title": "Инспекторы чудес Ватикана",
+      "originalTitle": "Vatican Kiseki Chousakan",
+      "year": 2017,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/inspektory-chudes-vatikana-1293"
+      ],
+      "pages": [
+        {
+          "animegoId": 1293,
+          "url": "https://animego.me/anime/inspektory-chudes-vatikana-1293",
+          "title": "Инспекторы чудес Ватикана",
+          "alternativeNames": [
+            "Vatican Miracle Examiner"
+          ],
+          "year": 2017,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1293,
+        "url": "https://animego.me/anime/inspektory-chudes-vatikana-1293",
+        "title": "Инспекторы чудес Ватикана",
+        "alternativeNames": [
+          "Vatican Miracle Examiner"
+        ],
+        "year": 2017,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 38145,
+      "title": "Домашний питомец, иногда сидящий на моей голове",
+      "originalTitle": "Doukyonin wa Hiza, Tokidoki, Atama no Ue.",
+      "year": 2019,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/domashniy-pitomec-inogda-sidyaschiy-na-moey-golove-770"
+      ],
+      "pages": [
+        {
+          "animegoId": 770,
+          "url": "https://animego.me/anime/domashniy-pitomec-inogda-sidyaschiy-na-moey-golove-770",
+          "title": "Домашний питомец, иногда сидящий на моей голове",
+          "alternativeNames": [
+            "My Roommate is a Cat"
+          ],
+          "year": 2019,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AniMedia",
+            "AniStar",
+            "SovetRomantica"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 770,
+        "url": "https://animego.me/anime/domashniy-pitomec-inogda-sidyaschiy-na-moey-golove-770",
+        "title": "Домашний питомец, иногда сидящий на моей голове",
+        "alternativeNames": [
+          "My Roommate is a Cat"
+        ],
+        "year": 2019,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AniMedia",
+          "AniStar",
+          "SovetRomantica"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 19855,
+      "title": "Пушка Нобунаги",
+      "originalTitle": "Nobunagun",
+      "year": 2014,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 37952,
+      "title": "Исчезнувший город",
+      "originalTitle": "Shoumetsu Toshi",
+      "year": 2019,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 39199,
+      "title": "К зверям, что некогда были богами",
+      "originalTitle": "Katsute Kami Datta Kemono-tachi e",
+      "year": 2019,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/otvergnutyy-svyaschennyy-zver-1110"
+      ],
+      "pages": [
+        {
+          "animegoId": 1110,
+          "url": "https://animego.me/anime/otvergnutyy-svyaschennyy-zver-1110",
+          "title": "Отвергнутый священный зверь",
+          "alternativeNames": [
+            "To the Abandoned Sacred Beasts"
+          ],
+          "year": 2019,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AnimeVost",
+            "AniRise",
+            "Akari Group"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1110,
+        "url": "https://animego.me/anime/otvergnutyy-svyaschennyy-zver-1110",
+        "title": "Отвергнутый священный зверь",
+        "alternativeNames": [
+          "To the Abandoned Sacred Beasts"
+        ],
+        "year": 2019,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AnimeVost",
+          "AniRise",
+          "Akari Group"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 9253,
+      "title": "Врата Штейна",
+      "originalTitle": "Steins;Gate",
+      "year": 2011,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 27787,
+      "title": "Притворная любовь 2",
+      "originalTitle": "Nisekoi:",
+      "year": 2015,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/pritvornaya-lyubov-2-2504"
+      ],
+      "pages": [
+        {
+          "animegoId": 2504,
+          "url": "https://animego.me/anime/pritvornaya-lyubov-2-2504",
+          "title": "Притворная любовь 2",
+          "alternativeNames": [
+            "Nisekoi: False Love Season 2"
+          ],
+          "year": 2015,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "Субтитры"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2504,
+        "url": "https://animego.me/anime/pritvornaya-lyubov-2-2504",
+        "title": "Притворная любовь 2",
+        "alternativeNames": [
+          "Nisekoi: False Love Season 2"
+        ],
+        "year": 2015,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "Субтитры"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 30503,
+      "title": "Бездомный бог: Арагото",
+      "originalTitle": "Noragami Aragoto",
+      "year": 2015,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 37598,
+      "title": "Фантом в сумерках",
+      "originalTitle": "Phantom in the Twilight",
+      "year": 2018,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/fantom-v-sumerkah-655"
+      ],
+      "pages": [
+        {
+          "animegoId": 655,
+          "url": "https://animego.me/anime/fantom-v-sumerkah-655",
+          "title": "Фантом в сумерках",
+          "alternativeNames": [
+            "Phantom in the Twilight"
+          ],
+          "year": 2018,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AnimeVost",
+            "AniStar",
+            "KANSAI",
+            "Indie Dub"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 655,
+        "url": "https://animego.me/anime/fantom-v-sumerkah-655",
+        "title": "Фантом в сумерках",
+        "alternativeNames": [
+          "Phantom in the Twilight"
+        ],
+        "year": 2018,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AnimeVost",
+          "AniStar",
+          "KANSAI",
+          "Indie Dub"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 38150,
+      "title": "Да здравствует Амитабха: Лотос Утэны",
+      "originalTitle": "Namu Amida Butsu! Rendai Utena",
+      "year": 2019,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 34984,
+      "title": "Любовь похожа на прошедший дождь",
+      "originalTitle": "Koi wa Ameagari no You ni",
+      "year": 2018,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2010-2019|TV",
+      "populationN": 572,
+      "sampleN": 12,
+      "candidateUrls": [
+        "https://animego.me/anime/lyubov-pohozha-na-proshedshiy-dozhd-143"
+      ],
+      "pages": [
+        {
+          "animegoId": 143,
+          "url": "https://animego.me/anime/lyubov-pohozha-na-proshedshiy-dozhd-143",
+          "title": "Любовь похожа на прошедший дождь",
+          "alternativeNames": [
+            "After the Rain"
+          ],
+          "year": 2018,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AnimeVost",
+            "AniStar",
+            "KANSAI",
+            "JART Team",
+            "Субтитры"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 143,
+        "url": "https://animego.me/anime/lyubov-pohozha-na-proshedshiy-dozhd-143",
+        "title": "Любовь похожа на прошедший дождь",
+        "alternativeNames": [
+          "After the Rain"
+        ],
+        "year": 2018,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AnimeVost",
+          "AniStar",
+          "KANSAI",
+          "JART Team",
+          "Субтитры"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 51995,
+      "title": "Звучи, эуфониум! Соревнование ансамблей",
+      "originalTitle": "Hibike! Euphonium: Ensemble Contest-hen",
+      "year": 2023,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|MOVIE",
+      "populationN": 33,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/zvuchi-eufonium-sorevnovanie-ansambley-2584"
+      ],
+      "pages": [
+        {
+          "animegoId": 2584,
+          "url": "https://animego.me/anime/zvuchi-eufonium-sorevnovanie-ansambley-2584",
+          "title": "Звучи, эуфониум! Соревнование ансамблей",
+          "alternativeNames": [
+            "Sound! Euphonium: Ensemble Contest Arc"
+          ],
+          "year": 2023,
+          "format": "MOVIE",
+          "declaredEpisodes": null,
+          "declaredVoices": [
+            "Субтитры",
+            "AniLiberty"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2584,
+        "url": "https://animego.me/anime/zvuchi-eufonium-sorevnovanie-ansambley-2584",
+        "title": "Звучи, эуфониум! Соревнование ансамблей",
+        "alternativeNames": [
+          "Sound! Euphonium: Ensemble Contest Arc"
+        ],
+        "year": 2023,
+        "format": "MOVIE",
+        "declaredEpisodes": null,
+        "declaredVoices": [
+          "Субтитры",
+          "AniLiberty"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 53149,
+      "title": "Лукизм",
+      "originalTitle": "Oemojisangjuui",
+      "year": 2022,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|ONA",
+      "populationN": 28,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/lukizm-2197"
+      ],
+      "pages": [
+        {
+          "animegoId": 2197,
+          "url": "https://animego.me/anime/lukizm-2197",
+          "title": "Лукизм",
+          "alternativeNames": [
+            "Lookism"
+          ],
+          "year": 2022,
+          "format": "ONA",
+          "declaredEpisodes": 8,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AniStar"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2197,
+        "url": "https://animego.me/anime/lukizm-2197",
+        "title": "Лукизм",
+        "alternativeNames": [
+          "Lookism"
+        ],
+        "year": 2022,
+        "format": "ONA",
+        "declaredEpisodes": 8,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AniStar"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 49138,
+      "title": "Принцесса-шпионка: Укротитель короны — Занятые лёгкие деньги",
+      "originalTitle": "Princess Principal: Crown Handler 1 - Busy Easy Money",
+      "year": 2021,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|OTHER",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 46431,
+      "title": "Как и ожидалось, моя школьная романтическая жизнь не удалась 3 OVA",
+      "originalTitle": "Yahari Ore no Seishun Love Comedy wa Machigatteiru. Kan: Dakara, Shishunki wa Owarazu ni, Seishun wa Tsuzuiteiku.",
+      "year": 2023,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|OVA",
+      "populationN": 8,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 37599,
+      "title": "Бедственная правда",
+      "originalTitle": "Magatsu Wahrheit: Zuerst",
+      "year": 2020,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/bedstvennaya-pravda-1644"
+      ],
+      "pages": [
+        {
+          "animegoId": 1644,
+          "url": "https://animego.me/anime/bedstvennaya-pravda-1644",
+          "title": "Бедственная правда БЕДСТВИЕ ВАРХАЙТА",
+          "alternativeNames": [
+            "MAGATSU WAHRHEIT",
+            "БЕДСТВИЕ ВАРХАЙТА"
+          ],
+          "year": 2020,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "Студийная Банда"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1644,
+        "url": "https://animego.me/anime/bedstvennaya-pravda-1644",
+        "title": "Бедственная правда БЕДСТВИЕ ВАРХАЙТА",
+        "alternativeNames": [
+          "MAGATSU WAHRHEIT",
+          "БЕДСТВИЕ ВАРХАЙТА"
+        ],
+        "year": 2020,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "Студийная Банда"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 45653,
+      "title": "Аюму всё равно станет ближе",
+      "originalTitle": "Soredemo Ayumu wa Yosetekuru",
+      "year": 2022,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/ayumu-vse-ravno-stanet-blizhe-2044"
+      ],
+      "pages": [
+        {
+          "animegoId": 2044,
+          "url": "https://animego.me/anime/ayumu-vse-ravno-stanet-blizhe-2044",
+          "title": "Аюму всё равно станет ближе",
+          "alternativeNames": [
+            "When Will Ayumu Make His Move?"
+          ],
+          "year": 2022,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AnimeVost",
+            "AniStar",
+            "AniRise",
+            "Субтитры",
+            "Dream Cast"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2044,
+        "url": "https://animego.me/anime/ayumu-vse-ravno-stanet-blizhe-2044",
+        "title": "Аюму всё равно станет ближе",
+        "alternativeNames": [
+          "When Will Ayumu Make His Move?"
+        ],
+        "year": 2022,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AnimeVost",
+          "AniStar",
+          "AniRise",
+          "Субтитры",
+          "Dream Cast"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 43760,
+      "title": "Король огненной охоты",
+      "originalTitle": "Hikari no Ou",
+      "year": 2023,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/korol-ognennoy-ohoty-2227"
+      ],
+      "pages": [
+        {
+          "animegoId": 2227,
+          "url": "https://animego.me/anime/korol-ognennoy-ohoty-2227",
+          "title": "Король огненной охоты",
+          "alternativeNames": [
+            "The Fire Hunter"
+          ],
+          "year": 2023,
+          "format": "TV",
+          "declaredEpisodes": 10,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AnimeVost",
+            "AniStar",
+            "Субтитры"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2227,
+        "url": "https://animego.me/anime/korol-ognennoy-ohoty-2227",
+        "title": "Король огненной охоты",
+        "alternativeNames": [
+          "The Fire Hunter"
+        ],
+        "year": 2023,
+        "format": "TV",
+        "declaredEpisodes": 10,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AnimeVost",
+          "AniStar",
+          "Субтитры"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 44204,
+      "title": "Ложные выводы 2",
+      "originalTitle": "Kyokou Suiri Season 2",
+      "year": 2023,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40417,
+      "title": "Корзинка фруктов 2",
+      "originalTitle": "Fruits Basket 2nd Season",
+      "year": 2020,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/korzinka-fruktov-2-1522"
+      ],
+      "pages": [
+        {
+          "animegoId": 1522,
+          "url": "https://animego.me/anime/korzinka-fruktov-2-1522",
+          "title": "Корзинка фруктов 2",
+          "alternativeNames": [
+            "Fruits Basket 2nd Season"
+          ],
+          "year": 2020,
+          "format": "TV",
+          "declaredEpisodes": 25,
+          "declaredVoices": [
+            "AniLibria",
+            "SHIZA Project",
+            "Студийная Банда",
+            "Amazing Dubbing",
+            "AnimeVost",
+            "AniStar",
+            "KANSAI"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1522,
+        "url": "https://animego.me/anime/korzinka-fruktov-2-1522",
+        "title": "Корзинка фруктов 2",
+        "alternativeNames": [
+          "Fruits Basket 2nd Season"
+        ],
+        "year": 2020,
+        "format": "TV",
+        "declaredEpisodes": 25,
+        "declaredVoices": [
+          "AniLibria",
+          "SHIZA Project",
+          "Студийная Банда",
+          "Amazing Dubbing",
+          "AnimeVost",
+          "AniStar",
+          "KANSAI"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40934,
+      "title": "Литераторы и алхимик: Шестерни судей",
+      "originalTitle": "Bungou to Alchemist: Shinpan no Haguruma",
+      "year": 2020,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/literatory-i-alhimiki-shesterni-sudey-1514"
+      ],
+      "pages": [
+        {
+          "animegoId": 1514,
+          "url": "https://animego.me/anime/literatory-i-alhimiki-shesterni-sudey-1514",
+          "title": "Литераторы и алхимики: Шестерни судей Великий писатель и алхимик: Судебный механизм Литераторы и алхимик -Шестерни правосудия-",
+          "alternativeNames": [
+            "Bungo and Alchemist -Gears of Judgement-",
+            "Великий писатель и алхимик: Судебный механизм Литераторы и алхимик -Шестерни правосудия-"
+          ],
+          "year": 2020,
+          "format": "TV",
+          "declaredEpisodes": 13,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "Студийная Банда",
+            "AnimeVost"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1514,
+        "url": "https://animego.me/anime/literatory-i-alhimiki-shesterni-sudey-1514",
+        "title": "Литераторы и алхимики: Шестерни судей Великий писатель и алхимик: Судебный механизм Литераторы и алхимик -Шестерни правосудия-",
+        "alternativeNames": [
+          "Bungo and Alchemist -Gears of Judgement-",
+          "Великий писатель и алхимик: Судебный механизм Литераторы и алхимик -Шестерни правосудия-"
+        ],
+        "year": 2020,
+        "format": "TV",
+        "declaredEpisodes": 13,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "Студийная Банда",
+          "AnimeVost"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40136,
+      "title": "Ода «Корица» Нобунага",
+      "originalTitle": "Oda Cinnamon Nobunaga",
+      "year": 2020,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/oda-korica-nobunaga-1450"
+      ],
+      "pages": [
+        {
+          "animegoId": 1450,
+          "url": "https://animego.me/anime/oda-korica-nobunaga-1450",
+          "title": "Ода «Корица» Нобунага",
+          "alternativeNames": [
+            "Oda Cinnamon Nobunaga"
+          ],
+          "year": 2020,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AniMedia",
+            "AniStar"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1450,
+        "url": "https://animego.me/anime/oda-korica-nobunaga-1450",
+        "title": "Ода «Корица» Нобунага",
+        "alternativeNames": [
+          "Oda Cinnamon Nobunaga"
+        ],
+        "year": 2020,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AniMedia",
+          "AniStar"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 40620,
+      "title": "Двуличный братик",
+      "originalTitle": "Uramichi Oniisan",
+      "year": 2021,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2020-2023|TV",
+      "populationN": 394,
+      "sampleN": 8,
+      "candidateUrls": [
+        "https://animego.me/anime/dvulichnyy-bratik-1793"
+      ],
+      "pages": [
+        {
+          "animegoId": 1793,
+          "url": "https://animego.me/anime/dvulichnyy-bratik-1793",
+          "title": "Двуличный братик Урамити",
+          "alternativeNames": [
+            "Life Lessons with Uramichi-Oniisan"
+          ],
+          "year": 2021,
+          "format": "TV",
+          "declaredEpisodes": 13,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "Студийная Банда",
+            "AniMedia",
+            "AnimeVost",
+            "AniRise"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 1793,
+        "url": "https://animego.me/anime/dvulichnyy-bratik-1793",
+        "title": "Двуличный братик Урамити",
+        "alternativeNames": [
+          "Life Lessons with Uramichi-Oniisan"
+        ],
+        "year": 2021,
+        "format": "TV",
+        "declaredEpisodes": 13,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "Студийная Банда",
+          "AniMedia",
+          "AnimeVost",
+          "AniRise"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 63819,
+      "title": "Смертельная игра ради еды на столе. Сорок четыре: Облачный пляж",
+      "originalTitle": "Shibou Yuugi de Meshi wo Kuu. 44: Cloudy Beach",
+      "year": 2026,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|MOVIE",
+      "populationN": 10,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 57353,
+      "title": "Однажды я стала принцессой",
+      "originalTitle": "Mofa Gongzhu de Xiao Fannao",
+      "year": 2025,
+      "format": "ONA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|ONA",
+      "populationN": 16,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/odnazhdy-ya-stala-princessoy-2891"
+      ],
+      "pages": [
+        {
+          "animegoId": 2891,
+          "url": "https://animego.me/anime/odnazhdy-ya-stala-princessoy-2891",
+          "title": "Однажды я стала принцессой",
+          "alternativeNames": [
+            "The Fated Magical Princess: Who Made Me a Princess"
+          ],
+          "year": 2025,
+          "format": "ONA",
+          "declaredEpisodes": 16,
+          "declaredVoices": [
+            "SHIZA Project",
+            "Субтитры",
+            "AniLiberty"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2891,
+        "url": "https://animego.me/anime/odnazhdy-ya-stala-princessoy-2891",
+        "title": "Однажды я стала принцессой",
+        "alternativeNames": [
+          "The Fated Magical Princess: Who Made Me a Princess"
+        ],
+        "year": 2025,
+        "format": "ONA",
+        "declaredEpisodes": 16,
+        "declaredVoices": [
+          "SHIZA Project",
+          "Субтитры",
+          "AniLiberty"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 58856,
+      "title": "Звучи, эуфониум! 3: Спецвыпуски",
+      "originalTitle": "Hibike! Euphonium 3: Extra Episodes",
+      "year": 2024,
+      "format": "OTHER",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|OTHER",
+      "populationN": 1,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 59833,
+      "title": "Этот замечательный мир! 3: Бонусный этап",
+      "originalTitle": "Kono Subarashii Sekai ni Shukufuku wo! 3: Bonus Stage",
+      "year": 2025,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|OVA",
+      "populationN": 2,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 62001,
+      "title": "Цугаи загробного мира",
+      "originalTitle": "Yomi no Tsugai",
+      "year": 2026,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 63508,
+      "title": "Необыкновенный неудачник: Дневник переродившегося колдуна S-ранга",
+      "originalTitle": "Rakudai Kenja no Gakuin Musou: Nidome no Tensei, S-Rank Cheat Majutsushi Boukenroku",
+      "year": 2026,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 55823,
+      "title": "Тетрадь дружбы Нацумэ 7",
+      "originalTitle": "Natsume Yuujinchou Shichi",
+      "year": 2024,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [
+        "https://animego.me/anime/tetrad-druzhby-nacume-7-2696"
+      ],
+      "pages": [
+        {
+          "animegoId": 2696,
+          "url": "https://animego.me/anime/tetrad-druzhby-nacume-7-2696",
+          "title": "Тетрадь дружбы Нацумэ 7",
+          "alternativeNames": [
+            "Natsume's Book of Friends Season 7"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "SHIZA Project",
+            "AnimeVost",
+            "AniStar",
+            "Субтитры",
+            "Dream Cast",
+            "AniDub Online"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2696,
+        "url": "https://animego.me/anime/tetrad-druzhby-nacume-7-2696",
+        "title": "Тетрадь дружбы Нацумэ 7",
+        "alternativeNames": [
+          "Natsume's Book of Friends Season 7"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "SHIZA Project",
+          "AnimeVost",
+          "AniStar",
+          "Субтитры",
+          "Dream Cast",
+          "AniDub Online"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 59819,
+      "title": "Пока-пока, Земля 2",
+      "originalTitle": "Bye Bye, Earth 2nd Season",
+      "year": 2025,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [
+        "https://animego.me/anime/poka-poka-zemlya-2-2791"
+      ],
+      "pages": [
+        {
+          "animegoId": 2791,
+          "url": "https://animego.me/anime/poka-poka-zemlya-2-2791",
+          "title": "Пока-пока, Земля 2",
+          "alternativeNames": [
+            "Bye Bye, Earth Season 2"
+          ],
+          "year": 2025,
+          "format": "TV",
+          "declaredEpisodes": 10,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AnimeVost",
+            "AniStar",
+            "Субтитры",
+            "Dream Cast",
+            "AniDub Online"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2791,
+        "url": "https://animego.me/anime/poka-poka-zemlya-2-2791",
+        "title": "Пока-пока, Земля 2",
+        "alternativeNames": [
+          "Bye Bye, Earth Season 2"
+        ],
+        "year": 2025,
+        "format": "TV",
+        "declaredEpisodes": 10,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AnimeVost",
+          "AniStar",
+          "Субтитры",
+          "Dream Cast",
+          "AniDub Online"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 60522,
+      "title": "Рыцарь-скелет вступает в параллельный мир 2",
+      "originalTitle": "Gaikotsu Kishi-sama, Tadaima Isekai e Odekakechuu II",
+      "year": 2026,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 57892,
+      "title": "Я стал самым сильным с провальным навыком «ненормальное состояние», я разрушу всё",
+      "originalTitle": "Hazurewaku no \"Joutai Ijou Skill\" de Saikyou ni Natta Ore ga Subete wo Juurin suru made",
+      "year": 2024,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [
+        "https://animego.me/anime/ya-stal-samym-silnym-s-provalnym-navykom-nenormalnoe-sostoyanie-ya-razrushu-vse-2621"
+      ],
+      "pages": [
+        {
+          "animegoId": 2621,
+          "url": "https://animego.me/anime/ya-stal-samym-silnym-s-provalnym-navykom-nenormalnoe-sostoyanie-ya-razrushu-vse-2621",
+          "title": "Я стал самым сильным с провальным навыком «ненормальное состояние», я разрушу всё",
+          "alternativeNames": [
+            "Failure Frame: I Became the Strongest and Annihilated Everything With Low-Level Spells"
+          ],
+          "year": 2024,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AniDUB",
+            "AniLibria",
+            "AnimeVost",
+            "AniStar",
+            "TVShows",
+            "Субтитры",
+            "Dream Cast"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2621,
+        "url": "https://animego.me/anime/ya-stal-samym-silnym-s-provalnym-navykom-nenormalnoe-sostoyanie-ya-razrushu-vse-2621",
+        "title": "Я стал самым сильным с провальным навыком «ненормальное состояние», я разрушу всё",
+        "alternativeNames": [
+          "Failure Frame: I Became the Strongest and Annihilated Everything With Low-Level Spells"
+        ],
+        "year": 2024,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AniDUB",
+          "AniLibria",
+          "AnimeVost",
+          "AniStar",
+          "TVShows",
+          "Субтитры",
+          "Dream Cast"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 60732,
+      "title": "Маг воды",
+      "originalTitle": "Mizu Zokusei no Mahoutsukai",
+      "year": 2025,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|2024-plus|TV",
+      "populationN": 349,
+      "sampleN": 7,
+      "candidateUrls": [
+        "https://animego.me/anime/mag-vody-2846"
+      ],
+      "pages": [
+        {
+          "animegoId": 2846,
+          "url": "https://animego.me/anime/mag-vody-2846",
+          "title": "Маг воды",
+          "alternativeNames": [
+            "The Water Magician"
+          ],
+          "year": 2025,
+          "format": "TV",
+          "declaredEpisodes": 12,
+          "declaredVoices": [
+            "AnimeVost",
+            "AniStar",
+            "Субтитры",
+            "Dream Cast",
+            "AniLiberty"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 2846,
+        "url": "https://animego.me/anime/mag-vody-2846",
+        "title": "Маг воды",
+        "alternativeNames": [
+          "The Water Magician"
+        ],
+        "year": 2025,
+        "format": "TV",
+        "declaredEpisodes": 12,
+        "declaredVoices": [
+          "AnimeVost",
+          "AniStar",
+          "Субтитры",
+          "Dream Cast",
+          "AniLiberty"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 2006,
+      "title": "Югио! Фильм",
+      "originalTitle": "Yu☆Gi☆Oh! (Movie)",
+      "year": 1999,
+      "format": "MOVIE",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|before-2000|MOVIE",
+      "populationN": 2,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 5251,
+      "title": "Легенда об Ангеле",
+      "originalTitle": "Angel Densetsu",
+      "year": 1996,
+      "format": "OVA",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|before-2000|OVA",
+      "populationN": 2,
+      "sampleN": 1,
+      "candidateUrls": [],
+      "pages": [],
+      "state": "not-located-in-sitemap",
+      "match": null,
+      "embedAllowed": null,
+      "playbackTested": false
+    },
+    {
+      "shikimoriId": 1,
+      "title": "Ковбой Бибоп",
+      "originalTitle": "Cowboy Bebop",
+      "year": 1998,
+      "format": "TV",
+      "popular": false,
+      "hasCurrentPlayer": true,
+      "stratum": "True|before-2000|TV",
+      "populationN": 3,
+      "sampleN": 1,
+      "candidateUrls": [
+        "https://animego.me/anime/kovboy-bibop-276"
+      ],
+      "pages": [
+        {
+          "animegoId": 276,
+          "url": "https://animego.me/anime/kovboy-bibop-276",
+          "title": "Ковбой Бибоп",
+          "alternativeNames": [
+            "Cowboy Bebop"
+          ],
+          "year": 1998,
+          "format": "TV",
+          "declaredEpisodes": 26,
+          "declaredVoices": [
+            "SHIZA Project",
+            "KANSAI"
+          ]
+        }
+      ],
+      "state": "metadata-confirmed",
+      "match": {
+        "animegoId": 276,
+        "url": "https://animego.me/anime/kovboy-bibop-276",
+        "title": "Ковбой Бибоп",
+        "alternativeNames": [
+          "Cowboy Bebop"
+        ],
+        "year": 1998,
+        "format": "TV",
+        "declaredEpisodes": 26,
+        "declaredVoices": [
+          "SHIZA Project",
+          "KANSAI"
+        ]
+      },
+      "embedAllowed": null,
+      "playbackTested": false
+    }
+  ],
+  "metadataDetectionOnly": {
+    "weightedRate": 0.07336759286830938,
+    "conservative95Interval": [
+      0,
+      0.27933898396484375
+    ],
+    "method": "Weighted Hoeffding bound for stratified sampling without replacement; detects exact metadata through this sitemap method only, not actual AnimeGO presence or playable/authorized video coverage. False negatives not corrected."
+  },
+  "observedAt": "2026-10-26T18:43:20.099241+00:00",
+  "scope": "Metadata research only. No new VideoProvider registered; production remains 0.4.8.",
+  "publicPilotMenus": [
+    {
+      "shikimoriId": 52299,
+      "animegoId": 2477,
+      "voiceVariants": 14,
+      "voices": [
+        {
+          "translationId": "1",
+          "label": "AniDUB"
+        },
+        {
+          "translationId": "12",
+          "label": "AnimeVost"
+        },
+        {
+          "translationId": "15",
+          "label": "AniStar"
+        },
+        {
+          "translationId": "2",
+          "label": "AniLibria"
+        },
+        {
+          "translationId": "35",
+          "label": "AniRise"
+        },
+        {
+          "translationId": "4",
+          "label": "SHIZA Project"
+        },
+        {
+          "translationId": "59",
+          "label": "JAM CLUB"
+        },
+        {
+          "translationId": "6",
+          "label": "Студийная Банда"
+        },
+        {
+          "translationId": "67",
+          "label": "Amber"
+        },
+        {
+          "translationId": "72",
+          "label": "TVShows"
+        },
+        {
+          "translationId": "76",
+          "label": "Субтитры"
+        },
+        {
+          "translationId": "81",
+          "label": "Dream Cast"
+        },
+        {
+          "translationId": "84",
+          "label": "КОМНАТА ДИДИ"
+        },
+        {
+          "translationId": "90",
+          "label": "AniDub Online"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "CVH",
+        "Kodik"
+      ],
+      "providerVariantRows": 25,
+      "providerErrorMarkedRows": 25,
+      "episodeNumbersListed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "ageGatePresent": true,
+      "frames": [
+        {
+          "origin": "https://animego.me",
+          "queryParameterNames": [],
+          "role": "AnimeGO bridge, not an AniRezik partner iframe"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    },
+    {
+      "shikimoriId": 53397,
+      "animegoId": 2820,
+      "voiceVariants": 5,
+      "voices": [
+        {
+          "translationId": "12",
+          "label": "AnimeVost"
+        },
+        {
+          "translationId": "15",
+          "label": "AniStar"
+        },
+        {
+          "translationId": "76",
+          "label": "Субтитры"
+        },
+        {
+          "translationId": "81",
+          "label": "Dream Cast"
+        },
+        {
+          "translationId": "95",
+          "label": "AniLiberty"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "CVH",
+        "Kodik"
+      ],
+      "providerVariantRows": 10,
+      "providerErrorMarkedRows": 10,
+      "episodeNumbersListed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "ageGatePresent": false,
+      "frames": [
+        {
+          "origin": "https://animego.me",
+          "queryParameterNames": [],
+          "role": "AnimeGO bridge, not an AniRezik partner iframe"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    },
+    {
+      "shikimoriId": 1,
+      "animegoId": 276,
+      "voiceVariants": 2,
+      "voices": [
+        {
+          "translationId": "21",
+          "label": "KANSAI"
+        },
+        {
+          "translationId": "4",
+          "label": "SHIZA Project"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "Kodik"
+      ],
+      "providerVariantRows": 3,
+      "providerErrorMarkedRows": 3,
+      "episodeNumbersListed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "ageGatePresent": true,
+      "frames": [
+        {
+          "origin": "https://aniboom.one",
+          "queryParameterNames": [
+            "episode",
+            "translation",
+            "episodes",
+            "parent"
+          ],
+          "role": "third-party iframe on AnimeGO"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    },
+    {
+      "shikimoriId": 64505,
+      "animegoId": 3997,
+      "voiceVariants": 6,
+      "voices": [
+        {
+          "translationId": "1",
+          "label": "AniDUB"
+        },
+        {
+          "translationId": "12",
+          "label": "AnimeVost"
+        },
+        {
+          "translationId": "15",
+          "label": "AniStar"
+        },
+        {
+          "translationId": "71",
+          "label": "Профессиональный многоголосый"
+        },
+        {
+          "translationId": "76",
+          "label": "Субтитры"
+        },
+        {
+          "translationId": "95",
+          "label": "AniLiberty"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "CVH",
+        "Kodik"
+      ],
+      "providerVariantRows": 11,
+      "providerErrorMarkedRows": 11,
+      "episodeNumbersListed": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "ageGatePresent": false,
+      "frames": [
+        {
+          "origin": "https://animego.me",
+          "queryParameterNames": [
+            "dubbing"
+          ],
+          "role": "AnimeGO bridge, not an AniRezik partner iframe"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    },
+    {
+      "shikimoriId": 32281,
+      "animegoId": 107,
+      "voiceVariants": 4,
+      "voices": [
+        {
+          "translationId": "2",
+          "label": "AniLibria"
+        },
+        {
+          "translationId": "26",
+          "label": "STEPonee"
+        },
+        {
+          "translationId": "4",
+          "label": "SHIZA Project"
+        },
+        {
+          "translationId": "58",
+          "label": "Дубляж"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "CVH",
+        "Kodik"
+      ],
+      "providerVariantRows": 5,
+      "providerErrorMarkedRows": 5,
+      "episodeNumbersListed": [],
+      "ageGatePresent": false,
+      "frames": [
+        {
+          "origin": "https://animego.me",
+          "queryParameterNames": [
+            "dubbing"
+          ],
+          "role": "AnimeGO bridge, not an AniRezik partner iframe"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    },
+    {
+      "shikimoriId": 56838,
+      "animegoId": 2573,
+      "voiceVariants": 4,
+      "voices": [
+        {
+          "translationId": "1",
+          "label": "AniDUB"
+        },
+        {
+          "translationId": "12",
+          "label": "AnimeVost"
+        },
+        {
+          "translationId": "15",
+          "label": "AniStar"
+        },
+        {
+          "translationId": "76",
+          "label": "Субтитры"
+        }
+      ],
+      "providerNames": [
+        "AniBoom",
+        "Kodik"
+      ],
+      "providerVariantRows": 5,
+      "providerErrorMarkedRows": 5,
+      "episodeNumbersListed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "ageGatePresent": false,
+      "frames": [
+        {
+          "origin": "https://aniboom.one",
+          "queryParameterNames": [
+            "episode",
+            "translation",
+            "episodes",
+            "parent"
+          ],
+          "role": "third-party iframe on AnimeGO"
+        }
+      ],
+      "playbackTested": false,
+      "ownOriginAllowed": null
+    }
+  ],
+  "access": {
+    "animegoCanonicalOrigin": "https://animego.me",
+    "originalOriginRedirect": "https://animego.org → https://animego.me",
+    "searchRobots": "Disallow: /search/",
+    "publicSitemap": "https://animego.me/sitemap.anime.xml",
+    "cvhOfficialDocs": "https://public-api.cdnvideohub.com/api/v1/docs/index.html",
+    "cvhSpec": "https://public-api.cdnvideohub.com/api/v1/docs/doc.json",
+    "cvhBearerRequired": true,
+    "cvhAnonymousSearchStatus": 401,
+    "cvhCredentialsConfigured": false,
+    "aniboomPublicRoot": "info@aniboom.one",
+    "ownPartnerEvidence": "User reports correspondence, promised screenshot not yet received; scope and own embedding contract unverified.",
+    "foreignPublisherParametersUsed": false,
+    "forgedOriginOrReferer": false,
+    "protectedStreamsExtracted": false
+  },
+  "passiveBridgeHeaders": {
+    "method": "HEAD",
+    "origin": "https://animego.me",
+    "endpointRole": "observed existing CVH bridge for Solo Leveling",
+    "status": 200,
+    "xFrameOptions": null,
+    "contentSecurityPolicy": "upgrade-insecure-requests;",
+    "accessControlAllowOrigin": "*",
+    "notPermission": "No iframe-blocking header on this response does not establish permission, downstream compatibility or playback from AniRezik."
+  },
+  "inputDigests": {
+    "src/data/catalog.json": "11b12df7d23e6f97e8283303e863abeee889f5d2e2b38d91df1da4514748053b",
+    "src/data/aniliberty-index.json": "482eaf19b63cb61f13a93c89959483faa01acb83cebae7b6723517d56e753bd3",
+    ".cache/sitemap-anime.txt": "1e056e4dd19108392af945185e8b152f4dde17cdc364730ad904f2559d0fb847",
+    ".cache/animego-robots.txt": "b3d2b78574b2745bef64d35a6f9ce3d304ba1a358b52301c6c07bf8e74ddd384",
+    ".cache/cvh-openapi.json": "fac2e3938f5cea1628ccd7890ebb25166b96dda6bf24bc9fc8136aecbe972482"
+  },
+  "sourceCommit": "3b3b0263e9729c6935f58af01b155028c87b2de3",
+  "cohortFrozen": true,
+  "checks": {
+    "pythonUnittest": 4,
+    "providerRegressionTests": 44,
+    "typescriptCheck": "passed: 0 errors, 0 warnings",
+    "offlineBuild": "passed with /anirezik base",
+    "productionRuntimeChanged": false
+  }
+}
