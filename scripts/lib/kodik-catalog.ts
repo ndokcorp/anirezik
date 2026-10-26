@@ -228,7 +228,7 @@ export class KodikApiClient {
     await this.wait(Math.max(0, this.lastStarted + this.config.minRequestIntervalMs - Date.now()));
     this.lastStarted = Date.now();
     this.used++;
-    // Match the reference SDK's POST + query encoding. Never log/persist this server-only URL.
+    // Both reference SDK clients send a form body. Keep credentials out of URLs and logs.
     const query = new URLSearchParams({
       token: this.#token,
       shikimori_id: String(id),
@@ -239,12 +239,14 @@ export class KodikApiClient {
     });
     let response: Response;
     try {
-      response = await this.fetcher(`${this.config.apiOrigin}/search?${query}`, {
+      response = await this.fetcher(`${this.config.apiOrigin}/search`, {
         method: 'POST',
+        body: query.toString(),
         redirect: 'error',
         signal: AbortSignal.timeout(12000),
         headers: {
           Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'User-Agent': 'AniRezik/0.4.7 (approved catalog cache)',
         },
       });

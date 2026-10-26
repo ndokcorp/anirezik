@@ -167,3 +167,5 @@ The sync workflow persists sanitized state on codex/aniliberty-sync-state and re
 ## 0.5.0: full AnimeGO queue
 
 `scripts/sync-animego-catalog.py` implements a resumable SQLite-backed full sitemap → exact metadata → observed episode iframe queue. Source activation remains in the existing AnimeGO adapter. The separate checkpoint branch contains compressed sanitized metadata and observed iframe URLs; serial Actions batches resume without catalog-wide browser calls. A complete candidate is validated and built before the dedicated Pages publish job updates version/cache. No new player or GUI changes; no broad repeated browser suite. See [release status and limits](research/RELEASE_0.5.0.md).
+
+KodikApiClient sends credential-bearing parameters in the POST form body, matching both inspected upstream SDK clients; no key appears in its request URL. Bounded provider diagnostics use Actions Secret only and never publish results automatically. The current correct-form 54744 probe returned HTTP401, so catalog activation remains disabled. See [32-ID source comparison and real playback checks](research/ANIMEPARSERS_PROVIDERS_2026-10-27.md).

@@ -10,6 +10,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / '.cache/provider-review/kodik.json'
 OUT.parent.mkdir(parents=True, exist_ok=True)
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None
+
+opener = urllib.request.build_opener(NoRedirect)
 ids = json.loads((ROOT / 'docs/diagnostics/ANIMEPARSERS_COHORT_2026-10-27.json').read_text())['ids']
 assert 1 <= len(ids) <= 40 and len(set(ids)) == len(ids) and ids[0] == 54744
 token = os.environ.get('KODIK_API_TOKEN', '').strip()
@@ -23,7 +28,7 @@ else:
         request = urllib.request.Request('https://kodik-api.com/search', data=payload, headers={'Accept': 'application/json', 'User-Agent': 'AniRezik-Approved-Metadata-Probe/0.5.0', 'Content-Type': 'application/x-www-form-urlencoded'}, method='POST')
         report['requests'] += 1
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
+            with opener.open(request, timeout=20) as response:
                 body = response.read(2_000_001)
                 if len(body) > 2_000_000:
                     raise ValueError('oversized-response')
@@ -34,8 +39,8 @@ else:
             for item in raw.get('results', []):
                 # Whitelist metadata only; never retain next_page URLs or arbitrary credential fields.
                 row = {k: item.get(k) for k in ['id', 'shikimori_id', 'title', 'title_orig', 'year', 'type', 'blocked_countries', 'blocked_seasons']}
-                row['translation'] = {k: item.get('translation', {}).get(k) for k in ['id', 'title', 'type']}
-                row['anime_kind'] = item.get('material_data', {}).get('anime_kind')
+                row['translation'] = {k: (item.get('translation') or {}).get(k) for k in ['id', 'title', 'type']}
+                row['anime_kind'] = (item.get('material_data') or {}).get('anime_kind')
                 def embed(value):
                     value = 'https:' + value if isinstance(value, str) and value.startswith('//') else value
                     u = urllib.parse.urlparse(value or '')
@@ -43,7 +48,7 @@ else:
                         return value
                     return None
                 row['embedUrl'] = embed(item.get('link'))
-                row['seasons'] = {str(n): {str(ep): embed(v if isinstance(v, str) else v.get('link')) for ep, v in season.get('episodes', {}).items()} for n, season in item.get('seasons', {}).items()}
+                row['seasons'] = {str(n): {str(ep): embed(v if isinstance(v, str) else v.get('link')) for ep, v in season.get('episodes', {}).items()} for n, season in (item.get('seasons') or {}).items()}
                 releases.append(row)
             report['rows'].append({'shikimoriId': shiki, 'http': 200, 'total': raw.get('total'), 'truncated': bool(raw.get('next_page')) or raw.get('total', 0) > len(raw.get('results', [])), 'releases': releases})
         except urllib.error.HTTPError as error:

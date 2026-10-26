@@ -82,14 +82,22 @@ test('0.4.5: API access defaults off; no browser API or static-cache requests wi
   ).toThrow();
 });
 
-test('0.4.5: server search follows SDK POST query, queues and limits requests, never forwards redirects', async () => {
-  const calls: { url: URL; method: string | undefined; redirect: string | undefined }[] = [];
+test('0.4.5: server search follows SDK POST form, queues and limits requests, never forwards redirects', async () => {
+  const calls: {
+    url: URL;
+    body: URLSearchParams;
+    contentType: string | null;
+    method: string | undefined;
+    redirect: string | undefined;
+  }[] = [];
   const client = new KodikApiClient(
     { ...approved(), maxRequestsPerRun: 2 },
     'TEST-OWN-KEY',
     (async (url, init) => {
       calls.push({
         url: new URL(String(url)),
+        body: new URLSearchParams(String(init?.body)),
+        contentType: new Headers(init?.headers).get('Content-Type'),
         method: init?.method,
         redirect: init?.redirect,
       });
@@ -98,13 +106,15 @@ test('0.4.5: server search follows SDK POST query, queues and limits requests, n
     async () => {},
   );
   await Promise.all([client.lookupByShikimoriId(52299), client.lookupByShikimoriId(52991)]);
-  expect(calls.map((c) => c.url.searchParams.get('shikimori_id'))).toEqual(['52299', '52991']);
+  expect(calls.map((c) => c.body.get('shikimori_id'))).toEqual(['52299', '52991']);
   for (const call of calls) {
     expect(call.url.origin + call.url.pathname).toBe('https://kodik-api.com/search');
     expect(call.method).toBe('POST');
-    expect(call.url.searchParams.get('token')).toBe('TEST-OWN-KEY');
-    expect(call.url.searchParams.get('with_episodes')).toBe('true');
-    expect(call.url.searchParams.get('with_seasons')).toBe('true');
+    expect(call.url.search).toBe('');
+    expect(call.contentType).toBe('application/x-www-form-urlencoded');
+    expect(call.body.get('token')).toBe('TEST-OWN-KEY');
+    expect(call.body.get('with_episodes')).toBe('true');
+    expect(call.body.get('with_seasons')).toBe('true');
     expect(call.redirect).toBe('error');
   }
   await expect(client.lookupByShikimoriId(9253)).rejects.toThrow('request-budget');
