@@ -352,7 +352,14 @@ export function buildLibertyIndex(state: LibertySyncState, baselineIds: number[]
       remainingReleases: 0,
       fractionalEpisodes: rows.reduce((sum, r) => sum + r.fractionalEpisodes, 0),
       availableEpisodes: rows.reduce((sum, r) => sum + r.episodeCount, 0),
-      playbackVerifiedReleases: 0,
+      mappedEpisodes: Object.values(mappings).reduce(
+        (sum, m) => sum + state.evidence[m.releaseId].episodeCount,
+        0,
+      ),
+      mappedFractionalEpisodes: Object.values(mappings).reduce(
+        (sum, m) => sum + state.evidence[m.releaseId].fractionalEpisodes,
+        0,
+      ),
       hlsValidation:
         'HTTPS, exact approved origin and API availability; browser sample reported separately',
     },

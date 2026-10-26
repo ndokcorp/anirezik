@@ -20,7 +20,7 @@ for (const [id, release, category] of samples)
       (r) => new URL(r.url()).pathname.endsWith(`/anime/releases/${release}`),
       { timeout: 20000 },
     );
-    await page.goto(`anime/${id}/`);
+    await page.goto(process.env.ANILIBERTY_LIVE_DEV === '1' ? `anime/?id=${id}` : `anime/${id}/`);
     await page.locator('#anime-player').scrollIntoViewIfNeeded();
     const player = page.locator('[data-player]');
     const http = await response;

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       liberty_build_run:
-        description: Existing verified build run for isolated live video diagnostics
+        description: Existing verified build run or 'dev' for current source live diagnostics
         type: string
         default: ''
       liberty_live:
@@ -157,16 +157,19 @@ jobs:
           cache: npm
       - run: npm ci
       - uses: actions/download-artifact@v4
+        if: inputs.liberty_build_run != 'dev'
         with:
           name: github-pages
           path: .pages
           run-id: ${{ inputs.liberty_build_run }}
           github-token: ${{ github.token }}
       - run: mkdir -p dist && tar -xf .pages/artifact.tar -C dist
+        if: inputs.liberty_build_run != 'dev'
       - run: npx playwright install ${{ matrix.browser }}
       - name: Verify live samples only
         env:
           ANILIBERTY_LIVE: '1'
+          ANILIBERTY_LIVE_DEV: ${{ inputs.liberty_build_run == 'dev' && '1' || '0' }}
         run: npm test -- --project=live-${{ matrix.browser }} --retries=0
       - uses: actions/upload-artifact@v4
         if: always()

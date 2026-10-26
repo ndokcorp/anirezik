@@ -16,7 +16,10 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'npm run preview -- --port 4322',
+    command:
+      process.env.ANILIBERTY_LIVE_DEV === '1'
+        ? 'npm run dev -- --port 4322'
+        : 'npm run preview -- --port 4322',
     url: `http://127.0.0.1:4322${base}/`,
     reuseExistingServer: !process.env.CI,
   },
