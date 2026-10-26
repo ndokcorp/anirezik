@@ -5,10 +5,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
-      liberty_build_run:
-        description: Existing verified build run or 'dev' for current source live diagnostics
-        type: string
-        default: ''
+      liberty_probe:
+        description: Isolated live diagnostics of current source without a full build
+        type: boolean
+        default: false
       liberty_live:
         type: boolean
         default: false
@@ -37,7 +37,7 @@ env:
   BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
 jobs:
   verify:
-    if: inputs.liberty_build_run == '' || inputs.liberty_build_run == null
+    if: inputs.liberty_probe != true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -140,11 +140,10 @@ jobs:
           name: playwright-${{ matrix.browser }}
           path: playwright-report/
   live-probe:
-    if: inputs.liberty_build_run != '' && inputs.liberty_build_run != null && github.ref != 'refs/heads/main'
+    if: inputs.liberty_probe && github.ref != 'refs/heads/main'
     runs-on: macos-15
     permissions:
       contents: read
-      actions: read
     strategy:
       fail-fast: false
       matrix:
@@ -156,20 +155,11 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - uses: actions/download-artifact@v4
-        if: inputs.liberty_build_run != 'dev'
-        with:
-          name: github-pages
-          path: .pages
-          run-id: ${{ inputs.liberty_build_run }}
-          github-token: ${{ github.token }}
-      - run: mkdir -p dist && tar -xf .pages/artifact.tar -C dist
-        if: inputs.liberty_build_run != 'dev'
       - run: npx playwright install ${{ matrix.browser }}
       - name: Verify live samples only
         env:
           ANILIBERTY_LIVE: '1'
-          ANILIBERTY_LIVE_DEV: ${{ inputs.liberty_build_run == 'dev' && '1' || '0' }}
+          ANILIBERTY_LIVE_DEV: '1'
         run: npm test -- --project=live-${{ matrix.browser }} --retries=0
       - uses: actions/upload-artifact@v4
         if: always()
