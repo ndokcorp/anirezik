@@ -4,8 +4,18 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      liberty_live:
+        type: boolean
+        default: false
   workflow_call:
     inputs:
+      liberty_live:
+        type: boolean
+        default: false
+      liberty_artifact:
+        type: string
+        default: ''
       metadata_artifact:
         type: string
         default: ''
@@ -31,6 +41,11 @@ jobs:
         with:
           name: ${{ inputs.metadata_artifact }}
           path: src/data
+      - uses: actions/download-artifact@v4
+        if: inputs.liberty_artifact != '' && inputs.liberty_artifact != null
+        with:
+          name: ${{ inputs.liberty_artifact }}
+          path: src/data
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -49,6 +64,9 @@ jobs:
       - name: Validate metadata-only update
         if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
         run: node scripts/validate-snapshot.ts
+      - name: Reject mixed provider publication
+        if: inputs.liberty_artifact != '' && inputs.liberty_artifact != null && (inputs.metadata_artifact != '' && inputs.metadata_artifact != null || inputs.kodik_artifact != '' && inputs.kodik_artifact != null)
+        run: exit 1
       - run: npm run check
       - run: npm run build
       - run: npm test -- --project=unit
@@ -80,6 +98,11 @@ jobs:
         with:
           name: ${{ inputs.metadata_artifact }}
           path: src/data
+      - uses: actions/download-artifact@v4
+        if: inputs.liberty_artifact != '' && inputs.liberty_artifact != null
+        with:
+          name: ${{ inputs.liberty_artifact }}
+          path: src/data
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -95,13 +118,24 @@ jobs:
           tar -xf .pages/artifact.tar -C dist
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm test -- --project=${{ matrix.browser }}
+      - name: Verify real AniLiberty video samples
+        if: inputs.liberty_live && matrix.browser != 'firefox'
+        env:
+          ANILIBERTY_LIVE: '1'
+        run: npm test -- --project=live-${{ matrix.browser }}
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.liberty_live && matrix.browser != 'firefox'
+        with:
+          name: aniliberty-playback-${{ matrix.browser }}
+          path: test-results/**/playback.json
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright-${{ matrix.browser }}
           path: playwright-report/
   publish-metadata:
-    if: inputs.metadata_artifact != '' && inputs.metadata_artifact != null
+    if: github.ref == 'refs/heads/main' && inputs.metadata_artifact != '' && inputs.metadata_artifact != null
     needs: [verify, browsers]
     runs-on: ubuntu-latest
     permissions:
@@ -133,7 +167,7 @@ jobs:
             git push origin HEAD:main
           fi
   publish-kodik:
-    if: inputs.kodik_artifact != '' && inputs.kodik_artifact != null
+    if: github.ref == 'refs/heads/main' && inputs.kodik_artifact != '' && inputs.kodik_artifact != null
     needs: [verify, browsers]
     runs-on: ubuntu-latest
     permissions:
@@ -164,13 +198,45 @@ jobs:
             git commit -m 'Refresh approved Kodik cache'
             git push origin HEAD:main
           fi
+  publish-liberty:
+    if: github.ref == 'refs/heads/main' && inputs.liberty_artifact != '' && inputs.liberty_artifact != null
+    needs: [verify, browsers]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Reject concurrent source changes
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.liberty_artifact }}
+          path: src/data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/validate-aniliberty-index.ts
+      - name: Save only tested mappings
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- src/data/aniliberty-index.json src/data/aniliberty-needs-review.json src/data/aniliberty-sync-report.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh validated AniLiberty catalog'
+            git push origin HEAD:main
+          fi
   deploy:
     if: >-
-      always() && github.event_name != 'pull_request' &&
+      always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' &&
       needs.verify.result == 'success' && needs.browsers.result == 'success' &&
       (needs.publish-metadata.result == 'success' || needs.publish-metadata.result == 'skipped') &&
-      (needs.publish-kodik.result == 'success' || needs.publish-kodik.result == 'skipped')
-    needs: [verify, browsers, publish-metadata, publish-kodik]
+      (needs.publish-kodik.result == 'success' || needs.publish-kodik.result == 'skipped') &&
+      (needs.publish-liberty.result == 'success' || needs.publish-liberty.result == 'skipped')
+    needs: [verify, browsers, publish-metadata, publish-kodik, publish-liberty]
     runs-on: ubuntu-latest
     permissions:
       pages: write

@@ -497,7 +497,8 @@ test('0.4.0: точные ID AniLiberty, неоднозначность и сб�
       52991,
     ),
   ).toBeNull();
-  expect(exactRelease(rows, 1)).toBeNull();
+  expect(exactRelease(rows, 1)?.id).toBe(8443);
+  expect(exactRelease(rows, 99999999)).toBeNull();
   expect(await aniLibertyProvider.getSources('shikimori:52991')).toEqual([]);
   await expect(aniLibertyAvailabilityAdapter.getUpdates(null)).rejects.toThrow('Browser session');
   expect(await demoProvider.getSources('shikimori:52991')).toEqual([]);

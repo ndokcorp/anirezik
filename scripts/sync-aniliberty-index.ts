@@ -1,127 +1,210 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { AniLibertyApi, releaseMetadataMatches } from '../src/lib/providers/video/aniliberty.ts';
-import type { LibertyRelease, MatchMetadata } from '../src/lib/providers/video/aniliberty.ts';
-// Explicit bounded incremental metadata sync; never run by the production build.
+import { readFile, writeFile, mkdir, rename, access } from 'node:fs/promises';
+import { dirname } from 'node:path';
+import { AniLibertyApi, AniLibertyHttpError } from '../src/lib/providers/video/aniliberty.ts';
+import {
+  newLibertyState,
+  cleanLibertySummary,
+  inspectLiberty,
+  planLibertyDetails,
+  buildLibertyIndex,
+  identifyLiberty,
+  validateLibertyState,
+} from './lib/aniliberty-sync.ts';
+import type { LibertySyncState, SyncAnime } from './lib/aniliberty-sync.ts';
 const args = process.argv.slice(2);
-const max = Number(args.find((a) => a.startsWith('--max='))?.slice(6) || 3);
-if (!Number.isInteger(max) || max < 1 || max > 10) throw Error('--max must be 1..10');
-const cache = '.cache/aniliberty-index';
-await mkdir(cache, { recursive: true });
-const catalog = JSON.parse(await readFile('src/data/catalog.json', 'utf8')).anime as ({
-  shikimoriId: number;
-} & MatchMetadata)[];
-const byId = new Map(catalog.map((row) => [row.shikimoriId, row]));
-const seeds = JSON.parse(await readFile('src/data/aniliberty-mappings.json', 'utf8'));
-const output = 'src/data/aniliberty-index.json';
-const index = JSON.parse(await readFile(output, 'utf8'));
-let state = {
-  page: 1,
-  pending: [] as LibertyRelease[],
-  review: [] as { releaseId: number; shikimoriId: number; reason: string }[],
-};
-try {
-  state = JSON.parse(await readFile(`${cache}/state.json`, 'utf8'));
-} catch {}
-const api = new AniLibertyApi(async (...args) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return fetch(...args);
-});
-if (!state.pending.length) {
-  state.pending = await api.catalogPage(state.page, 30);
-  state.page++;
-}
-const report = {
-  checkedAt: new Date().toISOString(),
-  newMappings: [] as number[],
-  needsReview: [] as unknown[],
-  examined: 0,
-};
-let requests = 0;
-while (state.pending.length && requests < max) {
-  const candidate = state.pending.shift()!;
-  report.examined++;
-  const id = Number(candidate.shikimori?.id),
-    target = byId.get(id);
-  if (!target || seeds[id]) continue;
-  if (index.mappings[id]) {
-    if (index.mappings[id].releaseId !== candidate.id) {
-      delete index.mappings[id];
-      const review = {
-        releaseId: candidate.id,
-        shikimoriId: id,
-        reason: 'Multiple releases for the same external ID',
-      };
-      state.review.push(review);
-      report.needsReview.push(review);
-    }
-    continue;
-  }
-  if (state.review.some((row) => row.shikimoriId === id)) continue;
-  if (!releaseMetadataMatches(candidate, target)) {
-    const review = {
-      releaseId: candidate.id,
-      shikimoriId: id,
-      reason: 'Contradictory year/format/season',
-    };
-    state.review.push(review);
-    report.needsReview.push(review);
-    continue;
-  }
-  requests++;
-  const row = await api.release(candidate.id);
-  if (
-    Number(row.shikimori?.id) !== id ||
-    !releaseMetadataMatches(row, target) ||
-    row.is_blocked_by_geo !== false ||
-    row.is_blocked_by_copyrights !== false
+if (
+  args.some(
+    (a) =>
+      !['--refresh', '--publish-index'].includes(a) &&
+      !/^--(?:max|max-requests|interval-ms)=\d+$/.test(a),
   )
-    continue;
-  const rights = JSON.parse(await readFile('src/data/video-rights.json', 'utf8'));
-  const episodes = (row.episodes || []).filter(
-    (e) =>
-      Number.isInteger(e.ordinal) &&
-      e.ordinal > 0 &&
-      [e.hls_480, e.hls_720, e.hls_1080].some((value) => {
-        if (!value) return false;
-        try {
-          const u = new URL(value);
-          return (
-            u.protocol === 'https:' &&
-            !u.username &&
-            !u.password &&
-            rights.allowedPlaybackOrigins.includes(u.origin)
-          );
-        } catch {
-          return false;
-        }
-      }),
-  );
-  if (!episodes.length) continue;
-  index.mappings[id] = {
-    releaseId: row.id,
-    basis: 'shikimori.id',
-    checkedAt: new Date().toISOString(),
-    title: target.title,
-    year: target.year,
-    format: target.type,
-  };
-  await writeFile(`${cache}/release-${row.id}.json`, JSON.stringify(row));
-  report.newMappings.push(id);
+)
+  throw Error('Unknown sync option');
+const max = Number(args.find((a) => /^--(?:max|max-requests)=/.test(a))?.split('=')[1] || 100);
+const interval = Number(args.find((a) => a.startsWith('--interval-ms='))?.split('=')[1] || 1500);
+if (
+  !Number.isInteger(max) ||
+  max < 1 ||
+  max > 500 ||
+  !Number.isInteger(interval) ||
+  interval < 1000 ||
+  interval > 60000
+)
+  throw Error('Invalid request budget or interval');
+const cache = '.cache/aniliberty-index',
+  stateFile = `${cache}/progress-v2.json`;
+async function atomic(file: string, data: unknown) {
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(file + '.tmp', JSON.stringify(data) + '\n');
+  await rename(file + '.tmp', file);
 }
-index.checkedAt = report.checkedAt;
-await writeFile(output, JSON.stringify(index, null, 2) + '\n');
-await writeFile(`${cache}/state.json`, JSON.stringify(state, null, 2));
-await writeFile(
-  `${cache}/report.json`,
-  JSON.stringify(
-    {
-      ...report,
-      requests,
-      pending: state.pending.length,
-      confirmed: Object.keys(index.mappings).length + Object.keys(seeds).length,
-    },
-    null,
-    2,
-  ),
-);
-console.log(JSON.stringify({ ...report, requests, pending: state.pending.length }));
+const anime = JSON.parse(await readFile('src/data/catalog.json', 'utf8')).anime as SyncAnime[];
+const rights = JSON.parse(await readFile('src/data/video-rights.json', 'utf8'));
+if (rights.status !== 'permission-granted' || !rights.playbackAllowed)
+  throw Error('AniLiberty permission is required');
+await access(rights.evidence);
+const seeds = JSON.parse(await readFile('src/data/aniliberty-mappings.json', 'utf8'));
+const prior = JSON.parse(await readFile('src/data/aniliberty-index.json', 'utf8'));
+const baselineIds = [
+  ...new Set([...Object.keys(prior.mappings), ...Object.keys(seeds)].map(Number)),
+];
+let state: LibertySyncState;
+try {
+  state = JSON.parse(await readFile(stateFile, 'utf8'));
+  validateLibertyState(state);
+} catch (e) {
+  if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e;
+  state = newLibertyState();
+}
+if (
+  args.includes('--refresh') &&
+  (state.phase === 'complete' || state.error?.message.includes('Catalog'))
+) {
+  const old = state.evidence,
+    baseline = state.baselineMappedIds,
+    previous = state.previouslyMappedIds,
+    total = state.requestsTotal;
+  state = newLibertyState();
+  state.evidence = old;
+  state.baselineMappedIds = baseline;
+  state.previouslyMappedIds = previous;
+  state.requestsTotal = total;
+}
+const checkpoint = () => atomic(stateFile, state);
+state.baselineMappedIds ||= baselineIds;
+state.previouslyMappedIds = [...new Set([...(state.previouslyMappedIds || []), ...baselineIds, ...(prior.excludedIds || [])])];
+let requests = 0,
+  lastRequest = 0;
+class BudgetStop extends Error {}
+const api = new AniLibertyApi(async (...params) => {
+  if (state.resumeAfter && Date.parse(state.resumeAfter) > Date.now())
+    throw Error('Provider backoff is active; resume after the recorded time');
+  if (requests >= max) throw new BudgetStop();
+  const wait = interval - (Date.now() - lastRequest);
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  lastRequest = Date.now();
+  requests++;
+  state.requestsTotal = (state.requestsTotal || 0) + 1;
+  return fetch(...params);
+});
+let stopped = 'complete',
+  failure: unknown;
+try {
+  delete state.error;
+  if (!state.resumeAfter || Date.parse(state.resumeAfter) <= Date.now()) delete state.resumeAfter;
+  while (state.phase === 'catalog') {
+    const page = await api.catalogPageResult(state.nextPage, 50);
+    if (state.total !== null && state.total !== page.pagination.total)
+      throw Error('Catalog total changed; preserve checkpoint and retry a fresh scan');
+    state.total = page.pagination.total;
+    state.totalPages = page.pagination.totalPages;
+    const rows = page.data.map(cleanLibertySummary);
+    state.pages[state.nextPage] = rows.map((r) => r.id);
+    rows.forEach((r) => (state.catalog[r.id] = r));
+    state.nextPage++;
+    if (page.pagination.currentPage >= page.pagination.totalPages) planLibertyDetails(state);
+    await checkpoint();
+    console.log(
+      `AniLiberty: catalog ${page.pagination.currentPage}/${page.pagination.totalPages}; ${Object.keys(state.catalog).length}/${state.total} unique releases`,
+    );
+  }
+  while (state.phase === 'details' && state.pending.length) {
+    const ids = state.pending.slice(0, 50);
+    const rows = await api.releasesList(ids);
+    for (const id of ids) {
+      let row = rows.find((r) => r.id === id);
+      if (!row) {
+        try {
+          row = await api.release(id);
+        } catch (e) {
+          if (!(e instanceof AniLibertyHttpError) || e.status !== 404) throw e;
+          const source = state.catalog[id];
+          state.evidence[id] = {
+            ...inspectLiberty({ ...source, episodes: [] }, anime, rights.allowedPlaybackOrigins),
+            status: 'withdrawn',
+            reason: 'confirmed-404',
+          };
+        }
+      }
+      if (row) state.evidence[id] = inspectLiberty(row, anime, rights.allowedPlaybackOrigins);
+      state.pending = state.pending.filter((n) => n !== id);
+      await checkpoint();
+    }
+    console.log(
+      `AniLiberty: detailed ${Object.keys(state.catalog).filter((id) => state.evidence[id]).length}/${state.total}; pending ${state.pending.length}`,
+    );
+  }
+  if (state.phase === 'details' && !state.pending.length) {
+    state.phase = 'complete';
+    state.completedAt = new Date().toISOString();
+    await checkpoint();
+  }
+} catch (e) {
+  if (e instanceof BudgetStop) stopped = 'request-budget';
+  else {
+    failure = e;
+    stopped = 'error';
+    state.error = {
+      at: new Date().toISOString(),
+      message:
+        e instanceof AniLibertyHttpError
+          ? e.message
+          : e instanceof Error
+            ? e.message.replace(/https?:\/\/\S+/g, '[URL]').slice(0, 180)
+            : 'Transport or schema error',
+      retryAfter: e instanceof AniLibertyHttpError ? e.retryAfter : null,
+    };
+    if (e instanceof AniLibertyHttpError && (e.status === 429 || e.status >= 500)) {
+      const raw = e.retryAfter;
+      const until =
+        raw && /^\d+$/.test(raw) ? Date.now() + Number(raw) * 1000 : Date.parse(raw || '');
+      state.resumeAfter = new Date(
+        Math.max(Date.now() + 60000, Number.isFinite(until) ? until : 0),
+      ).toISOString();
+    }
+  }
+  await checkpoint();
+}
+const partial = {
+  version: 2,
+  complete: state.phase === 'complete',
+  stopped,
+  requestsThisRun: requests,
+  requestsTotal: state.requestsTotal || 0,
+  catalogPages: Object.keys(state.pages).length,
+  totalCatalogPages: state.totalPages,
+  totalReleases: state.total,
+  processedReleases: Object.keys(state.catalog).filter((id) => state.evidence[id]).length,
+  pending: state.pending.length,
+  error: state.error,
+  canContinue: stopped === 'request-budget',
+};
+if (state.phase === 'complete') {
+  for (const [id, row] of Object.entries(state.catalog)) {
+    const e = state.evidence[id],
+      m = identifyLiberty(row, anime);
+    if (e && m.reason && ['ready', 'no-hls', 'outside-catalog'].includes(e.status)) {
+      e.reason = m.reason;
+      e.status = m.reason === 'external-id-outside-catalog' ? 'outside-catalog' : 'needs-review';
+    }
+  }
+  await checkpoint();
+  const result = buildLibertyIndex(state, state.baselineMappedIds);
+  await atomic(`${cache}/candidate/aniliberty-index.json`, result.index);
+  await atomic(`${cache}/candidate/aniliberty-needs-review.json`, result.review);
+  await atomic(`${cache}/candidate/aniliberty-sync-report.json`, { ...result.report, ...partial });
+  if (args.includes('--publish-index')) {
+    await atomic('src/data/aniliberty-index.json', result.index);
+    await atomic('src/data/aniliberty-needs-review.json', result.review);
+    await atomic('src/data/aniliberty-sync-report.json', { ...result.report, ...partial });
+  }
+}
+await atomic(`${cache}/report.json`, partial);
+if (process.env.GITHUB_OUTPUT)
+  await writeFile(
+    process.env.GITHUB_OUTPUT,
+    `complete=${partial.complete}\ncan_continue=${partial.canContinue}\n`,
+    { flag: 'a' },
+  );
+console.log(JSON.stringify(partial));
+if (failure) process.exitCode = 1;

@@ -801,17 +801,18 @@ export function initPlayers() {
         if (generation !== currentGeneration) return;
         persist();
         notice.textContent = 'Видео завершено';
-        if (
-          autoNext &&
-          sources.some(
+        const nextEpisode = sources
+          .filter(
             (entry) =>
               entry.providerId === active.providerId &&
-              entry.episodeNumber === active.episodeNumber + 1 &&
+              entry.episodeNumber > active.episodeNumber &&
+              entry.episodeNumber <= active.episodeNumber + 1 &&
               voiceKey(entry) === voiceKey(active),
           )
-        ) {
+          .sort((a, b) => a.episodeNumber - b.episodeNumber)[0];
+        if (autoNext && nextEpisode) {
           autoStartRequested = true;
-          episodes.value = String(active.episodeNumber + 1);
+          episodes.value = String(nextEpisode.episodeNumber);
           episodes.dispatchEvent(new Event('change'));
         }
       });

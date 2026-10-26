@@ -2,7 +2,10 @@ import type { VideoProvider, VideoSource } from './types';
 import type { AvailabilityAdapter } from './updates';
 import seeds from '../../../data/aniliberty-mappings.json' with { type: 'json' };
 import indexed from '../../../data/aniliberty-index.json' with { type: 'json' };
-const mappings = { ...indexed.mappings, ...seeds };
+const mappings = { ...seeds, ...indexed.mappings };
+const excludedLibertyIds = new Set<number>(
+  (indexed as { excludedIds?: number[] }).excludedIds || [],
+);
 import permission from '../../../data/video-rights.json' with { type: 'json' };
 export interface LibertyEpisode {
   id: string;
@@ -24,6 +27,8 @@ export interface LibertyRelease {
   is_blocked_by_copyrights: boolean;
   updated_at: string;
   episodes?: LibertyEpisode[];
+  fresh_at?: string;
+  is_ongoing?: boolean;
 }
 export interface MatchMetadata {
   title: string;
@@ -33,6 +38,50 @@ export interface MatchMetadata {
   year: number | null;
   type: string;
   malId?: number;
+}
+export class AniLibertyHttpError extends Error {
+  status: number;
+  retryAfter: string | null;
+  constructor(status: number, retryAfter: string | null = null) {
+    super(`AniLiberty HTTP ${status}`);
+    this.status = status;
+    this.retryAfter = retryAfter;
+  }
+}
+export interface LibertyPage {
+  data: LibertyRelease[];
+  pagination: { total: number; currentPage: number; totalPages: number; perPage: number };
+}
+export const libertyIndexFields =
+  'id,type,year,name,shikimori,mal,updated_at,fresh_at,is_ongoing,is_blocked_by_geo,is_blocked_by_copyrights';
+const libertyEpisodeFields =
+  'episodes.id,episodes.ordinal,episodes.updated_at,episodes.duration,episodes.release_id,episodes.hls_480,episodes.hls_720,episodes.hls_1080';
+function parseLibertyPage(raw: unknown, page: number): LibertyPage {
+  const value = raw as { data?: LibertyRelease[]; meta?: { pagination?: Record<string, number> } };
+  const p = value?.meta?.pagination;
+  if (
+    !Array.isArray(value?.data) ||
+    !p ||
+    p.current_page !== page ||
+    !Number.isSafeInteger(p.total) ||
+    p.total < 0 ||
+    !Number.isSafeInteger(p.total_pages) ||
+    p.total_pages < 1 ||
+    !Number.isSafeInteger(p.per_page) ||
+    p.per_page < 1 ||
+    value.data.length > p.per_page ||
+    value.data.some((r) => !r || !Number.isSafeInteger(r.id) || r.id < 1 || !r.name || !r.type)
+  )
+    throw new Error('Invalid AniLiberty paginated response');
+  return {
+    data: value.data,
+    pagination: {
+      total: p.total,
+      currentPage: p.current_page,
+      totalPages: p.total_pages,
+      perPage: p.per_page,
+    },
+  };
 }
 interface Mapping {
   releaseId: number;
@@ -157,14 +206,15 @@ export class AniLibertyApi {
   constructor(fetcher: typeof fetch = (...args) => fetch(...args)) {
     this.fetcher = fetcher;
   }
-  request<T>(path: string): Promise<T> {
+  request<T>(path: string, envelope = false): Promise<T> {
     if (
       !/^\/(app\/search\/releases\?|anime\/catalog\/releases\?|anime\/releases(?:\/|\?))/.test(path)
     )
       return Promise.reject(new Error('Unsupported endpoint'));
-    const cached = this.cache.get(path);
+    const key = `${path}${envelope ? '#envelope' : ''}`;
+    const cached = this.cache.get(key);
     if (cached && Date.now() - cached.at < 180_000) return Promise.resolve(cached.value as T);
-    const pending = this.inFlight.get(path);
+    const pending = this.inFlight.get(key);
     if (pending) return pending as Promise<T>;
     const task = this.tail
       .catch(() => {})
@@ -176,17 +226,20 @@ export class AniLibertyApi {
           signal: AbortSignal.timeout(12_000),
           headers: { Accept: 'application/json' },
         });
-        if (!response.ok) throw new Error(`AniLiberty HTTP ${response.status}`);
+        if (!response.ok)
+          throw new AniLibertyHttpError(response.status, response.headers.get('retry-after'));
         const raw: unknown = await response.json();
         const value =
-          raw && typeof raw === 'object' && 'data' in raw ? (raw as { data: unknown }).data : raw;
-        this.cache.set(path, { at: Date.now(), value });
+          !envelope && raw && typeof raw === 'object' && 'data' in raw
+            ? (raw as { data: unknown }).data
+            : raw;
+        this.cache.set(key, { at: Date.now(), value });
         if (this.cache.size > 32) this.cache.delete(this.cache.keys().next().value!);
         return value;
       })
-      .finally(() => this.inFlight.delete(path));
+      .finally(() => this.inFlight.delete(key));
     this.tail = task;
-    this.inFlight.set(path, task);
+    this.inFlight.set(key, task);
     return task as Promise<T>;
   }
   async search(query: string) {
@@ -222,6 +275,53 @@ export class AniLibertyApi {
       (row): row is LibertyRelease => !!row && Number.isSafeInteger(row.id) && row.name && row.type,
     );
   }
+  async catalogPageResult(page: number, limit = 50): Promise<LibertyPage> {
+    if (
+      !Number.isSafeInteger(page) ||
+      page < 1 ||
+      !Number.isSafeInteger(limit) ||
+      limit < 1 ||
+      limit > 50
+    )
+      throw new Error('Invalid catalog bounds');
+    return parseLibertyPage(
+      await this.request(
+        `/anime/catalog/releases?page=${page}&limit=${limit}&f[sorting]=FRESH_AT_ASC&include=${encodeURIComponent(libertyIndexFields)}`,
+        true,
+      ),
+      page,
+    );
+  }
+  async releasesList(ids: number[]): Promise<LibertyRelease[]> {
+    if (
+      !ids.length ||
+      ids.length > 50 ||
+      new Set(ids).size !== ids.length ||
+      ids.some((id) => !Number.isSafeInteger(id) || id < 1)
+    )
+      throw new Error('Invalid release batch');
+    const result = parseLibertyPage(
+      await this.request(
+        `/anime/releases/list?ids=${ids.join(',')}&limit=${ids.length}&page=1&include=${encodeURIComponent(`${libertyIndexFields},${libertyEpisodeFields}`)}`,
+        true,
+      ),
+      1,
+    );
+    if (
+      result.pagination.totalPages !== 1 ||
+      result.data.some((row) => !ids.includes(row.id) || !Array.isArray(row.episodes)) ||
+      new Set(result.data.map((r) => r.id)).size !== result.data.length
+    )
+      throw new Error('Invalid or incomplete release batch envelope');
+    return result.data;
+  }
+  async episode(id: string) {
+    if (!/^[a-z0-9-]{1,128}$/i.test(id)) throw new Error('Invalid episode ID');
+    const row = await this.request<LibertyEpisode>(`/anime/releases/episodes/${id}`);
+    if (!row || row.id !== id || !Number.isFinite(row.ordinal) || row.ordinal <= 0)
+      throw new Error('Invalid AniLiberty episode');
+    return row;
+  }
   latest() {
     return this.request<LibertyRelease[]>('/anime/releases/latest?limit=10');
   }
@@ -232,7 +332,8 @@ export async function findLibertyRelease(
   id: number,
   target?: MatchMetadata,
 ): Promise<LibertyRelease | null> {
-  const saved = storedMappings()[id] || (mappings as Record<string, Mapping>)[id];
+  if (excludedLibertyIds.has(id)) return null;
+  const saved = (mappings as Record<string, Mapping>)[id] || storedMappings()[id];
   if (saved) {
     const row = await libertyApi.release(saved.releaseId);
     if (!releaseMetadataMatches(row, target))

@@ -21,6 +21,17 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
   projects: [
+    ...(['chromium', 'webkit'] as const).map((browser) => ({
+      name: `live-${browser}`,
+      testMatch: 'aniliberty-live.spec.ts',
+      use: {
+        browserName: browser,
+        viewport: { width: 390, height: 844 },
+        trace: 'off' as const,
+        screenshot: 'off' as const,
+        video: 'off' as const,
+      },
+    })),
     { name: 'unit', testMatch: /(?:providers|image-policy|maintenance)\.spec\.ts/ },
     { name: 'chromium', testMatch: 'site.spec.ts', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', testMatch: 'site.spec.ts', use: { ...devices['Desktop Firefox'] } },

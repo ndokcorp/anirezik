@@ -1,0 +1,64 @@
+name: Sync approved AniLiberty catalog
+on:
+  workflow_dispatch:
+    inputs:
+      max_requests:
+        type: string
+        default: '100'
+      refresh:
+        type: boolean
+        default: true
+  schedule:
+    - cron: '41 */6 * * *'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: aniliberty-catalog-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || vars.ANILIBERTY_SYNC_ENABLED == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      complete: ${{ steps.sync.outputs.complete }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/aniliberty-checkpoint.ts restore
+      - name: Resume bounded catalog sync
+        id: sync
+        env:
+          REQUEST_BUDGET: ${{ inputs.max_requests || '100' }}
+          REFRESH: ${{ github.event_name == 'schedule' || inputs.refresh }}
+        run: |
+          args=()
+          if [ "$REFRESH" = 'true' ]; then args+=(--refresh); fi
+          node scripts/sync-aniliberty-index.ts "--max-requests=$REQUEST_BUDGET" --interval-ms=1500 "${args[@]}"
+      - name: Persist progress even after an API error
+        if: always() && hashFiles('.cache/aniliberty-index/progress-v2.json') != ''
+        run: node scripts/aniliberty-checkpoint.ts save
+      - uses: actions/upload-artifact@v4
+        if: steps.sync.outputs.complete == 'true'
+        with:
+          name: aniliberty-candidate
+          path: .cache/aniliberty-index/candidate/*.json
+      - name: Continue the queue sequentially
+        if: steps.sync.outputs.can_continue == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({owner:context.repo.owner, repo:context.repo.repo, workflow_id:'sync-aniliberty.yml', ref:'main', inputs:{max_requests:'100',refresh:'false'}});
+  publish:
+    needs: sync
+    if: needs.sync.outputs.complete == 'true'
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    with:
+      liberty_artifact: aniliberty-candidate
