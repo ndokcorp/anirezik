@@ -4854,5 +4854,82 @@
     "remainingMetaPages": 0,
     "matchingPageIds": [],
     "exactAliasSearchHits": 0
-  }
+  },
+  "curatedKodikTranslations": [
+    {
+      "id": "923",
+      "label": "AnimeVost",
+      "kind": "voice"
+    },
+    {
+      "id": "609",
+      "label": "AniDUB",
+      "kind": "voice"
+    },
+    {
+      "id": "2403",
+      "label": "AniJoy",
+      "kind": "voice"
+    },
+    {
+      "id": "610",
+      "label": "AniLibria.TV",
+      "kind": "voice"
+    },
+    {
+      "id": "958",
+      "label": "AniRise",
+      "kind": "voice"
+    },
+    {
+      "id": "3759",
+      "label": "AniStar & DEEP",
+      "kind": "voice"
+    },
+    {
+      "id": "739",
+      "label": "Animedia",
+      "kind": "voice"
+    },
+    {
+      "id": "2228",
+      "label": "Freedub Studio",
+      "kind": "voice"
+    },
+    {
+      "id": "557",
+      "label": "JAM",
+      "kind": "voice"
+    },
+    {
+      "id": "1237",
+      "label": "Jisedai",
+      "kind": "voice"
+    },
+    {
+      "id": "1647",
+      "label": "Sergei Vasya",
+      "kind": "voice"
+    },
+    {
+      "id": "643",
+      "label": "Studio Band",
+      "kind": "voice"
+    },
+    {
+      "id": "3084",
+      "label": "ТО Дубляжная",
+      "kind": "voice"
+    },
+    {
+      "id": "1273",
+      "label": "Wakanim.Subtitles",
+      "kind": "subtitles"
+    },
+    {
+      "id": "869",
+      "label": "Субтитры",
+      "kind": "subtitles"
+    }
+  ]
 }
