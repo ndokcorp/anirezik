@@ -21,6 +21,12 @@ test('AnimeVost: shared index preserves numeric identity, format and non-ambiguo
   const kinds = new Map(
     catalog.map((a: { shikimoriId: number; kind: string }) => [String(a.shikimoriId), a.kind]),
   );
+  const counts = new Map(
+    catalog.map((a: { shikimoriId: number; episodes: number | null }) => [
+      String(a.shikimoriId),
+      a.episodes,
+    ]),
+  );
   const seen = new Set<number>();
   for (const [id, raw] of Object.entries(index.mappings)) {
     const value = raw as { releaseId: number; kind: string; episodeNumbers: number[] };
@@ -32,6 +38,9 @@ test('AnimeVost: shared index preserves numeric identity, format and non-ambiguo
     expect(value.episodeNumbers.length).toBeGreaterThan(0);
     expect(new Set(value.episodeNumbers).size).toBe(value.episodeNumbers.length);
     expect(value.episodeNumbers.every((n) => Number.isSafeInteger(n) && n > 0)).toBe(true);
+    const expected = counts.get(id);
+    if (typeof expected === 'number' && expected > 0)
+      expect(Math.max(...value.episodeNumbers)).toBeLessThanOrEqual(expected);
   }
 });
 

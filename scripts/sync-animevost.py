@@ -47,6 +47,7 @@ def match_catalog(rows, catalog):
     # Exact normalized aliases + exact year/format. Numbers are retained so
     # seasons/parts/remakes are not collapsed. Ambiguity always requires review.
     aliases = {}
+    expected_episodes = {anime.get('shikimoriId'): anime.get('episodes') for anime in catalog}
     for anime in catalog:
         if not anime.get('shikimoriId') or not anime.get('year'):
             continue
@@ -69,6 +70,12 @@ def match_catalog(rows, catalog):
                              'reason': 'ambiguous' if len(ids) > 1 else 'no-exact-match-or-episodes'})
             continue
         id = str(next(iter(ids)))
+        expected = expected_episodes.get(int(id))
+        if isinstance(expected, int) and expected > 0 and max(numbers) > expected:
+            rejected.append({'releaseId': row['id'], 'shikimoriId': id, 'title': row.get('title'),
+                             'reason': 'episode-range-conflict', 'catalogEpisodes': expected,
+                             'providerMaxEpisode': max(numbers)})
+            continue
         candidates.setdefault(id, []).append({'releaseId': row['id'], 'episodeNumbers': numbers,
                                                'title': row.get('title'), 'year': row.get('year'), 'kind': kind})
     accepted = {id: values[0] for id, values in candidates.items() if len(values) == 1}
@@ -146,6 +153,12 @@ def main():
         # A partial upstream snapshot must never remove previously approved data.
         old = json.loads((ROOT / 'src/data/animevost-index.json').read_text(encoding='utf8'))['mappings']
         if not state['complete']:
+            # Preserve unseen entries on an incomplete snapshot, but remove
+            # records with explicit contradictory/ambiguous metadata.
+            rejected_ids = {str(row['shikimoriId']) for row in rejected if 'shikimoriId' in row}
+            rejected_releases = {row['releaseId'] for row in rejected if 'releaseId' in row}
+            old = {id: row for id, row in old.items() if id not in rejected_ids
+                   and row['releaseId'] not in rejected_releases}
             mappings = {**old, **mappings}
         atomic(ROOT / 'src/data/animevost-index.json', {'version': 1, 'mappings': mappings})
     print(f'exactCandidates={len(candidates)} reviewRequired={len(rejected)}', flush=True)

@@ -10,11 +10,11 @@
     "http": null,
     "page": 91
   },
-  "exactCandidateMappings": 2803,
-  "manualReviewReleases": 799,
-  "lazyResolverMappings": 2803,
-  "metadataEpisodeNumbers": 45535,
-  "potentialFirstSourceIdsComparedToIndex": 1496,
+  "exactCandidateMappings": 2736,
+  "manualReviewReleases": 866,
+  "lazyResolverMappings": 2736,
+  "metadataEpisodeNumbers": 43776,
+  "potentialFirstSourceIdsComparedToIndex": 1458,
   "priorConfiguredAnime": 1664,
   "confirmedPlaybackIds": [
     33,
@@ -75,5 +75,544 @@
     "status": "pending",
     "notAllMappingsPlaybackTested": true
   },
-  "permissionScreenshotSha256": "6a3976649a5d492756e04ce9a6cd7b13a6c4db74249a768634fe4b2dd9c05d82"
+  "permissionScreenshotSha256": "6a3976649a5d492756e04ce9a6cd7b13a6c4db74249a768634fe4b2dd9c05d82",
+  "episodeRangeRejected": 67,
+  "rangeConflicts": [
+    {
+      "releaseId": 2751,
+      "shikimoriId": "41467",
+      "title": "Блич: Тысячелетняя кровавая война / Bleach: Sennen Kessen-hen [1-50 из 50]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 50
+    },
+    {
+      "releaseId": 3864,
+      "shikimoriId": "60055",
+      "title": "Операция: Семейка Ёдзакура (второй сезон) / Yozakura-san Chi no Daisakusen 2nd Season [1-15 из 24+]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 15
+    },
+    {
+      "releaseId": 3852,
+      "shikimoriId": "58877",
+      "title": "Путь аса: Второй акт (второй сезон) / Diamond no Ace: Act II Second Season [1-16 из 26+]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 16
+    },
+    {
+      "releaseId": 3640,
+      "shikimoriId": "59517",
+      "title": "Титосэ внутри бутылки рамунэ / Chitose-kun wa Ramune Bin no Naka [1-15 из 26+]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 15
+    },
+    {
+      "releaseId": 2722,
+      "shikimoriId": "35626",
+      "title": "Сказания о демонах и богах / Yao Shen Ji [1-455 из 450+]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 40,
+      "providerMaxEpisode": 455
+    },
+    {
+      "releaseId": 3378,
+      "shikimoriId": "57592",
+      "title": "Доктор Стоун (четвёртый сезон) / Dr. Stone: Science Future [1-37 из 37]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 37
+    },
+    {
+      "releaseId": 3452,
+      "shikimoriId": "51818",
+      "title": "Пламенная бригада пожарных (третий сезон) / Enen no Shouboutai: San no Shou [1-25 из 25]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 25
+    },
+    {
+      "releaseId": 3578,
+      "shikimoriId": "59342",
+      "title": "Адский учитель Нубэ (2025) / Jigoku Sensei Nube (2025) [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 3338,
+      "shikimoriId": "49469",
+      "title": "Выдающиеся звери: Финал / Beastars Final Season [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 3550,
+      "shikimoriId": "60326",
+      "title": "У меня нет любовницы! (А может и есть?!) / Watashi ga Koibito ni Nareru Wake Nai jan, Muri Muri! (Muri ja Nakatta!?) [1-17 из 17]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 17
+    },
+    {
+      "releaseId": 3298,
+      "shikimoriId": "58172",
+      "title": "Плачущий призрак на пенсии / Nageki no Bourei wa Intai shitai [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 3396,
+      "shikimoriId": "58939",
+      "title": "Дни Сакамото / Sakamoto Days [1-22 из 22]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 11,
+      "providerMaxEpisode": 22
+    },
+    {
+      "releaseId": 3198,
+      "shikimoriId": "54855",
+      "title": "Моя сэмпай - парень? / Senpai wa Otokonoko [1-16 из 16]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 16
+    },
+    {
+      "releaseId": 3218,
+      "shikimoriId": "52635",
+      "title": "Башня Бога (второй сезон) / Kami no Tou: Ouji no Kikan [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 3123,
+      "shikimoriId": "56242",
+      "title": "Ёко из Сэнгоку / Sengoku Youko [1-35 из 35]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 35
+    },
+    {
+      "releaseId": 3204,
+      "shikimoriId": "57845",
+      "title": "Эльф не может сидеть на диете / Elf-san wa Yaserarenai. [1-14 из 14]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 14
+    },
+    {
+      "releaseId": 2909,
+      "shikimoriId": "51105",
+      "title": "Ниер: Автомата — Версия 1.1а / NieR: Automata Ver 1.1a [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 3004,
+      "shikimoriId": "51179",
+      "title": "Реинкарнация безработного: История о приключениях в другом мире (второй сезон) / Mushoku Tensei II: Isekai Ittara Honki Dasu [0-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2891,
+      "shikimoriId": "50710",
+      "title": "Несносные пришельцы (2022) / Urusei Yatsura (2022) [1-46 из 46]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 23,
+      "providerMaxEpisode": 46
+    },
+    {
+      "releaseId": 3036,
+      "shikimoriId": "53026",
+      "title": "Синдуальность: Нуар / Synduality: Noir [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2981,
+      "shikimoriId": "53613",
+      "title": "Смертельная игра мёртвой горы / Dead Mount Death Play [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2964,
+      "shikimoriId": "52955",
+      "title": "Невеста чародея (второй сезон) / Mahoutsukai no Yome Season 2 [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2725,
+      "shikimoriId": "33758",
+      "title": "Джи Ву Ген - Непокорный воле богов / Wu Geng Ji [1-154 из 154]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 30,
+      "providerMaxEpisode": 154
+    },
+    {
+      "releaseId": 2903,
+      "shikimoriId": "51252",
+      "title": "Шпионский класс / Spy Kyoushitsu [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2908,
+      "shikimoriId": "49980",
+      "title": "Сказка о сахарном яблоке / Sugar Apple Fairy Tale [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2946,
+      "shikimoriId": "49618",
+      "title": "Повесть о конце света (второй сезон) / Shuumatsu no Walküre II [1-15 из 15]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 10,
+      "providerMaxEpisode": 15
+    },
+    {
+      "releaseId": 2928,
+      "shikimoriId": "53162",
+      "title": "Волшебник-воин Орфен (пятый сезон) / Majutsushi Orphen Hagure Tabi: Urbanrama-hen [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2942,
+      "shikimoriId": "43760",
+      "title": "Король огненной охоты / Hikari no Ou [1-20 из 20]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 10,
+      "providerMaxEpisode": 20
+    },
+    {
+      "releaseId": 2822,
+      "shikimoriId": "47164",
+      "title": "Может, я встречу тебя в подземелье? (четвёртый сезон) / Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka IV: Shin Shou - Meikyuu-hen [1-22 из 22]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 11,
+      "providerMaxEpisode": 22
+    },
+    {
+      "releaseId": 2798,
+      "shikimoriId": "50265",
+      "title": "Семья шпиона / Spy x Family [1-25 из 25]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 25
+    },
+    {
+      "releaseId": 2728,
+      "shikimoriId": "48661",
+      "title": "Невероятное приключение ДжоДжо: Каменный океан / JoJo no Kimyou na Bouken Part 6: Stone Ocean [1-38 из 38]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 38
+    },
+    {
+      "releaseId": 2696,
+      "shikimoriId": "48466",
+      "title": "Воины Пограничья / Kyoukai Senki [1-25 из 25]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 25
+    },
+    {
+      "releaseId": 2551,
+      "shikimoriId": "41762",
+      "title": "Небесный отдел дизайна / Tenchi Souzou Design Bu [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 2362,
+      "shikimoriId": "38883",
+      "title": "Волейбол!! (четвёртый сезон) / Haikyuu!!: To the Top [1-25 из 25]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 25
+    },
+    {
+      "releaseId": 2167,
+      "shikimoriId": "37430",
+      "title": "О моём перерождении в слизь / Tensei shitara Slime Datta Ken [1-25 из 25] [OVA 1-5 из 5]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 24,
+      "providerMaxEpisode": 25
+    },
+    {
+      "releaseId": 2393,
+      "shikimoriId": "37576",
+      "title": "Волшебник-воин Орфен (третий сезон) / Majutsushi Orphen Hagure Tabi [1-14 из 14]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 14
+    },
+    {
+      "releaseId": 2314,
+      "shikimoriId": "36903",
+      "title": "Кэнган Асура / Kengan Ashura [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 2005,
+      "shikimoriId": "36516",
+      "title": "Слабый удар / Beatless [1-22 из 22] [OVA 1-4 из 4]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 20,
+      "providerMaxEpisode": 22
+    },
+    {
+      "releaseId": 1997,
+      "shikimoriId": "34281",
+      "title": "Демоны старшей школы (четвертый сезон) / High School DxD Hero [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 2064,
+      "shikimoriId": "36001",
+      "title": "Алиса или Алиса: Брат-сисконщик и сёстры-близняшки / Alice or Alice: Siscon Niisan to Futago no Imouto [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1295,
+      "shikimoriId": "25303",
+      "title": "Волейбол!! ОВА / Haikyuu!! OVA [1-2 из 2]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 1,
+      "providerMaxEpisode": 2
+    },
+    {
+      "releaseId": 397,
+      "shikimoriId": "908",
+      "title": "Стальной алхимик ОВА / Fullmetal Alchemist: Premium Collection [1-4 из 4]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 3,
+      "providerMaxEpisode": 4
+    },
+    {
+      "releaseId": 1898,
+      "shikimoriId": "34403",
+      "title": "Моя первая гяру / Hajimete no Gal [1-10 из 10] [OVA 1 из 1]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 10,
+      "providerMaxEpisode": 11
+    },
+    {
+      "releaseId": 306,
+      "shikimoriId": "18661",
+      "title": "Очень приятно, Бог ОВА / Kami-sama Hajimemashita OVA [1-7 из 7]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 2,
+      "providerMaxEpisode": 7
+    },
+    {
+      "releaseId": 1603,
+      "shikimoriId": "1082",
+      "title": "Дафна: Тайна сияющих вод / Hikari to Mizu no Daphne [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 24,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 1810,
+      "shikimoriId": "30485",
+      "title": "Дитя хаоса  / Chaos;Child [0-14 из 14]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 14
+    },
+    {
+      "releaseId": 1973,
+      "shikimoriId": "34445",
+      "title": "Неподражаемая Юки Юна (второй сезон) / Yuuki Yuuna wa Yuusha de Aru: Yuusha no Shou [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 6,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1927,
+      "shikimoriId": "34966",
+      "title": "Адская девочка (четвертый сезон) / Jigoku Shoujo: Yoi no Togi [1-12 из 12]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 6,
+      "providerMaxEpisode": 12
+    },
+    {
+      "releaseId": 1910,
+      "shikimoriId": "32447",
+      "title": "Нора, принцесса и бродячая кошка / Nora to Oujo to Noraneko Heart [1-12 из 12]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 11,
+      "providerMaxEpisode": 12
+    },
+    {
+      "releaseId": 1890,
+      "shikimoriId": "32936",
+      "title": "Серебряный страж / Gin no Guardian [0-23 из 23]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 23
+    },
+    {
+      "releaseId": 1838,
+      "shikimoriId": "33988",
+      "title": "Дэми-тян хочет рассказать / Demi-chan wa Kataritai [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1709,
+      "shikimoriId": "30911",
+      "title": "Сказания Зестирии / Tales of Zestiria: The X [1-13 из 13]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1434,
+      "shikimoriId": "29027",
+      "title": "По велению адской сестры ОВА / Shinmai Maou no Testament OVA [1-2 из 2]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 1,
+      "providerMaxEpisode": 2
+    },
+    {
+      "releaseId": 701,
+      "shikimoriId": "20767",
+      "title": "Норагами ОВА / Noragami OVA [1-4 из 4]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 2,
+      "providerMaxEpisode": 4
+    },
+    {
+      "releaseId": 898,
+      "shikimoriId": "2159",
+      "title": "Замахнись сильнее / Ookiku Furikabutte [1-25 из 25]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 25,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 1206,
+      "shikimoriId": "17080",
+      "title": "Небесный Фафнир (второй сезон) / Soukyuu no Fafner: Dead Aggressor - Exodus [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 124,
+      "shikimoriId": "12729",
+      "title": "Демоны старшей школы ОВА / High School DxD OVA [1-4 из 4]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 2,
+      "providerMaxEpisode": 4
+    },
+    {
+      "releaseId": 786,
+      "shikimoriId": "13367",
+      "title": "Кто же из них моя сестра? / Nakaimo [1-12 из 12]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1409,
+      "shikimoriId": "3000",
+      "title": "Вы арестованы (третий сезон) / Taiho Shichau zo: Full Throttle [1-24 из 24]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 23,
+      "providerMaxEpisode": 24
+    },
+    {
+      "releaseId": 1406,
+      "shikimoriId": "2011",
+      "title": "Вы арестованы (cпэшлы) / Taiho Shichau zo Special [1-21 из 21]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 20,
+      "providerMaxEpisode": 21
+    },
+    {
+      "releaseId": 1404,
+      "shikimoriId": "1372",
+      "title": "Вы арестованы! / You re Under Arrest! [1-51 из 51]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 47,
+      "providerMaxEpisode": 51
+    },
+    {
+      "releaseId": 208,
+      "shikimoriId": "16009",
+      "title": "Воскресенье Без Бога / Kami-sama no Inai Nichiyoubi [1-12 из 12]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 12,
+      "providerMaxEpisode": 13
+    },
+    {
+      "releaseId": 1337,
+      "shikimoriId": "710",
+      "title": "Рек / Rec [1-10 из 10]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 9,
+      "providerMaxEpisode": 10
+    },
+    {
+      "releaseId": 1203,
+      "shikimoriId": "75",
+      "title": "Небесный Фафнир / Soukyuu no Fafner: Dead Aggressor [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 25,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 461,
+      "shikimoriId": "6050",
+      "title": "Волшебный учитель Нэгима! ОВА-4 / Mahou Sensei Negima!: Mou Hitotsu no Sekai [1-5 из 5]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 4,
+      "providerMaxEpisode": 5
+    },
+    {
+      "releaseId": 324,
+      "shikimoriId": "384",
+      "title": "Ганц / Gantz [1-26 из 26]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 13,
+      "providerMaxEpisode": 26
+    },
+    {
+      "releaseId": 161,
+      "shikimoriId": "467",
+      "title": "Призрак в доспехах: Синдром одиночки / Ghost in the Shell Stand Alone Complex [1-52 из 52]",
+      "reason": "episode-range-conflict",
+      "catalogEpisodes": 26,
+      "providerMaxEpisode": 52
+    }
+  ]
 }
