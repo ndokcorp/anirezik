@@ -34,7 +34,38 @@
   "newUniqueRawVoiceLabels": [],
   "newEpisodes": 94,
   "completeCatalog": false,
-  "deployment": "pending",
+  "deployment": {
+    "status": "success",
+    "commit": "9624740",
+    "runUrl": "https://github.com/ndokcorp/anirezik/actions/runs/40461663057",
+    "checks": [
+      "verify",
+      "chromium",
+      "firefox",
+      "webkit",
+      "deploy"
+    ],
+    "publicCacheIds": [
+      16,
+      28,
+      32
+    ],
+    "publicNumericPagesHTTP200": [
+      16,
+      28,
+      32
+    ],
+    "publicPlayback32": [
+      {
+        "duration": 5207.411066666658,
+        "height": 360,
+        "paused": true,
+        "ready": 4,
+        "time": 46.178029,
+        "width": 640
+      }
+    ]
+  },
   "playbackEvidence": [
     {
       "shikimoriId": 16,
@@ -82,13 +113,92 @@
       "quality": "Official menu: high quality 480p selected"
     },
     "16": {
-      "episodeChange": "MultiPlayer selected episode 2; provider URL is observed cached /1/2, awaiting video proof"
+      "episodeChange": "MultiPlayer switches to observed /1/2; main video played to 8.96s. Distinct episode content not independently established; equal durations require manual review, not proof of all episodes."
     }
   },
   "checks": {
     "typescript": "passed: 0 errors/warnings/hints",
     "profileTests": "12 passed",
-    "productionBuild": "pending"
+    "productionBuild": "passed: /anirezik, offline, clean numeric routes"
   },
-  "worker": "Stopped on checkpoint Git push; checkpoint saved successfully in foreground; no restart"
+  "worker": "Stopped on checkpoint Git push; checkpoint saved successfully in foreground; no restart",
+  "auditedIds": [
+    16,
+    28,
+    32,
+    33,
+    47,
+    48,
+    57,
+    66,
+    68,
+    71,
+    72,
+    166,
+    175,
+    202,
+    205,
+    227,
+    232,
+    245,
+    249,
+    265,
+    267,
+    299,
+    325,
+    348,
+    355,
+    356,
+    371,
+    372,
+    392,
+    438,
+    449,
+    450,
+    451,
+    457,
+    463,
+    465,
+    466,
+    543,
+    586,
+    599,
+    709,
+    713,
+    842,
+    917,
+    935,
+    953,
+    957,
+    1023,
+    1055,
+    1345,
+    1451,
+    1575,
+    1689,
+    1691,
+    1699,
+    1723,
+    1726,
+    1762,
+    1811,
+    1824,
+    1887,
+    2001,
+    2034,
+    2107,
+    2167,
+    2175,
+    2216,
+    2246,
+    2251,
+    2386,
+    2476,
+    2759,
+    2787,
+    2966,
+    3001,
+    3002
+  ],
+  "firstPlayerCandidates": 76
 }
