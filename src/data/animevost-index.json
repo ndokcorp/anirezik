@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "mappings": {
+    "54744": {
+      "releaseId": 3195,
+      "episodeNumbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "kind": "tv"
+    },
+    "52299": {
+      "releaseId": 3131,
+      "episodeNumbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      "kind": "tv"
+    },
+    "32281": {
+      "releaseId": 1742,
+      "episodeNumbers": [1],
+      "kind": "movie"
+    },
+    "33": {
+      "releaseId": 271,
+      "episodeNumbers": [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25
+      ],
+      "kind": "tv"
+    }
+  }
+}

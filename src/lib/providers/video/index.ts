@@ -2,11 +2,13 @@ import type { VideoProvider, VideoSource } from './types';
 import { aniLibertyProvider } from './aniliberty';
 import { kodikProvider } from './kodik';
 import { animeGoProvider } from './animego';
+import { animeVostProvider } from './animevost';
 // No provider is implicitly approved by an API result, a studio name, or a URL.
 export const approvedProviders: ReadonlyArray<VideoProvider> = [
   kodikProvider,
   aniLibertyProvider,
   animeGoProvider,
+  animeVostProvider,
 ];
 function allowedUrl(value: string | undefined, origins: string[]): boolean {
   if (!value) return false;
@@ -51,6 +53,10 @@ export function isAuthorizedSource(
       !source.playbackUrl &&
       !source.qualities?.length) ||
       (provider.regionPolicy === 'provider-response' && source.regionChecked === true) ||
+      (provider.regionPolicy === 'media-enforced' &&
+        !!source.playbackUrl &&
+        !source.embedUrl &&
+        rights.playbackAllowed) ||
       source.availableRegions.includes('*') ||
       (!!region && source.availableRegions.includes(region.toUpperCase()))) &&
     (!source.embedUrl ||

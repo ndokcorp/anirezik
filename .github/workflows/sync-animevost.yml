@@ -1,0 +1,41 @@
+name: AnimeVost metadata candidates
+on:
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: Sequential request budget (40 releases per page); does not publish players
+        required: true
+        default: '10'
+permissions:
+  contents: read
+concurrency:
+  group: animevost-metadata
+  cancel-in-progress: false
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache/restore@v4
+        with:
+          path: .cache/animevost-sync
+          key: animevost-v1-${{ github.run_id }}
+          restore-keys: animevost-v1-
+      - name: Collect bounded metadata only
+        env:
+          MAX_PAGES: ${{ inputs.max_pages }}
+        run: python scripts/sync-animevost.py --max-pages "$MAX_PAGES"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .cache/animevost-sync
+          key: animevost-v1-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: animevost-metadata-candidates
+          path: .cache/animevost-sync
+          retention-days: 14

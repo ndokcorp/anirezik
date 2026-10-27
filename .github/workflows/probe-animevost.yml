@@ -1,0 +1,30 @@
+name: AnimeVost real browser pilot
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        browser: [chromium, firefox, webkit-mobile]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps ${{ matrix.browser == 'webkit-mobile' && 'webkit' || matrix.browser }}
+      - name: Real AnimeVost playback, no mocked media
+        env:
+          ANIMEVOST_LIVE: '1'
+        run: npx playwright test --config playwright.animevost.config.ts --project=${{ matrix.browser }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: animevost-${{ matrix.browser }}
+          path: test-results/
