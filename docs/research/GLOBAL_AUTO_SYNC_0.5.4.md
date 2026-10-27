@@ -43,3 +43,25 @@ The final hardening also includes AniLiberty's actual official API alias field (
 
 
 Official alias projection was checked with one bounded AniLiberty catalog request (page 1, one item): API accepted the alias field and returned it. Its live reported total was 1,853, whereas the reused historical checkpoint contains 1,884; this is not treated as proof that 31 sources were withdrawn. The resumable detail-check queue will establish actual withdrawals. No new full catalog import was started for this comparison.
+
+
+## Final production result
+
+Final hardened code **554c737d7524e3960b08d1594f78f0ac76f14c1a** passed and deployed: [Pages run 40593892149](https://github.com/ndokcorp/anirezik/actions/runs/40593892149). Check/build/Python/unit tests and Chromium/Firefox/WebKit all succeeded. A fresh post-deploy public AniLiberty 31630 check decoded 1280×720 at 3.673242 seconds, readyState 4. This repeat is excluded from new unique-video counts.
+
+| Requested measure | Verified result |
+| --- | --- |
+| Shikimori-ID metadata matches | 1,607 provider-release identities in the saved AniLiberty snapshot; **0 new ID-only publication** in this pilot |
+| Russian-title matching | 323 preliminary metadata identities across providers; **1 new confirmed source** |
+| Original/English-title matching | 2,586 preliminary metadata identities; **2 new original-title confirmed sources**, 0 English-only |
+| Confirmed URL / official slug | Implemented and unit/API-field checked; **0 new live slug-only sources claimed** |
+| Other exact synonyms | 141 preliminary identities; **2 new confirmed sources** |
+| AUTO-APPROVED playback | **5 new source/title pairs** after actual playback gates |
+| Review / unactivated | **857** original AnimeVost deferred rows remain (205 identity-ready awaiting video; 652 unresolved metadata). Saved AniLiberty has 272 unresolved metadata identities; missing ordinal arrays are refreshed automatically, not inferred from counts. These snapshot/review numbers are not active-player counts. |
+| New AnimeVost | **4**: 59193, 7745, 9047, 10659 |
+| New AniLiberty | **1**: 31630 |
+| First working configured provider | **4** titles: 59193, 7745, 9047, 10659 |
+| Actual successful videos | **7 unique source/episode pairs on 5 successful source/title candidates**; one candidate quarantined after seek failure. Rechecks are not added. |
+| Automatic operation | Existing six-hour AniLiberty collector + shared gated publication works. AnimeVost remains bounded manual pending supplier rate terms. Shikimori remains off as explicitly instructed by owner. |
+
+Preliminary identities include records that still fail episode/range/availability gates and can overlap the same anime across providers. They are deliberately not called working players. All legacy configured sources are preserved unless an official detail 404 or copyright withdrawal is confirmed through the bounded queue; no removal is inferred from a smaller reported catalog.

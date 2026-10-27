@@ -26209,5 +26209,28 @@
     "reportedTotal": 1853,
     "historicalCheckpointRows": 1884,
     "scope": "Not a full reconciliation; no removal inferred"
+  },
+  "finalProductionDeploy": {
+    "status": "success",
+    "url": "https://github.com/ndokcorp/anirezik/actions/runs/40593892149",
+    "codeCommit": "554c737d7524e3960b08d1594f78f0ac76f14c1a",
+    "checks": [
+      "TypeScript",
+      "production build",
+      "Python fixtures",
+      "unit tests",
+      "Chromium",
+      "Firefox",
+      "WebKit"
+    ]
+  },
+  "finalPublicRepeat": {
+    "id": 31630,
+    "provider": "aniliberty",
+    "time": 3.673242,
+    "width": 1280,
+    "height": 720,
+    "readyState": 4,
+    "countedAsAdditionalUniqueVideo": false
   }
 }
