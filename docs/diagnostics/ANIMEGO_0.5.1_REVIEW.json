@@ -2496,7 +2496,23 @@
       ]
     }
   ],
-  "deployment": "pending",
+  "deployment": {
+    "status": "success",
+    "commit": "4642a3e",
+    "runUrl": "https://github.com/ndokcorp/anirezik/actions/runs/40468079011",
+    "publicNumericPagesHTTP200": [
+      33,
+      1575,
+      2787,
+      1689
+    ],
+    "publicCacheIdsChecked": [
+      33,
+      1575,
+      2787,
+      1689
+    ]
+  },
   "kodikAuthorization": {
     "requests": 1,
     "http": 401,
@@ -2513,7 +2529,12 @@
     "profileTests": "12 passed",
     "productionBuild": "passed: /anirezik, offline, 30704 numeric URLs",
     "browserUI": "passed episode 2 + MC Entertainment selection and actual playback; CVH resets selection after reload",
-    "productionDeploy": "pending"
+    "productionDeploy": "success",
+    "browsers": {
+      "chromium": "success",
+      "firefox": "success",
+      "webkit": "success"
+    }
   },
   "scope": "One actual main-video sample per enabled anime/translation plus two episode-2 samples. Not all 1212 episode numbers or regions were played.",
   "integrationPlaybackChecks": 1,
@@ -2537,5 +2558,24 @@
   "knownLimitations": [
     "CVH episode/translation selection resets after a reload; existing code unchanged.",
     "Not all 1212 episode numbers or geographic regions were played."
-  ]
+  ],
+  "productionPlaybackChecks": 1,
+  "productionPlaybackEvidence": {
+    "id": 1575,
+    "episode": 1,
+    "translation": "AniMedia",
+    "origin": "https://ndokcorp.github.io",
+    "metrics": [
+      {
+        "duration": 1448.507188208618,
+        "height": 720,
+        "paused": false,
+        "ready": 4,
+        "time": 68.153044,
+        "width": 1280
+      }
+    ]
+  },
+  "totalSuccessfulPlaybackChecks": 96,
+  "totalAttemptedChecks": 98
 }
