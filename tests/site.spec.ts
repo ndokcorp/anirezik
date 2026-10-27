@@ -46,6 +46,7 @@ test('0.4.9: reviewed AnimeGO iframe uses exact episode URLs on desktop and mobi
 // Reproducible regressions; real CDN decoding is checked separately on Pages.
 test.beforeEach(async ({ context }) => {
   // Offline regression suite: no public API/stream calls. Live playback is checked separately.
+  await context.route('https://api.animevost.org/v1/**', (route) => route.fulfill({ json: [] }));
   await context.route('**/data/video/animego/*.json', (route) => route.fulfill({ status: 404 }));
   await context.route('**/data/video/kodik/*.json', (route) => route.fulfill({ status: 404 }));
   await context.route('https://anilibria.top/api/v1/**', async (route) => {
