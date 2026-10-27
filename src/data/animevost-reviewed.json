@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "mappings": {
+    "54744": {
+      "releaseId": 3195,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "releaseId": 3195,
+          "episode": 1,
+          "currentTime": 19.738,
+          "duration": 1481.31,
+          "width": 1280,
+          "height": 720,
+          "additionalEpisodesVerified": [2],
+          "qualitySwitchVerified": ["720p", "480p"]
+        }
+      ],
+      "scope": "Observed sample episode; not a claim all episodes and regions tested"
+    },
+    "52299": {
+      "releaseId": 3131,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "releaseId": 3131,
+          "episode": 1,
+          "currentTime": 36.678,
+          "duration": 1422.063,
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "scope": "Observed sample episode; not a claim all episodes and regions tested"
+    },
+    "33": {
+      "releaseId": 271,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "releaseId": 271,
+          "episode": 1,
+          "currentTime": 179.906,
+          "duration": 1417.209,
+          "width": 1280,
+          "height": 928
+        }
+      ],
+      "scope": "Observed sample episode; not a claim all episodes and regions tested"
+    },
+    "32281": {
+      "releaseId": 1742,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "releaseId": 1742,
+          "episode": 1,
+          "currentTime": 35.484,
+          "duration": 6395.6,
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "scope": "Observed sample episode; not a claim all episodes and regions tested"
+    }
+  },
+  "browserGatePassed": true,
+  "browserGateRun": "https://github.com/ndokcorp/anirezik/actions/runs/40543818722",
+  "browserGateScope": "54744 episodes 1/2, seek and quality: Chromium, Firefox, mobile WebKit"
+}

@@ -86,8 +86,10 @@ export function parseAnimeVostPlaylist(
       providerId: 'animevost',
       providerName: 'AnimeVost',
       audioLanguage: 'ru',
-      dubbingStudio: 'AnimeVost',
-      translationId: 'animevost:own',
+      // The API publishes one track per episode and no separate studio roster.
+      // Show the supplier name via providerName, without inventing a studio.
+      dubbingStudio: null,
+      translationId: 'animevost:published',
       subtitles: [],
       playbackUrl: qualities[0].url,
       qualities,

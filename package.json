@@ -1,6 +1,6 @@
 {
   "name": "anirezik",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,8 @@
     "sync:descriptions": "node scripts/sync-descriptions.ts",
     "sync:aniliberty": "node scripts/sync-aniliberty-index.ts",
     "kodik:plan": "node scripts/sync-kodik.ts --plan",
-    "kodik:sync": "node scripts/sync-kodik.ts"
+    "kodik:sync": "node scripts/sync-kodik.ts",
+    "sync:animevost": "python scripts/sync-animevost.py"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

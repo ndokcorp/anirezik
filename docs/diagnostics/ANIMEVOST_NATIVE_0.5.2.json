@@ -1,0 +1,79 @@
+{
+  "version": "0.5.2",
+  "date": "2026-10-27",
+  "catalogShikimoriIds": 30704,
+  "processedAnimeVostReleases": 3602,
+  "reportedAnimeVostTotal": 3611,
+  "catalogComplete": false,
+  "catalogStop": {
+    "type": "ValueError",
+    "http": null,
+    "page": 91
+  },
+  "exactCandidateMappings": 2803,
+  "manualReviewReleases": 799,
+  "lazyResolverMappings": 2803,
+  "metadataEpisodeNumbers": 45535,
+  "potentialFirstSourceIdsComparedToIndex": 1496,
+  "priorConfiguredAnime": 1664,
+  "confirmedPlaybackIds": [
+    33,
+    52299,
+    54744,
+    32281
+  ],
+  "confirmedFirstPlayerIds": [
+    54744
+  ],
+  "confirmedTrackOptions": 4,
+  "distinctNewStudioNamesVerified": 0,
+  "distinctSupplierTrack": "AnimeVost",
+  "confirmedUniqueEpisodePairs": [
+    [
+      54744,
+      1
+    ],
+    [
+      54744,
+      2
+    ],
+    [
+      52299,
+      1
+    ],
+    [
+      33,
+      1
+    ],
+    [
+      32281,
+      1
+    ]
+  ],
+  "pilotApiEpisodeEntries": 50,
+  "browserPilot": {
+    "run": "https://github.com/ndokcorp/anirezik/actions/runs/40543818722",
+    "chromium": "success",
+    "firefox": "success",
+    "webkitMobile": "success",
+    "scope": "54744 episodes1/2; real decoded frames, time, seek, quality"
+  },
+  "media": {
+    "formatsObserved": [
+      "MP4"
+    ],
+    "qualitiesAdvertised": [
+      "480p",
+      "720p"
+    ],
+    "hlsObserved": false,
+    "dashObserved": false,
+    "urlExpiry": "not documented; fresh playlist per page and short in-memory cache, no static media URLs",
+    "region": "not advertised by API; enforced by origin CDN, no spoofing/proxy"
+  },
+  "publication": {
+    "status": "pending",
+    "notAllMappingsPlaybackTested": true
+  },
+  "permissionScreenshotSha256": "6a3976649a5d492756e04ce9a6cd7b13a6c4db74249a768634fe4b2dd9c05d82"
+}

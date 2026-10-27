@@ -1,7 +1,7 @@
 """Bounded, resumable metadata sync. Does not fetch or persist media URLs.
 
-Candidates never activate playback: --publish-reviewed accepts only matches
-recorded separately after actual player verification.
+Candidates never contain media URLs. --publish-reviewed restricts to observed
+playback; --publish-exact permits lazy resolution after an explicit pilot gate.
 """
 import argparse
 import ast
@@ -20,7 +20,9 @@ CACHE = ROOT / '.cache/animevost-sync'
 def atomic(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + '.tmp')
-    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+    compact = path.name == 'animevost-index.json'
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=None if compact else 2,
+                              separators=(',', ':') if compact else None) + '\n', encoding='utf8')
     tmp.replace(path)
 
 
@@ -35,7 +37,7 @@ def episode_numbers(row):
         return []
     if not isinstance(value, dict):
         return []
-    numbers = [int(m[1]) for key in value if (m := re.fullmatch(r'(\d+) серия', key))]
+    numbers = [int(m[1]) for key in value if (m := re.fullmatch(r'(\d+) серия', key)) and int(m[1]) > 0]
     if row.get('type') == 'полнометражный фильм' and list(value) == ['Фильм']:
         return [1]
     return sorted(set(numbers))
@@ -80,6 +82,7 @@ def main():
     parser.add_argument('--max-pages', type=int, default=5)
     parser.add_argument('--delay', type=float, default=2)
     parser.add_argument('--publish-reviewed', action='store_true')
+    parser.add_argument('--publish-exact', action='store_true')
     args = parser.parse_args()
     if args.max_pages < 0 or args.delay < 2:
         parser.error('Nonnegative budget and delay >= 2 seconds required')
@@ -132,6 +135,18 @@ def main():
             if not candidate or candidate['releaseId'] != review['releaseId'] or not review.get('playbackVerified'):
                 raise SystemExit(f'Review mismatch: {id}; existing index preserved')
             mappings[id] = {key: candidate[key] for key in ['releaseId', 'episodeNumbers', 'kind']}
+        atomic(ROOT / 'src/data/animevost-index.json', {'version': 1, 'mappings': mappings})
+    if args.publish_exact:
+        rights = json.loads((ROOT / 'src/data/animevost-rights.json').read_text(encoding='utf8'))
+        pilot = json.loads((ROOT / 'src/data/animevost-reviewed.json').read_text(encoding='utf8'))
+        if not rights.get('verified') or not rights.get('playbackAllowed') or not pilot.get('browserGatePassed'):
+            raise SystemExit('Direct rights and successful cross-browser pilot required; index preserved')
+        mappings = {id: {key: row[key] for key in ['releaseId', 'episodeNumbers', 'kind']}
+                    for id, row in candidates.items()}
+        # A partial upstream snapshot must never remove previously approved data.
+        old = json.loads((ROOT / 'src/data/animevost-index.json').read_text(encoding='utf8'))['mappings']
+        if not state['complete']:
+            mappings = {**old, **mappings}
         atomic(ROOT / 'src/data/animevost-index.json', {'version': 1, 'mappings': mappings})
     print(f'exactCandidates={len(candidates)} reviewRequired={len(rejected)}', flush=True)
 
