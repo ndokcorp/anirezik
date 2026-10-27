@@ -48,6 +48,7 @@ export function identityRecord(provider: SyncProvider, raw: any): SupplierIdenti
     };
   }
   return {
+    officialAlias: raw.alias,
     shikimoriId: raw.shikimori?.id,
     malId: raw.mal?.id,
     names: [raw.name?.main, raw.name?.english, raw.name?.alternative].filter(Boolean),

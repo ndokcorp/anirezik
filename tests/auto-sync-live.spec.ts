@@ -23,7 +23,7 @@ for (const c of plan.selected as SyncCandidate[])
     page.on('response', (r) => {
       if (
         ([401, 403, 429].includes(r.status()) ||
-          /text\/html/i.test(r.headers()['content-type'] || '')) &&
+          (r.status() === 200 && /text\/html/i.test(r.headers()['content-type'] || ''))) &&
         [
           'https://api.animevost.org',
           'https://video.animetop.info',
@@ -43,12 +43,22 @@ for (const c of plan.selected as SyncCandidate[])
     try {
       // Budget isolation only: do not query an unselected provider. Candidate
       // API/media responses stay real; no video response is intercepted.
-      await page.route(
-        c.provider === 'animevost'
-          ? 'https://anilibria.top/api/**'
-          : 'https://api.animevost.org/**',
-        (route) => route.abort(),
-      );
+      await page.route('**/*', (route) => {
+        const u = new URL(route.request().url());
+        const unselected =
+          c.provider === 'animevost'
+            ? u.origin === 'https://anilibria.top' && u.pathname.startsWith('/api/')
+            : u.origin === 'https://api.animevost.org';
+        const restricted =
+          stop &&
+          [
+            'https://api.animevost.org',
+            'https://video.animetop.info',
+            'https://anilibria.top',
+            ...rights.allowedPlaybackOrigins,
+          ].includes(u.origin);
+        return unselected || restricted ? route.abort() : route.continue();
+      });
       await page.goto(`anime/${c.id}/`);
       await page.getByRole('link', { name: 'СМОТРЕТЬ', exact: true }).click();
       await expect(page.locator('[data-player]')).toHaveAttribute('data-ready', 'true', {
@@ -88,7 +98,15 @@ for (const c of plan.selected as SyncCandidate[])
         await page.getByRole('group', { name: 'Плеер AniRezik', exact: true }).press('ArrowRight');
         await expect
           .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))
-          .toBeGreaterThan(Math.min(observation.time + 9, observation.duration - 1));
+          .toBeGreaterThan(Math.min(observation.time + 10.5, observation.duration - 0.25));
+        await expect
+          .poll(() =>
+            video.evaluate((v) => {
+              const m = v as HTMLVideoElement;
+              return m.readyState >= 2 && !m.seeking;
+            }),
+          )
+          .toBe(true);
         await page.getByRole('button', { name: 'Пауза', exact: true }).click();
       }
       result.passed = true;

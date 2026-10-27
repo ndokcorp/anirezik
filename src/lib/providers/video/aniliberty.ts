@@ -19,6 +19,7 @@ export interface LibertyEpisode {
 }
 export interface LibertyRelease {
   id: number;
+  alias?: string;
   year: number;
   name: { main: string; english?: string; alternative?: string };
   type: { value: string };
@@ -54,7 +55,7 @@ export interface LibertyPage {
   pagination: { total: number; currentPage: number; totalPages: number; perPage: number };
 }
 export const libertyIndexFields =
-  'id,type,year,name,shikimori,mal,updated_at,fresh_at,is_ongoing,is_blocked_by_geo,is_blocked_by_copyrights';
+  'id,alias,type,year,name,shikimori,mal,updated_at,fresh_at,is_ongoing,is_blocked_by_geo,is_blocked_by_copyrights';
 const libertyEpisodeFields =
   'episodes.id,episodes.ordinal,episodes.updated_at,episodes.duration,episodes.release_id,episodes.hls_480,episodes.hls_720,episodes.hls_1080';
 function parseLibertyPage(raw: unknown, page: number): LibertyPage {
@@ -150,9 +151,12 @@ export function strictTitleCandidates(rows: LibertyRelease[], target: MatchMetad
   if (!target.year) return [];
   return rows.filter((row) => {
     if (row.shikimori?.id || row.mal?.id) return false;
-    const other = [row.name.english || '', row.name.alternative || '', row.name.main].filter(
-      Boolean,
-    );
+    const other = [
+      row.name.english || '',
+      row.name.alternative || '',
+      row.name.main,
+      row.alias || '',
+    ].filter(Boolean);
     return (
       row.year === target.year &&
       format(row.type.value) === format(target.type) &&

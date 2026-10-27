@@ -26091,5 +26091,123 @@
     }
   ],
   "knownLimits": "AnimeVost numeric limits not confirmed: no automated AnimeVost API schedule",
-  "scope": "Matching counts are not playback counts; sample video proof stored separately"
+  "scope": "Matching counts are not playback counts; sample video proof stored separately",
+  "endToEndAutoRun": {
+    "version": 1,
+    "checkedAt": "2026-10-27T21:48:46.774Z",
+    "counts": {
+      "animevostRows": 3602,
+      "libertyRows": 1884,
+      "identityCandidates": 2938,
+      "pending": 206,
+      "selected": 1,
+      "review": 2548
+    },
+    "basis": {
+      "original-title": 2465,
+      "english-title": 34,
+      "alias": 128,
+      "russian-title": 311
+    },
+    "publishedCandidates": [
+      {
+        "provider": "animevost",
+        "id": 10659,
+        "releaseId": 45,
+        "episodeNumbers": [
+          1
+        ],
+        "kind": "movie",
+        "basis": "russian-title",
+        "fingerprint": "607775e9f61706cc85422061e386b7352a64241126e415a6d1f5e4444cca2fe3"
+      }
+    ],
+    "withdrawals": [],
+    "videoResults": [
+      {
+        "provider": "animevost",
+        "id": 10659,
+        "releaseId": 45,
+        "passed": true,
+        "episodes": [
+          {
+            "episode": 1,
+            "time": 3.073537,
+            "width": 660,
+            "height": 360,
+            "duration": 881.92359
+          }
+        ]
+      }
+    ],
+    "scope": "Browser sample only; not all episodes or regions",
+    "url": "https://github.com/ndokcorp/anirezik/actions/runs/40589750391"
+  },
+  "finalConfirmedExpansion": {
+    "animevost": 4,
+    "aniliberty": 1,
+    "configuredAnimeVost": 2745,
+    "configuredAniLiberty": 1589,
+    "firstPlayerIds": [
+      59193,
+      7745,
+      9047,
+      10659
+    ],
+    "successfulCandidateSources": 5,
+    "successfulUniqueEpisodePairs": 7,
+    "withheldCandidates": 1,
+    "deferredAnimeVostRemaining": 857,
+    "deferredIdentityReadyAwaitingVideo": 205,
+    "newMatchingBasis": {
+      "shikimori.id": 0,
+      "mal.id": 0,
+      "russian-title": 1,
+      "original-title": 2,
+      "english-title": 0,
+      "alias": 2,
+      "url-slug": 0
+    }
+  },
+  "publicOriginChecks": [
+    {
+      "id": 59193,
+      "provider": "animevost",
+      "time": 14.622773,
+      "width": 858,
+      "height": 483,
+      "duration": 1421.002993,
+      "seekDecoded": true,
+      "resumeVerified": true
+    },
+    {
+      "id": 10659,
+      "provider": "animevost",
+      "time": 14.630477,
+      "width": 660,
+      "height": 360,
+      "duration": 881.92359,
+      "seekDecoded": true
+    },
+    {
+      "id": 31630,
+      "provider": "aniliberty",
+      "time": 14.350775,
+      "width": 1280,
+      "height": 720,
+      "duration": 1449.9072039999999,
+      "seekDecoded": true
+    }
+  ],
+  "publicCheckOrigin": "https://ndokcorp.github.io",
+  "shikimoriAutomation": "Explicitly kept disabled by owner; registration/User-Agent settings not yet confirmed",
+  "officialAliasProjectionProbe": {
+    "requests": 1,
+    "requestedPage": 1,
+    "returnedRows": 1,
+    "aliasReturned": true,
+    "reportedTotal": 1853,
+    "historicalCheckpointRows": 1884,
+    "scope": "Not a full reconciliation; no removal inferred"
+  }
 }

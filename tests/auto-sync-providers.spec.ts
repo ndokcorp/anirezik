@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { AniLibertyApi } from '../src/lib/providers/video/aniliberty';
 import {
   AnimeTitleMatcher,
   animeTitleKey,
@@ -8,6 +9,11 @@ import {
   type SupplierIdentity,
 } from '../src/lib/anime-title-matcher';
 import { chooseQueue, planIdentities, vostNumbers } from '../scripts/lib/global-auto-sync';
+import {
+  libertyStamp,
+  newLibertyState,
+  planLibertyWithdrawals,
+} from '../scripts/lib/aniliberty-sync';
 const anime: TitleIdentity = {
   shikimoriId: 59193,
   title: 'Реинкарнация безработного: История о приключениях в другом мире 3',
@@ -99,6 +105,43 @@ test('matcher: transliteration is review-only, never percentage auto approval', 
   expect(m.match(row).reason).not.toBe('identity-only-awaits-video');
   expect(m.suggest(row)).toEqual([59193]);
 });
+test('official AniLiberty alias is a strict slug hint; adding it does not rescan all external IDs', () => {
+  const m = new AnimeTitleMatcher([anime]);
+  expect(
+    m.match({ ...source, names: [], officialAlias: 'mushoku-tensei-3-isekai-ittara-honki-dasu' }),
+  ).toMatchObject({
+    reason: 'identity-only-awaits-video',
+    basis: 'url-slug',
+    target: { shikimoriId: 59193 },
+  });
+  expect(
+    m.match({ ...source, names: [], officialAlias: 'https://foreign.test/title' }).reason,
+  ).not.toBe('identity-only-awaits-video');
+  const row = {
+    id: 1,
+    year: 2026,
+    name: { main: 'Example' },
+    type: { value: 'TV' },
+    shikimori: { id: 59193 },
+    is_blocked_by_geo: false,
+    is_blocked_by_copyrights: false,
+    updated_at: '',
+  };
+  expect(libertyStamp({ ...row, alias: 'example' })).toBe(libertyStamp(row));
+  expect(libertyStamp({ ...row, shikimori: null, alias: 'example' })).not.toBe(
+    libertyStamp({ ...row, shikimori: null }),
+  );
+});
+test('HTML challenge is not a successful API response', async () => {
+  const api = new AniLibertyApi(
+    async () =>
+      new Response('<html>challenge</html>', {
+        status: 200,
+        headers: { 'content-type': 'text/html' },
+      }),
+  );
+  await expect(api.catalogPageResult(1, 50)).rejects.toThrow('manual review required');
+});
 test('queue: failed videos back off; changed metadata resumes; unpublished success can retry publication', () => {
   const c = {
     provider: 'animevost' as const,
@@ -119,6 +162,30 @@ test('queue: failed videos back off; changed metadata resumes; unpublished succe
   expect(
     chooseQueue([c], { 'animevost:3922': { ...records['animevost:3922'], passed: true } }, 5, now),
   ).toHaveLength(1);
+});
+test('withdrawal queue: absence only schedules an official detail check after full metadata coverage', () => {
+  const state = newLibertyState();
+  expect(() => planLibertyWithdrawals(state, { '1': { releaseId: 100 } })).toThrow();
+  state.phase = 'details';
+  state.total = 0;
+  state.totalPages = 0;
+  expect(() => planLibertyWithdrawals(state, { '1': { releaseId: 100 } })).toThrow();
+  state.catalog[200] = {
+    id: 200,
+    year: 2026,
+    name: { main: 'Known fixture' },
+    type: { value: 'TV' },
+    is_blocked_by_geo: false,
+    is_blocked_by_copyrights: false,
+    updated_at: '',
+  };
+  state.total = 1;
+  state.totalPages = 1;
+  state.pages = { '1': [200] };
+  expect(
+    planLibertyWithdrawals(state, { '1': { releaseId: 100 }, '2': { releaseId: 100 } }),
+  ).toEqual([100]);
+  expect(state.withdrawals).toBeUndefined(); // No deletion/404 is fabricated.
 });
 test('AnimeVost: explicit ordinal keys, no extras, range conflicts and duplicate releases quarantined', () => {
   expect(vostNumbers("{'1 серия':'x','Трейлер':'z','2 серия':'y'}", 'tv')).toEqual([1, 2]);

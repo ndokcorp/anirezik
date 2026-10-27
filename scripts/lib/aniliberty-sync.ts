@@ -39,6 +39,8 @@ export interface LibertySyncState {
   previouslyMappedIds?: number[];
   resumeAfter?: string;
   requestsTotal?: number;
+  withdrawalPending?: number[];
+  withdrawals?: { releaseId: number; reason: 'confirmed-404' | 'copyright'; checkedAt: string }[];
 }
 export function validateLibertyState(value: unknown): asserts value is LibertySyncState {
   const s = value as LibertySyncState;
@@ -96,6 +98,34 @@ export function validateLibertyState(value: unknown): asserts value is LibertySy
       throw Error('Invalid checkpoint evidence');
   }
   if (s.pending.some((id) => !s.catalog[id])) throw Error('Invalid pending release');
+  if (s.withdrawalPending?.some((id) => !Number.isSafeInteger(id) || id < 1))
+    throw Error('Invalid withdrawal queue');
+  if (
+    s.withdrawals?.some(
+      (w) =>
+        !Number.isSafeInteger(w.releaseId) ||
+        w.releaseId < 1 ||
+        !['confirmed-404', 'copyright'].includes(w.reason) ||
+        !Number.isFinite(Date.parse(w.checkedAt)),
+    )
+  )
+    throw Error('Invalid withdrawal evidence');
+}
+export function planLibertyWithdrawals(
+  state: LibertySyncState,
+  previous: Record<string, { releaseId: number }>,
+) {
+  if (
+    state.phase === 'catalog' ||
+    Object.keys(state.catalog).length !== state.total ||
+    Object.keys(state.pages).length !== state.totalPages
+  )
+    throw Error('Cannot infer absence from partial catalog');
+  if (!state.total && Object.keys(previous).length)
+    throw Error('Empty supplier catalog requires manual review; existing sources preserved');
+  return [...new Set(Object.values(previous).map((m) => m.releaseId))].filter(
+    (id) => !state.catalog[id],
+  );
 }
 export function newLibertyState(now = Date.now()): LibertySyncState {
   return {
@@ -117,6 +147,8 @@ export function cleanLibertySummary(r: LibertyRelease): LibertyRelease {
     throw new Error('Invalid release summary');
   return {
     id: r.id,
+    alias:
+      typeof r.alias === 'string' && /^[a-z0-9_-]{1,300}$/i.test(r.alias) ? r.alias : undefined,
     year: Number.isSafeInteger(r.year) ? r.year : 0,
     name: {
       main: typeof r.name.main === 'string' ? r.name.main : '',
@@ -133,10 +165,12 @@ export function cleanLibertySummary(r: LibertyRelease): LibertyRelease {
     is_blocked_by_copyrights: r.is_blocked_by_copyrights,
   };
 }
-export const libertyStamp = (r: LibertyRelease) =>
-  createHash('sha256')
-    .update(JSON.stringify(cleanLibertySummary(r)))
-    .digest('hex');
+export const libertyStamp = (r: LibertyRelease) => {
+  const summary = cleanLibertySummary(r);
+  // An added alias alone must not cause a repeated detail scan of all known IDs.
+  if (summary.shikimori?.id || summary.mal?.id) delete summary.alias;
+  return createHash('sha256').update(JSON.stringify(summary)).digest('hex');
+};
 const key = animeTitleKey;
 function sameName(r: LibertyRelease, a: MatchMetadata) {
   const names = [a.title, a.originalTitle, a.englishTitle || '', ...(a.aliases || [])]
@@ -146,6 +180,7 @@ function sameName(r: LibertyRelease, a: MatchMetadata) {
     r.name.main,
     r.name.english || '',
     r.name.alternative || '',
+    r.alias || '',
     ...(r.name.alternative || '').split(/[,;\/]/),
   ].some((n) => names.includes(key(n)));
 }
@@ -296,6 +331,7 @@ export function buildLibertyIndex(state: LibertySyncState, baselineIds: number[]
   if (
     state.phase !== 'complete' ||
     state.pending.length ||
+    state.withdrawalPending?.length ||
     Object.keys(state.catalog).length !== state.total
   )
     throw new Error('Cannot publish an incomplete AniLiberty scan');

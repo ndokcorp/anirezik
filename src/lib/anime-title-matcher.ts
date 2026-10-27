@@ -72,6 +72,7 @@ export interface TitleIdentity {
   episodes?: number | null;
 }
 export interface SupplierIdentity {
+  officialAlias?: string;
   releaseId?: number;
   shikimoriId?: number | null;
   malId?: number | null;
@@ -98,7 +99,9 @@ export function matchAnimeIdentity(
   catalog: TitleIdentity[],
   origins: readonly string[] = [],
 ): IdentityDecision {
-  const slug = confirmedSlug(source.url, origins, source.releaseId);
+  const slug =
+    confirmedSlug(source.url, origins, source.releaseId) ||
+    (/^[a-z0-9_-]{1,300}$/i.test(source.officialAlias || '') ? source.officialAlias! : null);
   const sourceKeys = new Set(source.names.map(animeTitleKey).filter(Boolean));
   let targets: TitleIdentity[], basis: string;
   if (source.shikimoriId) {
@@ -193,7 +196,9 @@ export class AnimeTitleMatcher {
     }
   }
   match(source: SupplierIdentity) {
-    const slug = confirmedSlug(source.url, this.origins, source.releaseId);
+    const slug =
+      confirmedSlug(source.url, this.origins, source.releaseId) ||
+      (/^[a-z0-9_-]{1,300}$/i.test(source.officialAlias || '') ? source.officialAlias! : null);
     const targets = source.shikimoriId
       ? this.ids.get(source.shikimoriId) || []
       : source.malId

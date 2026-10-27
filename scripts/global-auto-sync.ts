@@ -131,15 +131,18 @@ if (mode === 'plan') {
     liberty.phase === 'complete'
       ? Object.entries(baselineLib.mappings).flatMap(([id, m]: [string, any]) => {
           const e = liberty.evidence[m.releaseId];
-          return e &&
-            ((e.status === 'withdrawn' && e.reason === 'confirmed-404') || e.reason === 'copyright')
+          const confirmed = liberty.withdrawals?.find((w: any) => w.releaseId === m.releaseId);
+          return confirmed ||
+            (e &&
+              ((e.status === 'withdrawn' && e.reason === 'confirmed-404') ||
+                e.reason === 'copyright'))
             ? [
                 {
                   provider: 'aniliberty',
                   id: Number(id),
                   releaseId: m.releaseId,
-                  reason: e.reason,
-                  checkedAt: e.checkedAt,
+                  reason: confirmed?.reason || e.reason,
+                  checkedAt: confirmed?.checkedAt || e.checkedAt,
                 },
               ]
             : [];

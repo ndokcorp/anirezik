@@ -9,6 +9,7 @@ import {
   buildLibertyIndex,
   identifyLiberty,
   validateLibertyState,
+  planLibertyWithdrawals,
 } from './lib/aniliberty-sync.ts';
 import type { LibertySyncState, SyncAnime } from './lib/aniliberty-sync.ts';
 const args = process.argv.slice(2);
@@ -70,11 +71,13 @@ if (
   state.previouslyMappedIds = previous;
   state.requestsTotal = total;
 }
-if(state.error && /HTTP (?:401|403)|challenge|unexpected HTML/i.test(state.error.message))
+if (state.error && /HTTP (?:401|403)|challenge|unexpected HTML/i.test(state.error.message))
   throw Error('Saved provider access restriction: investigate before resuming; no requests sent');
 const checkpoint = () => atomic(stateFile, state);
 state.baselineMappedIds ||= baselineIds;
-state.previouslyMappedIds = [...new Set([...(state.previouslyMappedIds || []), ...baselineIds, ...(prior.excludedIds || [])])];
+state.previouslyMappedIds = [
+  ...new Set([...(state.previouslyMappedIds || []), ...baselineIds, ...(prior.excludedIds || [])]),
+];
 let requests = 0,
   lastRequest = 0;
 class BudgetStop extends Error {}
@@ -137,6 +140,26 @@ try {
     );
   }
   if (state.phase === 'details' && !state.pending.length) {
+    state.withdrawalPending ||= planLibertyWithdrawals(state, prior.mappings);
+    while (state.withdrawalPending.length) {
+      const releaseId = state.withdrawalPending[0];
+      let reason: 'confirmed-404' | 'copyright' | undefined;
+      try {
+        const row = await api.release(releaseId);
+        if (row.is_blocked_by_copyrights === true) reason = 'copyright';
+      } catch (e) {
+        if (!(e instanceof AniLibertyHttpError) || e.status !== 404) throw e;
+        reason = 'confirmed-404';
+      }
+      if (reason) {
+        state.withdrawals ||= [];
+        state.withdrawals.push({ releaseId, reason, checkedAt: new Date().toISOString() });
+      }
+      state.withdrawalPending.shift();
+      await checkpoint();
+    }
+  }
+  if (state.phase === 'details' && !state.pending.length && !state.withdrawalPending?.length) {
     state.phase = 'complete';
     state.completedAt = new Date().toISOString();
     await checkpoint();
@@ -178,6 +201,8 @@ const partial = {
   totalReleases: state.total,
   processedReleases: Object.keys(state.catalog).filter((id) => state.evidence[id]).length,
   pending: state.pending.length,
+  withdrawalChecksPending: state.withdrawalPending?.length || 0,
+  confirmedWithdrawals: state.withdrawals?.length || 0,
   error: state.error,
   canContinue: stopped === 'request-budget',
 };
