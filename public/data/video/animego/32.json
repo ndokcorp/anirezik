@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 32,
+  "animegoId": 865,
+  "title": "Евангелион нового поколения: Конец Евангелиона",
+  "originalTitle": "Shinseiki Evangelion Movie: Air/Magokoro wo, Kimi ni",
+  "year": 1997,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/evangelion-konec-evangeliona-865",
+  "checkedAt": "2026-10-26T22:13:41.943827+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/32?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

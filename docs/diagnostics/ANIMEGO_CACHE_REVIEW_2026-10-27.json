@@ -1,0 +1,94 @@
+{
+  "cachesAudited": 76,
+  "metadataValidated": 76,
+  "issues": [],
+  "episodeNumbers": 1320,
+  "perTitleTranslations": 98,
+  "rawLabels": [
+    "2x2",
+    "Amazing Dubbing",
+    "Amber",
+    "AniDUB",
+    "AniLibria",
+    "AniMedia",
+    "AnimeGroup",
+    "KANSAI",
+    "MC Entertainment",
+    "MiraiDuB",
+    "Persona99",
+    "Reanimedia",
+    "SHIZA Project",
+    "Люб. Одноголосый",
+    "СВ-Дубль",
+    "Студийная Банда",
+    "ТО Дубляжная"
+  ],
+  "playbackVerifiedNew": 3,
+  "publishedSelection": [
+    16,
+    28,
+    32
+  ],
+  "newAnime": 3,
+  "newPerTitleTranslations": 3,
+  "newUniqueRawVoiceLabels": [],
+  "newEpisodes": 94,
+  "completeCatalog": false,
+  "deployment": "pending",
+  "playbackEvidence": [
+    {
+      "shikimoriId": 16,
+      "video": [
+        {
+          "duration": 1355.4560208333332,
+          "height": 720,
+          "paused": false,
+          "ready": 4,
+          "time": 298.581236,
+          "width": 1280
+        }
+      ]
+    },
+    {
+      "shikimoriId": 28,
+      "video": [
+        {
+          "duration": 1485.484977777778,
+          "height": 480,
+          "paused": true,
+          "ready": 4,
+          "time": 207.88154,
+          "width": 640
+        }
+      ]
+    },
+    {
+      "shikimoriId": 32,
+      "video": [
+        {
+          "duration": 5207.411066666658,
+          "height": 720,
+          "paused": false,
+          "ready": 4,
+          "time": 235.419505,
+          "width": 1280
+        }
+      ]
+    }
+  ],
+  "controls": {
+    "28": {
+      "seek": "Official Right key: +10 seconds indicator observed",
+      "quality": "Official menu: high quality 480p selected"
+    },
+    "16": {
+      "episodeChange": "MultiPlayer selected episode 2; provider URL is observed cached /1/2, awaiting video proof"
+    }
+  },
+  "checks": {
+    "typescript": "passed: 0 errors/warnings/hints",
+    "profileTests": "12 passed",
+    "productionBuild": "pending"
+  },
+  "worker": "Stopped on checkpoint Git push; checkpoint saved successfully in foreground; no restart"
+}
