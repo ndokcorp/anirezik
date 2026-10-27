@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 543,
+  "animegoId": 1233,
+  "title": "Ди — охотник на вампиров: Жажда крови",
+  "originalTitle": "Vampire Hunter D (2000)",
+  "year": 2000,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/di-ohotnik-na-vampirov-zhazhda-krovi-1233",
+  "checkedAt": "2026-10-26T23:00:17.740793+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/543?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

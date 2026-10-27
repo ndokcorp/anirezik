@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "shikimoriId": 450,
+  "animegoId": 4106,
+  "title": "Инуяся: Замок в зазеркалье",
+  "originalTitle": "InuYasha Movie 2: Kagami no Naka no Mugenjou",
+  "year": 2002,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/inuyasya-zamok-v-zazerkal-ye-4106",
+  "checkedAt": "2026-10-26T22:54:56.706944+00:00",
+  "entries": [
+    {
+      "translationId": "animego:141",
+      "label": "AnimeGroup",
+      "embedUrl": "https://animego.me/cdn-iframe/450?dubbing=AnimeGroup",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/450?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

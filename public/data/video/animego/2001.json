@@ -1,0 +1,337 @@
+{
+  "version": 1,
+  "shikimoriId": 2001,
+  "animegoId": 829,
+  "title": "Гуррен-Лаганн, пронзающий небеса",
+  "originalTitle": "Tengen Toppa Gurren Lagann",
+  "year": 2007,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/gurren-lagann1-829",
+  "checkedAt": "2026-10-26T23:32:43.177950+00:00",
+  "entries": [
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/1?dubbing=Reanimedia",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/1?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/2?dubbing=Reanimedia",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/2?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/3?dubbing=Reanimedia",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/3?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/4?dubbing=Reanimedia",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/4?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/5?dubbing=Reanimedia",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/5?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/6?dubbing=Reanimedia",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/6?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/7?dubbing=Reanimedia",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/7?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/8?dubbing=Reanimedia",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/8?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/9?dubbing=Reanimedia",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/9?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/10?dubbing=Reanimedia",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/10?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/11?dubbing=Reanimedia",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/11?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/12?dubbing=Reanimedia",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/12?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/13?dubbing=Reanimedia",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/13?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/14?dubbing=Reanimedia",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/14?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/15?dubbing=Reanimedia",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/15?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/16?dubbing=Reanimedia",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/16?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/17?dubbing=Reanimedia",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/17?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/18?dubbing=Reanimedia",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/18?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/19?dubbing=Reanimedia",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/19?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/20?dubbing=Reanimedia",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/20?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/21?dubbing=Reanimedia",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/21?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/22?dubbing=Reanimedia",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/22?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/23?dubbing=Reanimedia",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/23?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/24?dubbing=Reanimedia",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/24?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/25?dubbing=Reanimedia",
+      "episodeNumber": 25
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/25?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 25
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/26?dubbing=Reanimedia",
+      "episodeNumber": 26
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/26?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 26
+    },
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/27?dubbing=Reanimedia",
+      "episodeNumber": 27
+    },
+    {
+      "translationId": "animego:66",
+      "label": "СВ-Дубль",
+      "embedUrl": "https://animego.me/cdn-iframe/2001/1/27?dubbing=%D0%A1%D0%92%20%D0%B4%D1%83%D0%B1%D0%BB%D1%8C",
+      "episodeNumber": 27
+    }
+  ]
+}

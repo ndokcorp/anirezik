@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 463,
+  "animegoId": 71,
+  "title": "Ван-Пис: Проклятие Святого Меча",
+  "originalTitle": "One Piece Movie 05: Norowareta Seiken",
+  "year": 2004,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/van-pis-film-5-proklyatie-svyatogo-mecha-71",
+  "checkedAt": "2026-10-26T22:56:25.145369+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/463?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

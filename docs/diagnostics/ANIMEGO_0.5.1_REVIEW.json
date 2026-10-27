@@ -1,0 +1,2541 @@
+{
+  "version": "0.5.1",
+  "checkedAt": "2026-10-27T07:24:10.330837+00:00",
+  "candidateCount": 73,
+  "exactMetadataCount": 73,
+  "selectedIds": [
+    33,
+    48,
+    57,
+    66,
+    68,
+    71,
+    72,
+    166,
+    175,
+    202,
+    205,
+    227,
+    232,
+    245,
+    249,
+    265,
+    267,
+    299,
+    325,
+    348,
+    355,
+    356,
+    371,
+    372,
+    392,
+    438,
+    449,
+    450,
+    451,
+    457,
+    463,
+    465,
+    466,
+    543,
+    586,
+    599,
+    709,
+    713,
+    842,
+    917,
+    935,
+    953,
+    957,
+    1023,
+    1055,
+    1345,
+    1451,
+    1575,
+    1689,
+    1691,
+    1699,
+    1723,
+    1726,
+    1762,
+    1811,
+    1824,
+    1887,
+    2001,
+    2034,
+    2107,
+    2167,
+    2175,
+    2216,
+    2246,
+    2251,
+    2386,
+    2476,
+    2759,
+    2787,
+    3001,
+    3002
+  ],
+  "attemptedChecks": 96,
+  "playbackChecks": 94,
+  "newAnime": 71,
+  "translationOptions": 92,
+  "episodeNumbers": 1212,
+  "newRawVoiceLabels": [
+    "2x2",
+    "AnimeGroup",
+    "KANSAI",
+    "MC Entertainment",
+    "MiraiDuB",
+    "Persona99",
+    "Reanimedia",
+    "Алекс Килька",
+    "СВ-Дубль",
+    "ТО Дубляжная"
+  ],
+  "reasons": {
+    "embedding-region-restricted": 2,
+    "verified-playback": 71
+  },
+  "candidates": [
+    {
+      "shikimoriId": 33,
+      "title": "Kenpuu Denki Berserk",
+      "year": 1997,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/berserk-313",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 33,
+          "translationId": "animego:67",
+          "label": "Amber",
+          "status": "played",
+          "metrics": {
+            "duration": 1417.0003333333334,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 19.0672,
+            "width": 1440
+          }
+        },
+        {
+          "id": 33,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "observedVoice": "Многоголосый · MC Entertainment",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1419.377677777778,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 67.832274,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:18:04.874Z"
+        },
+        {
+          "id": 33,
+          "translationId": "animego:67",
+          "label": "Amber",
+          "observedVoice": "Дубляж · Amber",
+          "episodeNumber": 2,
+          "kind": "episode-switch-sample",
+          "status": "played",
+          "metrics": {
+            "duration": 1417.363,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 44.101147,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:23:48.237Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 47,
+      "title": "Akira",
+      "year": 1988,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/akira-1180",
+      "metadata": "exact",
+      "status": "embedding-region-restricted",
+      "unverifiedTranslationIds": [
+        "animego:6"
+      ],
+      "evidence": [
+        {
+          "id": 47,
+          "translationId": "animego:33",
+          "status": "embedding-region-restricted",
+          "reason": "Официальный iframe: Контент запрещен на территории РФ; обход не выполнялся"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 48,
+      "title": ".hack//Sign",
+      "year": 2002,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/hakznak-1397",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 48,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1423.5457596371891,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 4.066225,
+            "width": 852
+          }
+        }
+      ]
+    },
+    {
+      "shikimoriId": 57,
+      "title": "Beck",
+      "year": 2004,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/bek-764",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 57,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "status": "played",
+          "metrics": {
+            "duration": 1461.12,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 29.28467,
+            "width": 960
+          }
+        }
+      ]
+    },
+    {
+      "shikimoriId": 66,
+      "title": "Azumanga Daiou The Animation",
+      "year": 2002,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/adzumanga-daio-4308",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 66,
+          "translationId": "animego:7",
+          "label": "AniMedia",
+          "status": "played",
+          "metrics": {
+            "duration": 1440.746666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 33.694538,
+            "width": 1440
+          }
+        }
+      ]
+    },
+    {
+      "shikimoriId": 68,
+      "title": "Black Cat",
+      "year": 2005,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/chernyy-kot-362",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 68,
+          "translationId": "animego:141",
+          "label": "AnimeGroup",
+          "status": "played",
+          "metrics": {
+            "duration": 1447.872,
+            "height": 466,
+            "paused": false,
+            "ready": 4,
+            "time": 6.087841,
+            "width": 852
+          }
+        }
+      ]
+    },
+    {
+      "shikimoriId": 71,
+      "title": "Full Metal Panic!",
+      "year": 2002,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/stalnaya-trevoga-508",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 71,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "status": "played",
+          "metrics": {
+            "duration": 1370.0674166666663,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 27.576804,
+            "width": 1920
+          }
+        },
+        {
+          "id": 71,
+          "translationId": "animego:29",
+          "label": "MiraiDuB",
+          "observedVoice": "Многоголосый · MiraiDub",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1206.8803628117912,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 66.978358,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:18:05.337Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 72,
+      "title": "Full Metal Panic? Fumoffu",
+      "year": 2003,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/stalnaya-trevoga-fumoffu-509",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 72,
+          "translationId": "animego:29",
+          "label": "MiraiDuB",
+          "status": "played",
+          "metrics": {
+            "duration": 1417.0918541666665,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 47.165523,
+            "width": 966
+          },
+          "checkedAt": "2026-10-27T06:57:47.420Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 166,
+      "title": "Samurai 7",
+      "year": 2004,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/7-samuraev-1543",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 166,
+          "translationId": "animego:66",
+          "label": "СВ-Дубль",
+          "status": "played",
+          "metrics": {
+            "duration": 1562.1973124999995,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 46.745801,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T06:57:47.857Z"
+        },
+        {
+          "id": 166,
+          "translationId": "animego:29",
+          "label": "MiraiDuB",
+          "observedVoice": "Многоголосый · MiraiDub",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1562.1688662131533,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 78.570621,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:18:05.760Z"
+        },
+        {
+          "id": 166,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "observedVoice": "Многоголосый · MC Entertainment",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1562.1434111111112,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 73.323357,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:18:06.149Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 175,
+      "title": "Tokyo Underground",
+      "year": 2002,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/tokyo-underground-1773",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 175,
+          "translationId": "animego:6",
+          "label": "Студийная Банда",
+          "status": "played",
+          "metrics": {
+            "duration": 1334.698666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 53.496052,
+            "width": 1422
+          },
+          "checkedAt": "2026-10-27T06:57:48.287Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 202,
+      "title": "Wolf's Rain",
+      "year": 2003,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/volchiy-dozhd-1050",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 202,
+          "translationId": "animego:141",
+          "label": "AnimeGroup",
+          "status": "played",
+          "metrics": {
+            "duration": 1343.6159999999998,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 23.216431,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T06:57:48.597Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 205,
+      "title": "Samurai Champloo",
+      "year": 2004,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/samuray-champlu-857",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 205,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "status": "played",
+          "metrics": {
+            "duration": 1401.4506666666668,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 66.919943,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T06:57:48.870Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 227,
+      "title": "FLCL",
+      "year": 2000,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/furi-kuri-688",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 227,
+          "translationId": "animego:96",
+          "label": "ТО Дубляжная",
+          "status": "played",
+          "metrics": {
+            "duration": 1449.6319583333334,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 65.758467,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T06:57:49.209Z"
+        },
+        {
+          "id": 227,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Многоголосый · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1478.5706666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 88.842066,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:18:06.562Z"
+        },
+        {
+          "id": 227,
+          "translationId": "animego:21",
+          "label": "KANSAI",
+          "observedVoice": "Многоголосый · Kansai",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1478.5706666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 88.403097,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:18:06.922Z"
+        },
+        {
+          "id": 227,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "observedVoice": "Многоголосый · SHIZA Project",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1478.5706666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 65.749435,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:20:03.549Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 232,
+      "title": "Cardcaptor Sakura",
+      "year": 1998,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/sakura-sobiratel-nitsa-kart-4281",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 232,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 1500.5226666666665,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 27.014161,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T06:59:11.568Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 245,
+      "title": "Great Teacher Onizuka",
+      "year": 1999,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/krutoy-uchitel-onidzuka-556",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 245,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "status": "played",
+          "metrics": {
+            "duration": 2906.410666666667,
+            "height": 1440,
+            "paused": false,
+            "ready": 4,
+            "time": 25.21506,
+            "width": 1968
+          },
+          "checkedAt": "2026-10-27T06:59:11.932Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 249,
+      "title": "InuYasha",
+      "year": 2000,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/inuyasya-4104",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 249,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1462.3733333333332,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 26.277418,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T06:59:12.240Z"
+        },
+        {
+          "id": 249,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "observedVoice": "Одноголосый · Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1455.7866666666664,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 58.412154,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:20:03.990Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 265,
+      "title": "Hajime no Ippo: Mashiba vs. Kimura",
+      "year": 2003,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/pervyy-shag-mashiba-protiv-kimury-394",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 265,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 3669.1704555555552,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 31.653223,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T06:59:12.536Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 267,
+      "title": "Gungrave",
+      "year": 2003,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/gangreyv-2173",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 267,
+          "translationId": "animego:21",
+          "label": "KANSAI",
+          "status": "played",
+          "metrics": {
+            "duration": 1461.056,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 47.215981,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T06:59:12.807Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 299,
+      "title": ".hack//Liminality",
+      "year": 2002,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/hakperehodnaya-stadiya-1398",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 299,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 2705.778155555555,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 47.820406,
+            "width": 852
+          },
+          "checkedAt": "2026-10-27T06:59:13.076Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 325,
+      "title": "Peach Girl",
+      "year": 2005,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/krasotka-3783",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 325,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1460.6720208333334,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 31.901566,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:00:40.433Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 348,
+      "title": "Binzume Yousei",
+      "year": 2003,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/fei-iz-butylki-1021",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 348,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 756.4864444444445,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 40.246405,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:00:40.784Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 355,
+      "title": "Shakugan no Shana",
+      "year": 2005,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/plamennyi-vzor-shany-4159",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 355,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "status": "played",
+          "metrics": {
+            "duration": 1482.0648888888893,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 32.050574,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:00:41.174Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 356,
+      "title": "Fate/stay night",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/sudbanoch-shvatki-228",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 356,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1452.9645555555553,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 15.075139,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:00:41.498Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 371,
+      "title": "Cardcaptor Sakura Movie 1",
+      "year": 1999,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/sakura-sobiratel-nitsa-kart-fil-m-4284",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 371,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 4893.93675,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 51.954423,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:00:41.764Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 372,
+      "title": "Cardcaptor Sakura Movie 2: Fuuin Sareta Card",
+      "year": 2000,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/sakura-sobiratel-nitsa-kart-zapechatannaya-karta-4282",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 372,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 4943.955416666666,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 54.376311,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:00:42.026Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 392,
+      "title": "Yuu☆Yuu☆Hakusho",
+      "year": 1992,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/otchet-o-buistve-dukhov-4277",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 392,
+          "translationId": "animego:11",
+          "label": "Amazing Dubbing",
+          "status": "played",
+          "metrics": {
+            "duration": 1422.4543444444444,
+            "height": 1080,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 38.977218,
+            "width": 1548
+          },
+          "checkedAt": "2026-10-27T07:02:09.408Z"
+        },
+        {
+          "id": 392,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "observedVoice": "Одноголосый · Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1421.76,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 58.290081,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:20:04.461Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 438,
+      "title": "Phantom The Animation",
+      "year": 2004,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/fantom-1430",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 438,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1680.938666666667,
+            "height": 480,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 13.0419,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:02:09.821Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 449,
+      "title": "InuYasha Movie 4: Guren no Houraijima",
+      "year": 2004,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/inuyasya-plamya-ostrova-khorai-4108",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 449,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 5285.184,
+            "height": 1036,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 30.079631,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:02:10.155Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 450,
+      "title": "InuYasha Movie 2: Kagami no Naka no Mugenjou",
+      "year": 2002,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/inuyasya-zamok-v-zazerkal-ye-4106",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 450,
+          "translationId": "animego:141",
+          "label": "AnimeGroup",
+          "status": "played",
+          "metrics": {
+            "duration": 5950.208,
+            "height": 1038,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 47.21276,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:02:10.478Z"
+        },
+        {
+          "id": 450,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "observedVoice": "Одноголосый · Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 5945.066666666667,
+            "height": 1038,
+            "paused": false,
+            "ready": 4,
+            "time": 73.691024,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:20:04.877Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 451,
+      "title": "InuYasha Movie 3: Tenka Hadou no Ken",
+      "year": 2003,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/inuyasya-mech-pokoryayushchii-mir-4107",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 451,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 5933.802666666667,
+            "height": 1038,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 52.188895,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:02:10.774Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 457,
+      "title": "Mushishi",
+      "year": 2005,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/master-musi-781",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 457,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "status": "played",
+          "metrics": {
+            "duration": 1418.0674166666663,
+            "height": 1080,
+            "muted": false,
+            "paused": false,
+            "ready": 4,
+            "time": 52.169059,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:02:11.056Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 463,
+      "title": "One Piece Movie 05: Norowareta Seiken",
+      "year": 2004,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/van-pis-film-5-proklyatie-svyatogo-mecha-71",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 463,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 5694.231677777779,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 59.190499,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:03:47.233Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 465,
+      "title": "One Piece Movie 07: Karakuri-jou no Mecha Kyohei",
+      "year": 2006,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/van-pis-film-7-gigantskiy-mehanicheskiy-soldat-zamka-karakuri-73",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 465,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 5684.616633333334,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 40.718156,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:03:47.671Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 466,
+      "title": "One Piece: Taose! Kaizoku Ganzack",
+      "year": 1998,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/van-pis-pobedit-pirata-ganzaka-74",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 466,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "status": "played",
+          "metrics": {
+            "duration": 1732.7106777777778,
+            "height": 360,
+            "paused": false,
+            "ready": 4,
+            "time": 43.330415,
+            "width": 634
+          },
+          "checkedAt": "2026-10-27T07:03:48.023Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 543,
+      "title": "Vampire Hunter D (2000)",
+      "year": 2000,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/di-ohotnik-na-vampirov-zhazhda-krovi-1233",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 543,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 6118.829546485276,
+            "height": 356,
+            "paused": false,
+            "ready": 4,
+            "time": 46.091906,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:03:48.333Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 586,
+      "title": "Ayakashi: Japanese Classic Horror",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/ayakasi-klassika-yaponskikh-uzhasov-4362",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 586,
+          "translationId": "animego:11",
+          "label": "Amazing Dubbing",
+          "status": "played",
+          "metrics": {
+            "duration": 1351.6002333333336,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 55.68679,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:03:48.645Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 599,
+      "title": "Yuugen Kaisha",
+      "year": 1994,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/kompaniya-po-bor-be-s-dukhami-3793",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 599,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "status": "played",
+          "metrics": {
+            "duration": 1786.3661000000018,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 60.879859,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:03:48.965Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 709,
+      "title": "Mujin Wakusei Survive",
+      "year": 2003,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/vyzhit-na-neobitayemoi-planete-3734",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 709,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1500.0824555555562,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 52.51402,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:05:37.370Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 713,
+      "title": "Air Movie",
+      "year": 2005,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/vys-fil-m-3505",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 713,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 5482.477411111111,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 53.401901,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:05:37.815Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 842,
+      "title": "Ushio to Tora",
+      "year": 1992,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/usio-i-tora-1319",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 842,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1733.2479999999998,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 57.209717,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:05:38.156Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 917,
+      "title": "Riding Bean",
+      "year": 1989,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/perevozchik-bin-3984",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 917,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 2711.2106875,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 66.14354,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:05:38.486Z"
+        },
+        {
+          "id": 917,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "observedVoice": "Одноголосый · Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 2723.9466666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 59.92745,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:20:05.193Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 935,
+      "title": "Witchblade",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/klinok-vedm-2461",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 935,
+          "translationId": "animego:9",
+          "label": "2x2",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1422.1634166666663,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 71.785793,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:05:38.841Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 953,
+      "title": "Juu Ou Sei",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/planeta-korolya-zverey-1137",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 953,
+          "translationId": "animego:66",
+          "label": "СВ-Дубль",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1388.1200624999997,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 71.087235,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:05:39.167Z"
+        },
+        {
+          "id": 953,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "observedVoice": "Многоголосый · AnilibriaTV",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1388.096,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 76.907864,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:20:05.513Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 957,
+      "title": "Saiunkoku Monogatari",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/povest-o-strane-tsvetnykh-oblakov-3961",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 957,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1504.0620625,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 69.211949,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:07:50.540Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1023,
+      "title": "Wolf's Rain OVA",
+      "year": 2004,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/volchiy-dozhd-final-1051",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1023,
+          "translationId": "animego:141",
+          "label": "AnimeGroup",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1344.5119999999995,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 71.226685,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:07:50.972Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1055,
+      "title": "Blame!",
+      "year": 2003,
+      "format": "ONA",
+      "sourceUrl": "https://animego.me/anime/bleym-784",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1055,
+          "translationId": "animego:7",
+          "label": "AniMedia",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 323.9911777777777,
+            "height": 468,
+            "paused": false,
+            "ready": 4,
+            "time": 74.718273,
+            "width": 852
+          },
+          "checkedAt": "2026-10-27T07:07:51.381Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1345,
+      "title": "Soujuu Senshi Psychic Wars",
+      "year": 1991,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/psihicheskie-voyny-1133",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1345,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 3265.816938775501,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 83.534283,
+            "width": 624
+          },
+          "checkedAt": "2026-10-27T07:07:51.763Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1451,
+      "title": "Shuranosuke Zanmaken: Shikamamon no Otoko",
+      "year": 1990,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/mech-pravdy-1134",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1451,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 3064.0426888888887,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 87.604942,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:07:52.090Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1575,
+      "title": "Code Geass: Hangyaku no Lelouch",
+      "year": 2006,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/kod-gias-vosstavshiy-lelush-282",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1575,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1451.2194166666666,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 87.841364,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:07:52.433Z"
+        },
+        {
+          "id": 1575,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Одноголосый · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1448.5304308390034,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 56.89891,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:22:15.865Z"
+        },
+        {
+          "id": 1575,
+          "translationId": "animego:7",
+          "label": "AniMedia",
+          "observedVoice": "Многоголосый · AniMedia",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1448.507188208618,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 35.085461,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:22:16.250Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1689,
+      "title": "Byousoku 5 Centimeter",
+      "year": 2007,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/pyat-santimetrov-v-sekundu-1155",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1689,
+          "translationId": "animego:33",
+          "label": "Reanimedia",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 3765.824000000001,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 70.065621,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:09:59.103Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1691,
+      "title": "Kaze no Stigma",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/pechat-vetra-4287",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1691,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1452.166507936509,
+            "height": 474,
+            "paused": false,
+            "ready": 4,
+            "time": 68.99574,
+            "width": 852
+          },
+          "checkedAt": "2026-10-27T07:09:59.628Z"
+        },
+        {
+          "id": 1691,
+          "translationId": "animego:29",
+          "label": "MiraiDuB",
+          "observedVoice": "Многоголосый · MiraiDub",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1452.1386666666667,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 61.621765,
+            "width": 852
+          },
+          "checkedAt": "2026-10-27T07:22:16.612Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1699,
+      "title": "Romeo x Juliet",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/romeo-i-dzhul-yetta-3733",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1699,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1440.0266444444449,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 74.172915,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:10:00.095Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1723,
+      "title": "Clannad Movie",
+      "year": 2007,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/klannad-film-315",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1723,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 5636.30945578232,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 83.66487,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:10:00.627Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1726,
+      "title": "Devil May Cry",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/demon-protiv-demonov-877",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1726,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1472.2285487528356,
+            "height": 1076,
+            "paused": false,
+            "ready": 4,
+            "time": 83.488743,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:10:01.021Z"
+        },
+        {
+          "id": 1726,
+          "translationId": "animego:20",
+          "label": "MC Entertainment",
+          "observedVoice": "Многоголосый · MC Entertainment",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1472.3394166666665,
+            "height": 1076,
+            "paused": false,
+            "ready": 4,
+            "time": 73.133957,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:22:16.960Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1762,
+      "title": "Arslan Senki",
+      "year": 1991,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/skazanie-ob-arslane-605",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1762,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 3411.0293333333334,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 87.857147,
+            "width": 852
+          },
+          "checkedAt": "2026-10-27T07:10:01.370Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1811,
+      "title": "Bounty Dog: Getsumen no Eve",
+      "year": 1994,
+      "format": "OVA",
+      "sourceUrl": "https://animego.me/anime/baunti-dog-1156",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1811,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1778.3608888888891,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 41.84274,
+            "width": 640
+          },
+          "checkedAt": "2026-10-27T07:12:08.039Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1824,
+      "title": "Hadashi no Gen",
+      "year": 1983,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/bosonogiy-gen-1135",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1824,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 5170.8366444444355,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 64.389289,
+            "width": 960
+          },
+          "checkedAt": "2026-10-27T07:12:08.461Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 1887,
+      "title": "Lucky☆Star",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/schastlivaya-zvezda-4115",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 1887,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1420.9527222222223,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 60.64702,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:12:08.875Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2001,
+      "title": "Tengen Toppa Gurren Lagann",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/gurren-lagann1-829",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2001,
+          "translationId": "animego:33",
+          "label": "Reanimedia",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1551.5946666666669,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 82.221837,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:12:09.356Z"
+        },
+        {
+          "id": 2001,
+          "translationId": "animego:66",
+          "label": "СВ-Дубль",
+          "observedVoice": "Дубляж · СВ-Дубль",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1551.6780625,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 79.290706,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:22:17.297Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2034,
+      "title": "Lovely★Complex",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/trogatel-nyi-kompleks-4012",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2034,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1421.12,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 82.397919,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:12:09.712Z"
+        },
+        {
+          "id": 2034,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "observedVoice": "Многоголосый · SHIZA Project",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1421.12,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 79.26503,
+            "width": 1440
+          },
+          "checkedAt": "2026-10-27T07:22:17.645Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2107,
+      "title": "One Piece Movie 08: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi",
+      "year": 2007,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/van-pis-film-8-priklyuchenie-v-alabaste-princessa-pustyni-i-piraty-98",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2107,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 5397.476388888878,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 81.831393,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:12:10.052Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2167,
+      "title": "Clannad",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/klannad-314",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2167,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Неизвестный · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1451.700411111111,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 60.600665,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:14:08.053Z"
+        },
+        {
+          "id": 2167,
+          "translationId": "animego:29",
+          "label": "MiraiDuB",
+          "observedVoice": "Многоголосый · MiraiDub",
+          "episodeNumber": 1,
+          "kind": "translation-sample",
+          "status": "played",
+          "metrics": {
+            "duration": 1451.7115646258517,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 27.799553,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:23:47.401Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2175,
+      "title": "Kino no Tabi: The Beautiful World - Byouki no Kuni - For You",
+      "year": 2007,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/puteshestvie-kino-dlya-tebya-426",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2175,
+          "translationId": "animego:101",
+          "label": "Люб. Одноголосый",
+          "observedVoice": "Одноголосый · Алекс Килька",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1751.202539682541,
+            "height": 480,
+            "paused": false,
+            "ready": 4,
+            "time": 58.204255,
+            "width": 846
+          },
+          "checkedAt": "2026-10-27T07:14:08.594Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2216,
+      "title": "Shigurui",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/oderzhimye-smertyu-2806",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2216,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Неизвестный · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1430.100055555556,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 64.585444,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:14:08.965Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2246,
+      "title": "Mononoke",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/mononoke-4361",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2246,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Многоголосый · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1351.2514166666665,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 74.508909,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:14:09.309Z"
+        },
+        {
+          "id": 2246,
+          "translationId": "animego:101",
+          "label": "Люб. Одноголосый",
+          "observedVoice": "Одноголосый · Алекс Килька",
+          "episodeNumber": 1,
+          "kind": "translation-sample",
+          "status": "played",
+          "metrics": {
+            "duration": 1351.4453125,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 29.258821,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:23:47.708Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2251,
+      "title": "Baccano!",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/shumiha-1167",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2251,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "observedVoice": "Неизвестный · AnilibriaTV",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1468.0533333333333,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 80.881951,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:14:09.642Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2386,
+      "title": "One Piece: Yume no Soccer Ou!",
+      "year": 2002,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/van-pis-futbolnyy-korol-mechty-80",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2386,
+          "translationId": "animego:91",
+          "label": "Persona99",
+          "observedVoice": "Одноголосый · Persona99",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 333.28875,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 76.958778,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:14:09.989Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2476,
+      "title": "School Days",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/shkol-nyye-dni-4111",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2476,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Неизвестный · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1493.2266875,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 55.659096,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:15:54.641Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2759,
+      "title": "Evangelion Movie 1: Jo",
+      "year": 2007,
+      "format": "MOVIE",
+      "sourceUrl": "https://animego.me/anime/evangelion-111-ty-ne-odin-866",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2759,
+          "translationId": "animego:33",
+          "label": "Reanimedia",
+          "observedVoice": "Многоголосый · Reanimedia",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 6077.866666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 48.058545,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:15:55.031Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2787,
+      "title": "Shakugan no Shana II (Second)",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/plamennyi-vzor-shany-ii-4162",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2787,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "observedVoice": "Многоголосый · AnilibriaTV",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1454.592,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 23.259404,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:15:55.319Z"
+        },
+        {
+          "id": 2787,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "observedVoice": "Многоголосый · AnilibriaTV",
+          "episodeNumber": 2,
+          "kind": "episode-switch-sample",
+          "status": "played",
+          "metrics": {
+            "duration": 1449.130666666667,
+            "height": 1080,
+            "paused": false,
+            "ready": 4,
+            "time": 48.026978,
+            "width": 1920
+          },
+          "checkedAt": "2026-10-27T07:23:48.531Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 2966,
+      "title": "Ookami to Koushinryou",
+      "year": 2008,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/volchica-i-pryanosti-1052",
+      "metadata": "exact",
+      "status": "embedding-region-restricted",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 2966,
+          "translationId": "animego:33",
+          "status": "embedding-region-restricted",
+          "reason": "Дубляж · Reanimedia\nНедоступно в РФ"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 3001,
+      "title": "Moyashimon",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/sel-skokhozyaistvennyye-istorii-3879",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 3001,
+          "translationId": "animego:2",
+          "label": "AniLibria",
+          "observedVoice": "Неизвестный · AniLibria",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1355.7546875,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 50.251613,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:15:55.607Z"
+        }
+      ]
+    },
+    {
+      "shikimoriId": 3002,
+      "title": "Gyakkyou Burai Kaiji: Ultimate Survivor",
+      "year": 2007,
+      "format": "TV",
+      "sourceUrl": "https://animego.me/anime/kaydzi-676",
+      "metadata": "exact",
+      "status": "verified-playback",
+      "unverifiedTranslationIds": [],
+      "evidence": [
+        {
+          "id": 3002,
+          "translationId": "animego:1",
+          "label": "AniDUB",
+          "observedVoice": "Одноголосый · AniDUB",
+          "episodeNumber": 1,
+          "status": "played",
+          "metrics": {
+            "duration": 1370.432,
+            "height": 718,
+            "paused": false,
+            "ready": 4,
+            "time": 63.684033,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:15:55.901Z"
+        },
+        {
+          "id": 3002,
+          "translationId": "animego:4",
+          "label": "SHIZA Project",
+          "observedVoice": "Многоголосый · SHIZA Project",
+          "episodeNumber": 1,
+          "kind": "translation-sample",
+          "status": "played",
+          "metrics": {
+            "duration": 1369.8773125,
+            "height": 720,
+            "paused": false,
+            "ready": 4,
+            "time": 36.492848,
+            "width": 1280
+          },
+          "checkedAt": "2026-10-27T07:23:47.987Z"
+        }
+      ]
+    }
+  ],
+  "deployment": "pending",
+  "kodikAuthorization": {
+    "requests": 1,
+    "http": 401,
+    "reason": "unauthorized-unspecified",
+    "runUrl": "https://github.com/ndokcorp/anirezik/actions/runs/40465441453"
+  },
+  "kodikSecretMetadata": {
+    "name": "KODIK_API_TOKEN",
+    "created_at": "2026-10-26T11:34:11Z",
+    "updated_at": "2026-10-26T11:34:11Z"
+  },
+  "checks": {
+    "typescript": "passed: 0 errors, warnings and hints",
+    "profileTests": "12 passed",
+    "productionBuild": "passed: /anirezik, offline, 30704 numeric URLs",
+    "browserUI": "passed episode 2 + MC Entertainment selection and actual playback; CVH resets selection after reload",
+    "productionDeploy": "pending"
+  },
+  "scope": "One actual main-video sample per enabled anime/translation plus two episode-2 samples. Not all 1212 episode numbers or regions were played.",
+  "integrationPlaybackChecks": 1,
+  "integrationPlaybackEvidence": {
+    "id": 33,
+    "episode": 2,
+    "translation": "MC Entertainment",
+    "episodeAndVoiceButtons": true,
+    "selectedIframe": "https://animego.me/cdn-iframe/33/1/2?dubbing=MC%20Entertainment",
+    "metrics": [
+      {
+        "duration": 1419.377677777778,
+        "height": 720,
+        "paused": false,
+        "ready": 4,
+        "time": 32.338499,
+        "width": 960
+      }
+    ]
+  },
+  "knownLimitations": [
+    "CVH episode/translation selection resets after a reload; existing code unchanged.",
+    "Not all 1212 episode numbers or geographic regions were played."
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "shikimoriId": 72,
+  "animegoId": 509,
+  "title": "Стальная тревога? Фумоффу",
+  "originalTitle": "Full Metal Panic? Fumoffu",
+  "year": 2003,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/stalnaya-trevoga-fumoffu-509",
+  "checkedAt": "2026-10-26T22:19:20.753998+00:00",
+  "entries": [
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/1?dubbing=MiraiDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/2?dubbing=MiraiDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/3?dubbing=MiraiDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/4?dubbing=MiraiDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/5?dubbing=MiraiDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/6?dubbing=MiraiDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/7?dubbing=MiraiDUB",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/8?dubbing=MiraiDUB",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/9?dubbing=MiraiDUB",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/10?dubbing=MiraiDUB",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/11?dubbing=MiraiDUB",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/72/2/12?dubbing=MiraiDUB",
+      "episodeNumber": 12
+    }
+  ]
+}

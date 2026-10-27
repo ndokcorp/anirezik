@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 465,
+  "animegoId": 73,
+  "title": "Ван-Пис: Гигантский механический солдат замка Каракури",
+  "originalTitle": "One Piece Movie 07: Karakuri-jou no Mecha Kyohei",
+  "year": 2006,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/van-pis-film-7-gigantskiy-mehanicheskiy-soldat-zamka-karakuri-73",
+  "checkedAt": "2026-10-26T22:56:28.205343+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/465?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "version": 1,
+  "shikimoriId": 1575,
+  "animegoId": 282,
+  "title": "Код Гиас: Восставший Лелуш",
+  "originalTitle": "Code Geass: Hangyaku no Lelouch",
+  "year": 2006,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/kod-gias-vosstavshiy-lelush-282",
+  "checkedAt": "2026-10-26T23:24:33.561679+00:00",
+  "entries": [
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/1?dubbing=AnilibriaTV",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/1?dubbing=AniDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/1?dubbing=Animedia",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/2?dubbing=AnilibriaTV",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/2?dubbing=AniDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/2?dubbing=Animedia",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/3?dubbing=AnilibriaTV",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/3?dubbing=AniDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/3?dubbing=Animedia",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/4?dubbing=AnilibriaTV",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/4?dubbing=AniDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/4?dubbing=Animedia",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/5?dubbing=AnilibriaTV",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/5?dubbing=AniDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/5?dubbing=Animedia",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/6?dubbing=AnilibriaTV",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/6?dubbing=AniDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/6?dubbing=Animedia",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/7?dubbing=AnilibriaTV",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/7?dubbing=AniDUB",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/7?dubbing=Animedia",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/8?dubbing=AnilibriaTV",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/8?dubbing=AniDUB",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/8?dubbing=Animedia",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/9?dubbing=AnilibriaTV",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/9?dubbing=AniDUB",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/9?dubbing=Animedia",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/10?dubbing=AnilibriaTV",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/10?dubbing=AniDUB",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/10?dubbing=Animedia",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/11?dubbing=AnilibriaTV",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/11?dubbing=AniDUB",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/11?dubbing=Animedia",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/12?dubbing=AnilibriaTV",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/12?dubbing=AniDUB",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/12?dubbing=Animedia",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/13?dubbing=AnilibriaTV",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/13?dubbing=AniDUB",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/13?dubbing=Animedia",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/14?dubbing=AnilibriaTV",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/14?dubbing=AniDUB",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/14?dubbing=Animedia",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/15?dubbing=AnilibriaTV",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/15?dubbing=AniDUB",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/15?dubbing=Animedia",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/16?dubbing=AnilibriaTV",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/16?dubbing=AniDUB",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/16?dubbing=Animedia",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/17?dubbing=AnilibriaTV",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/17?dubbing=AniDUB",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/17?dubbing=Animedia",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/18?dubbing=AnilibriaTV",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/18?dubbing=AniDUB",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/18?dubbing=Animedia",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/19?dubbing=AnilibriaTV",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/19?dubbing=AniDUB",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/19?dubbing=Animedia",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/20?dubbing=AnilibriaTV",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/20?dubbing=AniDUB",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/20?dubbing=Animedia",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/21?dubbing=AnilibriaTV",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/21?dubbing=AniDUB",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/21?dubbing=Animedia",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/22?dubbing=AnilibriaTV",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/22?dubbing=AniDUB",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/22?dubbing=Animedia",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/23?dubbing=AnilibriaTV",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/23?dubbing=AniDUB",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/23?dubbing=Animedia",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/24?dubbing=AnilibriaTV",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/24?dubbing=AniDUB",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/24?dubbing=Animedia",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:2",
+      "label": "AniLibria",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/25?dubbing=AnilibriaTV",
+      "episodeNumber": 25
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/25?dubbing=AniDUB",
+      "episodeNumber": 25
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1575/1/25?dubbing=Animedia",
+      "episodeNumber": 25
+    }
+  ]
+}

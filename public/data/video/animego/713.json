@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 713,
+  "animegoId": 3505,
+  "title": "Высь. Фильм",
+  "originalTitle": "Air Movie",
+  "year": 2005,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/vys-fil-m-3505",
+  "checkedAt": "2026-10-26T23:05:17.975189+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/713/AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

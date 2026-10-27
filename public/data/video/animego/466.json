@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 466,
+  "animegoId": 74,
+  "title": "Ван-Пис: Победить пирата Ганзака!",
+  "originalTitle": "One Piece: Taose! Kaizoku Ganzack",
+  "year": 1998,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/van-pis-pobedit-pirata-ganzaka-74",
+  "checkedAt": "2026-10-26T22:56:29.787606+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/466?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

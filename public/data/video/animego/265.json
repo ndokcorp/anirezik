@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 265,
+  "animegoId": 394,
+  "title": "Первый шаг: Машиба против Кимуры",
+  "originalTitle": "Hajime no Ippo: Mashiba vs. Kimura",
+  "year": 2003,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/pervyy-shag-mashiba-protiv-kimury-394",
+  "checkedAt": "2026-10-26T22:43:53.547109+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/265?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "shikimoriId": 1055,
+  "animegoId": 784,
+  "title": "Блейм!",
+  "originalTitle": "Blame!",
+  "year": 2003,
+  "format": "ONA",
+  "sourceUrl": "https://animego.me/anime/bleym-784",
+  "checkedAt": "2026-10-26T23:17:28.987820+00:00",
+  "entries": [
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/1?dubbing=Animedia",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/2?dubbing=Animedia",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/3?dubbing=Animedia",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/4?dubbing=Animedia",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/5?dubbing=Animedia",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:7",
+      "label": "AniMedia",
+      "embedUrl": "https://animego.me/cdn-iframe/1055/1/6?dubbing=Animedia",
+      "episodeNumber": 6
+    }
+  ]
+}

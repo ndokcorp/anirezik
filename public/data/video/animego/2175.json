@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 2175,
+  "animegoId": 426,
+  "title": "Путешествие Кино: Прекрасный мир — Для тебя",
+  "originalTitle": "Kino no Tabi: The Beautiful World - Byouki no Kuni - For You",
+  "year": 2007,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/puteshestvie-kino-dlya-tebya-426",
+  "checkedAt": "2026-10-26T23:33:59.823882+00:00",
+  "entries": [
+    {
+      "translationId": "animego:101",
+      "label": "Алекс Килька",
+      "embedUrl": "https://animego.me/cdn-iframe/2175?dubbing=%D0%90%D0%BB%D0%B5%D0%BA%D1%81%20%D0%9A%D0%B8%D0%BB%D1%8C%D0%BA%D0%B0",
+      "episodeNumber": 1
+    }
+  ]
+}

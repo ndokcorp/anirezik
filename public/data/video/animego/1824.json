@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 1824,
+  "animegoId": 1135,
+  "title": "Босоногий Гэн",
+  "originalTitle": "Hadashi no Gen",
+  "year": 1983,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/bosonogiy-gen-1135",
+  "checkedAt": "2026-10-26T23:29:53.672080+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1824?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

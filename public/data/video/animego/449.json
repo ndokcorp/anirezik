@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 449,
+  "animegoId": 4108,
+  "title": "Инуяся: Пламя острова Хорай",
+  "originalTitle": "InuYasha Movie 4: Guren no Houraijima",
+  "year": 2004,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/inuyasya-plamya-ostrova-khorai-4108",
+  "checkedAt": "2026-10-26T22:54:55.140054+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/449?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 2107,
+  "animegoId": 98,
+  "title": "Ван-Пис: Приключение в Алабасте — Принцесса пустыни и пираты",
+  "originalTitle": "One Piece Movie 08: Episode of Alabasta - Sabaku no Oujo to Kaizoku-tachi",
+  "year": 2007,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/van-pis-film-8-priklyuchenie-v-alabaste-princessa-pustyni-i-piraty-98",
+  "checkedAt": "2026-10-26T23:33:20.642570+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2107?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

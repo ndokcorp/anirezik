@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "shikimoriId": 71,
+  "animegoId": 508,
+  "title": "Стальная тревога!",
+  "originalTitle": "Full Metal Panic!",
+  "year": 2002,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/stalnaya-trevoga-508",
+  "checkedAt": "2026-10-26T22:19:02.738535+00:00",
+  "entries": [
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/1?dubbing=MC%20Entertainment",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/1?dubbing=MiraiDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/2?dubbing=MC%20Entertainment",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/2?dubbing=MiraiDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/3?dubbing=MC%20Entertainment",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/3?dubbing=MiraiDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/4?dubbing=MC%20Entertainment",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/4?dubbing=MiraiDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/5?dubbing=MC%20Entertainment",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/5?dubbing=MiraiDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/6?dubbing=MC%20Entertainment",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/6?dubbing=MiraiDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/7?dubbing=MC%20Entertainment",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/7?dubbing=MiraiDUB",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/8?dubbing=MC%20Entertainment",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/8?dubbing=MiraiDUB",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/9?dubbing=MC%20Entertainment",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/9?dubbing=MiraiDUB",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/10?dubbing=MC%20Entertainment",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/10?dubbing=MiraiDUB",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/11?dubbing=MC%20Entertainment",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/11?dubbing=MiraiDUB",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/12?dubbing=MC%20Entertainment",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/12?dubbing=MiraiDUB",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/13?dubbing=MC%20Entertainment",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/13?dubbing=MiraiDUB",
+      "episodeNumber": 13
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/14?dubbing=MC%20Entertainment",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/14?dubbing=MiraiDUB",
+      "episodeNumber": 14
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/15?dubbing=MC%20Entertainment",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/15?dubbing=MiraiDUB",
+      "episodeNumber": 15
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/16?dubbing=MC%20Entertainment",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/16?dubbing=MiraiDUB",
+      "episodeNumber": 16
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/17?dubbing=MC%20Entertainment",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/17?dubbing=MiraiDUB",
+      "episodeNumber": 17
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/18?dubbing=MC%20Entertainment",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/18?dubbing=MiraiDUB",
+      "episodeNumber": 18
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/19?dubbing=MC%20Entertainment",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/19?dubbing=MiraiDUB",
+      "episodeNumber": 19
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/20?dubbing=MC%20Entertainment",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/20?dubbing=MiraiDUB",
+      "episodeNumber": 20
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/21?dubbing=MC%20Entertainment",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/21?dubbing=MiraiDUB",
+      "episodeNumber": 21
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/22?dubbing=MC%20Entertainment",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/22?dubbing=MiraiDUB",
+      "episodeNumber": 22
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/23?dubbing=MC%20Entertainment",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/23?dubbing=MiraiDUB",
+      "episodeNumber": 23
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/24?dubbing=MC%20Entertainment",
+      "episodeNumber": 24
+    },
+    {
+      "translationId": "animego:29",
+      "label": "MiraiDuB",
+      "embedUrl": "https://animego.me/cdn-iframe/71/1/24?dubbing=MiraiDUB",
+      "episodeNumber": 24
+    }
+  ]
+}

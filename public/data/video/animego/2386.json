@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 2386,
+  "animegoId": 80,
+  "title": "Ван-Пис: Футбольный король мечты",
+  "originalTitle": "One Piece: Yume no Soccer Ou!",
+  "year": 2002,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/van-pis-futbolnyy-korol-mechty-80",
+  "checkedAt": "2026-10-26T23:36:07.191910+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/2386?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

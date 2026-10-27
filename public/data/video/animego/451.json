@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 451,
+  "animegoId": 4107,
+  "title": "Инуяся: Меч, покоряющий мир",
+  "originalTitle": "InuYasha Movie 3: Tenka Hadou no Ken",
+  "year": 2003,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/inuyasya-mech-pokoryayushchii-mir-4107",
+  "checkedAt": "2026-10-26T22:54:58.180355+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/451?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

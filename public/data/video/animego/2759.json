@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 2759,
+  "animegoId": 866,
+  "title": "Евангелион 1.11: Ты (не) один",
+  "originalTitle": "Evangelion Movie 1: Jo",
+  "year": 2007,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/evangelion-111-ty-ne-odin-866",
+  "checkedAt": "2026-10-26T23:36:46.152245+00:00",
+  "entries": [
+    {
+      "translationId": "animego:33",
+      "label": "Reanimedia",
+      "embedUrl": "https://animego.me/cdn-iframe/2759?dubbing=Reanimedia",
+      "episodeNumber": 1
+    }
+  ]
+}

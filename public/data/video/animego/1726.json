@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "shikimoriId": 1726,
+  "animegoId": 877,
+  "title": "Дьявол может плакать",
+  "originalTitle": "Devil May Cry",
+  "year": 2007,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/demon-protiv-demonov-877",
+  "checkedAt": "2026-10-26T23:29:38.590284+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/1?dubbing=AniDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/1?dubbing=MC%20Entertainment",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/2?dubbing=AniDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/2?dubbing=MC%20Entertainment",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/3?dubbing=AniDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/3?dubbing=MC%20Entertainment",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/4?dubbing=AniDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/4?dubbing=MC%20Entertainment",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/5?dubbing=AniDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/5?dubbing=MC%20Entertainment",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/6?dubbing=AniDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/6?dubbing=MC%20Entertainment",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/7?dubbing=AniDUB",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/7?dubbing=MC%20Entertainment",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/8?dubbing=AniDUB",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/8?dubbing=MC%20Entertainment",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/9?dubbing=AniDUB",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/9?dubbing=MC%20Entertainment",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/10?dubbing=AniDUB",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/10?dubbing=MC%20Entertainment",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/11?dubbing=AniDUB",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/11?dubbing=MC%20Entertainment",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/12?dubbing=AniDUB",
+      "episodeNumber": 12
+    },
+    {
+      "translationId": "animego:20",
+      "label": "MC Entertainment",
+      "embedUrl": "https://animego.me/cdn-iframe/1726/1/12?dubbing=MC%20Entertainment",
+      "episodeNumber": 12
+    }
+  ]
+}

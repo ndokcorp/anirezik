@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "shikimoriId": 1811,
+  "animegoId": 1156,
+  "title": "Баунти Дог",
+  "originalTitle": "Bounty Dog: Getsumen no Eve",
+  "year": 1994,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/baunti-dog-1156",
+  "checkedAt": "2026-10-26T23:29:52.077383+00:00",
+  "entries": [
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1811/1/1?dubbing=SHIZA%20Project",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1811/1/2?dubbing=SHIZA%20Project",
+      "episodeNumber": 2
+    }
+  ]
+}

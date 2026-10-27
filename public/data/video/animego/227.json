@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "shikimoriId": 227,
+  "animegoId": 688,
+  "title": "Фури-кури",
+  "originalTitle": "FLCL",
+  "year": 2000,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/furi-kuri-688",
+  "checkedAt": "2026-10-26T22:33:54.976280+00:00",
+  "entries": [
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/1?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/1?dubbing=AniDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/1",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/1?dubbing=SHIZA%20Project",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/2?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/2?dubbing=AniDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/2",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/2?dubbing=SHIZA%20Project",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/3?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/3?dubbing=AniDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/3",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/3?dubbing=SHIZA%20Project",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/4?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/4?dubbing=AniDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/4",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/4?dubbing=SHIZA%20Project",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/5?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/5?dubbing=AniDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/5",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/5?dubbing=SHIZA%20Project",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:96",
+      "label": "ТО Дубляжная",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/6?dubbing=%D0%A2%D0%9E%20%D0%94%D1%83%D0%B1%D0%BB%D1%8F%D0%B6%D0%BD%D0%B0%D1%8F",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/6?dubbing=AniDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:21",
+      "label": "KANSAI",
+      "embedUrl": "https://animego.me/cdn-iframe/227/Kansai/1/6",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/227/1/6?dubbing=SHIZA%20Project",
+      "episodeNumber": 6
+    }
+  ]
+}

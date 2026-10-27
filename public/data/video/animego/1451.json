@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 1451,
+  "animegoId": 1134,
+  "title": "Меч правды",
+  "originalTitle": "Shuranosuke Zanmaken: Shikamamon no Otoko",
+  "year": 1990,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/mech-pravdy-1134",
+  "checkedAt": "2026-10-26T23:21:02.112608+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1451?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

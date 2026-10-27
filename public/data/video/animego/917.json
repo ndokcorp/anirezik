@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "shikimoriId": 917,
+  "animegoId": 3984,
+  "title": "Перевозчик Бин",
+  "originalTitle": "Riding Bean",
+  "year": 1989,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/perevozchik-bin-3984",
+  "checkedAt": "2026-10-26T23:08:54.113412+00:00",
+  "entries": [
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/917/SHIZA%20Project",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/917/Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

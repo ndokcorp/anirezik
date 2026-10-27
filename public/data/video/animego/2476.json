@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "shikimoriId": 2476,
+  "animegoId": 4111,
+  "title": "Школьные дни",
+  "originalTitle": "School Days",
+  "year": 2007,
+  "format": "TV",
+  "sourceUrl": "https://animego.me/anime/shkol-nyye-dni-4111",
+  "checkedAt": "2026-10-26T23:36:26.672288+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/1?dubbing=AniDUB",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/2?dubbing=AniDUB",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/3?dubbing=AniDUB",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/4?dubbing=AniDUB",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/5?dubbing=AniDUB",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/6?dubbing=AniDUB",
+      "episodeNumber": 6
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/7?dubbing=AniDUB",
+      "episodeNumber": 7
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/8?dubbing=AniDUB",
+      "episodeNumber": 8
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/9?dubbing=AniDUB",
+      "episodeNumber": 9
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/10?dubbing=AniDUB",
+      "episodeNumber": 10
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/11?dubbing=AniDUB",
+      "episodeNumber": 11
+    },
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/2476/1/12?dubbing=AniDUB",
+      "episodeNumber": 12
+    }
+  ]
+}

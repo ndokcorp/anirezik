@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 371,
+  "animegoId": 4284,
+  "title": "Сакура — собирательница карт: Фильм",
+  "originalTitle": "Cardcaptor Sakura Movie 1",
+  "year": 1999,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/sakura-sobiratel-nitsa-kart-fil-m-4284",
+  "checkedAt": "2026-10-26T22:49:56.584586+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/371?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

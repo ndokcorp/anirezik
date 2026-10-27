@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 1345,
+  "animegoId": 1133,
+  "title": "Психические войны",
+  "originalTitle": "Soujuu Senshi Psychic Wars",
+  "year": 1991,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/psihicheskie-voyny-1133",
+  "checkedAt": "2026-10-26T23:19:48.604667+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1345?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}

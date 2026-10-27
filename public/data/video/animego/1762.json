@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "shikimoriId": 1762,
+  "animegoId": 605,
+  "title": "Сказание об Арслане OVA",
+  "originalTitle": "Arslan Senki",
+  "year": 1991,
+  "format": "OVA",
+  "sourceUrl": "https://animego.me/anime/skazanie-ob-arslane-605",
+  "checkedAt": "2026-10-26T23:29:47.591544+00:00",
+  "entries": [
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/1?dubbing=SHIZA%20Project",
+      "episodeNumber": 1
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/2?dubbing=SHIZA%20Project",
+      "episodeNumber": 2
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/3?dubbing=SHIZA%20Project",
+      "episodeNumber": 3
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/4?dubbing=SHIZA%20Project",
+      "episodeNumber": 4
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/5?dubbing=SHIZA%20Project",
+      "episodeNumber": 5
+    },
+    {
+      "translationId": "animego:4",
+      "label": "SHIZA Project",
+      "embedUrl": "https://animego.me/cdn-iframe/1762/1/6?dubbing=SHIZA%20Project",
+      "episodeNumber": 6
+    }
+  ]
+}

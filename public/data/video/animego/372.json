@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 372,
+  "animegoId": 4282,
+  "title": "Сакура — собирательница карт: Запечатанная карта",
+  "originalTitle": "Cardcaptor Sakura Movie 2: Fuuin Sareta Card",
+  "year": 2000,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/sakura-sobiratel-nitsa-kart-zapechatannaya-karta-4282",
+  "checkedAt": "2026-10-26T22:49:58.064867+00:00",
+  "entries": [
+    {
+      "translationId": "animego:91",
+      "label": "Persona99",
+      "embedUrl": "https://animego.me/cdn-iframe/372?dubbing=Persona99",
+      "episodeNumber": 1
+    }
+  ]
+}

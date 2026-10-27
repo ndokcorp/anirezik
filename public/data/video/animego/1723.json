@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "shikimoriId": 1723,
+  "animegoId": 315,
+  "title": "Кланнад. Фильм",
+  "originalTitle": "Clannad Movie",
+  "year": 2007,
+  "format": "MOVIE",
+  "sourceUrl": "https://animego.me/anime/klannad-film-315",
+  "checkedAt": "2026-10-26T23:29:20.559128+00:00",
+  "entries": [
+    {
+      "translationId": "animego:1",
+      "label": "AniDUB",
+      "embedUrl": "https://animego.me/cdn-iframe/1723?dubbing=AniDUB",
+      "episodeNumber": 1
+    }
+  ]
+}
