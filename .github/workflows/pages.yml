@@ -132,6 +132,12 @@ jobs:
         env:
           ANIMEVOST_LIVE: '1'
         run: npx playwright test --config playwright.animevost.config.ts --project=${{ matrix.browser == 'webkit' && 'webkit-mobile' || matrix.browser }}
+      - name: Verify isolated AnimeVost recovery and fallback
+        if: inputs.animevost_live == true
+        run: |
+          mkdir -p .cache/animevost-053
+          curl --fail --location --proto '=https' https://media.w3.org/2010/05/sintel/trailer.mp4 -o .cache/animevost-053/sintel-fixture.mp4
+          npx playwright test --config playwright.animevost-recovery.config.ts --project=${{ matrix.browser == 'webkit' && 'webkit-mobile' || matrix.browser }}
       - name: Verify real AniLiberty video samples
         if: inputs.liberty_live && matrix.browser != 'firefox'
         env:

@@ -101,6 +101,262 @@
         }
       ],
       "scope": "Observed episode 1, not all episodes or regions"
+    },
+    "1": {
+      "releaseId": 335,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.586096,
+          "duration": 1482.752,
+          "width": 368,
+          "height": 272,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "16498": {
+      "releaseId": 58,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.0765,
+          "duration": 1446.528,
+          "width": 1280,
+          "height": 720,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "1761": {
+      "releaseId": 1563,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.224912,
+          "duration": 3409.92,
+          "width": 480,
+          "height": 272,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "18441": {
+      "releaseId": 607,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.181829,
+          "duration": 1669.668,
+          "width": 1280,
+          "height": 720,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "21": {
+      "releaseId": 179,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.565774,
+          "duration": 1443.159,
+          "width": 640,
+          "height": 473,
+          "readyState": 4
+        },
+        {
+          "episode": 1180,
+          "time": 3.853859,
+          "duration": 1416.665011,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "21667": {
+      "releaseId": 985,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.275493,
+          "duration": 1247.467,
+          "width": 1024,
+          "height": 576,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "269": {
+      "releaseId": 116,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 4.0063,
+          "duration": 1369.953287,
+          "width": 720,
+          "height": 540,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "28069": {
+      "releaseId": 1387,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.104131,
+          "duration": 1384.17288,
+          "width": 704,
+          "height": 396,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "37735": {
+      "releaseId": 2139,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.44001,
+          "duration": 4782.289002,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "43": {
+      "releaseId": 159,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.574172,
+          "duration": 4969.545,
+          "width": 592,
+          "height": 320,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "52991": {
+      "releaseId": 3044,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.886222,
+          "duration": 1560,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "58567": {
+      "releaseId": 3342,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.10694,
+          "duration": 1423.016009,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "63098": {
+      "releaseId": 4068,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.456601,
+          "duration": 1420.142857,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "63382": {
+      "releaseId": 4030,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 1,
+          "time": 3.483178,
+          "duration": 1444.459002,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        },
+        {
+          "episode": 4,
+          "time": 3.781634,
+          "duration": 1446.945011,
+          "width": 858,
+          "height": 483,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
+    },
+    "918": {
+      "releaseId": 662,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-28",
+      "observations": [
+        {
+          "episode": 3,
+          "time": 3.840288,
+          "duration": 1489.984,
+          "width": 368,
+          "height": 277,
+          "readyState": 4
+        }
+      ],
+      "scope": "Real decoded SD sample with advancing time; not all episodes, qualities or regions"
     }
   },
   "browserGatePassed": true,

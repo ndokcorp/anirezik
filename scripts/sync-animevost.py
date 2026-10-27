@@ -30,6 +30,17 @@ def normalize(text):
     return ''.join(c for c in unicodedata.normalize('NFKC', text).casefold().replace('ё', 'е') if c.isalnum())
 
 
+def explicit_single_label(row):
+    expected = {'OVA': {'ОВА', 'OVA'}, 'ONA': {'ОНА', 'ONA'}}.get(row.get('type'), set())
+    if not expected:
+        return False
+    try:
+        value = ast.literal_eval(row.get('series') or '{}')
+    except (ValueError, SyntaxError):
+        return False
+    return isinstance(value, dict) and len(value) == 1 and next(iter(value)).strip().upper() in expected
+
+
 def episode_numbers(row):
     try:
         value = ast.literal_eval(row.get('series') or '{}')
@@ -39,6 +50,8 @@ def episode_numbers(row):
         return []
     numbers = [int(m[1]) for key in value if (m := re.fullmatch(r'(\d+) серия', key)) and int(m[1]) > 0]
     if row.get('type') == 'полнометражный фильм' and list(value) == ['Фильм']:
+        return [1]
+    if explicit_single_label(row):
         return [1]
     return sorted(set(numbers))
 
@@ -71,13 +84,19 @@ def match_catalog(rows, catalog):
             continue
         id = str(next(iter(ids)))
         expected = expected_episodes.get(int(id))
+        singleton = explicit_single_label(row)
+        if singleton and expected != 1:
+            rejected.append({'releaseId': row['id'], 'shikimoriId': id, 'title': row.get('title'),
+                             'reason': 'singleton-count-conflict', 'catalogEpisodes': expected})
+            continue
         if isinstance(expected, int) and expected > 0 and max(numbers) > expected:
             rejected.append({'releaseId': row['id'], 'shikimoriId': id, 'title': row.get('title'),
                              'reason': 'episode-range-conflict', 'catalogEpisodes': expected,
                              'providerMaxEpisode': max(numbers)})
             continue
         candidates.setdefault(id, []).append({'releaseId': row['id'], 'episodeNumbers': numbers,
-                                               'title': row.get('title'), 'year': row.get('year'), 'kind': kind})
+                                               'title': row.get('title'), 'year': row.get('year'), 'kind': kind,
+                                               'singleEntryLabel': singleton})
     accepted = {id: values[0] for id, values in candidates.items() if len(values) == 1}
     rejected += [{'shikimoriId': id, 'reason': 'multiple-provider-releases'}
                  for id, values in candidates.items() if len(values) != 1]
@@ -149,7 +168,10 @@ def main():
         if not rights.get('verified') or not rights.get('playbackAllowed') or not pilot.get('browserGatePassed'):
             raise SystemExit('Direct rights and successful cross-browser pilot required; index preserved')
         mappings = {id: {key: row[key] for key in ['releaseId', 'episodeNumbers', 'kind']}
-                    for id, row in candidates.items()}
+                    for id, row in candidates.items()
+                    if not row.get('singleEntryLabel') or (
+                        pilot['mappings'].get(id, {}).get('playbackVerified') and
+                        pilot['mappings'].get(id, {}).get('releaseId') == row['releaseId'])}
         # A partial upstream snapshot must never remove previously approved data.
         old = json.loads((ROOT / 'src/data/animevost-index.json').read_text(encoding='utf8'))['mappings']
         if not state['complete']:

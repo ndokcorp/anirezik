@@ -13,10 +13,10 @@ test('AnimeVost: real playback and controls in existing Player', async ({ page }
     .toBeGreaterThan(2);
   expect(await video.evaluate((v) => (v as HTMLVideoElement).videoWidth)).toBeGreaterThan(0);
   const before = await video.evaluate((v) => (v as HTMLVideoElement).currentTime);
-  await page.getByRole('slider', { name: 'Позиция видео' }).press('ArrowRight');
+  await page.getByRole('group', { name: 'Плеер AniRezik', exact: true }).press('ArrowRight');
   await expect
     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))
-    .toBeGreaterThan(before + 0.5);
+    .toBeGreaterThan(before + 9);
   await page.getByRole('button', { name: 'Пауза', exact: true }).click();
   await page.getByRole('button', { name: 'Настройки', exact: true }).click();
   await page.getByRole('button', { name: 'Качество', exact: true }).click();

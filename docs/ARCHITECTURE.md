@@ -1,3 +1,9 @@
+# 0.5.3 — Playlist recovery
+
+Опциональный VideoProvider.refreshSources используется AnimeVost: сброс пятиминутного memory cache, дедупликация параллельных обновлений и cooldown 30 секунд. Это клиентские ограничения, не заявленные лимиты поставщика. Native media error допускает одно автоматическое обновление на точный выбор; повторная ошибка требует действия пользователя. video-recovery.ts проверяет права, origin, anime/release/episode/translation identity. Другие провайдеры не меняют транспорт. Резервный выбор предлагает только уже разрешённый источник того же аниме и номера серии; прогресс другого провайдера не переносится. Старые media events после смены render generation не перезаписывают прогресс.
+
+Офлайн-сопоставление явного OVA/ONA singleton требует canonical episodes=1 и индивидуального playbackVerified для публикации. Конфликты диапазонов остаются выключенными. Нового расписания API нет. Fault-injection тесты используют CC BY Sintel и не считаются проверками AnimeVost; live sample запускается отдельно с явным opt-in.
+
 # 0.5.2 — AnimeVost native VideoProvider
 
 `animevost.ts` использует прежнюю VideoSource-модель и прежний native Player. `animevost-index.json` хранит только Shikimori ID → release ID / kind / episode numbers, без playback URLs. При открытии соответствующей страницы POST form к публичному API возвращает свежий playlist; принимаются только точные номера серий и разрешённый HTTPS media origin. Исключение для HTTP→HTTPS ограничено проверенным host video.animetop.info. Ответы имеют краткий память-кеш; потоков в статическом HTML/JSON/localStorage нет. Ошибка провайдера изолирована от остальных.

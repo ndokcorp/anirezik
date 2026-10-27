@@ -58,13 +58,15 @@ export function parseAnimeVostPlaylist(
     const match = row.name.trim().match(/^(\d+)\s+серия$/i);
     const number = match
       ? Number(match[1])
-      : mapping.kind === 'movie' &&
-          /^(?:фильм)$/i.test(row.name.trim()) &&
+      : ((mapping.kind === 'movie' && /^фильм$/i.test(row.name.trim())) ||
+            (mapping.kind === 'ova' && /^(?:ова|ova)$/i.test(row.name.trim())) ||
+            (mapping.kind === 'ona' && /^(?:она|ona)$/i.test(row.name.trim()))) &&
           mapping.episodeNumbers.length === 1 &&
           mapping.episodeNumbers[0] === 1
         ? 1
         : null;
-    // Do not enumerate unnamed extras, trailers, OVAs or duplicates as TV episodes.
+    // Only a format-confirmed standalone OVA/ONA can use its explicit singleton
+    // label. Never enumerate extras or attach an OVA to a TV season.
     if (!number || !mapping.episodeNumbers.includes(number)) continue;
     if (seen.has(number)) throw Error('Duplicate AnimeVost episode');
     seen.add(number);
@@ -102,10 +104,15 @@ export function parseAnimeVostPlaylist(
 
 export class AnimeVostResolver {
   private cache = new Map<number, { expires: number; promise: Promise<VideoSource[]> }>();
-  constructor(private fetcher: (release: number) => Promise<unknown>) {}
+  private refreshing = new Map<number, Promise<VideoSource[]>>();
+  private lastRefresh = new Map<number, number>();
+  constructor(
+    private fetcher: (release: number) => Promise<unknown>,
+    private now = Date.now,
+  ) {}
   getSources(id: number, mapping: VostMapping): Promise<VideoSource[]> {
     const cached = this.cache.get(id);
-    if (cached && cached.expires > Date.now()) return cached.promise;
+    if (cached && cached.expires > this.now()) return cached.promise;
     const promise = this.fetcher(mapping.releaseId)
       .then((raw) => parseAnimeVostPlaylist(raw, id, mapping))
       .catch((error) => {
@@ -115,8 +122,20 @@ export class AnimeVostResolver {
     if (this.cache.size >= 30) this.cache.delete(this.cache.keys().next().value!);
     // No media URL is written to static JSON or localStorage. This short cache is
     // a client refresh policy, not a claim about the supplier's link expiry.
-    this.cache.set(id, { expires: Date.now() + 5 * 60_000, promise });
+    this.cache.set(id, { expires: this.now() + 5 * 60_000, promise });
     return promise;
+  }
+  refresh(id: number, mapping: VostMapping): Promise<VideoSource[]> {
+    const pending = this.refreshing.get(id);
+    if (pending) return pending;
+    if (this.now() - (this.lastRefresh.get(id) ?? -Infinity) < 30_000)
+      return Promise.reject(Error('Повторное обновление AnimeVost доступно через 30 секунд.'));
+    this.lastRefresh.set(id, this.now());
+    if (this.lastRefresh.size > 40) this.lastRefresh.delete(this.lastRefresh.keys().next().value!);
+    this.cache.delete(id);
+    const request = this.getSources(id, mapping).finally(() => this.refreshing.delete(id));
+    this.refreshing.set(id, request);
+    return request;
   }
 }
 const resolver = new AnimeVostResolver(async (release) => {
@@ -142,5 +161,13 @@ export const animeVostProvider: VideoProvider = {
     const mapping = match && mappings[match[1]];
     if (!match || !mapping) return [];
     return resolver.getSources(Number(match[1]), mapping);
+  },
+  async refreshSources(animeId) {
+    if (typeof window === 'undefined' || !permission.verified || !permission.playbackAllowed)
+      return [];
+    const match = /^shikimori:([1-9]\d*)$/.exec(animeId);
+    const mapping = match && mappings[match[1]];
+    if (!match || !mapping) return [];
+    return resolver.refresh(Number(match[1]), mapping);
   },
 };

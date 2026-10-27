@@ -32,6 +32,7 @@ export interface VideoProvider {
   name: string;
   rights: VideoRights;
   getSources: (animeId: string) => Promise<VideoSource[]>;
+  refreshSources?: (animeId: string) => Promise<VideoSource[]>;
   regionPolicy?: 'provider-response' | 'iframe-enforced' | 'media-enforced';
   iframePolicy?: {
     allow: string;

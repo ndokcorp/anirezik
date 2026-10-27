@@ -4,6 +4,7 @@ import { demoProvider } from './providers/video/demo';
 import type { VideoSource } from './providers/video/types';
 import type Hls from 'hls.js';
 import { lazyPlayerFrame } from './lazy-player-frame';
+import { refreshVideoSelection, sameVideoSelection, videoFallbacks } from './video-recovery';
 import { initFilterControls } from './filter-controls';
 import { readProgress, saveProgress } from './player-progress';
 import {
@@ -167,6 +168,7 @@ export function initPlayers() {
     episodes.closest('label')!.hidden = true;
     let numbers: number[] = [];
     const playedSelections = new Set<string>();
+    const refreshedSelections = new Set<string>();
     let disposeEmbed: () => void = () => {};
     let disposeNativeUI: () => void = () => {};
     let autoNext = readAutoNext(),
@@ -611,7 +613,9 @@ export function initPlayers() {
       intro.append(introDetails);
       screen.append(media, intro, episodeNav, notice, controls, settings);
       bindFullscreenIdle(surface, screen, media, settings, ui.signal);
-      surface.append(screen, retry);
+      const backups = make('div');
+      backups.hidden = true;
+      surface.append(screen, retry, backups);
       const qualityBadge = make('span');
       qualityBadge.className = 'player-quality-badge';
       qualityBadge.setAttribute('aria-hidden', 'true');
@@ -625,7 +629,11 @@ export function initPlayers() {
       };
       updateQualityBadge();
       function persist() {
-        if (!started || !Number.isFinite(media.duration) || media.duration <= 0) return;
+        // Detached media can emit pause/timeupdate after a replacement starts.
+        // Its reset-to-zero position must never overwrite the active progress.
+        if (generation !== currentGeneration || media !== video) return;
+        if (media.error || !started || !Number.isFinite(media.duration) || media.duration <= 0)
+          return;
         saveProgress({
           animeId: active.animeId,
           providerId: active.providerId,
@@ -639,7 +647,27 @@ export function initPlayers() {
         lastSave = Date.now();
       }
       saveCurrent = persist;
+      let lastPlayableTime = 0;
+      let recovery: Promise<boolean> | null = null;
+      const showBackups = () => {
+        backups.replaceChildren();
+        for (const alternative of videoFallbacks(active, sources, approvedProviders)) {
+          const button = make(
+            'button',
+            `Выбрать ${alternative.providerId === 'aniliberty' ? 'AniRezik' : alternative.providerName} · серия ${active.episodeNumber}`,
+          );
+          button.type = 'button';
+          button.className = 'button button-secondary';
+          button.onclick = () => {
+            providers.value = alternative.providerId;
+            selectProvider(alternative.episodeNumber, sources.indexOf(alternative));
+          };
+          backups.append(button);
+        }
+        backups.hidden = !backups.childElementCount;
+      };
       const failed = (message: string) => {
+        if (generation !== currentGeneration) return;
         notice.textContent = message;
         retry.hidden = false;
         screen.classList.remove('is-loading');
@@ -647,6 +675,43 @@ export function initPlayers() {
         intro.inert = false;
         overlay.hidden = false;
         intro.hidden = false;
+        showBackups();
+      };
+      const recover = (): Promise<boolean> => {
+        if (recovery) return recovery;
+        if (!currentProvider?.refreshSources) return Promise.resolve(false);
+        const position =
+          media.currentTime > 0 ? media.currentTime : Math.max(lastPlayableTime, pendingTime);
+        const label = choices.find((q) => q.url === qualitySelect.value)?.label;
+        retry.disabled = true;
+        notice.textContent = 'Обновляем ссылку источника…';
+        recovery = refreshVideoSelection(active, currentProvider)
+          .then((result) => {
+            if (!result || generation !== currentGeneration) return false;
+            for (let i = 0; i < sources.length; i++) {
+              const replacement = result.sources.find((row) => sameVideoSelection(sources[i], row));
+              if (replacement) sources[i] = replacement;
+            }
+            quality =
+              result.selected.qualities?.find((q) => q.label === label)?.url ||
+              result.selected.playbackUrl ||
+              '';
+            // Do not overwrite a good saved position with a failed stream's zero.
+            saveCurrent = () => {};
+            autoStartRequested = true;
+            pendingTime = position;
+            render();
+            return true;
+          })
+          .catch((error) => {
+            failed(error instanceof Error ? error.message : 'Источник недоступен.');
+            return false;
+          })
+          .finally(() => {
+            retry.disabled = false;
+            recovery = null;
+          });
+        return recovery;
       };
       async function start() {
         if (generation !== currentGeneration) return;
@@ -772,9 +837,15 @@ export function initPlayers() {
         notice.textContent = '';
         retry.hidden = true;
       });
-      media.addEventListener('error', () =>
-        failed('Ошибка загрузки видео или неподдерживаемый формат.'),
-      );
+      media.addEventListener('error', () => {
+        if (generation !== currentGeneration || !started) return;
+        const canRefresh =
+          currentProvider?.refreshSources && [2, 4].includes(media.error?.code || 0);
+        if (canRefresh && !refreshedSelections.has(selectionKey)) {
+          refreshedSelections.add(selectionKey);
+          void recover();
+        } else failed('Ошибка загрузки видео или неподдерживаемый формат.');
+      });
       media.addEventListener('loadedmetadata', () => {
         if (Number.isFinite(media.duration)) {
           seek.max = String(media.duration);
@@ -796,6 +867,8 @@ export function initPlayers() {
       media.addEventListener('durationchange', updateClock);
       media.addEventListener('loadedmetadata', updateClock);
       media.addEventListener('timeupdate', () => {
+        if (!media.error && media.readyState >= 2 && Number.isFinite(media.currentTime))
+          lastPlayableTime = media.currentTime;
         updateClock();
         if (Date.now() - lastSave > 5000) persist();
       });
@@ -878,6 +951,17 @@ export function initPlayers() {
         void start();
       };
       retry.onclick = () => {
+        if (currentProvider?.refreshSources) {
+          // A successful refresh can still need a new user gesture on WebKit.
+          // Do not request another playlist just because autoplay was denied.
+          if (!media.error && started) {
+            void start();
+            return;
+          }
+          refreshedSelections.add(selectionKey);
+          void recover();
+          return;
+        }
         hls?.destroy();
         hls = null;
         media.removeAttribute('src');
@@ -1046,19 +1130,22 @@ export function initPlayers() {
       render();
     }
     episodes.onchange = () => {
+      pendingTime = 0;
       restoreTime = 0;
       quality = '';
       populate();
     };
     dubs.onchange = () => {
+      pendingTime = 0;
       restoreTime = 0;
       quality = '';
       render();
     };
     let activeProvider = providers.value;
-    providers.onchange = () => {
+    function selectProvider(requestedEpisode?: number, preferredIndex?: number) {
       if (providers.value === activeProvider) return;
       activeProvider = providers.value;
+      pendingTime = 0;
       stop();
       savePlayerProvider(sources[0].animeId, providers.value);
       saved = readProgress(sources[0].animeId, providers.value);
@@ -1066,10 +1153,13 @@ export function initPlayers() {
       confirmedSource = undefined;
       source = undefined;
       populateEpisodes();
-      if (saved && numbers.includes(saved.episodeNumber))
+      if (requestedEpisode && numbers.includes(requestedEpisode))
+        episodes.value = String(requestedEpisode);
+      else if (saved && numbers.includes(saved.episodeNumber))
         episodes.value = String(saved.episodeNumber);
-      populate();
-    };
+      populate(preferredIndex);
+    }
+    providers.onchange = () => selectProvider();
     previous.onclick = () => {
       episodes.selectedIndex--;
       episodes.dispatchEvent(new Event('change'));

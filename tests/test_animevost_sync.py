@@ -8,6 +8,12 @@ spec.loader.exec_module(sync)
 
 
 class MatchingTests(unittest.TestCase):
+    def test_explicit_singleton_does_not_invent_tv_episodes(self):
+        for kind, label in [('OVA', 'ОВА'), ('ONA', 'ONA')]:
+            self.assertEqual(sync.episode_numbers({'type': kind, 'series': repr({label: 'id'})}), [1])
+            self.assertEqual(sync.episode_numbers({'type': 'ТВ', 'series': repr({label: 'id'})}), [])
+            self.assertEqual(sync.episode_numbers({'type': kind, 'series': repr({label: 'id', 'Трейлер': 'other'})}), [])
+        self.assertFalse(sync.explicit_single_label({'type': 'OVA', 'series': '{"1 серия":"id"}'}))
     def test_seasons_films_remakes_and_ambiguity(self):
         catalog = [{'shikimoriId': 1, 'title': 'Example', 'originalTitle': 'Example', 'year': 2024, 'kind': 'tv', 'episodes': 2},
                    {'shikimoriId': 2, 'title': 'Example 2', 'year': 2025, 'kind': 'tv'},
