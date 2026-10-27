@@ -22,6 +22,7 @@ jobs:
       - name: Real AnimeVost playback, no mocked media
         env:
           ANIMEVOST_LIVE: '1'
+          ANIMEVOST_LIVE_DEV: '1'
         run: npx playwright test --config playwright.animevost.config.ts --project=${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
         if: always()

@@ -63,13 +63,14 @@
       "MP4"
     ],
     "qualitiesAdvertised": [
-      "480p",
-      "720p"
+      "SD (std)",
+      "HD (hd)"
     ],
     "hlsObserved": false,
     "dashObserved": false,
     "urlExpiry": "not documented; fresh playlist per page and short in-memory cache, no static media URLs",
-    "region": "not advertised by API; enforced by origin CDN, no spoofing/proxy"
+    "region": "not advertised by API; enforced by origin CDN, no spoofing/proxy",
+    "exactDimensionsArePerFile": true
   },
   "publication": {
     "status": "pending",
@@ -613,6 +614,28 @@
       "reason": "episode-range-conflict",
       "catalogEpisodes": 26,
       "providerMaxEpisode": 52
+    }
+  ],
+  "additionalObservedIds": [
+    56838,
+    20
+  ],
+  "additionalObservations": [
+    {
+      "shikimoriId": 56838,
+      "episode": 1,
+      "time": 84.069,
+      "duration": 1423.44,
+      "width": 858,
+      "height": 483
+    },
+    {
+      "shikimoriId": 20,
+      "episode": 1,
+      "time": 19.078,
+      "duration": 1410.469,
+      "width": 640,
+      "height": 363
     }
   ]
 }

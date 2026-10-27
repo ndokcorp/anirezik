@@ -5,6 +5,10 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      animevost_live:
+        description: Verify real AnimeVost video and controls before deploying
+        type: boolean
+        default: false
       liberty_probe:
         description: Isolated live diagnostics of current source without a full build
         type: boolean
@@ -123,6 +127,11 @@ jobs:
           tar -xf .pages/artifact.tar -C dist
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm test -- --project=${{ matrix.browser }}
+      - name: Verify real AnimeVost video and controls before publication
+        if: inputs.animevost_live == true
+        env:
+          ANIMEVOST_LIVE: '1'
+        run: npx playwright test --config playwright.animevost.config.ts --project=${{ matrix.browser == 'webkit' && 'webkit-mobile' || matrix.browser }}
       - name: Verify real AniLiberty video samples
         if: inputs.liberty_live && matrix.browser != 'firefox'
         env:

@@ -70,8 +70,8 @@ export function parseAnimeVostPlaylist(
     seen.add(number);
     const qualities = (
       [
-        ['480p', row.std],
-        ['720p', row.hd],
+        ['SD', row.std],
+        ['HD', row.hd],
       ] as const
     ).flatMap(([label, value]) => {
       const url = animeVostMedia(value);

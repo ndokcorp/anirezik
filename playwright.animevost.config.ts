@@ -9,8 +9,11 @@ export default defineConfig({
   reporter: 'list',
   use: { baseURL: `http://127.0.0.1:4322${base}/`, trace: 'off', video: 'off' },
   webServer: {
-    command: 'npm run dev -- --port 4322',
-    url: 'http://127.0.0.1:4322',
+    command:
+      process.env.ANIMEVOST_LIVE_DEV === '1'
+        ? 'npm run dev -- --port 4322'
+        : 'npm run preview -- --port 4322',
+    url: `http://127.0.0.1:4322${base}/`,
     reuseExistingServer: true,
   },
   projects: [

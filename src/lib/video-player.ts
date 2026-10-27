@@ -487,7 +487,9 @@ export function initPlayers() {
           : (
               choices.find(
                 (q) => q.label === (matchMedia('(max-width: 760px)').matches ? '480p' : '720p'),
-              ) || choices.at(-1)!
+              ) ||
+              choices.find((q) => q.url === active.playbackUrl) ||
+              choices.at(-1)!
             ).url;
       qualitySelect.disabled = choices.length === 1;
       const full = make('button');

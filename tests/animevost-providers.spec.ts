@@ -70,7 +70,7 @@ test('AnimeVost: exact mapped episode labels, own studio, no invented extras or 
   expect(sources[0].episodeNumber).toBe(1);
   expect(sources[0].dubbingStudio).toBeNull();
   expect(sources[0].providerName).toBe('AnimeVost');
-  expect(sources[0].qualities?.map((q) => q.label)).toEqual(['480p', '720p']);
+  expect(sources[0].qualities?.map((q) => q.label)).toEqual(['SD', 'HD']);
   expect(sources[0].availableRegions).toEqual([]);
   expect(sources[0].regionChecked).toBeUndefined();
   expect(isAuthorizedSource(sources[0], animeVostProvider)).toBe(true);
