@@ -70,6 +70,8 @@ if (
   state.previouslyMappedIds = previous;
   state.requestsTotal = total;
 }
+if(state.error && /HTTP (?:401|403)|challenge|unexpected HTML/i.test(state.error.message))
+  throw Error('Saved provider access restriction: investigate before resuming; no requests sent');
 const checkpoint = () => atomic(stateFile, state);
 state.baselineMappedIds ||= baselineIds;
 state.previouslyMappedIds = [...new Set([...(state.previouslyMappedIds || []), ...baselineIds, ...(prior.excludedIds || [])])];

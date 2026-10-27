@@ -1,8 +1,29 @@
 import { execFileSync } from 'node:child_process';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { validateLibertyState } from './lib/aniliberty-sync.ts';
-const branch = 'codex/aniliberty-sync-state';
-const file = '.cache/aniliberty-index/progress-v2.json';
+const vost = process.argv[3] === 'animevost';
+if (process.argv[3] && !vost) throw Error('Unknown checkpoint provider');
+const branch = vost ? 'codex/animevost-sync-state' : 'codex/aniliberty-sync-state';
+const file = vost
+  ? '.cache/animevost-sync/checkpoint.json'
+  : '.cache/aniliberty-index/progress-v2.json';
+const validate = (value: unknown) => {
+  if (!vost) {
+    validateLibertyState(value);
+    return;
+  }
+  const s = value as { rows: Record<string, { id: number }>; nextPage: number };
+  if (!s?.rows || !Number.isSafeInteger(s.nextPage) || s.nextPage < 1)
+    throw Error('Invalid AnimeVost checkpoint');
+  for (const [id, row] of Object.entries(s.rows))
+    if (
+      String(row.id) !== id ||
+      Object.keys(row).some((k) => !['id', 'title', 'year', 'type', 'series', 'url'].includes(k))
+    )
+      throw Error('Unsanitized AnimeVost checkpoint');
+  if (/hls_\d|playbackUrl|api_token|password/i.test(JSON.stringify(s)))
+    throw Error('Secret or media field in checkpoint');
+};
 const git = (...args: string[]) => {
   try {
     return execFileSync('git', args, {
@@ -24,14 +45,14 @@ try {
 if (process.argv[2] === 'restore') {
   if (parent) {
     const content = git('show', `${parent}:state.json`);
-    validateLibertyState(JSON.parse(content));
-    await mkdir('.cache/aniliberty-index', { recursive: true });
+    validate(JSON.parse(content));
+    await mkdir(vost ? '.cache/animevost-sync' : '.cache/aniliberty-index', { recursive: true });
     await writeFile(file, content + '\n');
     console.log('Durable AniLiberty checkpoint restored');
   } else console.log('No checkpoint yet; begin a new scan');
 } else if (process.argv[2] === 'save') {
   const content = await readFile(file, 'utf8');
-  validateLibertyState(JSON.parse(content));
+  validate(JSON.parse(content));
   const blob = execFileSync('git', ['hash-object', '-w', '--stdin'], {
     input: content,
     encoding: 'utf8',

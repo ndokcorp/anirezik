@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "records": {
+    "animevost:3922": {
+      "fingerprint": "4a8cdad62f8bb36958e8d88fd759263c8453f4a1a6c9dfadc793ab7b602052cd",
+      "checkedAt": "2026-10-27T21:26:27.371Z",
+      "passed": true,
+      "id": 59193,
+      "releaseId": 3922,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.90861,
+          "width": 858,
+          "height": 483,
+          "duration": 1421.002993
+        },
+        {
+          "episode": 14,
+          "time": 3.091325,
+          "width": 858,
+          "height": 483,
+          "duration": 1421.000998
+        }
+      ],
+      "reason": null,
+      "status": "AUTO-APPROVED"
+    },
+    "aniliberty:2129": {
+      "fingerprint": "d5c2571b73d456d7093de47e69e28a2162ddcd8f1cdcd7be771c43aa01049883",
+      "checkedAt": "2026-10-27T21:26:27.382Z",
+      "passed": true,
+      "id": 31630,
+      "releaseId": 2129,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.513866,
+          "width": 1280,
+          "height": 720,
+          "duration": 1449.9072039999999
+        },
+        {
+          "episode": 24,
+          "time": 3.015923,
+          "width": 1280,
+          "height": 720,
+          "duration": 1420.169157
+        }
+      ],
+      "reason": null,
+      "status": "AUTO-APPROVED"
+    },
+    "animevost:60": {
+      "fingerprint": "a877b34cf6952d02f6753c16cab552183c3a647946d403b6f9cb8acc371b144b",
+      "checkedAt": "2026-10-27T21:26:27.383Z",
+      "passed": true,
+      "id": 7745,
+      "releaseId": 60,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.325208,
+          "width": 640,
+          "height": 363,
+          "duration": 1513.079746
+        }
+      ],
+      "reason": null,
+      "status": "AUTO-APPROVED"
+    },
+    "aniliberty:8659": {
+      "fingerprint": "55415c18438d53e358483c703a87766fdc885df2a6e6ae1f91ff79fb3d9fffa4",
+      "checkedAt": "2026-10-27T21:26:27.383Z",
+      "passed": false,
+      "id": 40496,
+      "releaseId": 8659,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.019185,
+          "width": 1280,
+          "height": 720,
+          "duration": 1420.0022750000003
+        }
+      ],
+      "reason": "expect(received).toBeGreaterThan(expected)",
+      "status": "NEEDS REVIEW"
+    },
+    "animevost:104": {
+      "fingerprint": "31a831fec49100f5b2141d8a55c29c220f2634ea7fae9837dc704997aaacd403",
+      "checkedAt": "2026-10-27T21:26:27.383Z",
+      "passed": true,
+      "id": 9047,
+      "releaseId": 104,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.856012,
+          "width": 848,
+          "height": 480,
+          "duration": 2047.135
+        }
+      ],
+      "reason": null,
+      "status": "AUTO-APPROVED"
+    }
+  }
+}

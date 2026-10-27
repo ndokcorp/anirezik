@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { animeTitleKey } from '../../src/lib/anime-title-matcher.ts';
 import { releaseMetadataMatches } from '../../src/lib/providers/video/aniliberty.ts';
 import type { LibertyRelease, MatchMetadata } from '../../src/lib/providers/video/aniliberty.ts';
 
@@ -11,6 +12,7 @@ export interface LibertyEvidence {
   status: 'ready' | 'blocked' | 'no-hls' | 'needs-review' | 'outside-catalog' | 'withdrawn';
   reason: string;
   episodeCount: number;
+  episodeNumbers?: number[];
   fractionalEpisodes: number;
   qualities: number[];
   title: string;
@@ -65,6 +67,7 @@ export function validateLibertyState(value: unknown): asserts value is LibertySy
     'status',
     'reason',
     'episodeCount',
+    'episodeNumbers',
     'fractionalEpisodes',
     'qualities',
     'title',
@@ -80,6 +83,10 @@ export function validateLibertyState(value: unknown): asserts value is LibertySy
       !statuses.includes(e.status) ||
       !Number.isSafeInteger(e.episodeCount) ||
       e.episodeCount < 0 ||
+      (e.episodeNumbers !== undefined &&
+        (!Array.isArray(e.episodeNumbers) ||
+          e.episodeNumbers.some((n) => !Number.isFinite(n) || n <= 0) ||
+          new Set(e.episodeNumbers).size !== e.episodeNumbers.length)) ||
       !Number.isFinite(Date.parse(e.checkedAt)) ||
       !/^[a-f0-9]{64}$/.test(e.stamp) ||
       !Array.isArray(e.qualities) ||
@@ -130,12 +137,7 @@ export const libertyStamp = (r: LibertyRelease) =>
   createHash('sha256')
     .update(JSON.stringify(cleanLibertySummary(r)))
     .digest('hex');
-const key = (s: string) =>
-  s
-    .normalize('NFKD')
-    .replace(/\p{M}/gu, '')
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]/gu, '');
+const key = animeTitleKey;
 function sameName(r: LibertyRelease, a: MatchMetadata) {
   const names = [a.title, a.originalTitle, a.englishTitle || '', ...(a.aliases || [])]
     .map(key)
@@ -174,6 +176,8 @@ export function identifyLiberty(r: LibertyRelease, anime: SyncAnime[]) {
       reason: targets.length ? 'ambiguous-external-id' : 'external-id-outside-catalog',
     };
   const target = targets[0];
+  if (external > 0 && mal > 0 && target.malId && target.malId !== mal)
+    return { target, basis, reason: 'conflicting-external-ids' };
   if (
     !target.year ||
     !r.year ||
@@ -224,6 +228,7 @@ export function inspectLiberty(
     evidence.reason = 'missing-availability-or-episodes';
     return evidence;
   }
+  const allowedNumbers = new Set<number>();
   const numbers = new Set<number>(),
     ids = new Set<string>(),
     qualities = new Set<number>();
@@ -253,11 +258,13 @@ export function inspectLiberty(
       }
     });
     if (!allowed.length) continue;
+    allowedNumbers.add(ep.ordinal);
     evidence.episodeCount++;
     if (!Number.isInteger(ep.ordinal)) evidence.fractionalEpisodes++;
     allowed.forEach((q) => qualities.add(q));
   }
   evidence.qualities = [...qualities].sort((a, b) => a - b);
+  evidence.episodeNumbers = [...allowedNumbers].sort((a, b) => a - b);
   if (match.reason) {
     evidence.status =
       match.reason === 'external-id-outside-catalog' ? 'outside-catalog' : 'needs-review';
@@ -276,6 +283,7 @@ export function planLibertyDetails(state: LibertySyncState, now = Date.now()) {
       const old = state.evidence[r.id];
       return (
         !old ||
+        (!old.episodeNumbers && ['needs-review', 'outside-catalog'].includes(old.status)) ||
         old.stamp !== libertyStamp(r) ||
         now - Date.parse(old.checkedAt) > (r.is_ongoing ? 6 : 24) * 3600000
       );

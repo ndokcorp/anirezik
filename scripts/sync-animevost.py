@@ -4,10 +4,13 @@ Candidates never contain media URLs. --publish-reviewed restricts to observed
 playback; --publish-exact permits lazy resolution after an explicit pilot gate.
 """
 import argparse
+import atexit
 import ast
 import json
 import re
 import time
+import os
+from datetime import datetime, timezone
 import unicodedata
 import urllib.error
 import urllib.request
@@ -103,19 +106,81 @@ def match_catalog(rows, catalog):
     return accepted, rejected
 
 
+def incremental_refresh(state, checkpoint, budget, delay):
+    """Refresh a bounded latest window, never interpret absent rows as withdrawal."""
+    progress_path = CACHE / 'incremental.json'
+    progress = json.loads(progress_path.read_text(encoding='utf8')) if progress_path.exists() else state.get('incremental', {'nextPage': 1})
+    if progress.get('error') or (state.get('error') or {}).get('http') in [401, 403, 429]:
+        raise SystemExit('Saved access/source error; operator investigation required; no requests sent')
+    max_known_page = max(1, state.get('nextPage', 1) - 1)
+    for step in range(budget):
+        if step > 0 and max_known_page < 2:
+            break
+        page = 1 if step == 0 else min(max_known_page, max(2, progress.get('auditPage', 2)))
+        try:
+            req = urllib.request.Request(f'https://api.animevost.org/v1/last?page={page}&quantity=40', headers={'User-Agent': 'AniRezik metadata sync (authorized; bounded incremental)'})
+            with urllib.request.urlopen(req, timeout=25) as response:
+                data = json.loads(response.read(8_000_000))
+            if data.get('state', {}).get('status') != 'ok' or not isinstance(data.get('data'), list):
+                raise ValueError('Unexpected source response or challenge')
+            changed = 0
+            for row in data['data']:
+                if not isinstance(row.get('id'), int) or row['id'] < 1:
+                    raise ValueError('Invalid release identity')
+                clean = {k: row.get(k) for k in ['id', 'title', 'year', 'type', 'series']}
+                # Accept an actual supplier URL, never manufacture a slug URL.
+                url = row.get('url')
+                if isinstance(url, str):
+                    from urllib.parse import urlsplit
+                    parsed = urlsplit(url)
+                    if parsed.scheme == 'https' and parsed.netloc == 'animevost.org':
+                        clean['url'] = parsed._replace(query='', fragment='').geturl()
+                key = str(row['id'])
+                if state['rows'].get(key) != clean:
+                    changed += 1
+                state['rows'][key] = clean
+            if step > 0:
+                progress['auditPage'] = page + 1 if page < max_known_page else 2
+            progress.update(nextPage=page + 1, changedLastPage=changed, checkedAt=datetime.now(timezone.utc).isoformat(), complete=False, scope='latest page plus rotating previously known metadata pages; not full coverage')
+            state['incremental'] = progress
+            atomic(checkpoint, state)  # Does not clear incomplete full-scan/error flags.
+            atomic(progress_path, progress)
+            time.sleep(delay)
+        except (urllib.error.HTTPError, urllib.error.URLError, ValueError) as error:
+            progress['error'] = {'http': getattr(error, 'code', None), 'type': type(error).__name__, 'retryAfter': error.headers.get('Retry-After') if isinstance(error, urllib.error.HTTPError) else None}
+            state['incremental'] = progress
+            atomic(checkpoint, state)
+            atomic(progress_path, progress)
+            raise SystemExit('Incremental request failed; checkpoint saved; no more requests')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--max-pages', type=int, default=5)
     parser.add_argument('--delay', type=float, default=2)
     parser.add_argument('--publish-reviewed', action='store_true')
     parser.add_argument('--publish-exact', action='store_true')
+    parser.add_argument('--incremental', action='store_true', help='Bounded latest metadata refresh; preserve full-scan checkpoint/error')
     args = parser.parse_args()
     if args.max_pages < 0 or args.delay < 2:
         parser.error('Nonnegative budget and delay >= 2 seconds required')
+    if args.incremental and args.max_pages > 5:
+        parser.error('Until supplier limits are confirmed, incremental manual budget is at most 5 pages')
     CACHE.mkdir(parents=True, exist_ok=True)
+    lock = CACHE / 'worker.lock'
+    try:
+        fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        raise SystemExit('Another AnimeVost worker owns the lock; no requests sent')
+    os.write(fd, str(os.getpid()).encode())
+    os.close(fd)
+    atexit.register(lambda: lock.unlink(missing_ok=True))
     checkpoint = CACHE / 'checkpoint.json'
     state = json.loads(checkpoint.read_text(encoding='utf8')) if checkpoint.exists() else {
         'nextPage': 1, 'rows': {}, 'complete': False, 'error': None}
+    if args.incremental:
+        incremental_refresh(state, checkpoint, args.max_pages, args.delay)
+        args.max_pages = 0
     # An access error needs explicit operator investigation, not an automatic loop.
     if state.get('error') and args.max_pages:
         raise SystemExit('Saved source error; no requests sent. Resolve with supplier before resuming.')

@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "priorityShikimoriIds": [59193],
+  "maxCandidatesPerRun": 5,
+  "animevostScheduleEnabled": false,
+  "animevostLimitsConfirmed": false,
+  "failedVideoRetryHours": 24,
+  "note": "Identity approval never substitutes for the real browser video gate. No secret or media URL belongs here."
+}

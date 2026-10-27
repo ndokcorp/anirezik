@@ -1,5 +1,6 @@
 import type { VideoProvider, VideoSource } from './types';
 import type { AvailabilityAdapter } from './updates';
+import { animeTitleKey } from '../../anime-title-matcher.ts';
 import seeds from '../../../data/aniliberty-mappings.json' with { type: 'json' };
 import indexed from '../../../data/aniliberty-index.json' with { type: 'json' };
 const mappings = { ...seeds, ...indexed.mappings };
@@ -107,13 +108,7 @@ export function exactRelease(rows: LibertyRelease[], shikimoriId: number, malId?
   const unique = [...new Map(matches.map((r) => [r.id, r])).values()];
   return unique.length === 1 ? unique[0] : null;
 }
-const normalize = (value: string) =>
-  value
-    .normalize('NFKC')
-    .toLowerCase()
-    .replace(/[\p{P}\p{S}]/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+const normalize = animeTitleKey;
 const season = (names: string[]) => {
   const values = new Set(
     names.flatMap((name) =>
@@ -143,12 +138,16 @@ export function releaseMetadataMatches(row: LibertyRelease, target?: MatchMetada
   return targetSeason === null || otherSeason === null || targetSeason === otherSeason;
 }
 export function strictTitleCandidates(rows: LibertyRelease[], target: MatchMetadata) {
-  const names = [target.originalTitle, target.englishTitle || '', ...(target.aliases || [])].filter(
-    Boolean,
-  );
+  const names = [
+    target.originalTitle,
+    target.title,
+    target.englishTitle || '',
+    ...(target.aliases || []),
+  ].filter(Boolean);
   const targetSeason = season([...names, target.title]);
-  // Missing season is not proof of season 1. Such matches stay manual.
-  if (!target.year || targetSeason === null) return [];
+  // Full exact title keys retain every season/part number. Missing metadata
+  // still cannot be rescued by fuzzy titles or a contradictory external ID.
+  if (!target.year) return [];
   return rows.filter((row) => {
     if (row.shikimori?.id || row.mal?.id) return false;
     const other = [row.name.english || '', row.name.alternative || '', row.name.main].filter(
@@ -157,7 +156,7 @@ export function strictTitleCandidates(rows: LibertyRelease[], target: MatchMetad
     return (
       row.year === target.year &&
       format(row.type.value) === format(target.type) &&
-      season(other) === targetSeason &&
+      (targetSeason === null || season(other) === null || season(other) === targetSeason) &&
       names.some((name) => other.some((n) => normalize(n) === normalize(name)))
     );
   });
@@ -228,6 +227,8 @@ export class AniLibertyApi {
         });
         if (!response.ok)
           throw new AniLibertyHttpError(response.status, response.headers.get('retry-after'));
+        if (/text\/html/i.test(response.headers.get('content-type') || ''))
+          throw Error('AniLiberty challenge or unexpected HTML; manual review required');
         const raw: unknown = await response.json();
         const value =
           !envelope && raw && typeof raw === 'object' && 'data' in raw

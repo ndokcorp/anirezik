@@ -4,6 +4,7 @@ const [index, report, review, catalog] = await Promise.all(
   ['aniliberty-index', 'aniliberty-sync-report', 'aniliberty-needs-review', 'catalog'].map(load),
 );
 const known = new Set(catalog.anime.map((a: { shikimoriId: number }) => a.shikimoriId));
+const auto = await load('auto-sync-evidence');
 if (
   index.version !== 2 ||
   !report.complete ||
@@ -23,7 +24,12 @@ for (const [id, value] of Object.entries(index.mappings)) {
     !Number.isSafeInteger(m.releaseId) ||
     m.releaseId < 1 ||
     releases.has(m.releaseId) ||
-    !['shikimori.id', 'mal.id'].includes(m.basis) ||
+    !['shikimori.id', 'mal.id', 'metadata'].includes(m.basis) ||
+    (m.basis === 'metadata' &&
+      !(
+        auto.records?.[`aniliberty:${m.releaseId}`]?.passed &&
+        auto.records[`aniliberty:${m.releaseId}`].id === Number(id)
+      )) ||
     !Number.isFinite(Date.parse(m.checkedAt)) ||
     Object.keys(m).some((k) => !['releaseId', 'basis', 'checkedAt', 'malId'].includes(k))
   )

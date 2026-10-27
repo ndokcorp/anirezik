@@ -1,0 +1,109 @@
+name: Video-verified global source sync
+on:
+  workflow_dispatch:
+    inputs:
+      max_candidates:
+        type: string
+        default: '5'
+      publish:
+        type: boolean
+        default: true
+      include_animevost:
+        description: Explicit bounded manual AnimeVost video API gate; no metadata crawl
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      animevost_artifact:
+        type: string
+        default: ''
+      publish:
+        type: boolean
+        default: true
+      include_animevost:
+        type: boolean
+        default: false
+  workflow_run:
+    workflows: [Refresh anime metadata]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: global-auto-sync
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/main' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    runs-on: macos-15
+    timeout-minutes: 50
+    outputs:
+      changed: ${{ steps.finalize.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            .cache/animevost-sync
+            .cache/global-auto-sync/candidate
+          key: global-source-plan-${{ github.run_id }}
+          restore-keys: |
+            global-source-plan-
+            animevost-v1-
+      - uses: actions/download-artifact@v4
+        if: inputs.animevost_artifact != '' && inputs.animevost_artifact != null
+        with:
+          name: ${{ inputs.animevost_artifact }}
+          path: .cache/animevost-sync
+      - name: Restore durable AnimeVost metadata when no fresh artifact supplied
+        if: inputs.animevost_artifact == '' || inputs.animevost_artifact == null
+        run: node scripts/aniliberty-checkpoint.ts restore animevost
+      - run: node scripts/aniliberty-checkpoint.ts restore
+      - name: Plan from existing checkpoints; no catalog requests
+        env:
+          AUTO_SYNC_MAX_CANDIDATES: ${{ inputs.max_candidates || '5' }}
+          AUTO_SYNC_PROVIDERS: ${{ inputs.include_animevost && 'animevost,aniliberty' || 'aniliberty' }}
+        run: node scripts/global-auto-sync.ts plan
+      - run: npx playwright install chromium
+      - name: Decode actual new candidate videos in existing Player
+        env:
+          AUTO_SYNC_LIVE: '1'
+        run: npx playwright test --config playwright.auto-sync.config.ts --pass-with-no-tests
+      - name: Quarantine failures and preserve baseline indexes
+        id: finalize
+        if: always() && hashFiles('.cache/global-auto-sync/plan.json') != ''
+        run: node scripts/global-auto-sync.ts finalize
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            .cache/animevost-sync
+            .cache/global-auto-sync/candidate
+          key: global-source-plan-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: steps.finalize.outputs.changed == 'true'
+        with:
+          name: global-video-verified
+          path: .cache/global-auto-sync/candidate/*.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: global-auto-sync-diagnostics
+          path: |
+            .cache/global-auto-sync/report.json
+            .cache/global-auto-sync/plan.json
+            .cache/global-auto-sync/video-results.json
+  publish:
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true' && (github.event_name == 'workflow_run' || inputs.publish)
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
+    with:
+      global_artifact: global-video-verified

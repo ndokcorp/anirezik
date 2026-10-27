@@ -1,33 +1,47 @@
 name: AnimeVost metadata candidates
 on:
+  # Prepared daily cadence only; DO NOT uncomment until supplier limits agree:
+  # schedule:
+  #   - cron: '20 3 * * *'
   workflow_dispatch:
     inputs:
       max_pages:
         description: Sequential request budget (40 releases per page); does not publish players
         required: true
-        default: '10'
+        default: '2'
+      publish:
+        type: boolean
+        default: true
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: animevost-metadata
   cancel-in-progress: false
 jobs:
   metadata:
+    if: github.event_name == 'workflow_dispatch' || (vars.ANIMEVOST_SYNC_ENABLED == 'true' && vars.ANIMEVOST_SYNC_LIMITS_CONFIRMED == 'true')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
       - uses: actions/cache/restore@v4
         with:
           path: .cache/animevost-sync
           key: animevost-v1-${{ github.run_id }}
           restore-keys: animevost-v1-
+      - run: node scripts/aniliberty-checkpoint.ts restore animevost
       - name: Collect bounded metadata only
         env:
-          MAX_PAGES: ${{ inputs.max_pages }}
-        run: python scripts/sync-animevost.py --max-pages "$MAX_PAGES"
+          MAX_PAGES: ${{ inputs.max_pages || '2' }}
+        run: python scripts/sync-animevost.py --incremental --max-pages "$MAX_PAGES"
+      - name: Save bounded progress durably even on source failure
+        if: always() && hashFiles('.cache/animevost-sync/checkpoint.json') != ''
+        run: node scripts/aniliberty-checkpoint.ts save animevost
       - uses: actions/cache/save@v4
         if: always()
         with:
@@ -39,3 +53,14 @@ jobs:
           name: animevost-metadata-candidates
           path: .cache/animevost-sync
           retention-days: 14
+  verify-and-publish:
+    needs: metadata
+    uses: ./.github/workflows/global-auto-sync.yml
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    with:
+      animevost_artifact: animevost-metadata-candidates
+      publish: ${{ inputs.publish || github.event_name == 'schedule' }}
+      include_animevost: true

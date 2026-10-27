@@ -61,10 +61,10 @@ jobs:
   publish:
     needs: sync
     if: needs.sync.outputs.complete == 'true' && (github.event_name == 'schedule' || inputs.publish)
-    uses: ./.github/workflows/pages.yml
+    uses: ./.github/workflows/global-auto-sync.yml
     permissions:
       contents: write
       pages: write
       id-token: write
     with:
-      liberty_artifact: aniliberty-candidate
+      publish: true

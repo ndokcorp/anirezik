@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-27T21:26:27.458Z",
+  "counts": {
+    "animevostRows": 3602,
+    "libertyRows": 1884,
+    "identityCandidates": 4444,
+    "pending": 191,
+    "selected": 5,
+    "review": 1042
+  },
+  "basis": {
+    "original-title": 2445,
+    "english-title": 32,
+    "alias": 128,
+    "russian-title": 310,
+    "shikimori.id": 1529
+  },
+  "publishedCandidates": [
+    {
+      "provider": "animevost",
+      "id": 59193,
+      "releaseId": 3922,
+      "episodeNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "kind": "tv",
+      "basis": "original-title",
+      "fingerprint": "4a8cdad62f8bb36958e8d88fd759263c8453f4a1a6c9dfadc793ab7b602052cd"
+    },
+    {
+      "provider": "aniliberty",
+      "id": 31630,
+      "releaseId": 2129,
+      "episodeNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "kind": "tv",
+      "basis": "alias",
+      "fingerprint": "d5c2571b73d456d7093de47e69e28a2162ddcd8f1cdcd7be771c43aa01049883"
+    },
+    {
+      "provider": "animevost",
+      "id": 7745,
+      "releaseId": 60,
+      "episodeNumbers": [
+        1
+      ],
+      "kind": "ova",
+      "basis": "original-title",
+      "fingerprint": "a877b34cf6952d02f6753c16cab552183c3a647946d403b6f9cb8acc371b144b"
+    },
+    {
+      "provider": "animevost",
+      "id": 9047,
+      "releaseId": 104,
+      "episodeNumbers": [
+        1
+      ],
+      "kind": "ova",
+      "basis": "alias",
+      "fingerprint": "31a831fec49100f5b2141d8a55c29c220f2634ea7fae9837dc704997aaacd403"
+    }
+  ],
+  "withdrawals": [],
+  "videoResults": [
+    {
+      "provider": "animevost",
+      "id": 59193,
+      "releaseId": 3922,
+      "passed": true,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.90861,
+          "width": 858,
+          "height": 483,
+          "duration": 1421.002993
+        },
+        {
+          "episode": 14,
+          "time": 3.091325,
+          "width": 858,
+          "height": 483,
+          "duration": 1421.000998
+        }
+      ]
+    },
+    {
+      "provider": "aniliberty",
+      "id": 31630,
+      "releaseId": 2129,
+      "passed": true,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.513866,
+          "width": 1280,
+          "height": 720,
+          "duration": 1449.9072039999999
+        },
+        {
+          "episode": 24,
+          "time": 3.015923,
+          "width": 1280,
+          "height": 720,
+          "duration": 1420.169157
+        }
+      ]
+    },
+    {
+      "provider": "animevost",
+      "id": 7745,
+      "releaseId": 60,
+      "passed": true,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.325208,
+          "width": 640,
+          "height": 363,
+          "duration": 1513.079746
+        }
+      ]
+    },
+    {
+      "provider": "aniliberty",
+      "id": 40496,
+      "releaseId": 8659,
+      "passed": false,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.019185,
+          "width": 1280,
+          "height": 720,
+          "duration": 1420.0022750000003
+        }
+      ],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    {
+      "provider": "animevost",
+      "id": 9047,
+      "releaseId": 104,
+      "passed": true,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.856012,
+          "width": 848,
+          "height": 480,
+          "duration": 2047.135
+        }
+      ]
+    }
+  ],
+  "scope": "Browser sample only; not all episodes or regions"
+}
