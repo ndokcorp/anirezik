@@ -399,5 +399,44 @@
     18441,
     37735
   ],
-  "scope": "Local Chromium actual supplier video; isolated Sintel fault tests are not included"
+  "scope": "Local Chromium actual supplier video; isolated Sintel fault tests are not included",
+  "configuredMappings": 2741,
+  "configuredEpisodeNumbers": 43781,
+  "newVerifiedMappings": 5,
+  "newFirstProviderAnime": 4,
+  "newTitleSpecificTracks": 5,
+  "remainingDeferred": 861,
+  "rangeConflictsKeptDisabled": 67,
+  "deploy": {
+    "status": "success",
+    "url": "https://github.com/ndokcorp/anirezik/actions/runs/40577020441",
+    "commit": "e0e53be8dff0289e37f5e7fad43d84d6770e56d9"
+  },
+  "crossBrowserControls": {
+    "passed": [
+      "chromium",
+      "firefox",
+      "webkit-mobile"
+    ],
+    "scope": "54744 ep1/2 SD/HD and seek; repeated baseline videos excluded from additional unique count"
+  },
+  "faultInjection": {
+    "passed": [
+      "chromium",
+      "firefox",
+      "webkit-mobile"
+    ],
+    "cases": 2,
+    "scope": "Licensed Sintel, not AnimeVost playback proof"
+  },
+  "publicRepeat": {
+    "id": 1761,
+    "origin": "https://ndokcorp.github.io",
+    "time": 3.214812,
+    "duration": 3409.92,
+    "width": 480,
+    "height": 272,
+    "readyState": 4,
+    "countedAsAdditionalUnique": false
+  }
 }

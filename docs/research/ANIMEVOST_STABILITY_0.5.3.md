@@ -26,4 +26,8 @@ Before incremental synchronization request: permitted requests/sec, burst/day bu
 
 ## Publication
 
-Pending final production browser gates. No claim of deployment until the successful Pages run is linked here.
+Published successfully: [Pages run 40577020441](https://github.com/ndokcorp/anirezik/actions/runs/40577020441), source commit `e0e53be8dff0289e37f5e7fad43d84d6770e56d9`.
+
+Checks passed: TypeScript/Astro (0 errors), production build, 9 focused TypeScript provider tests, 2 Python matching tests, 73 local root-path Chromium site tests. CI `/anirezik/` site tests, real 54744 episodes 1/2 + SD/HD + meaningful seek, and both isolated recovery tests passed in Chromium, Firefox and mobile WebKit. The repeated Alya checks and fault fixtures are excluded from the 17 additional unique videos.
+
+After deployment, actual video at [new OVA 1761](https://ndokcorp.github.io/anirezik/anime/1761/) decoded on the real GitHub Pages origin: 3.214812 seconds, duration 3409.92, 480×272, readyState 4. This is a repeat of the same sample episode, not another unique video. Other new numeric pages: [18441](https://ndokcorp.github.io/anirezik/anime/18441/), [21667](https://ndokcorp.github.io/anirezik/anime/21667/), [28069](https://ndokcorp.github.io/anirezik/anime/28069/), [37735](https://ndokcorp.github.io/anirezik/anime/37735/). GUI and existing AniLiberty/Kodik/CVH integration records preserved; a concurrent validated AniLiberty metadata update was fast-forwarded before publication.
