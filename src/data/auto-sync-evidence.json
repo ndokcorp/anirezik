@@ -104,6 +104,25 @@
       ],
       "reason": null,
       "status": "AUTO-APPROVED"
+    },
+    "animevost:45": {
+      "fingerprint": "607775e9f61706cc85422061e386b7352a64241126e415a6d1f5e4444cca2fe3",
+      "checkedAt": "2026-10-27T21:48:46.757Z",
+      "passed": true,
+      "status": "AUTO-APPROVED",
+      "id": 10659,
+      "releaseId": 45,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.073537,
+          "width": 660,
+          "height": 360,
+          "duration": 881.92359
+        }
+      ],
+      "reason": null
     }
-  }
+  },
+  "providerBlocks": {}
 }
