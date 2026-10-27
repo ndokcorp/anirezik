@@ -13,8 +13,13 @@
           "duration": 1481.31,
           "width": 1280,
           "height": 720,
-          "additionalEpisodesVerified": [2],
-          "qualitySwitchVerified": ["720p", "480p"]
+          "additionalEpisodesVerified": [
+            2
+          ],
+          "qualitySwitchVerified": [
+            "720p",
+            "480p"
+          ]
         }
       ],
       "scope": "Observed sample episode; not a claim all episodes and regions tested"
@@ -66,9 +71,39 @@
         }
       ],
       "scope": "Observed sample episode; not a claim all episodes and regions tested"
+    },
+    "56838": {
+      "releaseId": 3164,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "episode": 1,
+          "currentTime": 84.069,
+          "duration": 1423.44,
+          "width": 858,
+          "height": 483
+        }
+      ],
+      "scope": "Observed episode 1, not all episodes or regions"
+    },
+    "20": {
+      "releaseId": 7,
+      "playbackVerified": true,
+      "checkedAt": "2026-10-27",
+      "observations": [
+        {
+          "episode": 1,
+          "currentTime": 19.078,
+          "duration": 1410.469,
+          "width": 640,
+          "height": 363
+        }
+      ],
+      "scope": "Observed episode 1, not all episodes or regions"
     }
   },
   "browserGatePassed": true,
-  "browserGateRun": "https://github.com/ndokcorp/anirezik/actions/runs/40543818722",
-  "browserGateScope": "54744 episodes 1/2, seek and quality: Chromium, Firefox, mobile WebKit"
+  "browserGateRun": "https://github.com/ndokcorp/anirezik/actions/runs/40550147239",
+  "browserGateScope": "Built /anirezik/ site: 54744 episodes1/2, SD/HD quality and controls in Chromium, Firefox, mobile WebKit"
 }

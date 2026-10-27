@@ -17,15 +17,19 @@
   "potentialFirstSourceIdsComparedToIndex": 1458,
   "priorConfiguredAnime": 1664,
   "confirmedPlaybackIds": [
+    20,
     33,
+    32281,
     52299,
     54744,
-    32281
+    56838
   ],
   "confirmedFirstPlayerIds": [
-    54744
+    20,
+    54744,
+    56838
   ],
-  "confirmedTrackOptions": 4,
+  "confirmedTrackOptions": 6,
   "distinctNewStudioNamesVerified": 0,
   "distinctSupplierTrack": "AnimeVost",
   "confirmedUniqueEpisodePairs": [
@@ -47,6 +51,14 @@
     ],
     [
       32281,
+      1
+    ],
+    [
+      56838,
+      1
+    ],
+    [
+      20,
       1
     ]
   ],
@@ -73,8 +85,59 @@
     "exactDimensionsArePerFile": true
   },
   "publication": {
-    "status": "pending",
-    "notAllMappingsPlaybackTested": true
+    "status": "success",
+    "run": "https://github.com/ndokcorp/anirezik/actions/runs/40550147239",
+    "commit": "b8573a00f8063e6b6e54b8ce5607aed0c4a01b7c",
+    "notAllMappingsPlaybackTested": true,
+    "publicPlayback": [
+      {
+        "id": 54744,
+        "episode": 1,
+        "time": 31.647,
+        "duration": 1481.31,
+        "width": 858,
+        "height": 483
+      },
+      {
+        "id": 52299,
+        "provider": "animevost",
+        "episode": 1,
+        "time": 41.38,
+        "duration": 1422.063,
+        "width": 858,
+        "height": 483
+      },
+      {
+        "id": 56838,
+        "episode": 1,
+        "time": 38.337,
+        "duration": 1423.44,
+        "width": 858,
+        "height": 483
+      }
+    ],
+    "aniLibertyRegression": {
+      "id": 52299,
+      "time": 43.243,
+      "duration": 1420.002,
+      "width": 1280,
+      "height": 720,
+      "seekAfter": 53.295
+    },
+    "resumeButton": "Продолжить с 1:02 · AnimeVost",
+    "publicNumericHttp200": [
+      54744,
+      52299,
+      33,
+      32281,
+      56838,
+      20
+    ],
+    "browserGate": [
+      "Chromium: success",
+      "Firefox: success",
+      "mobile WebKit: success"
+    ]
   },
   "permissionScreenshotSha256": "6a3976649a5d492756e04ce9a6cd7b13a6c4db74249a768634fe4b2dd9c05d82",
   "episodeRangeRejected": 67,
