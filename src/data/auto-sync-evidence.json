@@ -70,22 +70,14 @@
       "status": "AUTO-APPROVED"
     },
     "aniliberty:8659": {
-      "fingerprint": "55415c18438d53e358483c703a87766fdc885df2a6e6ae1f91ff79fb3d9fffa4",
-      "checkedAt": "2026-10-27T21:26:27.383Z",
+      "fingerprint": "1043f1569b509daa4a6df0ebb2aab24d5574032140a9d58aecb1fb8cda48cc0e",
+      "checkedAt": "2026-11-05T07:30:07.252Z",
       "passed": false,
+      "status": "NEEDS REVIEW",
       "id": 40496,
       "releaseId": 8659,
-      "episodes": [
-        {
-          "episode": 1,
-          "time": 3.019185,
-          "width": 1280,
-          "height": 720,
-          "duration": 1420.0022750000003
-        }
-      ],
-      "reason": "expect(received).toBeGreaterThan(expected)",
-      "status": "NEEDS REVIEW"
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
     },
     "animevost:104": {
       "fingerprint": "31a831fec49100f5b2141d8a55c29c220f2634ea7fae9837dc704997aaacd403",
@@ -122,6 +114,164 @@
         }
       ],
       "reason": null
+    },
+    "aniliberty:5672": {
+      "fingerprint": "0cf9d28d839e9c2c0caffd04ebc35435572aa397e5af2cc8e3b9af107c5f6ade",
+      "checkedAt": "2026-11-05T07:30:07.250Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 34658,
+      "releaseId": 5672,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:7709": {
+      "fingerprint": "b904a07e849c3d8826128c63e1e04bfc4ab7435583043d5a5d9b776201007cd3",
+      "checkedAt": "2026-11-05T07:30:07.252Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 25537,
+      "releaseId": 7709,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:8500": {
+      "fingerprint": "daff80f4a9e6ec3e71c84a7354ba6947ddfe9ac37828f0b640d2a87d29763aa2",
+      "checkedAt": "2026-11-05T07:30:07.252Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 39701,
+      "releaseId": 8500,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:8586": {
+      "fingerprint": "4463d4572a9ffc8a05a935d58409828e1ddd0b53448a7e35751ea097980fdbc0",
+      "checkedAt": "2026-11-05T07:30:07.252Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 14719,
+      "releaseId": 8586,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:8776": {
+      "fingerprint": "4446ad0d08d9f11ac540cae9bc04f66fe3374887b06a693ce283ac82a9451977",
+      "checkedAt": "2026-11-04T20:16:58.813Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 40454,
+      "releaseId": 8776,
+      "episodes": [
+        {
+          "episode": 1,
+          "time": 3.292105,
+          "width": 1280,
+          "height": 720,
+          "duration": 1431.5152180000007
+        }
+      ],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:8878": {
+      "fingerprint": "cf97ba5509a014ceec742912ee0109cc56aa6d9f8a1083e75b3744f29284e994",
+      "checkedAt": "2026-11-04T20:16:58.815Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 41899,
+      "releaseId": 8878,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9011": {
+      "fingerprint": "b22fa6048b61b5b11374d5d2a449bc4ad8199872f0549034c3ca7333e2064b99",
+      "checkedAt": "2026-11-04T20:16:58.815Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 44037,
+      "releaseId": 9011,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9202": {
+      "fingerprint": "365393ec51e073796e4473697dd3568811d759bc97c64804c0a18f375a87b661",
+      "checkedAt": "2026-11-04T20:16:58.815Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 550,
+      "releaseId": 9202,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9211": {
+      "fingerprint": "d75204ea671b87de3b957198030e0bccaf80b3d407bde766c8e03228ed47201a",
+      "checkedAt": "2026-11-04T20:16:58.815Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 47164,
+      "releaseId": 9211,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9333": {
+      "fingerprint": "70bd607b699c498f290064a2966914246258b4bcd523dd9bb15f8dc398c04e8f",
+      "checkedAt": "2026-11-03T19:54:17.198Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 53111,
+      "releaseId": 9333,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9718": {
+      "fingerprint": "69a378f97158677eef73e952e13535b1ed0dfa8717f8ce6d0a06ae348dec500e",
+      "checkedAt": "2026-11-03T19:54:17.200Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 49210,
+      "releaseId": 9718,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9720": {
+      "fingerprint": "40550ca90b400d050709a2f304ab73a140bf410aec7d5c7433f8ed8f5ff57fc1",
+      "checkedAt": "2026-11-03T19:54:17.200Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 42206,
+      "releaseId": 9720,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:9724": {
+      "fingerprint": "82e5952825629a28e437db2a8140f04220b8e549ca9ec5f634c5bcac981ccca6",
+      "checkedAt": "2026-11-03T19:54:17.200Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 55791,
+      "releaseId": 9724,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:10289": {
+      "fingerprint": "1e18be4d7903f116056d815b907b2754e982d59cb7edc31ed7780d6f61682cd3",
+      "checkedAt": "2026-10-28T13:36:37.367Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 13759,
+      "releaseId": 10289,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
+    },
+    "aniliberty:10365": {
+      "fingerprint": "50a89c399aeadc4669250f0d4b728488e9b50b098a4ce12d736b83ea45fba7a1",
+      "checkedAt": "2026-11-03T19:54:17.200Z",
+      "passed": false,
+      "status": "NEEDS REVIEW",
+      "id": 64102,
+      "releaseId": 10365,
+      "episodes": [],
+      "reason": "expect(received).toBeGreaterThan(expected)"
     }
   },
   "providerBlocks": {}
