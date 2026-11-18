@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "checkedAt": "2026-11-05T07:30:07.294Z",
+  "checkedAt": "2026-11-18T08:00:39.873Z",
   "counts": {
     "animevostRows": 3602,
-    "libertyRows": 1884,
+    "libertyRows": 1945,
     "identityCandidates": 4472,
-    "pending": 220,
+    "pending": 221,
     "selected": 5,
-    "review": 1014
+    "review": 1075
   },
   "basis": {
     "original-title": 2465,
@@ -21,49 +21,49 @@
   "withdrawals": [
     {
       "provider": "aniliberty",
-      "id": 63304,
-      "releaseId": 10196,
+      "id": 33003,
+      "releaseId": 3060,
       "reason": "confirmed-404",
-      "checkedAt": "2026-11-05T07:26:36.737Z"
+      "checkedAt": "2026-11-18T07:56:59.753Z"
     }
   ],
   "videoResults": [
     {
       "provider": "aniliberty",
-      "id": 34658,
-      "releaseId": 5672,
+      "id": 40454,
+      "releaseId": 8776,
       "passed": false,
       "episodes": [],
       "reason": "expect(received).toBeGreaterThan(expected)"
     },
     {
       "provider": "aniliberty",
-      "id": 25537,
-      "releaseId": 7709,
+      "id": 41899,
+      "releaseId": 8878,
       "passed": false,
       "episodes": [],
       "reason": "expect(received).toBeGreaterThan(expected)"
     },
     {
       "provider": "aniliberty",
-      "id": 39701,
-      "releaseId": 8500,
+      "id": 44037,
+      "releaseId": 9011,
       "passed": false,
       "episodes": [],
       "reason": "expect(received).toBeGreaterThan(expected)"
     },
     {
       "provider": "aniliberty",
-      "id": 14719,
-      "releaseId": 8586,
+      "id": 550,
+      "releaseId": 9202,
       "passed": false,
       "episodes": [],
       "reason": "expect(received).toBeGreaterThan(expected)"
     },
     {
       "provider": "aniliberty",
-      "id": 40496,
-      "releaseId": 8659,
+      "id": 47164,
+      "releaseId": 9211,
       "passed": false,
       "episodes": [],
       "reason": "expect(received).toBeGreaterThan(expected)"
